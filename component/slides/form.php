@@ -8,13 +8,31 @@
 </head>
 <body>
     <form>
-        <?php require_once 'generalunivercityinfo.php'; ?>
+        <?php
+        require_once 'generalUnivercityInfo.php';
+        ?>
     </form>
     
     <script>
-    	const saveInfo = (e) => {
-    		console.log(event.target.id)
-    	}
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('../../api/getFormInfo.php', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data  => {
+                if (data) {
+                    console.log(data)
+                } else {
+                    console.error('No JSON response received');
+                }
+            })
+            .catch(error => console.error('Fetch error:', error));
+        });
+    
+        const saveInfo = (e) => {
+            
+            console.log(event.target.value)
+        }
     </script>
 </body>
 </html>
