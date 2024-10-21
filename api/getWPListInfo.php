@@ -11,9 +11,7 @@ try {
     echo json_encode(['status' => 'error', 'message' => $error->getMessage()]);
 }
 
-$id = $_GET['id'];
-
-$sql = "SELECT * FROM workingPrograms WHERE id = $id";
+$sql = "SELECT id, educationalProgram, created_at FROM workingPrograms";
 $result = $link->query($sql);
 
 if ($result->num_rows === 0) {

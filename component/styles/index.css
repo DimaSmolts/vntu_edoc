@@ -6,6 +6,15 @@
     border-radius: 5px;
 }
 
+.edit-wp {
+    background-color: #05a2ae;
+    color: #ffffff;
+    padding: 5px;
+    border: 0px;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
 .educational-program-name-modal {
     display: none;
     position: fixed;

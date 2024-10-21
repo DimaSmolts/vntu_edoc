@@ -7,9 +7,16 @@ try {
         echo json_encode(['status' => 'error', 'message' => 'Connection error: ']);
     }
 
-    $educationalProgram = $_POST['educationalProgram'];
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
 
-    $sql = "INSERT INTO workingPrograms (educationalProgram) VALUES (?)";
+    $id = intval($data['id']);
+    $field = $data['field'];
+    $value = $data['value'];
+
+
+    $sql = "UPDATE workingPrograms SET $field = ? WHERE id = ?;";
+    echo json_encode(['status' => 'success', 'message' => $id]);
     $stmt = $link->prepare($sql);
 
     echo json_encode(['status' => 'normal', 'message' => $stmt === false]);
@@ -19,12 +26,11 @@ try {
         exit();
     }
 
-    $stmt->bind_param("s", $educationalProgram);
+    $stmt->bind_param("si", $value, $id);
     if ($stmt->execute()) {
-        $lastInsertId = $link->insert_id;
         $stmt->close();
         $link->close();
-        header("Location: ../components/slides/form.php?id=$lastInsertId");
+        echo json_encode(['status' => 'success', 'message' => 'SQL execution success: ']);
         exit();
     } else {
         echo json_encode(['status' => 'error', 'message' => 'SQL execution error: ' . $stmt->error]);
