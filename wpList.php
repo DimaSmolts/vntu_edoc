@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Робочі програми</title>
-    <link rel="stylesheet" href="component/styles/index.css">
+    <link rel="stylesheet" href="component/styles/wpList.css">
 </head>
 <body>
     <main>

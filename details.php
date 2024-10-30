@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="component/styles/form.css">
+    <link rel="stylesheet" href="component/styles/carousel.css">
 </head>
 <body>
     <?php
-    require_once 'component/slides/form.php';
+    require_once 'component/carousel.php';
     ?>
     
     <script src="helpers/convertFormInfoApiResult.js"></script>
     <script src="helpers/mapValuesToFields.js"></script>
+    <script src="helpers/carousel.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);

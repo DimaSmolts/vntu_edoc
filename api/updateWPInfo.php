@@ -14,7 +14,6 @@ try {
     $field = $data['field'];
     $value = $data['value'];
 
-
     $sql = "UPDATE workingPrograms SET $field = ? WHERE id = ?;";
     echo json_encode(['status' => 'success', 'message' => $id]);
     $stmt = $link->prepare($sql);
