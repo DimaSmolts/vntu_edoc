@@ -7,9 +7,9 @@ try {
         echo json_encode(['status' => 'error', 'message' => 'Connection error: ']);
     }
 
-    $educationalProgram = $_POST['educationalProgram'];
+    $educationalProgram = $_POST['disciplineName'];
 
-    $sql = "INSERT INTO workingPrograms (educationalProgram) VALUES (?)";
+    $sql = "INSERT INTO workingPrograms (disciplineName) VALUES (?)";
     $stmt = $link->prepare($sql);
 
     echo json_encode(['status' => 'normal', 'message' => $stmt === false]);
@@ -36,4 +36,3 @@ try {
 } catch (Exception $error) {
     echo json_encode(['status' => 'error', 'message' => $error->getMessage()]);
 }
-?>

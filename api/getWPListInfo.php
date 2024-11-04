@@ -11,7 +11,7 @@ try {
     echo json_encode(['status' => 'error', 'message' => $error->getMessage()]);
 }
 
-$sql = "SELECT id, educationalProgram, created_at FROM workingPrograms";
+$sql = "SELECT id, disciplineName, created_at FROM workingPrograms";
 $result = $link->query($sql);
 
 if ($result->num_rows === 0) {
@@ -19,4 +19,3 @@ if ($result->num_rows === 0) {
 } else {
     echo json_encode(['status' => 'success', 'message' => $result->fetch_all()]);
 }
-?>

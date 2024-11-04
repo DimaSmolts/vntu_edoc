@@ -1,81 +1,72 @@
-
-<h2>Затверження робочої програми навчальної дисципліни</h2>
-<form id="approvedPage">
-    <div class="block-container">
-        <p>Розроблено:</p>
-        <div class="block">
+<div class="page-title-container">
+    <h2 class="page-title">Затверження робочої програми навчальної дисципліни</h2>
+</div>
+<form id="approvedPage" class="wp-form">
+    <div class="mini-block">
+        <p class="mini-block-title">Розроблено:</p>
+        <div class="micro-block">
+            <select id="teacherDropdown" onchange="selectTeacher(value)"></select>
+        </div>
+    </div>
+    <div class="mini-block">
+        <p class="mini-block-title">Схвалено:</p>
+        <div class="micro-block">
             <label>Посада:
-                <input placeholder="Посада" type="text" id="epCreatedByPosition" name="epCreatedByPosition" oninput="saveInfo(event)">
+                <input placeholder="Посада" type="text" id="epApprovedFirstByPosition"
+                    name="epApprovedFirstByPosition" oninput="updateGeneralInfo(event)">
             </label>
-            <label>Рівень:
-                <input placeholder="к.т.н., доцент" type="text" id="epCreatedByDegree" name="epCreatedByDegree" oninput="saveInfo(event)">
+            <label>Cтупінь:
+                <input placeholder="к.т.н., доцент" type="text" id="epApprovedFirstByDegree"
+                    name="epApprovedFirstByDegree" oninput="updateGeneralInfo(event)">
             </label>
             <label>Ім'я та прізвище:
-                <input placeholder="Іван Іванов" type="text" id="epCreatedByName" name="epCreatedByName" oninput="saveInfo(event)">
+                <input placeholder="Іван Іванов" type="text" id="epApprovedFirstByName"
+                    name="epApprovedFirstByName" oninput="updateGeneralInfo(event)">
+            </label>
+        </div>
+        <div class="micro-block">
+            <label>Посада:
+                <input placeholder="Посада" type="text" id="epApprovedSecondByPosition"
+                    name="epApprovedSecondByPosition" oninput="updateGeneralInfo(event)">
+            </label>
+            <label>Cтупінь:
+                <input placeholder="к.т.н., доцент" type="text" id="epApprovedSecondByDegree"
+                    name="epApprovedSecondByDegree" oninput="updateGeneralInfo(event)">
+            </label>
+            <label>Ім'я та прізвище:
+                <input placeholder="Іван Іванов" type="text" id="epApprovedSecondByName"
+                    name="epApprovedSecondByName" oninput="updateGeneralInfo(event)">
+            </label>
+        </div>
+        <div class="micro-block">
+            <label>Посада:
+                <input placeholder="Посада" type="text" id="epApprovedThirdByPosition"
+                    name="epApprovedThirdByPosition" oninput="updateGeneralInfo(event)">
+            </label>
+            <label>Cтупінь:
+                <input placeholder="к.т.н., доцент" type="text" id="epApprovedThirdByDegree"
+                    name="epApprovedThirdByDegree" oninput="updateGeneralInfo(event)">
+            </label>
+            <label>Ім'я та прізвище:
+                <input placeholder="Іван Іванов" type="text" id="epApprovedThirdByName"
+                    name="epApprovedThirdByName" oninput="updateGeneralInfo(event)">
             </label>
         </div>
     </div>
-    <div class="block-container">
-        <p>Схвалено:</p>
-        <div class="block">
-            <div class="mini-block">
-                <label>Посада:
-                    <input placeholder="Посада" type="text" id="epApprovedFirstByPosition"
-                        name="epApprovedFirstByPosition" oninput="saveInfo(event)">
-                </label>
-                <label>Рівень:
-                    <input placeholder="к.т.н., доцент" type="text" id="epApprovedFirstByDegree"
-                        name="epApprovedFirstByDegree" oninput="saveInfo(event)">
-                </label>
-                <label>Ім'я та прізвище:
-                    <input placeholder="Іван Іванов" type="text" id="epApprovedFirstByName"
-                        name="epApprovedFirstByName" oninput="saveInfo(event)">
-                </label>
-            </div>
-            <div class="mini-block">
-                <label>Посада:
-                    <input placeholder="Посада" type="text" id="epApprovedSecondByPosition"
-                        name="epApprovedSecondByPosition" oninput="saveInfo(event)">
-                </label>
-                <label>Рівень:
-                    <input placeholder="к.т.н., доцент" type="text" id="epApprovedSecondByDegree"
-                        name="epApprovedSecondByDegree" oninput="saveInfo(event)">
-                </label>
-                <label>Ім'я та прізвище:
-                    <input placeholder="Іван Іванов" type="text" id="epApprovedSecondByName"
-                        name="epApprovedSecondByName" oninput="saveInfo(event)">
-                </label>
-            </div>
-            <div class="mini-block">
-                <label>Посада:
-                    <input placeholder="Посада" type="text" id="epApprovedThirdByPosition"
-                        name="epApprovedThirdByPosition" oninput="saveInfo(event)">
-                </label>
-                <label>Рівень:
-                    <input placeholder="к.т.н., доцент" type="text" id="epApprovedThirdByDegree"
-                        name="epApprovedThirdByDegree" oninput="saveInfo(event)">
-                </label>
-                <label>Ім'я та прізвище:
-                    <input placeholder="Іван Іванов" type="text" id="epApprovedThirdByName"
-                        name="epApprovedThirdByName" oninput="saveInfo(event)">
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="block-container">
-        <p>Затверджено:</p>
-        <div class="block">
+    <div class="mini-block">
+        <p class="mini-block-title">Затверджено:</p>
+        <div class="micro-block">
             <label>Посада:
                 <input placeholder="Посада" type="text" id="epApprovedTotallyByPosition"
-                    name="epApprovedTotallyByPosition" oninput="saveInfo(event)">
+                    name="epApprovedTotallyByPosition" oninput="updateGeneralInfo(event)">
             </label>
-            <label>Рівень:
+            <label>Cтупінь:
                 <input placeholder="к.т.н., доцент" type="text" id="epApprovedTotallyByDegree"
-                    name="epApprovedTotallyByDegree" oninput="saveInfo(event)">
+                    name="epApprovedTotallyByDegree" oninput="updateGeneralInfo(event)">
             </label>
             <label>Ім'я та прізвище:
                 <input placeholder="Іван Іванов" type="text" id="epApprovedTotallyByName"
-                    name="epApprovedTotallyByName" oninput="saveInfo(event)">
+                    name="epApprovedTotallyByName" oninput="updateGeneralInfo(event)">
             </label>
         </div>
     </div>

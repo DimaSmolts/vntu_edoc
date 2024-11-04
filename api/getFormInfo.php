@@ -13,7 +13,11 @@ try {
 
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM workingPrograms WHERE id = $id";
+$sql = "SELECT `workingPrograms`.*, `fullTimeCharacteristic`.*, `correspondenceCharacteristic`.* FROM `workingPrograms`
+	LEFT JOIN `educationalDisciplineCharacteristic` as `fullTimeCharacteristic` ON `workingPrograms`.`fullTimeCharacteristicId` = `fullTimeCharacteristic`.`id`
+	LEFT JOIN `educationalDisciplineCharacteristic` as `correspondenceCharacteristic` ON `workingPrograms`.`correspondenceCharacteristicId` = `correspondenceCharacteristic`.`id`
+	WHERE `workingPrograms`.`id` = $id";
+
 $result = $link->query($sql);
 
 if ($result->num_rows === 0) {
@@ -21,4 +25,3 @@ if ($result->num_rows === 0) {
 } else {
     echo json_encode(['status' => 'success', 'message' => $result->fetch_all()]);
 }
-?>

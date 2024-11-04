@@ -40,4 +40,3 @@ try {
 } catch (Exception $error) {
     echo json_encode(['status' => 'error', 'message' => $error->getMessage()]);
 }
-?>

@@ -1,9 +1,41 @@
-.create-new-wp {
+.page-title-container {
+    background-color: #515252;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.page-title {
+    font-size: 2.5em;
+    color: white;
+    font-family: revert-layer;
+}
+
+.wp-list-container {
+    padding: 10px 20px 10px 0;
+}
+
+.wp-list-item:nth-child(even) {
+    background-color: ghostwhite;
+}
+
+.wp-list-item-content {
+    display: grid;
+    grid-template-columns: 1fr 15% 130px;
+    align-items: center;
+}
+
+.create-new-wp-btn-container {
+    display: grid;
+}
+
+.create-new-wp,
+.modal-create-new-wp {
     background-color: #05a2ae;
     color: #ffffff;
     padding: 10px;
     border: 0px;
     border-radius: 5px;
+    font-size: 20px;
 }
 
 .edit-wp {
@@ -13,6 +45,14 @@
     border: 0px;
     border-radius: 5px;
     margin: 5px 0;
+}
+
+.wp-modal-container {
+    margin: 20px 0px;
+}
+
+.modal-create-new-wp {
+    margin-top: 20px;
 }
 
 .educational-program-name-modal {
@@ -33,7 +73,15 @@
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-    width: 400px;
+    width: 70%;
+}
+
+.wp-modal-label {
+    font-size: 18px;
+}
+
+.wp-modal-input {
+    width: 65%;
 }
 
 .close-modal {
