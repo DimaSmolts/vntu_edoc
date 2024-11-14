@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    font-family: Open Sans;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    width: 61%;
+    margin: 100px auto;
+    background-color: white;
+}
+
+.page-title-container {
+    background-color: #515252;
+    padding: 30px 150px;
+    position: relative;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 2.5em;
+    color: white;
+    font-family: revert-layer;
+}
+
+.btn {
+    background-color: #05a2ae;
+    color: #ffffff;
+    padding: 10px;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.to-list-btn {
+    position: absolute;
+    left: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    /* Width of vertical scrollbar */
+    height: 12px;
+    /* Height of horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 3px solid #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

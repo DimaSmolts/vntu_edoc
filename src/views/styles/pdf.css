@@ -1,0 +1,357 @@
+div,
+p {
+	/* margin-bottom: 2mm; */
+	line-height: 7.41mm;
+}
+
+div.center,
+td.center {
+	text-align: center;
+}
+
+div.right {
+	text-align: right;
+}
+
+
+.small-bottom-margin {
+	margin-bottom: 10mm;
+}
+
+.large-bottom-margin {
+	margin-bottom: 30mm;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+table {
+	padding: 0;
+	font-size: 14pt;
+	background: #FFFFFF;
+	vertical-align: middle;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table.approved-table {
+	margin-bottom: 40mm;
+}
+
+div.topic-title-page-start {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 7.41mm;
+}
+
+div.topic-title {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	margin-top: 7.41mm;
+	margin-bottom: 7.41mm;
+}
+
+div.copyright {
+	text-align: right;
+}
+
+th,
+td {
+	border: solid 0.5mm black;
+	border-collapse: collapse;
+	padding: 1mm;
+}
+
+th.approved-first-col,
+td.approved-first-col {
+	width: 17%;
+}
+
+th.approved-second-col,
+td.approved-second-col {
+	width: 40%;
+}
+
+th.approved-third-col,
+td.approved-third-col {
+	width: 30%;
+}
+
+th.approved-forth-col,
+td.approved-forth-col {
+	width: 13%;
+}
+
+th {
+	font-weight: bold;
+	text-align: center;
+}
+
+.inserted {
+	background-color: lightgreen
+}
+
+.import {
+	background-color: antiquewhite
+}
+
+.indent {
+	text-indent: 45px;
+}
+
+div.approved-position-container {
+	width: 100%;
+}
+
+div.approved-position {
+	width: 50%;
+	margin-left: 50%;
+}
+
+div.title-placeholder {
+	font-size: 10pt;
+}
+
+th.characteristic-first-col,
+td.characteristic-first-col,
+th.characteristic-second-col,
+td.characteristic-second-col {
+	width: 35%;
+}
+
+th.characteristic-third-col,
+td.characteristic-third-col {
+	width: 30%;
+}
+
+/* p,
+u,
+b,
+h2,
+h3,
+span,
+th,
+td {
+	background-color: aliceblue;
+}
+
+p {
+	word-wrap: break-all;
+}
+
+.import {
+	background-color: antiquewhite
+}
+
+.inserted {
+	background-color: #ebf8a4
+}
+
+.indent {
+	text-indent: 45px;
+}
+
+.highlight-bg {
+	background-color: lightgray;
+}
+
+.header-container {
+	margin-bottom: 20px;
+	width: 175mm;
+	text-align: center;
+}
+
+.approved-container {
+	text-align: right;
+	margin-left: 110mm;
+	margin-right: 0;
+}
+
+.logo-container {
+	margin: 25px 0;
+}
+
+.title-container {
+	display: grid;
+	width: 100%;
+	margin-top: 70mm;
+	margin-bottom: 20px;
+	align-items: center
+}
+
+.title-container .title-block p {
+	text-align: center;
+}
+
+.title-name {
+	margin-top: 5px;
+	font-weight: bold;
+}
+
+
+
+.title-container .title-basic-info-block {
+	margin: 25px auto;
+}
+
+.basic-info {
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.basic-info-name {
+	text-align: end;
+	margin-right: 100px;
+}
+
+.basic-info-value {
+	grid-column-start: 3;
+}
+
+.ep-code-container {
+	margin-bottom: 25mm;
+}
+
+.ep-code,
+.footer {
+	display: grid;
+	width: 100%;
+	align-items: center;
+	text-align: center;
+}
+
+.approved-page-title {
+	display: grid;
+	width: 100%;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.approved-page .basic-info {
+	text-align: left;
+}
+
+.table-name {
+	margin-bottom: 10px;
+}
+
+table {
+	width: 100px;
+}
+
+table,
+th,
+td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 3px 10px;
+}
+
+.vertical-th {
+	font-weight: bold;
+}
+
+.approved-table-placeholder {
+	font-size: 11px;
+}
+
+.align-text-left {
+	text-align: left;
+}
+
+.approved-table {
+	margin-bottom: 150px;
+}
+
+.copyright-block {
+	width: max-content;
+	margin-left: auto;
+	text-align: right;
+}
+
+.copyright-name {
+	margin-bottom: 5px;
+}
+
+.ep-description-table {
+	text-align: center;
+	margin-bottom: 15px;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.ep-description-table th,
+.ep-description-table td {
+	max-width: 10mm;
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+	/* Дозволяє переносити текст */
+/* padding: 5px; */
+/* Додає відступи для покращення читабельності */
+/* }
+
+.study-form-col {
+	width: 100px;
+}
+
+.tc-left {
+	border-left: 3px solid black;
+}
+
+.tc-top {
+	border-top: 3px solid black;
+}
+
+.tc-right {
+	border-right: 3px solid black;
+}
+
+.tc-bottom {
+	border-bottom: 3px solid black;
+}
+
+.center-align-table td,
+.center-align-table th {
+	padding: 3px 10px;
+	text-align: center;
+}
+
+.center-align {
+	text-align: center;
+}
+
+.topic_name {
+	margin: 18px 0;
+	text-align: center;
+}
+
+.bold_cell_text {
+	font-weight: bold;
+}
+
+.min_bottom_margin {
+	margin-bottom: 20px;
+}
+
+ol {
+	margin-left: 18px;
+}
+
+*/

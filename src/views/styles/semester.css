@@ -1,0 +1,36 @@
+.semester-btn {
+	background-color: #428bca;
+}
+
+.theme-btn {
+	background-color: #5cb85c;
+}
+
+.modules-container {
+	margin-bottom: 20px;
+	margin-left: 30px;
+}
+
+.themes-container {
+	margin-bottom: 20px;
+	margin-left: 30px;
+}
+
+.module-title-container,
+.theme-title-container {
+	display: grid;
+	grid-template-columns: 160px 1fr 160px;
+}
+
+.module-title,
+.theme-title {
+	grid-column-start: 2;
+}
+
+.semester-data-block,
+.module-data-block,
+.theme-data-block {
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+	gap: 15px;
+}
