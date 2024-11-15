@@ -12,16 +12,20 @@ require_once __DIR__ . '/src/controllers/api/PersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
 require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
+require_once __DIR__ . '/src/controllers/api/LessonThemeApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 
 use Dotenv\Dotenv;
 use Bramus\Router\Router;
 use App\Controllers\WPController;
+use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
 use App\Controllers\PersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
 use App\Controllers\ThemeApiController;
-use App\Controllers\PDFController;
+use App\Controllers\LessonThemeApiController;
+use App\Controllers\EducationalFormLessonHoursApiController;
 
 // Load the .env file
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -46,7 +50,7 @@ $router->get('/pdf', function () {
 
 $router->get('/getThemes', function () {
 	$themeApiController = new ThemeApiController();
-	$themeApiController->getThemesByWPId();
+	$themeApiController->getThemesWithLessonThemesByWPId();
 });
 
 $router->post('/saveNewWP', function () {
@@ -93,4 +97,20 @@ $router->post('/updateTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->updateTheme();
 });
+
+$router->post('/createNewLessonTheme', function () {
+	$lessonThemeApiController = new LessonThemeApiController();
+	$lessonThemeApiController->createNewLessonTheme();
+});
+
+$router->post('/updateLessonTheme', function () {
+	$lessonThemeApiController = new LessonThemeApiController();
+	$lessonThemeApiController->updateLessonTheme();
+});
+
+$router->post('/updateHours', function () {
+	$educationalFormLessonHoursApiController = new EducationalFormLessonHoursApiController();
+	$educationalFormLessonHoursApiController->updateEducationalFormLessonHours();
+});
+
 $router->run();

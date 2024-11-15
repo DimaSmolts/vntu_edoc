@@ -41,7 +41,5 @@ class ModuleApiController
 		$value = $data['value'];
 
 		$this->moduleService->updateModule($id, $field, $value);
-
-		exit();
 	}
 }

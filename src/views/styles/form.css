@@ -4,21 +4,24 @@
 	overflow: auto;
 }
 
+#educationalDisciplineSemesterStructure {
+	padding: 25px;
+}
+
 .wp-form label {
 	display: block;
-	margin-bottom: 25px;
-	font-size: 20px;
+	margin-bottom: 10px;
+	font-size: 18px;
 }
 
 .wp-form input,
 .wp-form textarea,
 .wp-form select {
 	display: block;
-	margin-top: 10px;
+	margin-top: 5px;
 	width: 100%;
 	font-size: 17px;
-	padding: 10px;
-	color: darkslategray;
+	padding: 5px;
 }
 
 .mini-block {
@@ -26,7 +29,7 @@
 }
 
 .mini-block-title {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 15px;
@@ -61,12 +64,41 @@
 	display: none;
 }
 
-.lesson-theme-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 15px;
+.lesson-themes-block {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 15px;
+	margin-bottom: 15px;
+	padding: 5px 25px;
 }
 
-.lesson-theme-title {
-    grid-column: 1 / 3;
+.lesson-theme-title,
+.additional-lessons-themes-block {
+	grid-column: 1 / 3;
+}
+
+.lesson-themes-btn-block {
+	grid-column: 1 / 3;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 15px;
+	margin-bottom: 15px;
+}
+
+.additional-lesson-themes-block {
+	display: grid;
+	grid-template-columns: 2fr 5fr 2fr;
+	column-gap: 10px;
+	margin-left: 15px;
+}
+
+.additional-lesson-title {
+	grid-column: 1 / 4;
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+.lesson-themes-block:nth-child(even) {
+    background-color: ghostwhite;
 }

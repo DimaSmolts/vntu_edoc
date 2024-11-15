@@ -22,21 +22,37 @@ class ThemeService
 		return $link;
 	}
 
-	public function getThemesByWPId($wpId): array
+	public function getThemesWithLessonThemesByWPId($wpId): array
 	{
 		$link = $this->getLink();
 
 		$sql = "SELECT
-					`themes`.*
+					`themes`.*,
+                    lessonThemes.id as lessonThemeId,
+                    lessonThemes.lessonTypeId as lessonTypeId,
+                    lessonTypes.name as lessonTypeName,
+                    lessonThemes.name as lessonThemeName,
+                    lessonThemes.lessonThemeNumber as lessonThemeNumber,
+                    educationFormLessonHours.educationalFormId as educationalFormId,
+                    educationFormLessonHours.hours as hours,
+                    educationalForm.name as educationalFormName
 				FROM
 					educationalDisciplineSemester
 				LEFT JOIN
 					modules ON educationalDisciplineSemester.id = modules.educationalDisciplineSemesterId
 				LEFT JOIN
 					themes ON modules.id = themes.moduleId
+				LEFT JOIN
+					lessonThemes ON lessonThemes.themeId = themes.id
+				LEFT JOIN
+					lessonTypes ON lessonTypes.id = lessonThemes.lessonTypeId
+				LEFT JOIN
+					educationFormLessonHours ON educationFormLessonHours.lessonThemeId = lessonThemes.id
+                LEFT JOIN
+					educationalForm ON educationalForm.id = educationFormLessonHours.educationalFormId
 				WHERE educationalDisciplineSemester.educationalDisciplineWPId = $wpId
 				ORDER BY
-					themes.themeNumber;";
+					themes.themeNumber, lessonThemes.lessonThemeNumber;";
 
 		$result = $link->query($sql);
 
