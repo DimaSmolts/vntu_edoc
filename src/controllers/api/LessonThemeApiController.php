@@ -2,16 +2,17 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonThemeService.php';
 require_once __DIR__ . '/../../services/EducationalFormLessonHoursService.php';
+require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 
 use App\Services\LessonTypeService;
 use App\Services\LessonThemeService;
 use App\Services\EducationalFormLessonHoursService;
+use App\Models\LessonTypeModel;
 
 class LessonThemeApiController
 {
@@ -36,7 +37,16 @@ class LessonThemeApiController
 		$themeId = intval($data['themeId']);
 		$lessonTypeName = $data['lessonTypeName'];
 
-		$lessonTypes = $this->lessonTypeService->getLessonTypes();
+		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+
+		$lessonTypes = [];
+
+		foreach ($rawLessonTypes as $rawLessonType) {
+			$lessonTypes[] = new LessonTypeModel(
+				$rawLessonType['id'],
+				$rawLessonType['name']
+			);
+		}
 
 		$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 

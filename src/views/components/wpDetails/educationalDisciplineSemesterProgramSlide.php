@@ -8,31 +8,31 @@ $title = "Програма навчальної дисципліни";
 	<div id="semestersContainer">
 		<?php if (!empty($semestersData)): ?>
 			<?php foreach ($semestersData as $semesterData): ?>
-				<p class="mini-block-title">Семестер <?= $semesterData['semesterNumber'] ? htmlspecialchars($semesterData['semesterNumber']) : "" ?></p>
+				<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class=" mini-block-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 				<div class="semester-data-block">
 					<label>
-						<p id="semesterTitle<?= htmlspecialchars($semesterData['id']) ?>">Номер семестру:</p>
+						<p>Номер семестру:</p>
 						<input
 							type="number"
 							name="semesterNumber"
-							value="<?= $semesterData['semesterNumber'] ? htmlspecialchars($semesterData['semesterNumber']) : "" ?>"
-							oninput="updateNumberInput(event, <?= htmlspecialchars($semesterData['id']) ?>, `semesterTitle<?= htmlspecialchars($semesterData['id']) ?>`, 'Семестер', updateSemesterInfo)">
+							value="<?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?>"
+							oninput="updateNumberInput(event, <?= htmlspecialchars($semesterData->id) ?>, `semesterTitle<?= htmlspecialchars($semesterData->id) ?>`, 'Семестер', updateSemesterInfo)">
 					</label>
 					<label>
 						<p>Вид контролю:</p>
 						<input
 							type="text"
 							name="examType"
-							value="<?= $semesterData['examType'] ? htmlspecialchars($semesterData['examType']) : "" ?>"
-							oninput="updateSemesterInfo(event, <?= htmlspecialchars($semesterData['id']) ?>)">
+							value="<?= htmlspecialchars($semesterData->examType) ?>"
+							oninput="updateSemesterInfo(event, <?= htmlspecialchars($semesterData->id) ?>)">
 					</label>
 				</div>
-				<div id="modulesContainer<?= htmlspecialchars($semesterData['id']) ?>" class="modules-container">
-					<?php if (!empty($semesterData['modules'])): ?>
-						<?php foreach ($semesterData['modules'] as $moduleData): ?>
+				<div id="modulesContainer<?= htmlspecialchars($semesterData->id) ?>" class="modules-container">
+					<?php if (!empty($semesterData->modules)): ?>
+						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<div class="mini-block">
 								<div class="module-title-container">
-									<p class="mini-block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData['moduleId']) ?>">Mодуль <?= $moduleData['moduleNumber'] ? htmlspecialchars($moduleData['moduleNumber']) : "" ?></p>
+									<p class="mini-block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>">Mодуль <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?></p>
 									<button class="btn">Видалити модуль</button>
 								</div>
 								<div class="module-data-block">
@@ -41,25 +41,29 @@ $title = "Програма навчальної дисципліни";
 										<input
 											type="number"
 											name="moduleNumber"
-											value="<?= $moduleData['moduleNumber'] ? htmlspecialchars($moduleData['moduleNumber']) : "" ?>"
-											oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData['moduleId']) ?>)">
+											value="<?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?>"
+											oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
 									</label>
 									<label>
 										<p>Назва:</p>
 										<input
 											type="text"
 											name="name"
-											value="<?= $moduleData['moduleName'] ? htmlspecialchars($moduleData['moduleName']) : "" ?>"
-											oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData['moduleId']) ?>)">
+											value="<?= htmlspecialchars($moduleData->moduleName) ?>"
+											oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
 									</label>
 								</div>
-								<div id="themesContainer<?= htmlspecialchars($moduleData['moduleId']) ?>" class="themes-container">
-									<?php if (!empty($moduleData['themes'])): ?>
-										<?php foreach ($moduleData['themes'] as $themeData): ?>
-											<div class="mini-block theme-block">
+								<div id="themesContainer<?= htmlspecialchars($moduleData->moduleId) ?>" class="themes-container">
+									<?php if (!empty($moduleData->themes)): ?>
+										<?php foreach ($moduleData->themes as $themeData): ?>
+											<div id="themeBlock<?= htmlspecialchars($themeData->themeId) ?>" class="mini-block theme-block">
 												<div class="theme-title-container">
-													<p class="mini-block-title theme-title" id="themeTitle<?= htmlspecialchars($themeData['themeId']) ?>">Тема <?= $themeData['themeNumber'] ? htmlspecialchars($themeData['themeNumber']) : "" ?></p>
-													<button class="btn theme-btn">Видалити тему</button>
+													<p class="mini-block-title theme-title" id="themeTitle<?= htmlspecialchars($themeData->themeId) ?>">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : "" ?></p>
+													<button
+														class="btn theme-btn"
+														onclick="removeTheme(event, <?= htmlspecialchars($themeData->themeId) ?>)">
+														Видалити тему
+													</button>
 												</div>
 												<div class="theme-data-block">
 													<label>
@@ -67,16 +71,16 @@ $title = "Програма навчальної дисципліни";
 														<input
 															type="number"
 															name="themeNumber"
-															value="<?= $themeData['themeNumber'] ? htmlspecialchars($themeData['themeNumber']) : "" ?>"
-															oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData['themeId']) ?>)">
+															value="<?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : "" ?>"
+															oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData->themeId) ?>)">
 													</label>
 													<label>
 														<p>Назва:</p>
 														<input
 															type="text"
 															name="name"
-															value="<?= $themeData['themeName'] ? htmlspecialchars($themeData['themeName']) : "" ?>"
-															oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData['themeId']) ?>)">
+															value="<?= htmlspecialchars($themeData->name) ?>"
+															oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData->themeId) ?>)">
 													</label>
 												</div>
 												<label>
@@ -84,7 +88,7 @@ $title = "Програма навчальної дисципліни";
 													<textarea
 														rows="5"
 														name="description"
-														oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData['themeId']) ?>)"><?= $themeData['themeDescription'] ? htmlspecialchars($themeData['themeDescription']) : "" ?></textarea>
+														oninput="updateThemeInfo(event, <?= htmlspecialchars($themeData->themeId) ?>)"><?= htmlspecialchars($themeData->description) ?></textarea>
 
 												</label>
 											</div>
@@ -92,12 +96,12 @@ $title = "Програма навчальної дисципліни";
 									<?php endif; ?>
 									<button
 										class="btn theme-btn"
-										id="addThemeBtn<?= htmlspecialchars($moduleData['moduleId']) ?>"
+										id="addThemeBtn<?= htmlspecialchars($moduleData->moduleId) ?>"
 										onclick="addTheme(
 											event,
-											<?= htmlspecialchars($moduleData['moduleId']) ?>,
-											'addThemeBtn<?= htmlspecialchars($moduleData['moduleId']) ?>',
-											'themesContainer<?= htmlspecialchars($moduleData['moduleId']) ?>'
+											<?= htmlspecialchars($moduleData->moduleId) ?>,
+											'addThemeBtn<?= htmlspecialchars($moduleData->moduleId) ?>',
+											'themesContainer<?= htmlspecialchars($moduleData->moduleId) ?>'
 										)">
 										Додати тему
 									</button>
@@ -107,8 +111,8 @@ $title = "Програма навчальної дисципліни";
 					<?php endif; ?>
 					<button
 						class="btn"
-						id="addModuleBtn<?= htmlspecialchars($semesterData['id']) ?>"
-						onclick="addModule(event, <?= htmlspecialchars($semesterData['id']) ?>, 'addModuleBtn<?= htmlspecialchars($semesterData['id']) ?>', 'modulesContainer<?= htmlspecialchars($semesterData['id']) ?>')">
+						id="addModuleBtn<?= htmlspecialchars($semesterData->id) ?>"
+						onclick="addModule(event, <?= htmlspecialchars($semesterData->id) ?>, 'addModuleBtn<?= htmlspecialchars($semesterData->id) ?>', 'modulesContainer<?= htmlspecialchars($semesterData->id) ?>')">
 						Додати модуль
 					</button>
 				</div>

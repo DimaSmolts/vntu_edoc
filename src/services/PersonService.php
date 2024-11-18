@@ -2,12 +2,7 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/PersonModel.php';
-require_once __DIR__ . '/../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../config.php';
-
-use App\Models\PersonModel;
-use App\Models\WPInvolvedPersonModel;
 
 class PersonService
 {
@@ -33,28 +28,12 @@ class PersonService
 		$sql = "SELECT * FROM persons";
 		$result = $link->query($sql);
 
-		$itemsData = $result->fetch_all(MYSQLI_ASSOC);
-
-		$items = [];
-
-		foreach ($itemsData as $itemData) {
-			$items[] = new PersonModel(
-				$itemData['id'],
-				$itemData['surname'],
-				$itemData['name'],
-				$itemData['patronymicName'],
-				$itemData['degree']
-			);
-		}
-
-		return $items;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
-	public function getWorkingProgramInvolvedPersons(): array
+	public function getWorkingProgramInvolvedPersons($wpId): array
 	{
 		$link = $this->getLink();
-
-		$wpId = $_GET['id'];
 
 		$sql = "SELECT `workingProgramInvolvedPersons`.`id` as `workingProgramInvolvedPersonsId`, `persons`.`id` as `personId`, `involvedPersonsRoles`.`role` FROM `workingProgramInvolvedPersons`
 				INNER JOIN `persons` ON `workingProgramInvolvedPersons`.`personId` = `persons`.`id`
@@ -62,37 +41,12 @@ class PersonService
 				WHERE `workingProgramInvolvedPersons`.`educationalDisciplineWPId` = $wpId";
 		$result = $link->query($sql);
 
-		$itemsData = $result->fetch_all(MYSQLI_ASSOC);
-
-		$items = [];
-
-		foreach ($itemsData as $itemData) {
-			$items[] = new WPInvolvedPersonModel(
-				$itemData['workingProgramInvolvedPersonsId'],
-				$itemData['personId'],
-				$itemData['role']
-			);
-		}
-
-		return $items;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
-	public function updateWorkingProgramInvolvedPerson()
+	public function updateWorkingProgramInvolvedPerson($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId)
 	{
 		$link = $this->getLink();
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$wpInvolvedPersonId = intval($data['wpInvolvedPersonId']) ?? NULL;
-		$wpId = intval($data['wpId']);
-		$personId = intval($data['personId']);
-		$involvedPersonRoleId = intval($data['roleId']);
-
-		echo $wpInvolvedPersonId;
-		echo $wpId;
-		echo $personId;
-		echo $involvedPersonRoleId;
 
 		$sql = "INSERT INTO `workingProgramInvolvedPersons` (id, educationalDisciplineWPId, personId, involvedPersonRoleId)
 				VALUES ($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId)

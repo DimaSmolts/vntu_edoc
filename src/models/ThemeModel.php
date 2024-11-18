@@ -4,21 +4,18 @@ namespace App\Models;
 
 class ThemeModel
 {
-	public int $id;
-	public int $moduleId;
+	public int $themeId;
 	public ?string $name;
 	public ?string $description;
 	public ?int $themeNumber;
 
 	public function __construct(
-		$id,
-		$moduleId,
-		?string $name = null,
-		?string $description = null,
+		$themeId,
+		?string $name = '',
+		?string $description = '',
 		?int $themeNumber = null
 	) {
-		$this->id = $id;
-		$this->moduleId = $moduleId;
+		$this->themeId = $themeId;
 		$this->name = $name;
 		$this->description = $description;
 		$this->themeNumber = $themeNumber;

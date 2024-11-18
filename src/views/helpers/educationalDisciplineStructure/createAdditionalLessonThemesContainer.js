@@ -1,6 +1,8 @@
 const createAdditionalLessonThemesContainer = (theme) => {
-	const additionalLessonThemesBlock = document.createElement("div");
-	additionalLessonThemesBlock.classList.add('additional-lessons-themes-block');
+	const additionalLessonThemesBlock = createElement({
+		elementName: "div",
+		classList: ['additional-lessons-themes-block']
+	});
 
 	const practicalsLessonThemesBlock = createLessonsBlockWithContainer({
 		titleName: 'Практичні:',

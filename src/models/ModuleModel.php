@@ -4,20 +4,20 @@ namespace App\Models;
 
 class ModuleModel
 {
-	public int $id;
-	public int $educationalDisciplineSemesterId;
-	public string $name;
-	public int $moduleNumber;
+	public int $moduleId;
+	public ?string $moduleName;
+	public ?int $moduleNumber;
+    public array $themes;
 
 	public function __construct(
-		$id,
-		$educationalDisciplineSemesterId,
-		$name,
-		$moduleNumber
+		int $moduleId,
+		?string $moduleName = '',
+		?int $moduleNumber = null,
+		array $themes = []
 	) {
-		$this->id = $id;
-		$this->educationalDisciplineSemesterId = $educationalDisciplineSemesterId;
-		$this->name = $name;
+		$this->moduleId = $moduleId;
+		$this->moduleName = $moduleName;
 		$this->moduleNumber = $moduleNumber;
+		$this->themes = $themes;
 	}
 }

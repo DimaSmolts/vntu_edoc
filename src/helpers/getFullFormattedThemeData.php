@@ -13,40 +13,42 @@ function getFullFormattedThemeData($formattedThemeDataData)
 	$formattedThemeData = [];
 
 	foreach ($formattedThemeDataData as $themeData) {
-		// Перевірка, чи вже існує тема в масиві formattedThemeData
-		if (!isset($formattedThemeData[$themeData['id']])) {
-			$formattedThemeData[$themeData['id']] = new ThemeWithLessonsModel(
-				$themeData['id'],
-				$themeData['name'],
-				$themeData['themeNumber']
+		if ($themeData['id'] != null) {
+			// Перевірка, чи вже існує тема в масиві formattedThemeData
+			if (!isset($formattedThemeData[$themeData['id']])) {
+				$formattedThemeData[$themeData['id']] = new ThemeWithLessonsModel(
+					$themeData['id'],
+					$themeData['name'],
+					$themeData['themeNumber']
+				);
+			}
+
+			$educationalForms = getEducationalFormName();
+			$lessonTypes = getLessonTypesNames();
+
+			// Підготовка даних для уроку
+			$lessonData = new LessonThemeModel(
+				$themeData['lessonThemeId'],
+				$themeData['lessonTypeId'],
+				$themeData['lessonTypeName'],
+				$themeData['lessonThemeName'],
+				$themeData['lessonThemeNumber'],
+				$themeData['educationalFormName'] === $educationalForms->fullTime ? $themeData['hours'] : null,
+				$themeData['educationalFormName'] === $educationalForms->correspondence ? $themeData['hours'] : null
 			);
-		}
 
-		$educationalForms = getEducationalFormName();
-		$lessonTypes = getLessonTypesNames();
-
-		// Підготовка даних для уроку
-		$lessonData = new LessonThemeModel(
-			$themeData['lessonThemeId'],
-			$themeData['lessonTypeId'],
-			$themeData['lessonTypeName'],
-			$themeData['lessonThemeName'],
-			$themeData['lessonThemeNumber'],
-			$themeData['educationalFormName'] === $educationalForms->fullTime ? $themeData['hours'] : null,
-			$themeData['educationalFormName'] === $educationalForms->correspondence ? $themeData['hours'] : null
-		);
-
-		// Додаємо до відповідного списку
-		if ($themeData['lessonTypeName'] == $lessonTypes->lection) { // lections
-			$formattedThemeData[$themeData['id']]->lections[] = $lessonData;
-		} elseif ($themeData['lessonTypeName'] == $lessonTypes->practical) { // practicals
-			$formattedThemeData[$themeData['id']]->practicals[] = $lessonData;
-		} elseif ($themeData['lessonTypeName'] == $lessonTypes->seminar) { // seminars
-			$formattedThemeData[$themeData['id']]->seminars[] = $lessonData;
-		} elseif ($themeData['lessonTypeName'] == $lessonTypes->laboratory) { // labs
-			$formattedThemeData[$themeData['id']]->labs[] = $lessonData;
-		} elseif ($themeData['lessonTypeName'] == $lessonTypes->selfwork) { // selfworks
-			$formattedThemeData[$themeData['id']]->selfworks[] = $lessonData;
+			// Додаємо до відповідного списку
+			if ($themeData['lessonTypeName'] == $lessonTypes->lection) { // lections
+				$formattedThemeData[$themeData['id']]->lections[] = $lessonData;
+			} elseif ($themeData['lessonTypeName'] == $lessonTypes->practical) { // practicals
+				$formattedThemeData[$themeData['id']]->practicals[] = $lessonData;
+			} elseif ($themeData['lessonTypeName'] == $lessonTypes->seminar) { // seminars
+				$formattedThemeData[$themeData['id']]->seminars[] = $lessonData;
+			} elseif ($themeData['lessonTypeName'] == $lessonTypes->laboratory) { // labs
+				$formattedThemeData[$themeData['id']]->labs[] = $lessonData;
+			} elseif ($themeData['lessonTypeName'] == $lessonTypes->selfwork) { // selfworks
+				$formattedThemeData[$themeData['id']]->selfworks[] = $lessonData;
+			}
 		}
 	}
 

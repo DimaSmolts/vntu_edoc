@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/SemesterModel.php';
 require_once __DIR__ . '/../config.php';
-
-use App\Models\SemesterModel;
 
 class SemesterService
 {
@@ -28,7 +25,6 @@ class SemesterService
 	{
 		$link = $this->getLink();
 
-		// $sql = "SELECT * FROM `educationalDisciplineSemester` WHERE `educationalDisciplineWPId` = $id";
 		$sql = "SELECT
 					educationalDisciplineSemester.*,
 					modules.id as moduleId,

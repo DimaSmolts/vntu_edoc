@@ -4,18 +4,16 @@ const createLessonThemesContainer = (themes) => {
 
 	themes.forEach(theme => {
 		console.log(theme)
-		const themeBlock = document.createElement("div");
-		themeBlock.classList.add('lesson-themes-block');
+		const themeBlock = createElement({ elementName: "div", classList: ['lesson-themes-block'] });
 
-		const themeTitle = document.createElement("p");
-		themeTitle.classList.add('mini-block-title', 'lesson-theme-title');
-		themeTitle.innerText = `Тема ${theme.themeNumber ?? ''}. ${theme.name ?? ''}`;
+		const themeTitle = createElement({
+			elementName: "p",
+			innerText: `Тема ${theme.themeNumber ?? ''}. ${theme.name ?? ''}`,
+			classList: ['mini-block-title', 'lesson-theme-title']
+		});
 
-		const lectionAndSelfworkHoursBlock = document.createElement("div");
-		lectionAndSelfworkHoursBlock.classList.add('two-column');
-
-		const lectionHoursBlock = document.createElement("div");
-		const selfworkHoursBlock = document.createElement("div");
+		const lectionHoursBlock = createElement({ elementName: "div" });
+		const selfworkHoursBlock = createElement({ elementName: "div" });
 
 		const lectionHoursLabel = createLabelWithInput({
 			labelText: 'Кількість годин лекцій:',
@@ -40,40 +38,48 @@ const createLessonThemesContainer = (themes) => {
 		lectionHoursBlock.appendChild(lectionHoursLabel);
 		selfworkHoursBlock.appendChild(selfWorkHoursLabel);
 
-		const lessonThemesButtonsBlock = document.createElement("div");
-		lessonThemesButtonsBlock.classList.add('lesson-themes-btn-block');
+		const lessonThemesButtonsBlock = createElement({ elementName: "div", classList: ['lesson-themes-btn-block'] });
 
-		const addPracticalButton = document.createElement("button");
-		addPracticalButton.classList.add('btn');
-		addPracticalButton.innerText = 'Додати практичне';
-		addPracticalButton.addEventListener('click', () => {
-			createNewLessonThemeBlock({
-				titleName: 'Практичні:',
-				lessonTypeName: LessonTypesName.practical,
-				themeId: theme.id
-			})
+		const addPracticalButton = createElement({
+			elementName: "button",
+			classList: ['btn'],
+			innerText: 'Додати практичне',
+			eventListenerType: 'click',
+			eventListener: () => {
+				createNewLessonThemeBlock({
+					titleName: 'Практичні:',
+					lessonTypeName: LessonTypesName.practical,
+					themeId: theme.id
+				})
+			}
 		});
 
-		const addSeminarButton = document.createElement("button");
-		addSeminarButton.classList.add('btn');
-		addSeminarButton.innerText = 'Додати семінар';
-		addSeminarButton.addEventListener('click', () => {
-			createNewLessonThemeBlock({
-				titleName: 'Семінари:',
-				lessonTypeName: LessonTypesName.seminar,
-				themeId: theme.id
-			})
+		const addSeminarButton = createElement({
+			elementName: "button",
+			classList: ['btn'],
+			innerText: 'Додати семінар',
+			eventListenerType: 'click',
+			eventListener: () => {
+				createNewLessonThemeBlock({
+					titleName: 'Семінари:',
+					lessonTypeName: LessonTypesName.seminar,
+					themeId: theme.id
+				})
+			}
 		});
 
-		const addLabButton = document.createElement("button");
-		addLabButton.classList.add('btn');
-		addLabButton.innerText = 'Додати лабораторне';
-		addLabButton.addEventListener('click', () => {
-			createNewLessonThemeBlock({
-				titleName: 'Лабораторні:',
-				lessonTypeName: LessonTypesName.laboratory,
-				themeId: theme.id
-			})
+		const addLabButton = createElement({
+			elementName: "button",
+			classList: ['btn'],
+			innerText: 'Додати лабораторне',
+			eventListenerType: 'click',
+			eventListener: () => {
+				createNewLessonThemeBlock({
+					titleName: 'Лабораторні:',
+					lessonTypeName: LessonTypesName.laboratory,
+					themeId: theme.id
+				})
+			}
 		});
 
 		lessonThemesButtonsBlock.appendChild(addPracticalButton);

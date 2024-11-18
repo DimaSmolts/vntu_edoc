@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/ModuleModel.php';
 require_once __DIR__ . '/../config.php';
-
-use App\Models\ModuleModel;
 
 class ModuleService
 {
@@ -22,29 +19,6 @@ class ModuleService
 		}
 
 		return $link;
-	}
-
-	public function getModulesBySemesterId($id): array
-	{
-		$link = $this->getLink();
-
-		$sql = "SELECT * from `modules` WHERE `educationalDisciplineSemesterId` = $id";
-		$result = $link->query($sql);
-
-		$itemsData = $result->fetch_all(MYSQLI_ASSOC);
-
-		$items = [];
-
-		foreach ($itemsData as $itemData) {
-			$items[] = new ModuleModel(
-				$itemData['id'],
-				$itemData['educationalDisciplineSemesterId'],
-				$itemData['name'],
-				$itemData['moduleNumber']
-			);
-		}
-
-		return $items;
 	}
 
 	public function createNewModule($semesterId): int

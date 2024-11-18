@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/ThemeModel.php';
 require_once __DIR__ . '/../config.php';
 
 class ThemeService

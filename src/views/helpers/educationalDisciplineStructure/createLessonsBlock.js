@@ -1,7 +1,9 @@
 const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId }) => {
-	const block = document.createElement("div");
-	block.classList.add('additional-lesson-themes-block');
-	block.id = `${lessonTypeName}Block${lessonThemeId}`;
+	const block = createElement({
+		elementName: "div",
+		id: `${lessonTypeName}Block${lessonThemeId}`,
+		classList: ['additional-lesson-themes-block']
+	});
 
 	const lessonNumberLabel = createLabelWithInput({
 		labelText: 'Номер заняття:',
@@ -41,21 +43,16 @@ const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId }) => {
 }
 
 const createLessonsBlockTitle = ({ titleName }) => {
-	const title = document.createElement("p");
-	title.classList.add('additional-lesson-title');
-	title.innerText = `${titleName}`;
+	const title = createElement({ elementName: "p", innerText: titleName, classList: ['additional-lesson-title'] });
 
 	return title;
 }
 
 const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, themeId }) => {
-	const container = document.createElement("div");
-	container.id = `${lessonTypeName}Container${themeId}`;
+	const container = createElement({ elementName: "div", id: `${lessonTypeName}Container${themeId}` });
 
 	if (lessons.length !== 0) {
-		const title = document.createElement("p");
-		title.classList.add('additional-lesson-title');
-		title.innerText = `${titleName}`;
+		const title = createLessonsBlockTitle({ titleName });
 
 		container.appendChild(title);
 

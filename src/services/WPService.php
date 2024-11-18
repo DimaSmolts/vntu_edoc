@@ -2,12 +2,7 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/WPListItemModel.php';
-require_once __DIR__ . '/../models/WPDetailsModel.php';
 require_once __DIR__ . '/../config.php';
-
-use App\Models\WPListItemModel;
-use App\Models\WPDetailsModel;
 
 class WPService
 {
@@ -33,31 +28,12 @@ class WPService
 		$sql = "SELECT id, disciplineName, createdAt FROM educationalDisciplineWorkingProgram";
 		$result = $link->query($sql);
 
-		$itemsData = $result->fetch_all(MYSQLI_ASSOC);
-
-		$items = [];
-
-		foreach ($itemsData as $itemData) {
-			$items[] = new WPListItemModel(
-				$itemData['id'],
-				$itemData['disciplineName'],
-				$itemData['createdAt']
-			);
-		}
-
-		return $items;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
-	public function updateWPDetails()
+	public function updateWPDetails($id, $field, $value)
 	{
 		$link = $this->getLink();
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$id = intval($data['id']);
-		$field = $data['field'];
-		$value = $data['value'];
 
 		$sql = "UPDATE educationalDisciplineWorkingProgram SET $field = '$value' WHERE id = $id;";
 
@@ -83,7 +59,7 @@ class WPService
 		return $lastInsertId;
 	}
 
-	public function getWPDetails($id): WPDetailsModel
+	public function getWPDetails($id)
 	{
 		$link = $this->getLink();
 
@@ -93,29 +69,6 @@ class WPService
 
 		$arrayOfDetails = $result->fetch_all(MYSQLI_ASSOC);
 
-		$details = $arrayOfDetails[0];
-
-		return new WPDetailsModel(
-			$details['id'],
-			$details['regularYear'],
-			$details['academicYear'],
-			$details['facultyName'],
-			$details['departmentName'],
-			$details['disciplineName'],
-			$details['degreeName'],
-			$details['fielfOfStudyIdx'],
-			$details['fielfOfStudyName'],
-			$details['specialtyIdx'],
-			$details['specialtyName'],
-			$details['educationalProgram'],
-			$details['notes'],
-			$details['language'],
-			$details['prerequisites'],
-			$details['goal'],
-			$details['tasks'],
-			$details['competences'],
-			$details['programResults'],
-			$details['controlMeasures']
-		);
+		return $arrayOfDetails[0];
 	}
 }

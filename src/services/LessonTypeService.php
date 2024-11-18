@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../models/LessonTypeModel.php';
 require_once __DIR__ . '/../config.php';
-
-use App\Models\LessonTypeModel;
 
 class LessonTypeService
 {
@@ -29,19 +26,9 @@ class LessonTypeService
 		$link = $this->getLink();
 
 		$sql = "SELECT * from `lessonTypes`";
+
 		$result = $link->query($sql);
 
-		$itemsData = $result->fetch_all(MYSQLI_ASSOC);
-
-		$items = [];
-
-		foreach ($itemsData as $itemData) {
-			$items[] = new LessonTypeModel(
-				$itemData['id'],
-				$itemData['name']
-			);
-		}
-
-		return $items;
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 }

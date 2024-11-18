@@ -5,22 +5,22 @@ namespace App\Models;
 class SemesterModel
 {
 	public int $id;
-	public int $educationalDisciplineWPId;
 	public ?int $semesterNumber;
-	public ?int $courseWork;
 	public ?string $examType;
+	public array $modules;
+	public ?int $courseWork;
 
 	public function __construct(
 		$id,
-		$educationalDisciplineWPId,
 		?int $semesterNumber = null,
-		?int $courseWork = null,
-		?string $examType = null
+		?string $examType = '',
+		$modules = [],
+		?int $courseWork = null
 	) {
 		$this->id = $id;
-		$this->educationalDisciplineWPId = $educationalDisciplineWPId;
 		$this->semesterNumber = $semesterNumber;
 		$this->examType = $examType;
+		$this->modules = $modules;
 		$this->courseWork = $courseWork;
 	}
 }

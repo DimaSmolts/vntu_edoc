@@ -19,17 +19,27 @@ class WPApiController
 	{
 		header('Content-Type: application/json');
 
+		$disciplineName = $_POST['disciplineName'] ?? null;
+
 		$newWPId = $this->wpService->createNewWP();
 
 		header("Location: wpdetails?id=" . $newWPId);
+
 		exit();
 	}
 
 	public function updateWPDetails()
 	{
 		header('Content-Type: application/json');
-		
-		$this->wpService->updateWPDetails();
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$id = intval($data['id']);
+		$field = $data['field'];
+		$value = $data['value'];
+
+		$this->wpService->updateWPDetails($id, $field, $value);
 
 		exit();
 	}

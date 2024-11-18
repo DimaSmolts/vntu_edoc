@@ -2,16 +2,17 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonThemeService.php';
+require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/getFullFormattedThemeData.php';
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
 use App\Services\LessonThemeService;
+use App\Models\LessonTypeModel;
 
 class ThemeApiController
 {
@@ -36,6 +37,8 @@ class ThemeApiController
 
 		$themes = getFullFormattedThemeData($rawThemes);
 
+		// print_r(json_encode($themes));
+		// echo json_encode($themes);
 		echo json_encode(['status' => 'success', 'themes' => $themes]);
 	}
 
@@ -50,7 +53,16 @@ class ThemeApiController
 
 		$newThemeId = $this->themeService->createNewTheme($moduleId);
 
-		$lessonTypes = $this->lessonTypeService->getLessonTypes();
+		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+
+		$lessonTypes = [];
+
+		foreach ($rawLessonTypes as $rawLessonType) {
+			$lessonTypes[] = new LessonTypeModel(
+				$rawLessonType['id'],
+				$rawLessonType['name']
+			);
+		}
 
 		$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 		$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
@@ -75,11 +87,20 @@ class ThemeApiController
 		$this->themeService->updateTheme($id, $field, $value);
 
 		if ($field == 'name') {
-			$lessonTypes = $this->lessonTypeService->getLessonTypes();
-	
+			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+
+			$lessonTypes = [];
+
+			foreach ($rawLessonTypes as $rawLessonType) {
+				$lessonTypes[] = new LessonTypeModel(
+					$rawLessonType['id'],
+					$rawLessonType['name']
+				);
+			}
+
 			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
-	
+
 			$this->lessonThemeService->updateLessonTheme($id, $lectionLessonTypeId, $value);
 			$this->lessonThemeService->updateLessonTheme($id, $selfworkLessonTypeId, $value);
 		}

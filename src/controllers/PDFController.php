@@ -6,11 +6,17 @@ require_once __DIR__ . '/../services/WP.php';
 require_once __DIR__ . '/../services/PersonService.php';
 require_once __DIR__ . '/../services/SemesterService.php';
 require_once __DIR__ . '/../services/ModuleService.php';
+require_once __DIR__ . '/../models/PersonModel.php';
+require_once __DIR__ . '/../models/WPInvolvedPersonModel.php';
+require_once __DIR__ . '/../models/WPDetailsModel.php';
 
 use App\Services\WPService;
 use App\Services\PersonService;
 use App\Services\SemesterService;
 use App\Services\ModuleService;
+use App\Models\PersonModel;
+use App\Models\WPInvolvedPersonModel;
+use App\Models\WPDetailsModel;
 
 class PDFController
 {
@@ -87,9 +93,56 @@ class PDFController
 
 		$wpId = $_GET['id'];
 
-		$details = $this->wpService->getWPDetails($wpId);
-		$persons = $this->personService->getPersons();
-		$wpInvolvedPersons = $this->personService->getWorkingProgramInvolvedPersons();
+		$rawDetails = $this->wpService->getWPDetails($wpId);
+
+		$details = new WPDetailsModel(
+			$rawDetails['id'],
+			$rawDetails['regularYear'],
+			$rawDetails['academicYear'],
+			$rawDetails['facultyName'],
+			$rawDetails['departmentName'],
+			$rawDetails['disciplineName'],
+			$rawDetails['degreeName'],
+			$rawDetails['fielfOfStudyIdx'],
+			$rawDetails['fielfOfStudyName'],
+			$rawDetails['specialtyIdx'],
+			$rawDetails['specialtyName'],
+			$rawDetails['educationalProgram'],
+			$rawDetails['notes'],
+			$rawDetails['language'],
+			$rawDetails['prerequisites'],
+			$rawDetails['goal'],
+			$rawDetails['tasks'],
+			$rawDetails['competences'],
+			$rawDetails['programResults'],
+			$rawDetails['controlMeasures']
+		);
+
+		$rawPersons = $this->personService->getPersons();
+
+		$persons = [];
+
+		foreach ($rawPersons as $rawPerson) {
+			$persons[] = new PersonModel(
+				$rawPerson['id'],
+				$rawPerson['surname'],
+				$rawPerson['name'],
+				$rawPerson['patronymicName'],
+				$rawPerson['degree']
+			);
+		}
+
+		$rawWpInvolvedPersons = $this->personService->getWorkingProgramInvolvedPersons($wpId);
+
+		$wpInvolvedPersons = [];
+
+		foreach ($rawWpInvolvedPersons as $rawWpInvolvedPerson) {
+			$wpInvolvedPersons[] = new WPInvolvedPersonModel(
+				$rawWpInvolvedPerson['workingProgramInvolvedPersonsId'],
+				$rawWpInvolvedPerson['personId'],
+				$rawWpInvolvedPerson['role']
+			);
+		}
 		$rawSemestersData = $this->semesterService->getSemestersByWPId($wpId);
 
 		$semestersData = $this->formatSemesterData($rawSemestersData);
@@ -109,7 +162,7 @@ class PDFController
 		$createdByPerson = array_filter($persons, function ($person) use ($createdBy) {
 			return $person->id === $createdBy->involvedPersonId;
 		});
-		
+
 		require __DIR__ . '/../views/pages/pdf.php';
 	}
 }

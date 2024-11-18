@@ -17,7 +17,9 @@
 
         <script src="src/views/constants/EducationalFormName.js"></script>
         <script src="src/views/constants/LessonTypesName.js"></script>
-        <script src="src/views/helpers/createLabelWithInput.js"></script>
+        <script src="src/views/helpers/view/createElement.js"></script>
+        <script src="src/views/helpers/view/createLabelWithInput.js"></script>
+        <script src="src/views/helpers/view/createLabelWithTextarea.js"></script>
         <script src="src/views/helpers/updating/updateWP.js"></script>
         <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
         <script src="src/views/helpers/carousel/arrowsHandler.js"></script>
@@ -34,11 +36,12 @@
         <script src="src/views/helpers/semester/createSemesterContainer.js"></script>
         <script src="src/views/helpers/semester/createModuleBlock.js"></script>
         <script src="src/views/helpers/semester/createThemeBlock.js"></script>
+        <script src="src/views/helpers/semester/updateNumberInput.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createLessonsBlock.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonThemesContainer.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createLessonThemesContainer.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonThemeBlock.js"></script>
-        <script src="src/views/helpers/creating/createNewLessonTheme.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonTheme.js"></script>
     </main>
 </body>
