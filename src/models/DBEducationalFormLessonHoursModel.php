@@ -8,15 +8,15 @@ use App\Models\DBEducationalFormModel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DBEducationFormLessonHoursModel extends Model
+class DBEducationalFormLessonHoursModel extends Model
 {
-	protected $table = 'educationFormLessonHours';
+	protected $table = 'educationalFormLessonHours';
 	protected $fillable = ['educationalFormId', 'lessonThemeId', 'hours'];
 
 	public $timestamps = false;
 
 	public function educationalForm()
-    {
-        return $this->belongsTo(DBEducationalFormModel::class, 'educationalFormId');
-    }
+	{
+		return $this->belongsTo(DBEducationalFormModel::class, 'educationalFormId');
+	}
 }

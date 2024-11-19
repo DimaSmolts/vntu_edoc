@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../services/LessonThemeService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
@@ -52,15 +53,7 @@ class ThemeApiController
 		$newThemeId = $this->themeService->createNewTheme($moduleId);
 
 		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-
-		$lessonTypes = [];
-
-		foreach ($rawLessonTypes as $rawLessonType) {
-			$lessonTypes[] = new LessonTypeModel(
-				$rawLessonType['id'],
-				$rawLessonType['name']
-			);
-		}
+		$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 		$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 		$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
@@ -102,5 +95,14 @@ class ThemeApiController
 			$this->lessonThemeService->updateLessonTheme($id, $lectionLessonTypeId, $value);
 			$this->lessonThemeService->updateLessonTheme($id, $selfworkLessonTypeId, $value);
 		}
+	}
+
+	public function deleteTheme()
+	{
+		header('Content-Type: application/json');
+
+		$id = $_GET['id'];
+
+		$this->themeService->deleteTheme($id);
 	}
 }

@@ -28,6 +28,9 @@
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
         <script src="src/views/helpers/updating/updateLessonThemeInfo.js"></script>
         <script src="src/views/helpers/updating/updateHours.js"></script>
+        <script src="src/views/helpers/deleting/deleteTheme.js"></script>
+        <script src="src/views/helpers/deleting/deleteModule.js"></script>
+        <script src="src/views/helpers/deleting/deleteSemester.js"></script>
         <script src="src/views/helpers/search/teacher.js"></script>
         <script src="src/views/helpers/semester/buttonsHandlers.js"></script>
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
@@ -37,6 +40,9 @@
         <script src="src/views/helpers/semester/createModuleBlock.js"></script>
         <script src="src/views/helpers/semester/createThemeBlock.js"></script>
         <script src="src/views/helpers/semester/updateNumberInput.js"></script>
+        <script src="src/views/helpers/semester/toggleEducationalForm.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/getLessonThemeId.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createLessonsBlock.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonThemesContainer.js"></script>

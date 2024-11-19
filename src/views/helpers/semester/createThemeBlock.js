@@ -10,23 +10,20 @@ const createThemeBlock = (themeId) => {
 		classList: ["mini-block-title", "theme-title"]
 	});
 
-	const removeThemeBtn = createElement({
+	const deleteThemeBtn = createElement({
 		elementName: "button",
 		innerText: 'Видалити тему',
 		classList: ["btn", "theme-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			removeTheme(event, themeId);
+			deleteTheme(event, themeId);
 		}
 	});
-	// removeThemeBtn.onclick = function () {
-	// themeBlock.remove();
-	// };
 
 	titleContainer.appendChild(title);
-	titleContainer.appendChild(removeThemeBtn);
+	titleContainer.appendChild(deleteThemeBtn);
 
-	const themeDataBlock = createElement({ elementName: "div", classList: "theme-data-block" });
+	const themeDataBlock = createElement({ elementName: "div", classList: ["theme-data-block"] });
 
 	const themeNumberLabel = createLabelWithInput({
 		labelText: 'Номер теми:',

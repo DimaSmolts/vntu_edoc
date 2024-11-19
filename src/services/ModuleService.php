@@ -34,4 +34,15 @@ class ModuleService
 			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
+
+	public function deleteModule($id)
+	{
+		$deleted = Capsule::table('modules')->where('id', $id)->delete();
+
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Module deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Module not found or delete failed']);
+		}
+	}
 }

@@ -33,7 +33,3 @@ class LessonModel
 		$this->hours = $hours;
 	}
 }
-
-// SELECT `lessonThemes`.*, `educationFormLessonHours`.`id` as `educationalFormLessonHoursId`, `educationFormLessonHours`.`educationalFormId`, `educationFormLessonHours`.`lessonThemeId`, `educationFormLessonHours`.`hours` FROM `lessonThemes`
-// INNER JOIN `educationFormLessonHours` ON `educationFormLessonHours`.`lessonThemeId`=  `lessonThemes`.`id`
-// WHERE `educationFormLessonHours`.`educationalFormId` = 1

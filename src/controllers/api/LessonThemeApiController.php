@@ -8,11 +8,11 @@ require_once __DIR__ . '/../../services/LessonThemeService.php';
 require_once __DIR__ . '/../../services/EducationalFormLessonHoursService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
 use App\Services\LessonTypeService;
 use App\Services\LessonThemeService;
 use App\Services\EducationalFormLessonHoursService;
-use App\Models\LessonTypeModel;
 
 class LessonThemeApiController
 {
@@ -38,22 +38,11 @@ class LessonThemeApiController
 		$lessonTypeName = $data['lessonTypeName'];
 
 		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-
-		$lessonTypes = [];
-
-		foreach ($rawLessonTypes as $rawLessonType) {
-			$lessonTypes[] = new LessonTypeModel(
-				$rawLessonType['id'],
-				$rawLessonType['name']
-			);
-		}
+		$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 		$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
 		$newLessonThemeId = $this->lessonThemeService->createNewLessonTheme($themeId, $lessonTypeId);
-
-		$this->educationalFormLessonHoursService->createNewEducationalFormLessonHours($newLessonThemeId, 1);
-		//TODOOO!!!!!!!!! cores.
 
 		echo json_encode(['status' => 'success', 'lessonThemeId' => $newLessonThemeId]);
 	}

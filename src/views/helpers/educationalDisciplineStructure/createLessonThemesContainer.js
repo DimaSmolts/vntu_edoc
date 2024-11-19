@@ -3,7 +3,6 @@ const createLessonThemesContainer = (themes) => {
 	lessonThemesContainer.replaceChildren();
 
 	themes.forEach(theme => {
-		console.log(theme)
 		const themeBlock = createElement({ elementName: "div", classList: ['lesson-themes-block'] });
 
 		const themeTitle = createElement({
@@ -12,31 +11,39 @@ const createLessonThemesContainer = (themes) => {
 			classList: ['mini-block-title', 'lesson-theme-title']
 		});
 
-		const lectionHoursBlock = createElement({ elementName: "div" });
-		const selfworkHoursBlock = createElement({ elementName: "div" });
+		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
+		const selfworkHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
 
-		const lectionHoursLabel = createLabelWithInput({
-			labelText: 'Кількість годин лекцій:',
-			inputType: 'number',
-			inputName: 'hours',
-			value: theme.lections[0]?.fullTime ?? '',
-			eventListener: (event) => {
-				updateHours(event, theme.id, 1)
-			}
-		});
+		const lectionHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин лекцій:' });
+		const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин самостійної роботи:' });
 
-		const selfWorkHoursLabel = createLabelWithInput({
-			labelText: 'Кількість годин самостійної роботи:',
-			inputType: 'number',
-			inputName: 'hours',
-			value: theme.lections[0]?.fullTime ?? '',
-			eventListener: (event) => {
-				updateHours(event, theme.id, 1)
-			}
-		});
+		lectionHoursBlock.appendChild(lectionHoursBlockTitle);
+		selfworkHoursBlock.appendChild(selfworkHoursBlockTitle);
 
-		lectionHoursBlock.appendChild(lectionHoursLabel);
-		selfworkHoursBlock.appendChild(selfWorkHoursLabel);
+		theme.semesterEducationalForms.forEach(form => {
+			console.log(form);
+			const lectionHoursLabel = createLabelWithInput({
+				labelText: `${form.name}:`,
+				inputType: 'number',
+				inputName: 'hours',
+				value: getHours(theme.lections, form.colName),
+				eventListener: (event) => {
+					updateHours(event, theme.lections[0].lessonThemeId, form.educationalFormId)
+				}
+			});
+			lectionHoursBlock.appendChild(lectionHoursLabel);
+
+			const selfWorkHoursLabel = createLabelWithInput({
+				labelText: `${form.name}:`,
+				inputType: 'number',
+				inputName: 'hours',
+				value: getHours(theme.selfworks, form.colName),
+				eventListener: (event) => {
+					updateHours(event, theme.selfworks[0].lessonThemeId, form.educationalFormId)
+				}
+			});
+			selfworkHoursBlock.appendChild(selfWorkHoursLabel);
+		})
 
 		const lessonThemesButtonsBlock = createElement({ elementName: "div", classList: ['lesson-themes-btn-block'] });
 
@@ -49,7 +56,8 @@ const createLessonThemesContainer = (themes) => {
 				createNewLessonThemeBlock({
 					titleName: 'Практичні:',
 					lessonTypeName: LessonTypesName.practical,
-					themeId: theme.id
+					themeId: theme.id,
+					semesterEducationalForms: theme.semesterEducationalForms
 				})
 			}
 		});
@@ -63,7 +71,8 @@ const createLessonThemesContainer = (themes) => {
 				createNewLessonThemeBlock({
 					titleName: 'Семінари:',
 					lessonTypeName: LessonTypesName.seminar,
-					themeId: theme.id
+					themeId: theme.id,
+					semesterEducationalForms: theme.semesterEducationalForms
 				})
 			}
 		});
@@ -77,7 +86,8 @@ const createLessonThemesContainer = (themes) => {
 				createNewLessonThemeBlock({
 					titleName: 'Лабораторні:',
 					lessonTypeName: LessonTypesName.laboratory,
-					themeId: theme.id
+					themeId: theme.id,
+					semesterEducationalForms: theme.semesterEducationalForms
 				})
 			}
 		});

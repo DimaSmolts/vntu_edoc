@@ -42,4 +42,13 @@ class ModuleApiController
 
 		$this->moduleService->updateModule($id, $field, $value);
 	}
+
+	public function deleteModule()
+	{
+		header('Content-Type: application/json');
+
+		$id = $_GET['id'];
+
+		$this->moduleService->deleteModule($id);
+	}
 }

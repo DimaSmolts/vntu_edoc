@@ -41,7 +41,14 @@ class SemesterApiController
 		$value = $data['value'];
 
 		$this->semesterService->updateSemester($id, $field, $value);
+	}
 
-		exit();
+	public function deleteSemester()
+	{
+		header('Content-Type: application/json');
+
+		$id = $_GET['id'];
+
+		$this->semesterService->deleteSemester($id);
 	}
 }

@@ -34,4 +34,15 @@ class SemesterService
 			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
+
+	public function deleteSemester($id)
+	{
+		$deleted = Capsule::table('educationalDisciplineSemester')->where('id', $id)->delete();
+
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Semester deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Semester not found or delete failed']);
+		}
+	}
 }

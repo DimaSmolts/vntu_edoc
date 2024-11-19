@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-require_once __DIR__ . '/DBEducationFormLessonHoursModel.php';
+require_once __DIR__ . '/DBEducationalFormLessonHoursModel.php';
 require_once __DIR__ . '/DBLessonTypeModel.php';
 
-use App\Models\DBEducationFormLessonHoursModel;
+use App\Models\DBEducationalFormLessonHoursModel;
 use App\Models\DBLessonTypeModel;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,24 +17,21 @@ class DBLessonThemeModel extends Model
 
 	public $timestamps = false;
 
-	public function educationFormLessonHoursFulltime()
+	public function educationalFormLessonHours()
 	{
-		return $this->hasMany(DBEducationFormLessonHoursModel::class, 'lessonThemeId')
-			->whereHas('educationalForm', function ($query) {
-				$query->where('name', 'fulltime');
-			});
+		return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId');
 	}
 
-	public function educationFormLessonHoursCorrespondence()
-	{
-		return $this->hasMany(DBEducationFormLessonHoursModel::class, 'lessonThemeId')
-			->whereHas('educationalForm', function ($query) {
-				$query->where('name', 'correspondence');
-			});
-	}
+	// public function educationalFormLessonHoursCorrespondence()
+	// {
+	// 	return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId')
+	// 		->whereHas('educationalForm', function ($query) {
+	// 			$query->where('name', 'correspondence');
+	// 		});
+	// }
 
 	public function lessonType()
-    {
-        return $this->belongsTo(DBLessonTypeModel::class, 'lessonTypeId');
-    }
+	{
+		return $this->belongsTo(DBLessonTypeModel::class, 'lessonTypeId');
+	}
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class WPInvolvedPersonService
 {
-
 	public function updateWorkingProgramInvolvedPerson($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId)
 	{
 		Capsule::table('workingProgramInvolvedPersons')

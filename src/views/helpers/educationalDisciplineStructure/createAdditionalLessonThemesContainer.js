@@ -8,21 +8,24 @@ const createAdditionalLessonThemesContainer = (theme) => {
 		titleName: 'Практичні:',
 		lessons: theme.practicals,
 		lessonTypeName: LessonTypesName.practical,
-		themeId: theme.id
+		themeId: theme.id,
+		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
 	const seminarsLessonThemesBlock = createLessonsBlockWithContainer({
 		titleName: 'Семінари:',
 		lessons: theme.seminars,
 		lessonTypeName: LessonTypesName.seminar,
-		themeId: theme.id
+		themeId: theme.id,
+		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
 	const labsLessonThemesBlock = createLessonsBlockWithContainer({
 		titleName: 'Лабораторні:',
 		lessons: theme.labs,
 		lessonTypeName: LessonTypesName.laboratory,
-		themeId: theme.id
+		themeId: theme.id,
+		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
 	additionalLessonThemesBlock.appendChild(practicalsLessonThemesBlock);

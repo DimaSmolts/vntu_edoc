@@ -8,7 +8,7 @@ use App\Models\DBLessonTypeModel;
 
 class LessonTypeService
 {
-	public function getLessonTypes(): array
+	public function getLessonTypes()
 	{
 		$types = DBLessonTypeModel::select(['id', 'name'])
 			->get();

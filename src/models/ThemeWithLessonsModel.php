@@ -12,6 +12,7 @@ class ThemeWithLessonsModel
 	public array $seminars = [];
 	public array $labs = [];
 	public array $selfworks = [];
+	public array $semesterEducationalForms = [];
 
 	public function __construct(
 		int $id,
@@ -21,7 +22,8 @@ class ThemeWithLessonsModel
 		array $practicals = [],
 		array $seminars = [],
 		array $labs = [],
-		array $selfworks = []
+		array $selfworks = [],
+		array $semesterEducationalForms = [],
 	) {
 		$this->id = $id;
 		$this->name = $name;
@@ -31,5 +33,6 @@ class ThemeWithLessonsModel
 		$this->seminars = $seminars;
 		$this->labs = $labs;
 		$this->selfworks = $selfworks;
+		$this->semesterEducationalForms = $semesterEducationalForms;
 	}
 }

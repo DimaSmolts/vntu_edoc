@@ -1,4 +1,4 @@
-const createNewLessonTheme = async ({themeId, lessonTypeName}) => {
+const createNewLessonTheme = async ({themeId, lessonTypeName, semesterEducationalForms}) => {
     const postData = {
         themeId,
         lessonTypeName
@@ -14,9 +14,9 @@ const createNewLessonTheme = async ({themeId, lessonTypeName}) => {
 
     const data = await response.json();
 
-	console.log({ data })
     return createLessonsBlock({
         lessonTypeName,
-        lessonThemeId: data.id
+        lessonThemeId: data.id,
+        semesterEducationalForms
     });
 }

@@ -15,6 +15,7 @@ require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
 require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
 require_once __DIR__ . '/src/controllers/api/LessonThemeApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
+require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -26,6 +27,7 @@ use App\Controllers\ModuleApiController;
 use App\Controllers\ThemeApiController;
 use App\Controllers\LessonThemeApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
+use App\Controllers\SemesterEducationFormApiController;
 
 $router = new Router();
 
@@ -107,6 +109,31 @@ $router->post('/updateLessonTheme', function () {
 $router->post('/updateHours', function () {
 	$educationalFormLessonHoursApiController = new EducationalFormLessonHoursApiController();
 	$educationalFormLessonHoursApiController->updateEducationalFormLessonHours();
+});
+
+$router->post('/createSemesterEducationForm', function () {
+	$semesterEducationFormApiController = new SemesterEducationFormApiController();
+	$semesterEducationFormApiController->createSemesterEducationForm();
+});
+
+$router->delete('/deleteTheme', function () {
+	$themeApiController = new ThemeApiController();
+	$themeApiController->deleteTheme();
+});
+
+$router->delete('/deleteModule', function () {
+	$moduleApiController = new ModuleApiController();
+	$moduleApiController->deleteModule();
+});
+
+$router->delete('/deleteSemester', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->deleteSemester();
+});
+
+$router->delete('/deleteSemesterEducationForm', function () {
+	$semesterEducationFormApiController = new SemesterEducationFormApiController();
+	$semesterEducationFormApiController->deleteSemesterEducationForm();
 });
 
 $router->run();

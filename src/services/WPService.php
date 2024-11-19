@@ -61,11 +61,12 @@ class WPService
 			},
 			'createdByPersons' => function ($query) {
 				$query->with(['person', 'involvedRole']);
-			}
+			},
+			'semesters.educationalForms.educationalForm'
 		])
 			->where('id', $id)
 			->get();
 
-		return $wps[0];
+		return $wps->first();
 	}
 }

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-require_once __DIR__ . '/DBEducationFormLessonHoursModel.php';
+require_once __DIR__ . '/DBEducationalFormLessonHoursModel.php';
 
-use App\Models\DBEducationFormLessonHoursModel;
+use App\Models\DBEducationalFormLessonHoursModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +15,8 @@ class DBEducationalFormModel extends Model
 
 	public $timestamps = false;
 
-	public function educationFormLessonHours()
+	public function educationalFormLessonHours()
 	{
-		return $this->hasMany(DBEducationFormLessonHoursModel::class, 'educationalFormId');
+		return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'educationalFormId');
 	}
 }

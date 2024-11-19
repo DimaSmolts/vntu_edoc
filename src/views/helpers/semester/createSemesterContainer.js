@@ -1,6 +1,10 @@
 const createSemesterContainer = (semesterId) => {
 	const semestersContainer = document.getElementById('semestersContainer');
 
+	const semesterBlock = createElement({ elementName: "div", id: `semesterBlock${semesterId}`, classList: ["mini-block"] });
+
+	const titleContainer = createElement({ elementName: "div", classList: ["semester-title-container"] });
+
 	const semesterTitle = createElement({
 		elementName: "p",
 		id: `semesterTitle${semesterId}`,
@@ -8,7 +12,18 @@ const createSemesterContainer = (semesterId) => {
 		classList: ['mini-block-title']
 	});
 
-	console.log(semesterTitle);
+	const removeSemesterBtn = createElement({
+		elementName: "button",
+		innerText: "Видалити семестр",
+		classList: ["btn"],
+		eventListenerType: 'click',
+		eventListener: (event) => {
+			deleteSemester(event, semesterId);
+		}
+	});
+
+	titleContainer.appendChild(semesterTitle);
+	titleContainer.appendChild(removeSemesterBtn);
 
 	const semesterDataBlock = createElement({ elementName: "div", classList: ['semester-data-block'] });
 
@@ -48,7 +63,9 @@ const createSemesterContainer = (semesterId) => {
 	semesterDataBlock.appendChild(semesterNumberLabel)
 	semesterDataBlock.appendChild(examTypeLabel)
 
-	semestersContainer.appendChild(semesterTitle);
-	semestersContainer.appendChild(semesterDataBlock);
-	semestersContainer.appendChild(modulesContainer);
+	semesterBlock.appendChild(semesterTitle);
+	semesterBlock.appendChild(semesterDataBlock);
+	semesterBlock.appendChild(modulesContainer);
+
+	semestersContainer.appendChild(semesterBlock);
 }

@@ -5,12 +5,15 @@ require_once __DIR__ . '/../../models/SemesterModel.php';
 require_once __DIR__ . '/../../models/ModuleModel.php';
 require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
+require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
+require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 
 use App\Models\WPDetailsModel;
 use App\Models\SemesterModel;
 use App\Models\ModuleModel;
 use App\Models\ThemeModel;
 use App\Models\WPInvolvedPersonModel;
+use App\Models\SemesterEducationalFormModel;
 
 function getFullFormattedWorkingProgramData($workingProgramData)
 {
@@ -56,12 +59,23 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			);
 		})->toArray();
 
+		$educationalForms = $semester->educationalForms->map(function ($educationalForm) {
+			return new SemesterEducationalFormModel(
+				$educationalForm->id,
+				$educationalForm->educationalDisciplineSemesterId,
+				$educationalForm->educationalFormId,
+				$educationalForm->educationalForm->name,
+				getEducationalFormVisualName($educationalForm->educationalForm->name)
+			);
+		})->toArray();
+
 		return new SemesterModel(
 			$semester->id,
 			$semester->semesterNumber,
 			$semester->examType,
 			$modules,
-			$semester->courseWork
+			$semester->courseWork,
+			$educationalForms
 		);
 	})->toArray();
 

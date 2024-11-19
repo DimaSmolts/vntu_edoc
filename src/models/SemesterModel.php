@@ -9,18 +9,21 @@ class SemesterModel
 	public ?string $examType;
 	public array $modules;
 	public ?int $courseWork;
+	public array $educationalForms;
 
 	public function __construct(
 		$id,
 		?int $semesterNumber = null,
 		?string $examType = '',
 		$modules = [],
-		?int $courseWork = null
+		?int $courseWork = null,
+		$educationalForms = [],
 	) {
 		$this->id = $id;
 		$this->semesterNumber = $semesterNumber;
 		$this->examType = $examType;
 		$this->modules = $modules;
 		$this->courseWork = $courseWork;
+		$this->educationalForms = $educationalForms;
 	}
 }

@@ -1,5 +1,5 @@
 const createModuleBlock = (moduleId) => {
-	const moduleContainer = createElement({ elementName: "div", classList: ["mini-block"] });
+	const moduleContainer = createElement({ elementName: "div", id: `moduleBlock${moduleId}`, classList: ["mini-block"] });
 
 	const titleContainer = createElement({ elementName: "div", classList: ["module-title-container"] });
 
@@ -15,8 +15,8 @@ const createModuleBlock = (moduleId) => {
 		innerText: "Видалити модуль",
 		classList: ["btn"],
 		eventListenerType: 'click',
-		eventListener: () => {
-			moduleContainer.remove();
+		eventListener: (event) => {
+			deleteModule(event, moduleId);
 		}
 	});
 

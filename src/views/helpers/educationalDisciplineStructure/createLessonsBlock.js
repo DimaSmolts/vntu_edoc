@@ -1,4 +1,4 @@
-const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId }) => {
+const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId, semesterEducationalForms }) => {
 	const block = createElement({
 		elementName: "div",
 		id: `${lessonTypeName}Block${lessonThemeId}`,
@@ -25,19 +25,40 @@ const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId }) => {
 		}
 	});
 
-	const lessonHoursLabel = createLabelWithInput({
-		labelText: 'Кількість годин:',
-		inputType: 'number',
-		inputName: 'hours',
-		value: lesson?.fullTime ? lesson.fullTime : null,
-		eventListener: (event) => {
-			updateHours(event, lessonThemeId, 1)
-		}
-	});
+	const lessonHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
+
+	const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин:' });
+
+	lessonHoursBlock.appendChild(selfworkHoursBlockTitle);
+
+	semesterEducationalForms.forEach(form => {
+		const hoursLabel = createLabelWithInput({
+			labelText: `${form.name}:`,
+			inputType: 'number',
+			inputName: 'hours',
+			value: getHours([lesson], form.colName) ?? '',
+			eventListener: (event) => {
+				updateHours(event, lessonThemeId, form.educationalFormId)
+			}
+		});
+		lessonHoursBlock.appendChild(hoursLabel);
+	})
+
+
+	// const lessonHoursLabel = createLabelWithInput({
+	// 	labelText: 'Кількість годин:',
+	// 	inputType: 'number',
+	// 	inputName: 'hours',
+	// 	value: lesson?.fullTime ? lesson.fullTime : null,
+	// 	eventListener: (event) => {
+	// 		updateHours(event, lessonThemeId, 1)
+	// 	}
+	// });
 
 	block.appendChild(lessonNumberLabel);
 	block.appendChild(lessonThemeNameLabel);
-	block.appendChild(lessonHoursLabel);
+	block.appendChild(lessonHoursBlock);
+	// block.appendChild(lessonHoursLabel);
 
 	return block;
 }
@@ -48,7 +69,7 @@ const createLessonsBlockTitle = ({ titleName }) => {
 	return title;
 }
 
-const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, themeId }) => {
+const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, themeId, semesterEducationalForms }) => {
 	const container = createElement({ elementName: "div", id: `${lessonTypeName}Container${themeId}` });
 
 	if (lessons.length !== 0) {
@@ -57,7 +78,7 @@ const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, t
 		container.appendChild(title);
 
 		lessons.forEach(lesson => {
-			const block = createLessonsBlock({ lesson, lessonTypeName, lessonThemeId: lesson.lessonThemeId });
+			const block = createLessonsBlock({ lesson, lessonTypeName, lessonThemeId: lesson.lessonThemeId, semesterEducationalForms });
 
 			container.appendChild(block);
 		})

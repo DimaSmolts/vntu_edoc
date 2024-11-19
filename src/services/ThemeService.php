@@ -12,19 +12,14 @@ class ThemeService
 	public function getThemesWithLessonThemesByWPId($wpId)
 	{
 		$themes = DBThemeModel::with([
-			'lections.educationFormLessonHoursFulltime',
-			'lections.educationFormLessonHoursCorrespondence',
-			'labs.educationFormLessonHoursFulltime',
-			'labs.educationFormLessonHoursCorrespondence',
-			'practicals.educationFormLessonHoursFulltime',
-			'practicals.educationFormLessonHoursCorrespondence',
-			'seminars.educationFormLessonHoursFulltime',
-			'seminars.educationFormLessonHoursCorrespondence',
-			'selfworks.educationFormLessonHoursFulltime',
-			'selfworks.educationFormLessonHoursCorrespondence'
+			'lections.educationalFormLessonHours.educationalForm',
+			'labs.educationalFormLessonHours.educationalForm',
+			'practicals.educationalFormLessonHours.educationalForm',
+			'seminars.educationalFormLessonHours.educationalForm',
+			'selfworks.educationalFormLessonHours.educationalForm',
+			'module.semester.educationalForms.educationalForm'
 		])
 			->whereHas('module.semester', function ($query) use ($wpId) {
-				// Filter by semester ID
 				$query->where('educationalDisciplineWPId', $wpId);
 			})
 			->get();
@@ -64,6 +59,19 @@ class ThemeService
 			echo json_encode(['status' => 'success', 'message' => 'Theme updated successfully']);
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
+		}
+	}
+
+	public function deleteTheme($id)
+	{
+		// Use Capsule to delete the theme by ID
+		$deleted = Capsule::table('themes')->where('id', $id)->delete();
+
+		// Check if any row was deleted
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Theme deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Theme not found or delete failed']);
 		}
 	}
 }
