@@ -5,31 +5,27 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/src/controllers/WPController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
 require_once __DIR__ . '/src/controllers/api/WPApiController.php';
-require_once __DIR__ . '/src/controllers/api/PersonApiController.php';
+require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
 require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
 require_once __DIR__ . '/src/controllers/api/LessonThemeApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 
-use Dotenv\Dotenv;
 use Bramus\Router\Router;
 use App\Controllers\WPController;
 use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
-use App\Controllers\PersonApiController;
+use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
 use App\Controllers\ThemeApiController;
 use App\Controllers\LessonThemeApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
-
-// Load the .env file
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 $router = new Router();
 
@@ -53,7 +49,7 @@ $router->get('/getThemes', function () {
 	$themeApiController->getThemesWithLessonThemesByWPId();
 });
 
-$router->post('/saveNewWP', function () {
+$router->post('/createNewWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->createNewWP();
 });
@@ -64,8 +60,8 @@ $router->post('/updateWPDetails', function () {
 });
 
 $router->post('/updateWPInvolvedPerson', function () {
-	$personApiController = new PersonApiController();
-	$personApiController->updateWorkingProgramInvolvedPerson();
+	$involvedPersonApiController = new WPInvolvedPersonApiController();
+	$involvedPersonApiController->updateWorkingProgramInvolvedPerson();
 });
 
 $router->post('/createNewSemester', function () {

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../services/WP.php';
+require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/PersonService.php';
 require_once __DIR__ . '/../services/SemesterService.php';
 require_once __DIR__ . '/../services/ModuleService.php';
@@ -93,75 +93,60 @@ class PDFController
 
 		$wpId = $_GET['id'];
 
+		$wpId = $_GET['id'];
+
 		$rawDetails = $this->wpService->getWPDetails($wpId);
 
-		$details = new WPDetailsModel(
-			$rawDetails['id'],
-			$rawDetails['regularYear'],
-			$rawDetails['academicYear'],
-			$rawDetails['facultyName'],
-			$rawDetails['departmentName'],
-			$rawDetails['disciplineName'],
-			$rawDetails['degreeName'],
-			$rawDetails['fielfOfStudyIdx'],
-			$rawDetails['fielfOfStudyName'],
-			$rawDetails['specialtyIdx'],
-			$rawDetails['specialtyName'],
-			$rawDetails['educationalProgram'],
-			$rawDetails['notes'],
-			$rawDetails['language'],
-			$rawDetails['prerequisites'],
-			$rawDetails['goal'],
-			$rawDetails['tasks'],
-			$rawDetails['competences'],
-			$rawDetails['programResults'],
-			$rawDetails['controlMeasures']
-		);
+		$details = getFullFormattedWorkingProgramData($rawDetails);
 
 		$rawPersons = $this->personService->getPersons();
 
-		$persons = [];
+		$persons = getFormattedPersonsData($rawPersons);
 
-		foreach ($rawPersons as $rawPerson) {
-			$persons[] = new PersonModel(
-				$rawPerson['id'],
-				$rawPerson['surname'],
-				$rawPerson['name'],
-				$rawPerson['patronymicName'],
-				$rawPerson['degree']
-			);
-		}
+		// $rawPersons = $this->personService->getPersons();
 
-		$rawWpInvolvedPersons = $this->personService->getWorkingProgramInvolvedPersons($wpId);
+		// $persons = [];
 
-		$wpInvolvedPersons = [];
+		// foreach ($rawPersons as $rawPerson) {
+		// 	$persons[] = new PersonModel(
+		// 		$rawPerson['id'],
+		// 		$rawPerson['surname'],
+		// 		$rawPerson['name'],
+		// 		$rawPerson['patronymicName'],
+		// 		$rawPerson['degree']
+		// 	);
+		// }
 
-		foreach ($rawWpInvolvedPersons as $rawWpInvolvedPerson) {
-			$wpInvolvedPersons[] = new WPInvolvedPersonModel(
-				$rawWpInvolvedPerson['workingProgramInvolvedPersonsId'],
-				$rawWpInvolvedPerson['personId'],
-				$rawWpInvolvedPerson['role']
-			);
-		}
-		$rawSemestersData = $this->semesterService->getSemestersByWPId($wpId);
+		// $rawWpInvolvedPersons = $this->personService->getWorkingProgramInvolvedPersons($wpId);
 
-		$semestersData = $this->formatSemesterData($rawSemestersData);
+		// $wpInvolvedPersons = [];
 
-		$modulesAmount = 0;
+		// foreach ($rawWpInvolvedPersons as $rawWpInvolvedPerson) {
+		// 	$wpInvolvedPersons[] = new WPInvolvedPersonModel(
+		// 		$rawWpInvolvedPerson['workingProgramInvolvedPersonsId'],
+		// 		$rawWpInvolvedPerson['personId'],
+		// 		$rawWpInvolvedPerson['role']
+		// 	);
+		// }
+		// $rawSemestersData = $this->semesterService->getSemestersByWPId($wpId);
 
-		foreach ($semestersData as $semester) {
-			$modulesAmount += $semester["moduleAmount"];
-		}
+		// $semestersData = $this->formatSemesterData($rawSemestersData);
 
-		$filteredCreatedBy = array_filter($wpInvolvedPersons, function ($person) {
-			return $person->involvedPersonRoleId === 'Розроблено';
-		});
+		// $modulesAmount = 0;
 
-		$createdBy = reset($filteredCreatedBy);
+		// foreach ($semestersData as $semester) {
+		// 	$modulesAmount += $semester["moduleAmount"];
+		// }
 
-		$createdByPerson = array_filter($persons, function ($person) use ($createdBy) {
-			return $person->id === $createdBy->involvedPersonId;
-		});
+		// $filteredCreatedBy = array_filter($wpInvolvedPersons, function ($person) {
+		// 	return $person->involvedPersonRoleId === 'Розроблено';
+		// });
+
+		// $createdBy = reset($filteredCreatedBy);
+
+		// $createdByPerson = array_filter($persons, function ($person) use ($createdBy) {
+		// 	return $person->id === $createdBy->involvedPersonId;
+		// });
 
 		require __DIR__ . '/../views/pages/pdf.php';
 	}

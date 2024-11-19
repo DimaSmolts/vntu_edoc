@@ -8,12 +8,12 @@ $title = "Затверження робочої програми навчаль�
     <div class="mini-block">
         <p class="mini-block-title">Розроблено:</p>
         <div class="micro-block">
-            <?php if (isset($createdBy->workingProgramInvolvedPersonsId)): ?>
+            <?php if (!empty($details->createdByPersons)): ?>
                 <select
                     id="teacherDropdown"
-                    onchange="selectCreatedBy(<?= htmlspecialchars($createdBy->workingProgramInvolvedPersonsId) ?>, value, <?= htmlspecialchars($details->id) ?>)">
+                    onchange="selectCreatedBy(<?= htmlspecialchars($details->createdByPersons[0]->id) ?>, value, <?= htmlspecialchars($details->id) ?>)">
                     <?php foreach ($persons as $person): ?>
-                        <option value="<?= htmlspecialchars($person->id) ?>" <?php if ($person->id == $createdBy->involvedPersonId): ?>selected<?php endif; ?>>
+                        <option value="<?= htmlspecialchars($person->id) ?>" <?php if ($person->id == $details->createdByPersons[0]->involvedPersonId): ?>selected<?php endif; ?>>
                             <?= htmlspecialchars($person->surname) ?> <?= htmlspecialchars($person->name) ?> <?= htmlspecialchars($person->patronymicName) ?>, <?= htmlspecialchars($person->degree) ?>
                         </option>
                     <?php endforeach; ?>

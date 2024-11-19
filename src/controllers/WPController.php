@@ -2,24 +2,18 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../services/WP.php';
+require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/PersonService.php';
 require_once __DIR__ . '/../services/SemesterService.php';
 require_once __DIR__ . '/../services/ModuleService.php';
-require_once __DIR__ . '/../models/PersonModel.php';
-require_once __DIR__ . '/../models/WPInvolvedPersonModel.php';
-require_once __DIR__ . '/../models/WPListItemModel.php';
-require_once __DIR__ . '/../models/WPDetailsModel.php';
-require_once __DIR__ . '/../helpers/getFullFormattedSemestersData.php';
+require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramData.php';
+require_once __DIR__ . '/../helpers/formatters/getFormattedWPListData.php';
+require_once __DIR__ . '/../helpers/formatters/getFormattedPersonsData.php';
 
 use App\Services\WPService;
 use App\Services\PersonService;
 use App\Services\SemesterService;
 use App\Services\ModuleService;
-use App\Models\PersonModel;
-use App\Models\WPInvolvedPersonModel;
-use App\Models\WPListItemModel;
-use App\Models\WPDetailsModel;
 
 class WPController
 {
@@ -41,15 +35,9 @@ class WPController
 		header('Content-Type: text/html');
 
 		$rawItems = $this->wpService->getWPList();
-		$items = [];
 
-		foreach ($rawItems as $rawItem) {
-			$items[] = new WPListItemModel(
-				$rawItem['id'],
-				$rawItem['disciplineName'],
-				$rawItem['createdAt']
-			);
-		}
+		$items = getFormattedWPListData($rawItems);
+
 		$showReturnBtn = false;
 		require __DIR__ . '/../views/pages/wpListPage.php';
 	}
@@ -62,64 +50,12 @@ class WPController
 
 		$rawDetails = $this->wpService->getWPDetails($wpId);
 
-		$details = new WPDetailsModel(
-			$rawDetails['id'],
-			$rawDetails['regularYear'],
-			$rawDetails['academicYear'],
-			$rawDetails['facultyName'],
-			$rawDetails['departmentName'],
-			$rawDetails['disciplineName'],
-			$rawDetails['degreeName'],
-			$rawDetails['fielfOfStudyIdx'],
-			$rawDetails['fielfOfStudyName'],
-			$rawDetails['specialtyIdx'],
-			$rawDetails['specialtyName'],
-			$rawDetails['educationalProgram'],
-			$rawDetails['notes'],
-			$rawDetails['language'],
-			$rawDetails['prerequisites'],
-			$rawDetails['goal'],
-			$rawDetails['tasks'],
-			$rawDetails['competences'],
-			$rawDetails['programResults'],
-			$rawDetails['controlMeasures']
-		);
+		$details = getFullFormattedWorkingProgramData($rawDetails);
 
 		$rawPersons = $this->personService->getPersons();
 
-		$persons = [];
+		$persons = getFormattedPersonsData($rawPersons);
 
-		foreach ($rawPersons as $rawPerson) {
-			$persons[] = new PersonModel(
-				$rawPerson['id'],
-				$rawPerson['surname'],
-				$rawPerson['name'],
-				$rawPerson['patronymicName'],
-				$rawPerson['degree']
-			);
-		}
-
-		$rawWpInvolvedPersons = $this->personService->getWorkingProgramInvolvedPersons($wpId);
-
-		$wpInvolvedPersons = [];
-
-		foreach ($rawWpInvolvedPersons as $rawWpInvolvedPerson) {
-			$wpInvolvedPersons[] = new WPInvolvedPersonModel(
-				$rawWpInvolvedPerson['workingProgramInvolvedPersonsId'],
-				$rawWpInvolvedPerson['personId'],
-				$rawWpInvolvedPerson['role']
-			);
-		}
-
-		$rawSemestersData = $this->semesterService->getSemestersByWPId($wpId);
-
-		$semestersData = getFullFormattedSemestersData($rawSemestersData);
-
-		$filteredCreatedBy = array_filter($wpInvolvedPersons, function ($persons) {
-			return $persons->involvedPersonRoleId === 'Розроблено';
-		});
-
-		$createdBy = reset($filteredCreatedBy);
 		$showReturnBtn = true;
 		require __DIR__ . '/../views/pages/wpDetailsPage.php';
 	}

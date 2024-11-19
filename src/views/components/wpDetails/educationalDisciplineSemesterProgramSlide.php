@@ -6,8 +6,8 @@ $title = "Програма навчальної дисципліни";
 
 <div id="educationalDisciplineSemesterProgram" class="wp-form">
 	<div id="semestersContainer">
-		<?php if (!empty($semestersData)): ?>
-			<?php foreach ($semestersData as $semesterData): ?>
+		<?php if (!empty($details->semesters)): ?>
+			<?php foreach ($details->semesters as $semesterData): ?>
 				<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class=" mini-block-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 				<div class="semester-data-block">
 					<label>
@@ -23,7 +23,7 @@ $title = "Програма навчальної дисципліни";
 						<input
 							type="text"
 							name="examType"
-							value="<?= htmlspecialchars($semesterData->examType) ?>"
+							value="<?= $semesterData->examType ? htmlspecialchars($semesterData->examType) : "" ?>"
 							oninput="updateSemesterInfo(event, <?= htmlspecialchars($semesterData->id) ?>)">
 					</label>
 				</div>

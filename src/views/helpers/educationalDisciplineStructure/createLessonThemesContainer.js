@@ -19,9 +19,9 @@ const createLessonThemesContainer = (themes) => {
 			labelText: 'Кількість годин лекцій:',
 			inputType: 'number',
 			inputName: 'hours',
-			value: theme.lections[0].fullTime,
+			value: theme.lections[0]?.fullTime ?? '',
 			eventListener: (event) => {
-				updateHours(event, lessonThemeId, 1)
+				updateHours(event, theme.id, 1)
 			}
 		});
 
@@ -29,9 +29,9 @@ const createLessonThemesContainer = (themes) => {
 			labelText: 'Кількість годин самостійної роботи:',
 			inputType: 'number',
 			inputName: 'hours',
-			value: theme.selfworks[0].fullTime,
+			value: theme.lections[0]?.fullTime ?? '',
 			eventListener: (event) => {
-				updateHours(event, lessonThemeId, 1)
+				updateHours(event, theme.id, 1)
 			}
 		});
 

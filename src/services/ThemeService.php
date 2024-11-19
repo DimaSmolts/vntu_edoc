@@ -2,85 +2,68 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../models/DBThemeModel.php';
+
+use App\Models\DBThemeModel;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ThemeService
 {
-	private function getLink()
+	public function getThemesWithLessonThemesByWPId($wpId)
 	{
-		$config = getDatabaseConfig();
-		try {
-			$link = @mysqli_connect($config->servername, $config->username, $config->password, $config->dbname);
-			if (!$link) {
-				echo json_encode(['status' => 'error2', 'message' => 'Connection error: ']);
-			}
-		} catch (\Exception $error) {
-			echo json_encode(['status' => 'error3', 'message' => $error->getMessage()]);
-		}
+		$themes = DBThemeModel::with([
+			'lections.educationFormLessonHoursFulltime',
+			'lections.educationFormLessonHoursCorrespondence',
+			'labs.educationFormLessonHoursFulltime',
+			'labs.educationFormLessonHoursCorrespondence',
+			'practicals.educationFormLessonHoursFulltime',
+			'practicals.educationFormLessonHoursCorrespondence',
+			'seminars.educationFormLessonHoursFulltime',
+			'seminars.educationFormLessonHoursCorrespondence',
+			'selfworks.educationFormLessonHoursFulltime',
+			'selfworks.educationFormLessonHoursCorrespondence'
+		])
+			->whereHas('module.semester', function ($query) use ($wpId) {
+				// Filter by semester ID
+				$query->where('educationalDisciplineWPId', $wpId);
+			})
+			->get();
 
-		return $link;
-	}
-
-	public function getThemesWithLessonThemesByWPId($wpId): array
-	{
-		$link = $this->getLink();
-
-		$sql = "SELECT
-					`themes`.*,
-                    lessonThemes.id as lessonThemeId,
-                    lessonThemes.lessonTypeId as lessonTypeId,
-                    lessonTypes.name as lessonTypeName,
-                    lessonThemes.name as lessonThemeName,
-                    lessonThemes.lessonThemeNumber as lessonThemeNumber,
-                    educationFormLessonHours.educationalFormId as educationalFormId,
-                    educationFormLessonHours.hours as hours,
-                    educationalForm.name as educationalFormName
-				FROM
-					educationalDisciplineSemester
-				LEFT JOIN
-					modules ON educationalDisciplineSemester.id = modules.educationalDisciplineSemesterId
-				LEFT JOIN
-					themes ON modules.id = themes.moduleId
-				LEFT JOIN
-					lessonThemes ON lessonThemes.themeId = themes.id
-				LEFT JOIN
-					lessonTypes ON lessonTypes.id = lessonThemes.lessonTypeId
-				LEFT JOIN
-					educationFormLessonHours ON educationFormLessonHours.lessonThemeId = lessonThemes.id
-                LEFT JOIN
-					educationalForm ON educationalForm.id = educationFormLessonHours.educationalFormId
-				WHERE educationalDisciplineSemester.educationalDisciplineWPId = $wpId
-				ORDER BY
-					themes.themeNumber, lessonThemes.lessonThemeNumber;";
-
-		$result = $link->query($sql);
-
-		return $result->fetch_all(MYSQLI_ASSOC);
+		return $themes;
 	}
 
 	public function createNewTheme($moduleId): int
 	{
-		$link = $this->getLink();
+		// Use the query builder instead of Eloquent's save() method
+		$themeId = Capsule::table('themes')->insertGetId([
+			'moduleId' => $moduleId
+		]);
 
-		$sql = "INSERT INTO `themes`(`moduleId`) VALUES ($moduleId)";
-
-		$link->query($sql);
-
-		$lastInsertId = $link->insert_id;
-
-		return $lastInsertId;
+		return $themeId;  // Return the last inserted ID
 	}
 
 	public function updateTheme($id, $field, $value)
 	{
-		$link = $this->getLink();
+		// Find the theme by ID using Capsule's query builder
+		$theme = Capsule::table('themes')->where('id', $id)->first();
 
-		$sql = "UPDATE themes SET $field = '$value' WHERE id = $id;";
+		// Check if the theme exists
+		if (!$theme) {
+			// Return an error message if the theme is not found
+			echo json_encode(['status' => 'error', 'message' => 'Theme not found']);
+			return;
+		}
 
-		$link->query($sql);
+		// Update the specified field with the new value using Capsule's update method
+		$updated = Capsule::table('themes')
+			->where('id', $id)
+			->update([$field => $value]);
 
-		if ($link->affected_rows === 0) {
-			echo json_encode(['status' => 'error', 'message' => 'Update failed or no changes made']);
+		// Check if the update was successful
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Theme updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
 }

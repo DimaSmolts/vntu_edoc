@@ -2,48 +2,37 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../config.php';
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class LessonThemeService
 {
-	private function getLink()
-	{
-		$config = getDatabaseConfig();
-		try {
-			$link = @mysqli_connect($config->servername, $config->username, $config->password, $config->dbname);
-			if (!$link) {
-				echo json_encode(['status' => 'error2', 'message' => 'Connection error: ']);
-			}
-		} catch (\Exception $error) {
-			echo json_encode(['status' => 'error3', 'message' => $error->getMessage()]);
-		}
-
-		return $link;
-	}
-
 	public function createNewLessonTheme($themeId, $lessonTypeId): int
 	{
-		$link = $this->getLink();
+		$lessonThemeId = Capsule::table('lessonThemes')->insertGetId([
+			'themeId' => $themeId,
+			'lessonTypeId' => $lessonTypeId
+		]);
 
-		$sql = "INSERT INTO `lessonThemes`(`themeId`, `lessonTypeId`) VALUES ($themeId, $lessonTypeId)";
-
-		$link->query($sql);
-
-		$lastInsertId = $link->insert_id;
-
-		return $lastInsertId;
+		return $lessonThemeId;
 	}
 
 	public function updateLessonTheme($id, $field, $value)
 	{
-		$link = $this->getLink();
+		$lessonTheme = Capsule::table('lessonThemes')->where('id', $id)->first();
 
-		$sql = "UPDATE `lessonThemes` SET $field = '$value' WHERE id = $id;";
+		if (!$lessonTheme) {
+			echo json_encode(['status' => 'error', 'message' => 'Lesson theme not found']);
+			return;
+		}
 
-		$link->query($sql);
+		$updated = Capsule::table('lessonThemes')
+			->where('id', $id)
+			->update([$field => $value]);
 
-		if ($link->affected_rows === 0) {
-			echo json_encode(['status' => 'error', 'message' => 'Update failed or no changes made']);
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Lesson theme updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
 }

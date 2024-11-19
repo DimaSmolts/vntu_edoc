@@ -2,73 +2,70 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../models/DBEducationalDisciplineWorkingProgramModel.php';
+
+use App\Models\DBEducationalDisciplineWorkingProgramModel;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class WPService
 {
-	private function getLink()
+	public function getWPList()
 	{
-		$config = getDatabaseConfig();
-		try {
-			$link = @mysqli_connect($config->servername, $config->username, $config->password, $config->dbname);
-			if (!$link) {
-				echo json_encode(['status' => 'error2', 'message' => 'Connection error: ']);
-			}
-		} catch (\Exception $error) {
-			echo json_encode(['status' => 'error3', 'message' => $error->getMessage()]);
-		}
+		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'createdAt'])
+			->orderBy('createdAt')
+			->get();
 
-		return $link;
+		return $workingPrograms;
 	}
 
-	public function getWPList(): array
+	public function createNewWP($disciplineName)
 	{
-		$link = $this->getLink();
+		$wpId = Capsule::table('educationalDisciplineWorkingProgram')->insertGetId([
+			'disciplineName' => $disciplineName
+		]);
 
-		$sql = "SELECT id, disciplineName, createdAt FROM educationalDisciplineWorkingProgram";
-		$result = $link->query($sql);
-
-		return $result->fetch_all(MYSQLI_ASSOC);
+		return $wpId;
 	}
 
 	public function updateWPDetails($id, $field, $value)
 	{
-		$link = $this->getLink();
+		$wpDetails = Capsule::table('educationalDisciplineWorkingProgram')->where('id', $id)->first();
 
-		$sql = "UPDATE educationalDisciplineWorkingProgram SET $field = '$value' WHERE id = $id;";
-
-		$link->query($sql);
-
-		if ($link->affected_rows === 0) {
-			echo json_encode(['status' => 'error', 'message' => 'Update failed or no changes made']);
+		if (!$wpDetails) {
+			echo json_encode(['status' => 'error', 'message' => 'WP not found']);
+			return;
 		}
-	}
 
-	public function createNewWP()
-	{
-		$link = $this->getLink();
+		$updated = Capsule::table('educationalDisciplineWorkingProgram')
+			->where('id', $id)
+			->update([$field => $value]);
 
-		$disciplineName = $_POST['disciplineName'] ?? null;
-
-		$sql = "INSERT INTO educationalDisciplineWorkingProgram (disciplineName) VALUES ('$disciplineName');";
-
-		$link->query($sql);
-
-		$lastInsertId = $link->insert_id;
-
-		return $lastInsertId;
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'WP details updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
+		}
 	}
 
 	public function getWPDetails($id)
 	{
-		$link = $this->getLink();
+		$wps = DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters' => function ($query) {
+				$query->orderBy('semesterNumber');
+			},
+			'semesters.modules' => function ($query) {
+				$query->orderBy('moduleNumber');
+			},
+			'semesters.modules.themes' => function ($query) {
+				$query->orderBy('themeNumber');
+			},
+			'createdByPersons' => function ($query) {
+				$query->with(['person', 'involvedRole']);
+			}
+		])
+			->where('id', $id)
+			->get();
 
-		$sql = "SELECT * FROM educationalDisciplineWorkingProgram
-				WHERE `educationalDisciplineWorkingProgram`.`id` = $id";
-		$result = $link->query($sql);
-
-		$arrayOfDetails = $result->fetch_all(MYSQLI_ASSOC);
-
-		return $arrayOfDetails[0];
+		return $wps[0];
 	}
 }

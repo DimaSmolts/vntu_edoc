@@ -14,8 +14,9 @@ const createNewLessonTheme = async ({themeId, lessonTypeName}) => {
 
     const data = await response.json();
 
+	console.log({ data })
     return createLessonsBlock({
         lessonTypeName,
-        lessonThemeId: data.lessonThemeId
+        lessonThemeId: data.id
     });
 }

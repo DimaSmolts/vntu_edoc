@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonThemeService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
-require_once __DIR__ . '/../../helpers/getFullFormattedThemeData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
@@ -37,9 +37,7 @@ class ThemeApiController
 
 		$themes = getFullFormattedThemeData($rawThemes);
 
-		// print_r(json_encode($themes));
-		// echo json_encode($themes);
-		echo json_encode(['status' => 'success', 'themes' => $themes]);
+		echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);
 	}
 
 	public function createNewTheme()

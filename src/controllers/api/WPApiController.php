@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../../services/WP.php';
+require_once __DIR__ . '/../../services/WPService.php';
 
 use App\Services\WPService;
 
@@ -21,7 +21,7 @@ class WPApiController
 
 		$disciplineName = $_POST['disciplineName'] ?? null;
 
-		$newWPId = $this->wpService->createNewWP();
+		$newWPId = $this->wpService->createNewWP($disciplineName);
 
 		header("Location: wpdetails?id=" . $newWPId);
 

@@ -2,17 +2,17 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../../services/PersonService.php';
+require_once __DIR__ . '/../../services/WPInvolvedPersonService.php';
 
-use App\Services\PersonService;
+use App\Services\WPInvolvedPersonService;
 
-class PersonApiController
+class WPInvolvedPersonApiController
 {
-	protected PersonService $personService;
+	protected WPInvolvedPersonService $wpInvolvedPersonService;
 
 	function __construct()
 	{
-		$this->personService = new PersonService();
+		$this->wpInvolvedPersonService = new WPInvolvedPersonService();
 	}
 
 	public function updateWorkingProgramInvolvedPerson()
@@ -27,6 +27,6 @@ class PersonApiController
 		$personId = intval($data['personId']);
 		$involvedPersonRoleId = intval($data['roleId']);
 
-		$this->personService->updateWorkingProgramInvolvedPerson($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId);
+		$this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId);
 	}
 }

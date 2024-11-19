@@ -2,51 +2,43 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../models/DBEducationFormLessonHoursModel.php';
+
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class EducationalFormLessonHoursService
 {
-	private function getLink()
-	{
-		$config = getDatabaseConfig();
-		try {
-			$link = @mysqli_connect($config->servername, $config->username, $config->password, $config->dbname);
-			if (!$link) {
-				echo json_encode(['status' => 'error2', 'message' => 'Connection error: ']);
-			}
-		} catch (\Exception $error) {
-			echo json_encode(['status' => 'error3', 'message' => $error->getMessage()]);
-		}
-
-		return $link;
-	}
-
 	public function createNewEducationalFormLessonHours($lessonThemeId, $educationalFormId): int
 	{
-		$link = $this->getLink();
+		$educationFormLessonHoursId = Capsule::table('educationFormLessonHours')->insertGetId([
+			'lessonThemeId' => $lessonThemeId,
+			'educationalFormId' => $educationalFormId
+		]);
 
-		$sql = "INSERT INTO `educationFormLessonHours`(`lessonThemeId`, `educationalFormId`)
-					VALUES ($lessonThemeId, $educationalFormId)";
-
-		$link->query($sql);
-
-		$lastInsertId = $link->insert_id;
-
-		return $lastInsertId;
+		return $educationFormLessonHoursId;
 	}
 
 	public function updateEducationalFormLessonHours($lessonThemeId, $educationalFormId, $hours)
 	{
-		$link = $this->getLink();
+		$educationFormLessonHours = Capsule::table('educationFormLessonHours')
+			->where('educationalFormId', $educationalFormId)
+			->where('lessonThemeId', $lessonThemeId)
+			->first();
 
-		$sql = "UPDATE `educationFormLessonHours`
-					SET `hours`= $hours
-				WHERE `educationalFormId` = $educationalFormId AND `lessonThemeId`= $lessonThemeId";
+		if (!$educationFormLessonHours) {
+			echo json_encode(['status' => 'error', 'message' => 'EducationFormLessonHours not found']);
+			return;
+		}
 
-		$link->query($sql);
+		$updated = Capsule::table('educationFormLessonHours')
+			->where('educationalFormId', $educationalFormId)
+			->where('lessonThemeId', $lessonThemeId)
+			->update(['hours' => $hours]);
 
-		if ($link->affected_rows === 0) {
-			echo json_encode(['status' => 'error', 'message' => 'Update failed or no changes made']);
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'EducationFormLessonHours updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
 }

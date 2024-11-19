@@ -2,48 +2,36 @@
 
 namespace App\Services;
 
-require_once __DIR__ . '/../config.php';
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ModuleService
 {
-	private function getLink()
-	{
-		$config = getDatabaseConfig();
-		try {
-			$link = @mysqli_connect($config->servername, $config->username, $config->password, $config->dbname);
-			if (!$link) {
-				echo json_encode(['status' => 'error2', 'message' => 'Connection error: ']);
-			}
-		} catch (\Exception $error) {
-			echo json_encode(['status' => 'error3', 'message' => $error->getMessage()]);
-		}
-
-		return $link;
-	}
-
 	public function createNewModule($semesterId): int
 	{
-		$link = $this->getLink();
+		$moduleId = Capsule::table('modules')->insertGetId([
+			'educationalDisciplineSemesterId' => $semesterId
+		]);
 
-		$sql = "INSERT INTO `modules`(`educationalDisciplineSemesterId`) VALUES ($semesterId)";
-
-		$link->query($sql);
-
-		$lastInsertId = $link->insert_id;
-
-		return $lastInsertId;
+		return $moduleId;
 	}
 
 	public function updateModule($id, $field, $value)
 	{
-		$link = $this->getLink();
+		$module = Capsule::table('modules')->where('id', $id)->first();
 
-		$sql = "UPDATE modules SET $field = '$value' WHERE id = $id;";
+		if (!$module) {
+			echo json_encode(['status' => 'error', 'message' => 'Module not found']);
+			return;
+		}
 
-		$link->query($sql);
+		$updated = Capsule::table('modules')
+			->where('id', $id)
+			->update([$field => $value]);
 
-		if ($link->affected_rows === 0) {
-			echo json_encode(['status' => 'error', 'message' => 'Update failed or no changes made']);
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Module updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
 }

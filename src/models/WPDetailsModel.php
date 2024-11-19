@@ -24,6 +24,8 @@ class WPDetailsModel
 	public ?string $competences;
 	public ?string $programResults;
 	public ?string $controlMeasures;
+	public array $semesters;
+	public array $createdByPersons;
 
 	public function __construct(
 		int $id,
@@ -45,7 +47,9 @@ class WPDetailsModel
 		?string $tasks = "",
 		?string $competences = "",
 		?string $programResults = "",
-		?string $controlMeasures = ""
+		?string $controlMeasures = "",
+		array $semesters = [],
+		array $createdByPersons = []
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -67,5 +71,7 @@ class WPDetailsModel
 		$this->competences = $competences;
 		$this->programResults = $programResults;
 		$this->controlMeasures = $controlMeasures;
+		$this->semesters = $semesters;
+		$this->createdByPersons = $createdByPersons;
 	}
 }
