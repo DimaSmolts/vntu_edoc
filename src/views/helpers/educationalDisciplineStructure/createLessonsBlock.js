@@ -27,9 +27,12 @@ const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId, semesterEdu
 
 	const lessonHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
 
-	const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин:' });
+	const hoursBlockTitle = createElement({
+		elementName: "p",
+		classList: ['mini-block-title', 'hours-block-title', 'additional-hours-block-title'],
+		innerText: 'Кількість годин:' });
 
-	lessonHoursBlock.appendChild(selfworkHoursBlockTitle);
+	lessonHoursBlock.appendChild(hoursBlockTitle);
 
 	semesterEducationalForms.forEach(form => {
 		const hoursLabel = createLabelWithInput({
