@@ -82,7 +82,7 @@
 		<tr>
 			<td class="approved-first-col">Розроблено</td>
 			<td class="approved-second-col import">Професор кафедри АІІТ</td>
-			<td class="approved-third-col inserted"><?= htmlspecialchars($persons[$createdBy->involvedPersonId]->degree) ?>, <?= htmlspecialchars($persons[$createdBy->involvedPersonId]->name) ?> <?= htmlspecialchars($persons[$createdBy->involvedPersonId]->surname) ?></td>
+			<td class="approved-third-col inserted"><?= htmlspecialchars($details->createdByPersons[0]->degree) ?>, <?= htmlspecialchars($details->createdByPersons[0]->name) ?> <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
@@ -116,7 +116,7 @@
 		</tr>
 	</table>
 
-	<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($persons[$createdBy->involvedPersonId]->name) ?>. <?= htmlspecialchars($persons[$createdBy->involvedPersonId]->patronymicName) ?>. <?= htmlspecialchars($persons[$createdBy->involvedPersonId]->surname) ?></span>, <span
+	<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($details->createdByPersons[0]->name) ?>. <?= htmlspecialchars($details->createdByPersons[0]->patronymicName) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
 			class="inserted"><?= htmlspecialchars($details->regularYear) ?>.</span></div>
 	<div class="copyright">© ВНТУ, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span> рік</div>
 
@@ -171,7 +171,7 @@
 		</tr>
 		<tr>
 			<td class="characteristic-first-col center" colspan="2">
-				Змістових модулів<br><span class="inserted"><?= htmlspecialchars($modulesAmount) ?></span>
+				Змістових модулів<br><span class="import">8</span>
 			</td>
 
 			<td class="inserted center"><?= htmlspecialchars($details->academicYear) ?></td>
@@ -193,8 +193,8 @@
 				Загальна кількість годин<br><span class="import">150</span>
 			</td>
 
-			<td class="inserted center"><?= htmlspecialchars($semestersData[0]['semesterNumber']) ?></td>
-			<td class="inserted center"><?= htmlspecialchars($semestersData[0]['semesterNumber']) ?></td>
+			<td class="inserted center"><?= htmlspecialchars($details->semesters[0]->semesterNumber) ?></td>
+			<td class="inserted center"><?= htmlspecialchars($details->semesters[0]->semesterNumber) ?></td>
 		</tr>
 		<tr>
 			<td class="characteristic-first-col center" colspan="2" rowspan="4">
@@ -244,7 +244,7 @@
 		<tr>
 			<td class="characteristic-third-col center" colspan="2">
 				<b>Вид контролю:</b><br>
-				<span class="inserted"><?= htmlspecialchars($semestersData[0]['examType']) ?></span>
+				<span class="inserted"><?= htmlspecialchars($details->semesters[0]->examType) ?></span>
 			</td>
 		</tr>
 	</table>
@@ -272,18 +272,18 @@
 	<div class="topic-title">
 		4. Програма навчальної дисципліни
 	</div>
-	<?php if (!empty($semestersData)): ?>
-		<?php foreach ($semestersData as $semesterData): ?>
-			<?php if (!empty($semesterData['modules'])): ?>
-				<?php foreach ($semesterData['modules'] as $moduleData): ?>
+	<?php if (!empty($details->semesters)): ?>
+		<?php foreach ($details->semesters as $semesterData): ?>
+			<?php if (!empty($semesterData->modules)): ?>
+				<?php foreach ($semesterData->modules as $moduleData): ?>
 					<p class="inserted indent bold">
-						Змістовий модуль <?= htmlspecialchars($moduleData['moduleNumber']) ?>. <?= htmlspecialchars($moduleData['moduleName']) ?>.
+						Змістовий модуль <?= htmlspecialchars($moduleData->moduleNumber) ?>. <?= htmlspecialchars($moduleData->moduleName) ?>.
 					</p>
-					<?php if (!empty($moduleData['themes'])): ?>
-						<?php foreach ($moduleData['themes'] as $themeData): ?>
+					<?php if (!empty($moduleData->themes)): ?>
+						<?php foreach ($moduleData->themes as $themeData): ?>
 							<p class="indent inserted">
-								<span class="inserted bold italic">Тема <?= htmlspecialchars($themeData['themeNumber']) ?>. <?= htmlspecialchars($themeData['themeName']) ?>.</span>
-								<?= htmlspecialchars($themeData['themeDescription']) ?>.
+								<span class="inserted bold italic">Тема <?= htmlspecialchars($themeData->themeNumber) ?>. <?= htmlspecialchars($themeData->name) ?>.</span>
+								<?= htmlspecialchars($themeData->description) ?>.
 							</p>
 						<?php endforeach; ?>
 					<?php endif; ?>
@@ -324,25 +324,25 @@
 			<td style="width: 6%;" class="center">інд.</td>
 			<td style="width: 6%;" class="center">с.р.</td>
 		</tr>
-		<?php if (!empty($semestersData)): ?>
-			<?php foreach ($semestersData as $semesterData): ?>
+		<?php if (!empty($details->semesters)): ?>
+			<?php foreach ($details->semesters as $semesterData): ?>
 				<tr>
-					<th colspan="13" class="inserted">Семестр <?= htmlspecialchars($semesterData['semesterNumber']) ?></th>
+					<th colspan="13" class="inserted">Семестр <?= htmlspecialchars($semesterData->semesterNumber) ?></th>
 				</tr>
 
-				<?php if (!empty($semesterData['modules'])): ?>
-					<?php foreach ($semesterData['modules'] as $moduleData): ?>
+				<?php if (!empty($semesterData->modules)): ?>
+					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<tr>
-							<th colspan="13">Модуль <?= htmlspecialchars($moduleData['moduleNumber']) ?></th>
+							<th colspan="13">Модуль <?= htmlspecialchars($moduleData->moduleNumber) ?></th>
 						</tr>
 						<tr>
-							<th colspan="13" class="inserted"><?= htmlspecialchars($moduleData['moduleName']) ?></th>
+							<th colspan="13" class="inserted"><?= htmlspecialchars($moduleData->moduleName) ?></th>
 						</tr>
 
-						<?php if (!empty($moduleData['themes'])): ?>
-							<?php foreach ($moduleData['themes'] as $themeData): ?>
+						<?php if (!empty($moduleData->themes)): ?>
+							<?php foreach ($moduleData->themes as $themeData): ?>
 								<tr>
-									<td style="width: 20%;" class="inserted">Тема <?= htmlspecialchars($themeData['themeNumber']) ?>. <?= htmlspecialchars($themeData['themeName']) ?>.</td>
+									<td style="width: 20%;" class="inserted">Тема <?= htmlspecialchars($themeData->themeNumber) ?>. <?= htmlspecialchars($themeData->name) ?>.</td>
 									<td class="import center">17</td>
 									<td class="import center">4</td>
 									<td class="import center">3</td>
