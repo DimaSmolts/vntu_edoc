@@ -28,6 +28,7 @@ class ThemeApiController
 		$this->lessonThemeService = new LessonThemeService();
 	}
 
+	// Метод контролера для отримання теми з усіма уроками по id робочої програми
 	public function getThemesWithLessonThemesByWPId()
 	{
 		header('Content-Type: application/json');
@@ -41,6 +42,7 @@ class ThemeApiController
 		echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);
 	}
 
+	// Метод контролера для створення нової теми
 	public function createNewTheme()
 	{
 		header('Content-Type: application/json');
@@ -48,10 +50,12 @@ class ThemeApiController
 		$input = file_get_contents('php://input');
 		$data = json_decode($input, true);
 
+		// Отримуємо дані з запиту (id модуля, щоб створити тему прив'язаною до модуля)
 		$moduleId = intval($data['moduleId']);
 
 		$newThemeId = $this->themeService->createNewTheme($moduleId);
 
+		// Оновлюємо лекції та самостійні (їх кількість збігається з кількістю тем)
 		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
 		$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
@@ -64,6 +68,7 @@ class ThemeApiController
 		echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
 	}
 
+	// Метод контролера для оновлення тем
 	public function updateTheme()
 	{
 		header('Content-Type: application/json');
@@ -71,32 +76,43 @@ class ThemeApiController
 		$input = file_get_contents('php://input');
 		$data = json_decode($input, true);
 
+		// Отримуємо дані з запиту
 		$id = intval($data['id']);
 		$field = $data['field'];
 		$value = $data['value'];
 
+		// Оновлюємо власне тему
 		$this->themeService->updateTheme($id, $field, $value);
 
+		// Оновлюємо лекції та самостійні (назва та порядковий номер лекцій та самостійних має збігатись з назвою та порядковим номером теми) 
 		if ($field == 'name') {
 			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-
-			$lessonTypes = [];
-
-			foreach ($rawLessonTypes as $rawLessonType) {
-				$lessonTypes[] = new LessonTypeModel(
-					$rawLessonType['id'],
-					$rawLessonType['name']
-				);
-			}
+			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
-			$this->lessonThemeService->updateLessonTheme($id, $lectionLessonTypeId, $value);
-			$this->lessonThemeService->updateLessonTheme($id, $selfworkLessonTypeId, $value);
+			$themeId = $id;
+
+			$this->lessonThemeService->updateLessonTheme($themeId, $lectionLessonTypeId, $field, $value);
+			$this->lessonThemeService->updateLessonTheme($themeId, $selfworkLessonTypeId, $field, $value);
+		}
+
+		if ($field == 'themeNumber') {
+			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+
+			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
+			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
+
+			$themeId = $id;
+
+			$this->lessonThemeService->updateLessonTheme($themeId, $lectionLessonTypeId, 'lessonThemeNumber', $value);
+			$this->lessonThemeService->updateLessonTheme($themeId, $selfworkLessonTypeId, 'lessonThemeNumber', $value);
 		}
 	}
 
+	// Метод контролера для видалення тем
 	public function deleteTheme()
 	{
 		header('Content-Type: application/json');

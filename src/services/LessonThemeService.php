@@ -16,17 +16,22 @@ class LessonThemeService
 		return $lessonThemeId;
 	}
 
-	public function updateLessonTheme($id, $field, $value)
+	public function updateLessonTheme($themeId, $lessonTypeId, $field, $value)
 	{
-		$lessonTheme = Capsule::table('lessonThemes')->where('id', $id)->first();
+		$lessonTheme = Capsule::table('lessonThemes')
+			->where('themeId', $themeId)
+			->where('lessonTypeId', $lessonTypeId)
+			->first();
 
 		if (!$lessonTheme) {
 			echo json_encode(['status' => 'error', 'message' => 'Lesson theme not found']);
 			return;
 		}
+		echo json_encode([$themeId, $lessonTypeId, $field, $value]);
 
 		$updated = Capsule::table('lessonThemes')
-			->where('id', $id)
+			->where('themeId', $themeId)
+			->where('lessonTypeId', $lessonTypeId)
 			->update([$field => $value]);
 
 		if ($updated) {
