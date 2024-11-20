@@ -8,6 +8,7 @@ $title = "Програма навчальної дисципліни";
 	<div id="semestersContainer">
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
+				<!-- Створення контейнера з інформацією про існуючий семестр -->
 				<div id="semesterBlock<?= htmlspecialchars($semesterData->id) ?>" class="mini-block">
 					<div class="semester-title-container">
 						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class=" mini-block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
@@ -17,8 +18,11 @@ $title = "Програма навчальної дисципліни";
 							Видалити семестр
 						</button>
 					</div>
+					<!-- Створення блоку з даними про існуючий семестр -->
 					<div class="semester-data-block">
+						<!-- Додавання контейнеру для чекбоксів форм навчання -->
 						<div class="educational-forms-container">
+							<!-- Додавання чекбоксів для усіх існуючих форм навчання -->
 							<?php foreach ($educationalForms as $educationalForm): ?>
 								<?php
 								$isChecked = false;
@@ -154,5 +158,5 @@ $title = "Програма навчальної дисципліни";
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
-	<button id="addNewSemester" class="btn semester-btn" onclick="addNewSemecter(<?= htmlspecialchars($details->id) ?>)">Додати семестр</button>
+	<button id="addNewSemester" class="btn semester-btn" onclick="addNewSemester(<?= htmlspecialchars($details->id) ?>, <?= htmlspecialchars($educationalForms) ?>)">Додати семестр</button>
 </div>

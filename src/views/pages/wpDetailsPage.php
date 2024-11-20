@@ -20,6 +20,7 @@
         <script src="src/views/helpers/view/createElement.js"></script>
         <script src="src/views/helpers/view/createLabelWithInput.js"></script>
         <script src="src/views/helpers/view/createLabelWithTextarea.js"></script>
+        <script src="src/views/helpers/view/createLabelWithCheckbox.js"></script>
         <script src="src/views/helpers/updating/updateWP.js"></script>
         <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
         <script src="src/views/helpers/carousel/arrowsHandler.js"></script>

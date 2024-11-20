@@ -1,4 +1,5 @@
-const createSemesterContainer = (semesterId) => {
+const createSemesterContainer = (semesterId, educationalForms) => {
+	// Створення контейнера для новододаного семестру
 	const semestersContainer = document.getElementById('semestersContainer');
 
 	const semesterBlock = createElement({ elementName: "div", id: `semesterBlock${semesterId}`, classList: ["mini-block"] });
@@ -9,7 +10,7 @@ const createSemesterContainer = (semesterId) => {
 		elementName: "p",
 		id: `semesterTitle${semesterId}`,
 		innerText: 'Семестер',
-		classList: ['mini-block-title']
+		classList: ['mini-block-title', 'semester-title']
 	});
 
 	const removeSemesterBtn = createElement({
@@ -25,7 +26,24 @@ const createSemesterContainer = (semesterId) => {
 	titleContainer.appendChild(semesterTitle);
 	titleContainer.appendChild(removeSemesterBtn);
 
+	// Створення блоку з даними для новододаного семестру
 	const semesterDataBlock = createElement({ elementName: "div", classList: ['semester-data-block'] });
+
+	// Додавання контейнеру для чекбоксів форм навчання
+	const educationalFormsContainer = createElement({ elementName: "div", classList: ['educational-forms-container'] });
+
+	// Додавання чекбоксів для усіх існуючих форм навчання
+	educationalForms.forEach(form => {
+		const formCheckbox = createLabelWithCheckbox({
+			labelText: form.name,
+			inputName: form.colName,
+			eventListener: (event) => {
+				toggleEducationalForm(event, semesterId, form.id);
+			}
+		})
+
+		educationalFormsContainer.appendChild(formCheckbox);
+	})
 
 	const semesterNumberLabel = createLabelWithInput({
 		labelText: 'Номер семестру:',
@@ -44,9 +62,10 @@ const createSemesterContainer = (semesterId) => {
 			updateSemesterInfo(event, semesterId);
 		}
 	});
-
+	// Створення контейнера для модулів, які додаватимуться
 	const modulesContainer = createElement({ elementName: "div", id: `modulesContainer${semesterId}`, classList: ['modules-container'] });
 
+	// Створення кнопки для додавання модулів
 	const addModuleBtn = createElement({
 		elementName: "button",
 		id: `addModuleBtn${semesterId}`,
@@ -60,10 +79,11 @@ const createSemesterContainer = (semesterId) => {
 
 	modulesContainer.appendChild(addModuleBtn);
 
+	semesterDataBlock.appendChild(educationalFormsContainer)
 	semesterDataBlock.appendChild(semesterNumberLabel)
 	semesterDataBlock.appendChild(examTypeLabel)
 
-	semesterBlock.appendChild(semesterTitle);
+	semesterBlock.appendChild(titleContainer);
 	semesterBlock.appendChild(semesterDataBlock);
 	semesterBlock.appendChild(modulesContainer);
 

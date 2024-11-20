@@ -16,7 +16,7 @@ const createNewLessonTheme = async ({themeId, lessonTypeName, semesterEducationa
 
     return createLessonsBlock({
         lessonTypeName,
-        lessonThemeId: data.id,
+        lessonThemeId: data.lessonThemeId,
         semesterEducationalForms
     });
 }

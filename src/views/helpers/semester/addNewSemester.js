@@ -1,4 +1,4 @@
-const addNewSemecter = (wpId) => {
+const addNewSemester = (wpId, educationalForms) => {
 	const postData = {
 		wpId
 	};
@@ -17,7 +17,7 @@ const addNewSemecter = (wpId) => {
 			return response.json();
 		})
 		.then(data => {
-			createSemesterContainer(data.semesterId);
+			createSemesterContainer(data.semesterId, educationalForms);
 		})
 		.catch(error => console.error('Post error:', error));
 }

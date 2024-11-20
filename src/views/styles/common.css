@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: #f8f9fa;
+    background: url("../../images/bg.svg");
+    background-size: cover;
 }
 
 p {
