@@ -26,6 +26,7 @@ function getFullFormattedThemeData($themes)
 		return new ThemeWithLessonsModel(
 			$theme->id,
 			$theme->name,
+			$theme->description,
 			$theme->themeNumber,
 			$theme->lections->map(function ($lessonTheme) {
 				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {

@@ -69,4 +69,34 @@ class WPService
 
 		return $wps->first();
 	}
+
+	public function getWPDetailsForPDF($id)
+	{
+		$wps = DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters' => function ($query) {
+				$query->orderBy('semesterNumber');
+			},
+			'semesters.modules' => function ($query) {
+				$query->orderBy('moduleNumber');
+			},
+			'semesters.modules.themes' => function ($query) {
+				$query->orderBy('themeNumber')
+					->with([
+						'lections.educationalFormLessonHours.educationalForm',
+						'labs.educationalFormLessonHours.educationalForm',
+						'practicals.educationalFormLessonHours.educationalForm',
+						'seminars.educationalFormLessonHours.educationalForm',
+						'selfworks.educationalFormLessonHours.educationalForm',
+					]);
+			},
+			'createdByPersons' => function ($query) {
+				$query->with(['person', 'involvedRole']);
+			},
+			'semesters.educationalForms.educationalForm'
+		])
+			->where('id', $id)
+			->get();
+
+		return $wps->first();
+	}
 }

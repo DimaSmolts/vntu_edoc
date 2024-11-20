@@ -365,4 +365,50 @@
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</table>
+
+	<div class="topic-title">
+		7. Практичні заняття
+	</div>
+	<?php if (!empty($details->semesters)): ?>
+		<?php foreach ($details->semesters as $semester): ?>
+			<?php if (!empty($semester->practicals)): ?>
+				<p class="indent">Таблиця 7.1 - Теми практичних занять</p>
+				<table class="large-bottom-margin">
+					<tr>
+						<th style="width: 5%;">№ з/п</th>
+						<th style="width: 65%;">Кількість годин</th>
+						<?php foreach ($semester->educationalForms as $educationalForm): ?>
+							<th style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
+						<?php endforeach; ?>
+					</tr>
+					<tr>
+						<th style="width: 5%;"></th>
+						<th style="width: 65%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
+						<?php foreach ($semester->educationalForms as $educationalForm): ?>
+							<th style="width: 15%;"></th>
+						<?php endforeach; ?>
+					</tr>
+					<?php foreach ($semester->practicals as $practical): ?>
+						<?php
+						$educationalFormHours = [];
+						if (!empty($practical->educationalFormHours)) {
+							foreach ($practical->educationalFormHours as $form) {
+								$educationalFormHours[$form->lessonFormName] = $form->hours;
+							}
+						}
+						?>
+						<tr>
+							<td class="center" style="width: 5%;"><?= $practical->lessonThemeNumber ? htmlspecialchars($practical->lessonThemeNumber) : "" ?></td>
+							<td style="width: 65%;"><?= $practical->lessonThemeName ? htmlspecialchars($practical->lessonThemeName) : "" ?></td>
+							<?php foreach ($semester->educationalForms as $educationalForm): ?>
+								<td class="center" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
+							<?php endforeach; ?>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+
+
+			<?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </page>

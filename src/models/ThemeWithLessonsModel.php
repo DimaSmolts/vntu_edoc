@@ -6,6 +6,7 @@ class ThemeWithLessonsModel
 {
 	public int $id;
 	public ?string $name;
+	public ?string $description;
 	public ?int $themeNumber;
 	public array $lections = [];
 	public array $practicals = [];
@@ -16,7 +17,8 @@ class ThemeWithLessonsModel
 
 	public function __construct(
 		int $id,
-		?string $name = null,
+		?string $name = '',
+		?string $description = '',
 		?int $themeNumber = null,
 		array $lections = [],
 		array $practicals = [],
@@ -27,6 +29,7 @@ class ThemeWithLessonsModel
 	) {
 		$this->id = $id;
 		$this->name = $name;
+		$this->description = $description;
 		$this->themeNumber = $themeNumber;
 		$this->lections = $lections;
 		$this->practicals = $practicals;
