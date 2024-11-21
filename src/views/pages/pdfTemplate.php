@@ -302,6 +302,9 @@
 	// Визначаємо початкову ширину колонки "Назви змістових модулів і тем" (у відсотках)
 	$nameColumnWidth = 100;
 
+	// Визначаємо початкову кількість колонок для об'єднання для форм навчання
+	$hoursColSpan = 0;
+
 	// Визначаємо початкову кількість навчальних форм
 	$allEducationalFormsAvailableInSemesters = [];
 
@@ -325,6 +328,8 @@
 		// Віднімаємо від ширини колонки "Назви ..." ширину колонок для кількості годин (30%) на кожну форму навчання
 		foreach ($allEducationalFormsAvailableInSemesters as $availableForm) {
 			$nameColumnWidth -= 30;
+			// Додаємо колонки для об'єднання в залежності від форм навчання
+			$hoursColSpan += 6;
 		}
 
 		// Обраховуємо ширину для запису всіх годин на всі доступні форми навчання 
@@ -334,7 +339,7 @@
 	<table>
 		<tr>
 			<th style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" rowspan="4">Назви змістових модулів і тем</th>
-			<th style="width: <?= htmlspecialchars($hoursColumnWidth) ?>%;" colspan="12">Кількість годин</th>
+			<th style="width: <?= htmlspecialchars($hoursColumnWidth) ?>%;" colspan="<?= htmlspecialchars($hoursColSpan) ?>">Кількість годин</th>
 		</tr>
 		<tr>
 			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
@@ -361,16 +366,16 @@
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
 				<tr>
-					<th colspan="13" class="inserted">Семестр <?= htmlspecialchars($semesterData->semesterNumber) ?></th>
+					<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>" class="inserted">Семестр <?= htmlspecialchars($semesterData->semesterNumber) ?></th>
 				</tr>
 
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<tr>
-							<th colspan="13">Модуль <?= htmlspecialchars($moduleData->moduleNumber) ?></th>
+							<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>">Модуль <?= htmlspecialchars($moduleData->moduleNumber) ?></th>
 						</tr>
 						<tr>
-							<th colspan="13" class="inserted"><?= htmlspecialchars($moduleData->moduleName) ?></th>
+							<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>" class="inserted"><?= htmlspecialchars($moduleData->moduleName) ?></th>
 						</tr>
 
 						<?php if (!empty($moduleData->themes)): ?>
@@ -418,6 +423,15 @@
 	</table>
 
 
+	<?php
+	// Визначаємо початкову ширину колонки "Назва теми" (у відсотках) для таблиць з заняттями
+	$lessonNameColumnWidth = 95; // 5% для колонки з номером за порядком
+
+	// Віднімаємо від ширини колонки "Назва ..." ширину колонок для кількості годин (15%) на кожну форму навчання
+	foreach ($allEducationalFormsAvailableInSemesters as $availableForm) {
+		$lessonNameColumnWidth -= 15;
+	}
+	?>
 	<div class="topic-title">
 		6. Семінарські заняття
 	</div>
@@ -428,7 +442,7 @@
 				<table>
 					<tr>
 						<th style="width: 5%;">№ з/п</th>
-						<th style="width: 65%;">Кількість годин</th>
+						<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
 							<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
 						<?php endforeach; ?>
@@ -482,7 +496,7 @@
 				<table>
 					<tr>
 						<th style="width: 5%;">№ з/п</th>
-						<th style="width: 65%;">Кількість годин</th>
+						<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
 							<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
 						<?php endforeach; ?>
@@ -536,7 +550,7 @@
 				<table>
 					<tr>
 						<th style="width: 5%;">№ з/п</th>
-						<th style="width: 65%;">Кількість годин</th>
+						<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
 							<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
 						<?php endforeach; ?>
@@ -590,7 +604,7 @@
 				<table>
 					<tr>
 						<th style="width: 5%;">№ з/п</th>
-						<th style="width: 65%;">Кількість годин</th>
+						<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
 							<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
 						<?php endforeach; ?>
