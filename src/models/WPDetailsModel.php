@@ -24,6 +24,8 @@ class WPDetailsModel
 	public ?string $competences;
 	public ?string $programResults;
 	public ?string $controlMeasures;
+	public ?string $studingMethods;
+	public ?string $examingMethods;
 	public array $semesters;
 	public array $createdByPersons;
 
@@ -48,6 +50,8 @@ class WPDetailsModel
 		?string $competences = "",
 		?string $programResults = "",
 		?string $controlMeasures = "",
+		?string $studingMethods = "",
+		?string $examingMethods = "",
 		array $semesters = [],
 		array $createdByPersons = []
 	) {
@@ -71,6 +75,8 @@ class WPDetailsModel
 		$this->competences = $competences;
 		$this->programResults = $programResults;
 		$this->controlMeasures = $controlMeasures;
+		$this->studingMethods = $studingMethods;
+		$this->examingMethods = $examingMethods;
 		$this->semesters = $semesters;
 		$this->createdByPersons = $createdByPersons;
 	}

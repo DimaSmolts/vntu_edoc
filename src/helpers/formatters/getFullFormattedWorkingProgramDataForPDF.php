@@ -6,7 +6,6 @@ require_once __DIR__ . '/../../models/PDFModuleModel.php';
 require_once __DIR__ . '/../../models/PDFThemeWithLessonsModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
-require_once __DIR__ . '/../../models/EducationalFormHoursStructureModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
@@ -18,7 +17,6 @@ use App\Models\PDFModuleModel;
 use App\Models\PDFThemeWithLessonsModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
-use App\Models\EducationalFormHoursStructureModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
@@ -43,7 +41,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->tasks,
 		$workingProgramData->competences,
 		$workingProgramData->programResults,
-		$workingProgramData->controlMeasures
+		$workingProgramData->controlMeasures,
+		$workingProgramData->studingMethods,
+		$workingProgramData->examingMethods
 	);
 
 	// Обробляємо семестри робочої програми та трансформуємо їх у модель

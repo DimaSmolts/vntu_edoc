@@ -7,13 +7,19 @@
 			<?php include __DIR__ . '/approvedPageInfoSlide.php'; ?>
 		</li>
 		<li class="slide">
-			<?php include __DIR__ . '/prerequisitesAndGoal.php'; ?>
+			<?php include __DIR__ . '/prerequisitesAndGoalSlide.php'; ?>
 		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/educationalDisciplineSemesterProgramSlide.php'; ?>
 		</li>
-		<li class="slide" id="lessonsAndHoursInfoSlide">
-			<?php include __DIR__ . '/lessonsAndHoursInfoSlide.php'; ?>
+		<li class="slide" id="educationalDisciplineStructureSlide">
+			<?php include __DIR__ . '/educationalDisciplineStructureSlide.php'; ?>
+		</li>
+		<li class="slide">
+			<?php include __DIR__ . '/studingAndExamingMethodsSlide.php'; ?>
+		</li>
+		<li class="slide" id="educationalDisciplineStructurePreviewTableSlide">
+			<?php include __DIR__ . '/educationalDisciplineStructurePreviewTableSlide.php'; ?>
 		</li>
 	</ul>
 	<div class="carousel-arrow-container">

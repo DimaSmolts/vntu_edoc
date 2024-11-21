@@ -37,7 +37,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->tasks,
 		$workingProgramData->competences,
 		$workingProgramData->programResults,
-		$workingProgramData->controlMeasures
+		$workingProgramData->controlMeasures,
+		$workingProgramData->studingMethods,
+		$workingProgramData->examingMethods
 	);
 
 	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) {

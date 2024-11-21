@@ -646,4 +646,21 @@
 			<?php endif; ?>
 		<?php endforeach; ?>
 	<?php endif; ?>
+
+
+	<div class="topic-title">
+		10. Індивідуальні завдання
+	</div>
+
+
+	<div class="topic-title">
+		11. Методи навчання
+	</div>
+	<p class="indent inserted"><?= htmlspecialchars($details->studingMethods) ?></p>
+	
+
+	<div class="topic-title">
+		12. Методи контролю
+	</div>
+	<p class="indent inserted"><?= htmlspecialchars($details->examingMethods) ?></p>
 </page>
