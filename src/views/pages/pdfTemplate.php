@@ -92,7 +92,7 @@
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col import">Зав. кафедри АІІТ<br>
+			<td class="approved-second-col import none-border-left">Зав. кафедри АІІТ<br>
 				Засідання кафедри АІІТ<br>
 				(протокол № 1 від 13.08.2024 р.)
 			</td>
@@ -100,7 +100,7 @@
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col import">Голова вченої ради ФІІТА<br>
+			<td class="approved-second-col import none-border-left">Голова вченої ради ФІІТА<br>
 				Вчена рада ФІІТА<br>
 				(протокол № 1 від 19.08.2024 р.)</td>
 			<td class="approved-third-col import">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
@@ -138,7 +138,7 @@
 			</th>
 		</tr>
 		<tr>
-			<th style="width: 15%;">
+			<th style="width: 15%;" class="none-border-left">
 				денна форма навчання
 			</th>
 			<th style="width: 15%;">
@@ -206,14 +206,14 @@
 			<th class="characteristic-third-col center" colspan="2">Лекції</th>
 		</tr>
 		<tr>
-			<td class="import center">36 год.</td>
+			<td class="import center none-border-left">36 год.</td>
 			<td class="import center">10 год.</td>
 		</tr>
 		<tr>
-			<th class="characteristic-third-col center" colspan="2">Практичні, семінарські</th>
+			<th class="characteristic-third-col center none-border-left" colspan="2">Практичні, семінарські</th>
 		</tr>
 		<tr>
-			<td class="import center">27 год.</td>
+			<td class="import center none-border-left">27 год.</td>
 			<td class="import center">5 год.</td>
 		</tr>
 		<tr>
@@ -222,27 +222,27 @@
 			<th class="characteristic-third-col center" colspan="2">Лабораторні</th>
 		</tr>
 		<tr>
-			<td class="import center">-</td>
+			<td class="import center none-border-left">-</td>
 			<td class="import center">-</td>
 		</tr>
 		<tr>
-			<th class="characteristic-third-col center" colspan="2">Курсовий проєкт (робота)</th>
+			<th class="characteristic-third-col center none-border-left" colspan="2">Курсовий проєкт (робота)</th>
 		</tr>
 		<tr>
-			<td class="import center">-</td>
+			<td class="import center none-border-left">-</td>
 			<td class="import center">-</td>
 		</tr>
 		<tr>
 			<td class="center import" rowspan="3" style="width: 15%;">6</td>
 			<td class="center import" rowspan="3" style="width: 15%;">4</td>
-			<th class="characteristic-third-col center" colspan="2">Самостійна робота</th>
+			<th class="characteristic-third-col center none-border-left" colspan="2">Самостійна робота</th>
 		</tr>
 		<tr>
-			<td class="import center">87 год.</td>
+			<td class="import center none-border-left">87 год.</td>
 			<td class="import center">135 год.</td>
 		</tr>
 		<tr>
-			<td class="characteristic-third-col center" colspan="2">
+			<td class="characteristic-third-col center none-border-left" colspan="2">
 				<b>Вид контролю:</b><br>
 				<span class="inserted"><?= htmlspecialchars($details->semesters[0]->examType) ?></span>
 			</td>
@@ -338,12 +338,12 @@
 		</tr>
 		<tr>
 			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-				<th style="width: 30%;" colspan="6"><?= htmlspecialchars($availableForm->name) ?></th>
+				<th class="none-border-left" style="width: 30%;" colspan="6"><?= htmlspecialchars($availableForm->name) ?></th>
 			<?php endforeach; ?>
 		</tr>
 		<tr>
 			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-				<td class="rotated-total-cell" style="width: 5%;" rowspan="2">
+				<td class="rotated-total-cell none-border-left" style="width: 5%;" rowspan="2">
 					<div>усього</div>
 				</td>
 				<td class="center" style="width: 25%;" colspan="5">у тому числі</td>
@@ -351,7 +351,7 @@
 		</tr>
 		<tr>
 			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-				<td style="width: 5%; font-size: 12pt;" class="center">лек.</td>
+				<td style="width: 5%; font-size: 12pt;" class="center none-border-left">лек.</td>
 				<td style="width: 5%; font-size: 12pt;" class="center">пр.</td>
 				<td style="width: 5%; font-size: 12pt;" class="center">лаб.</td>
 				<td style="width: 5%; font-size: 12pt;" class="center">інд.</td>
@@ -389,7 +389,7 @@
 							<?php endforeach; ?>
 						<?php endif; ?>
 						<tr>
-							<td class="bold" style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted">Разом за модулем <?= htmlspecialchars($moduleData->moduleNumber) ?></td>
+							<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Разом за модулем <?= htmlspecialchars($moduleData->moduleNumber) ?></td>
 							<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
 								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->totalHours) ?></td>
 								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->lectionHours) ?></td>
@@ -403,7 +403,7 @@
 					<?php endforeach; ?>
 				<?php endif; ?>
 				<tr>
-					<td class="bold" style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted">Усього за <?= htmlspecialchars($semesterData->semesterNumber) ?> семестр</td>
+					<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Усього за <?= htmlspecialchars($semesterData->semesterNumber) ?> семестр</td>
 					<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
 						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->totalHours) ?></td>
 						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->lectionHours) ?></td>

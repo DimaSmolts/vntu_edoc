@@ -68,9 +68,13 @@ div.copyright {
 
 th,
 td {
-	border: solid 0.5mm black;
+	border: solid 0.3mm black;
 	border-collapse: collapse;
 	padding: 1mm;
+}
+
+.none-border-left {
+	border-left: 0;
 }
 
 th.approved-first-col,
@@ -99,11 +103,11 @@ th {
 }
 
 .inserted {
-	background-color: lightgreen
+	/* background-color: lightgreen; */
 }
 
 .import {
-	background-color: antiquewhite
+	/* background-color: antiquewhite; */
 }
 
 .indent {
@@ -138,11 +142,11 @@ td.characteristic-third-col {
 .rotated-total-cell {
 	font-size: 12pt;
 	padding: 0;
-	padding-left: 4px;
+	padding-left: 7px;
 }
 
 .rotated-total-cell div {
-	margin-top: 23px;
+	margin-top: 15px;
 	rotate: 90;
 	font-size: 12pt;
 }
