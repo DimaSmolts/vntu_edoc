@@ -135,6 +135,19 @@ td.characteristic-third-col {
 	width: 30%;
 }
 
+.rotated-total-cell {
+	font-size: 12pt;
+	padding: 0;
+	padding-left: 4px;
+}
+
+.rotated-total-cell div {
+	margin-top: 23px;
+	rotate: 90;
+	font-size: 12pt;
+}
+
+
 /* p,
 u,
 b,

@@ -58,6 +58,6 @@ class LessonThemeApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->lessonThemeService->updateLessonTheme($id, $field, $value);
+		$this->lessonThemeService->updateLessonThemeById($id, $field, $value);
 	}
 }

@@ -2,25 +2,27 @@
 
 require_once __DIR__ . '/../../models/WPDetailsModel.php';
 require_once __DIR__ . '/../../models/PDFSemesterModel.php';
-require_once __DIR__ . '/../../models/ModuleModel.php';
-require_once __DIR__ . '/../../models/ThemeWithLessonsModel.php';
-require_once __DIR__ . '/../../models/LessonThemeModel.php';
-require_once __DIR__ . '/../../models/EducationalFormLessonHourModel.php';
+require_once __DIR__ . '/../../models/PDFModuleModel.php';
+require_once __DIR__ . '/../../models/PDFThemeWithLessonsModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
-require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
+require_once __DIR__ . '/../../models/EducationalFormHoursStructureModel.php';
+require_once __DIR__ . '/../getEducationalFormVisualName.php';
+require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
+require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
+require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 
 use App\Models\WPDetailsModel;
 use App\Models\PDFSemesterModel;
-use App\Models\ModuleModel;
-use App\Models\ThemeWithLessonsModel;
-use App\Models\LessonThemeModel;
-use App\Models\EducationalFormLessonHourModel;
+use App\Models\PDFModuleModel;
+use App\Models\PDFThemeWithLessonsModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
+use App\Models\EducationalFormHoursStructureModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
+	// Створюємо модель загальних даних для робочої програми
 	$workingProgram = new WPDetailsModel(
 		$workingProgramData->id,
 		$workingProgramData->regularYear,
@@ -44,126 +46,16 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->controlMeasures
 	);
 
+	// Обробляємо семестри робочої програми та трансформуємо їх у модель
 	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) {
+		// Збираємо всі заняття по типах в семестрі
+		$lectionsForSemester = [];
 		$practicalsForSemester = [];
+		$seminarsForSemester = [];
+		$labsForSemester = [];
+		$selfworksForSemester = [];
 
-		$modules = $semester->modules->map(function ($module) use (&$practicalsForSemester) {
-			$themes = $module->themes->map(function ($theme) use (&$practicalsForSemester) {
-				$practicals = $theme->practicals->map(function ($lessonTheme) {
-					$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
-						return new EducationalFormLessonHourModel(
-							$lessonHours->id,
-							$lessonHours->educationalFormId,
-							$lessonHours->lessonThemeId,
-							$lessonHours->educationalForm->name,
-							$lessonHours->hours
-						);
-					})->toArray();
-
-					return new LessonThemeModel(
-						$lessonTheme->id,
-						$lessonTheme->lessonTypeId,
-						$lessonTheme->name,
-						$lessonTheme->lessonThemeNumber,
-						$educationalFormHours
-					);
-				})->toArray();
-
-				$practicalsForSemester = array_merge($practicalsForSemester, $practicals);
-
-				return new ThemeWithLessonsModel(
-					$theme->id,
-					$theme->name ?? "",
-					$theme->description ?? "",
-					$theme->themeNumber,
-					$theme->lections->map(function ($lessonTheme) {
-						$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
-							return new EducationalFormLessonHourModel(
-								$lessonHours->id,
-								$lessonHours->educationalFormId,
-								$lessonHours->lessonThemeId,
-								$lessonHours->educationalForm->name,
-								$lessonHours->hours
-							);
-						})->toArray();
-
-						return new LessonThemeModel(
-							$lessonTheme->id,
-							$lessonTheme->lessonTypeId,
-							$lessonTheme->name,
-							$lessonTheme->lessonThemeNumber,
-							$educationalFormHours
-						);
-					})->toArray(),
-					$practicals,
-					$theme->seminars->map(function ($lessonTheme) {
-						$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
-							return new EducationalFormLessonHourModel(
-								$lessonHours->id,
-								$lessonHours->educationalFormId,
-								$lessonHours->lessonThemeId,
-								$lessonHours->educationalForm->name,
-								$lessonHours->hours
-							);
-						})->toArray();
-
-						return new LessonThemeModel(
-							$lessonTheme->id,
-							$lessonTheme->lessonTypeId,
-							$lessonTheme->name,
-							$lessonTheme->lessonThemeNumber,
-							$educationalFormHours
-						);
-					})->toArray(),
-					$theme->labs->map(function ($lessonTheme) {
-						$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
-							return new EducationalFormLessonHourModel(
-								$lessonHours->id,
-								$lessonHours->educationalFormId,
-								$lessonHours->lessonThemeId,
-								$lessonHours->educationalForm->name,
-								$lessonHours->hours
-							);
-						})->toArray();
-
-						return new LessonThemeModel(
-							$lessonTheme->id,
-							$lessonTheme->lessonTypeId,
-							$lessonTheme->name,
-							$lessonTheme->lessonThemeNumber,
-							$educationalFormHours
-						);
-					})->toArray(),
-					$theme->selfworks->map(function ($lessonTheme) {
-						$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
-							return new EducationalFormLessonHourModel(
-								$lessonHours->id,
-								$lessonHours->educationalFormId,
-								$lessonHours->lessonThemeId,
-								$lessonHours->educationalForm->name,
-								$lessonHours->hours
-							);
-						})->toArray();
-
-						return new LessonThemeModel(
-							$lessonTheme->id,
-							$lessonTheme->lessonTypeId,
-							$lessonTheme->name,
-							$lessonTheme->lessonThemeNumber,
-							$educationalFormHours
-						);
-					})->toArray(),
-				);
-			})->toArray();
-
-			return new ModuleModel(
-				$module->id,
-				$module->name ?? "",
-				$module->moduleNumber,
-				$themes
-			);
-		})->toArray();
-
+		// Обробляємо всі обрані форми навчання для даного семестру та трансформуємо їх у модель
 		$educationalForms = $semester->educationalForms->map(function ($educationalForm) {
 			return new SemesterEducationalFormModel(
 				$educationalForm->id,
@@ -174,6 +66,128 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			);
 		})->toArray();
 
+		// Обробляємо модулі семестра та трансформуємо їх у модель
+		$modules = $semester->modules->map(function ($module) use (&$lectionsForSemester, &$practicalsForSemester, &$seminarsForSemester, &$labsForSemester, &$selfworksForSemester, &$educationalForms) {
+			// Збираємо всі заняття по типах в модулі
+			$lectionsForModule = [];
+			$practicalsForModule = [];
+			$seminarsForModule = [];
+			$labsForModule = [];
+			$selfworksForModule = [];
+
+			// Обробляємо теми модуля та трансформуємо їх у модель
+			$themes = $module->themes->map(function ($theme) use (
+				&$lectionsForSemester,
+				&$practicalsForSemester,
+				&$seminarsForSemester,
+				&$labsForSemester,
+				&$selfworksForSemester,
+				&$lectionsForModule,
+				&$practicalsForModule,
+				&$seminarsForModule,
+				&$labsForModule,
+				&$selfworksForModule,
+				&$educationalForms,
+			) {
+				// Обробляємо лекції до теми та трансформуємо їх у модель
+				$lections = getLessonWithEducationalFormLessonHour($theme->lections);
+				$lectionsForModule = array_merge($lectionsForModule, $lections);
+				$lectionsForSemester = array_merge($lectionsForSemester, $lections);
+
+				// Обробляємо практичні до теми та трансформуємо їх у модель
+				$practicals = getLessonWithEducationalFormLessonHour($theme->practicals);
+				$practicalsForModule = array_merge($practicalsForModule, $practicals);
+				$practicalsForSemester = array_merge($practicalsForSemester, $practicals);
+
+				// Обробляємо семінари до теми та трансформуємо їх у модель
+				$seminars = getLessonWithEducationalFormLessonHour($theme->seminars);
+				$seminarsForModule = array_merge($seminarsForModule, $seminars);
+				$seminarsForSemester = array_merge($seminarsForSemester, $seminars);
+
+				// Обробляємо лабораторні до теми та трансформуємо їх у модель
+				$labs = getLessonWithEducationalFormLessonHour($theme->labs);
+				$labsForModule = array_merge($labsForModule, $labs);
+				$labsForSemester = array_merge($labsForSemester, $labs);
+
+				// Обробляємо самостійні до теми та трансформуємо їх у модель
+				$selfworks = getLessonWithEducationalFormLessonHour($theme->selfworks);
+				$selfworksForModule = array_merge($selfworksForModule, $selfworks);
+				$selfworksForSemester = array_merge($selfworksForSemester, $selfworks);
+
+
+				// Рахуємо всі години різних занять для теми
+				$educationalFormHoursStructure = [];
+
+				foreach ($educationalForms as $educationalForm) {
+					$educationalFormHoursStructure[$educationalForm->colName] = getEducationalFormHoursStructureForTheme(
+						$educationalForm->colName,
+						$lections,
+						$practicals,
+						$seminars,
+						$labs,
+						$selfworks
+					);
+				};
+
+				return new PDFThemeWithLessonsModel(
+					$theme->id,
+					$theme->name ?? "",
+					$theme->description ?? "",
+					$theme->themeNumber,
+					$lections,
+					$practicals,
+					$seminars,
+					$labs,
+					$selfworks,
+					$educationalForms,
+					$educationalFormHoursStructure
+				);
+			})->toArray();
+
+			// Рахуємо всі години різних занять для модуля
+			$totalEducationalFormHoursStructureForModule = [];
+
+			foreach ($educationalForms as $educationalForm) {
+				$totalEducationalFormHoursStructureForModule[$educationalForm->colName] = getEducationalFormHoursStructureForTheme(
+					$educationalForm->colName,
+					$lectionsForModule,
+					$practicalsForModule,
+					$seminarsForModule,
+					$labsForModule,
+					$selfworksForModule
+				);
+			};
+
+			return new PDFModuleModel(
+				$module->id,
+				$module->name ?? "",
+				$module->moduleNumber,
+				$themes,
+				$totalEducationalFormHoursStructureForModule
+			);
+		})->toArray();
+
+		// Рахуємо всі години різних занять для модуля
+		$totalHoursForLections = getHoursSumForEducationalForms($lectionsForSemester, $educationalForms);
+		$totalHoursForPracticals = getHoursSumForEducationalForms($practicalsForSemester, $educationalForms);
+		$totalHoursForSeminars = getHoursSumForEducationalForms($seminarsForSemester, $educationalForms);
+		$totalHoursForLabs = getHoursSumForEducationalForms($labsForSemester, $educationalForms);
+		$totalHoursForSelfworks = getHoursSumForEducationalForms($selfworksForSemester, $educationalForms);
+
+		// Рахуємо всі години різних занять для семестра
+		$totalEducationalFormHoursStructureForSemester = [];
+
+		foreach ($educationalForms as $educationalForm) {
+			$totalEducationalFormHoursStructureForSemester[$educationalForm->colName] = getEducationalFormHoursStructureForTheme(
+				$educationalForm->colName,
+				$lectionsForSemester,
+				$practicalsForSemester,
+				$seminarsForSemester,
+				$labsForSemester,
+				$selfworksForSemester
+			);
+		};
+
 		return new PDFSemesterModel(
 			$semester->id,
 			$semester->semesterNumber,
@@ -181,12 +195,24 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$modules,
 			$semester->courseWork,
 			$educationalForms,
-			$practicalsForSemester
+			$lectionsForSemester,
+			$practicalsForSemester,
+			$seminarsForSemester,
+			$labsForSemester,
+			$selfworksForSemester,
+			$totalHoursForLections,
+			$totalHoursForPracticals,
+			$totalHoursForSeminars,
+			$totalHoursForLabs,
+			$totalHoursForSelfworks,
+			$totalEducationalFormHoursStructureForSemester
 		);
 	})->toArray();
 
+	// Додаємо дані про семестри в робочу програму
 	$workingProgram->semesters = $formattedSemesters;
 
+	// Обробляємо дані про людину, яка створила робочу програму, та трансформуємо у модель
 	$formattedCreatedByPersons = $workingProgramData->createdByPersons->map(function ($involvedPerson) {
 		return new WPInvolvedPersonModel(
 			$involvedPerson->id,
@@ -200,7 +226,8 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		);
 	})->toArray();
 
+	// Додаємо дані про людину, яка створила робочу програму, в інформацію про робочу програму
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
 	return $workingProgram;
-}
+};
