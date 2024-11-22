@@ -36,6 +36,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'controlMeasures',
 		'studingMethods',
 		'examingMethods',
+		'code'
 	];
 
 	public $timestamps = false;

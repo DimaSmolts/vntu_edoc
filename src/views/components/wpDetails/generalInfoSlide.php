@@ -73,6 +73,15 @@ $title = "Загальна інформація";
 	</div>
 	<div class="mini-block">
 		<p class="mini-block-title">Деталі робочої програми:</p>
+		<label>Код:
+			<input
+				type="text"
+				id="code"
+				name="code"
+				placeholder="СУЯ ВНТУ-08-53-РП.023.01:23"
+				value="<?= htmlspecialchars($details->code ?? '') ?>"
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+		</label>
 		<label>Примітка:
 			<textarea
 				id="notes"

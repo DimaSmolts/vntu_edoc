@@ -38,7 +38,7 @@
 	<div class="basic-info small-bottom-margin">
 		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
 	</div>
-	<div class="center change large-bottom-margin"><b>СУЯ ВНТУ</b> -08-31.РП.013.01.24</div>
+	<div class="center inserted large-bottom-margin bold"><?= htmlspecialchars($details->code) ?></div>
 	<div class="center"><span class="change">ВНТУ</span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span></div>
 </page>
 
