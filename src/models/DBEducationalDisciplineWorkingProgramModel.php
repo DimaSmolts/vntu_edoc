@@ -28,13 +28,14 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'specialtyName',
 		'educationalProgram',
 		'notes',
-		'language',
 		'prerequisites',
 		'goal',
 		'tasks',
 		'competences',
 		'programResults',
 		'controlMeasures',
+		'studingMethods',
+		'examingMethods',
 	];
 
 	public $timestamps = false;

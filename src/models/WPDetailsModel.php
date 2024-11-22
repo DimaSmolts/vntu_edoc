@@ -17,7 +17,6 @@ class WPDetailsModel
 	public ?string $specialtyName;
 	public ?string $educationalProgram;
 	public ?string $notes;
-	public ?string $language;
 	public ?string $prerequisites;
 	public ?string $goal;
 	public ?string $tasks;
@@ -50,7 +49,6 @@ class WPDetailsModel
 		?string $specialtyName = "",
 		?string $educationalProgram = "",
 		?string $notes = "",
-		?string $language = "",
 		?string $prerequisites = "",
 		?string $goal = "",
 		?string $tasks = "",
@@ -82,7 +80,6 @@ class WPDetailsModel
 		$this->specialtyName = $specialtyName;
 		$this->educationalProgram = $educationalProgram;
 		$this->notes = $notes;
-		$this->language = $language;
 		$this->prerequisites = $prerequisites;
 		$this->goal = $goal;
 		$this->tasks = $tasks;

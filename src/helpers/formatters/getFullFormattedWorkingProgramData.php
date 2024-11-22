@@ -31,7 +31,6 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->specialtyName,
 		$workingProgramData->educationalProgram,
 		$workingProgramData->notes,
-		$workingProgramData->language,
 		$workingProgramData->prerequisites,
 		$workingProgramData->goal,
 		$workingProgramData->tasks,

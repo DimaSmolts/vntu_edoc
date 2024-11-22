@@ -333,7 +333,6 @@
 
 	<div class="bold">Примітка:</div>
 	<p class="inserted indent"><?= htmlspecialchars($details->notes) ?></p>
-	<p class="indent">Мова навчання – <span class="inserted"><?= htmlspecialchars($details->language) ?></span></p>
 
 	<div class="topic-title">
 		2. Передумови для вивчення дисципліни

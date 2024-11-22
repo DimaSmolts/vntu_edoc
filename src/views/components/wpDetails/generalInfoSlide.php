@@ -71,4 +71,14 @@ $title = "Загальна інформація";
 				name="docApprovedByName" oninput="">
 		</label>
 	</div>
+	<div class="mini-block">
+		<p class="mini-block-title">Деталі робочої програми:</p>
+		<label>Примітка:
+			<textarea
+				id="notes"
+				name="notes"
+				rows="5"
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->notes ?? '') ?></textarea>
+		</label>
+	</div>
 </form>

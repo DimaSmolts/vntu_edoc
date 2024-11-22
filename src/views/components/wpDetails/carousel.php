@@ -1,7 +1,7 @@
 <div class="carousel-wrapper" id="carousel-wrapper">
 	<ul class="carousel-container" id="carousel-container">
 		<li class="slide">
-			<?php include __DIR__ . '/generalUnivercityInfoSlide.php'; ?>
+			<?php include __DIR__ . '/generalInfoSlide.php'; ?>
 		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/approvedPageInfoSlide.php'; ?>
