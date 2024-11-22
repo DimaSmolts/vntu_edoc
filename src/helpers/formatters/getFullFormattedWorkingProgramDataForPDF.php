@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
+require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 
@@ -46,8 +47,25 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->examingMethods
 	);
 
+	// Збираємо всі модулі
+	$modulesInWorkingProgram = [];
+
+	// Збираємо всі заняття по типах у всіх семестрах робочої програми
+	$lectionsForWorkingProgram = [];
+	$practicalsForWorkingProgram = [];
+	$seminarsForWorkingProgram = [];
+	$labsForWorkingProgram = [];
+	$selfworksForWorkingProgram = [];
+
 	// Обробляємо семестри робочої програми та трансформуємо їх у модель
-	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) {
+	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) use (
+		&$modulesInWorkingProgram,
+		&$lectionsForWorkingProgram,
+		&$practicalsForWorkingProgram,
+		&$seminarsForWorkingProgram,
+		&$labsForWorkingProgram,
+		&$selfworksForWorkingProgram,
+	) {
 		// Збираємо всі заняття по типах в семестрі
 		$lectionsForSemester = [];
 		$practicalsForSemester = [];
@@ -77,11 +95,6 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 			// Обробляємо теми модуля та трансформуємо їх у модель
 			$themes = $module->themes->map(function ($theme) use (
-				&$lectionsForSemester,
-				&$practicalsForSemester,
-				&$seminarsForSemester,
-				&$labsForSemester,
-				&$selfworksForSemester,
 				&$lectionsForModule,
 				&$practicalsForModule,
 				&$seminarsForModule,
@@ -92,28 +105,22 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 				// Обробляємо лекції до теми та трансформуємо їх у модель
 				$lections = getLessonWithEducationalFormLessonHour($theme->lections);
 				$lectionsForModule = array_merge($lectionsForModule, $lections);
-				$lectionsForSemester = array_merge($lectionsForSemester, $lections);
 
 				// Обробляємо практичні до теми та трансформуємо їх у модель
 				$practicals = getLessonWithEducationalFormLessonHour($theme->practicals);
 				$practicalsForModule = array_merge($practicalsForModule, $practicals);
-				$practicalsForSemester = array_merge($practicalsForSemester, $practicals);
 
 				// Обробляємо семінари до теми та трансформуємо їх у модель
 				$seminars = getLessonWithEducationalFormLessonHour($theme->seminars);
 				$seminarsForModule = array_merge($seminarsForModule, $seminars);
-				$seminarsForSemester = array_merge($seminarsForSemester, $seminars);
 
 				// Обробляємо лабораторні до теми та трансформуємо їх у модель
 				$labs = getLessonWithEducationalFormLessonHour($theme->labs);
 				$labsForModule = array_merge($labsForModule, $labs);
-				$labsForSemester = array_merge($labsForSemester, $labs);
 
 				// Обробляємо самостійні до теми та трансформуємо їх у модель
 				$selfworks = getLessonWithEducationalFormLessonHour($theme->selfworks);
 				$selfworksForModule = array_merge($selfworksForModule, $selfworks);
-				$selfworksForSemester = array_merge($selfworksForSemester, $selfworks);
-
 
 				// Рахуємо всі години різних занять для теми
 				$educationalFormHoursStructure = [];
@@ -144,6 +151,13 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 				);
 			})->toArray();
 
+			// Додаємо заняття з модуля у масив усіх занять семестра по типах
+			$lectionsForSemester = array_merge($lectionsForSemester, $lectionsForModule);
+			$practicalsForSemester = array_merge($practicalsForSemester, $practicalsForModule);
+			$seminarsForSemester = array_merge($seminarsForSemester, $seminarsForModule);
+			$labsForSemester = array_merge($labsForSemester, $labsForModule);
+			$selfworksForSemester = array_merge($selfworksForSemester, $selfworksForModule);
+
 			// Рахуємо всі години різних занять для модуля
 			$totalEducationalFormHoursStructureForModule = [];
 
@@ -167,7 +181,17 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			);
 		})->toArray();
 
-		// Рахуємо всі години різних занять для модуля
+		// Додаємо модулі з семестра у масив усіх модулів
+		$modulesInWorkingProgram = array_merge($modulesInWorkingProgram, $modules);
+
+		// Додаємо заняття з семестра у масив усіх занять по типах
+		$lectionsForWorkingProgram = array_merge($lectionsForWorkingProgram, $lectionsForSemester);
+		$practicalsForWorkingProgram = array_merge($practicalsForWorkingProgram, $practicalsForSemester);
+		$seminarsForWorkingProgram = array_merge($seminarsForWorkingProgram, $seminarsForSemester);
+		$labsForWorkingProgram = array_merge($labsForWorkingProgram, $labsForSemester);
+		$selfworksForWorkingProgram = array_merge($selfworksForWorkingProgram, $selfworksForSemester);
+
+		// Рахуємо всі години різних занять для семестра
 		$totalHoursForLections = getHoursSumForEducationalForms($lectionsForSemester, $educationalForms);
 		$totalHoursForPracticals = getHoursSumForEducationalForms($practicalsForSemester, $educationalForms);
 		$totalHoursForSeminars = getHoursSumForEducationalForms($seminarsForSemester, $educationalForms);
@@ -211,6 +235,20 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 	// Додаємо дані про семестри в робочу програму
 	$workingProgram->semesters = $formattedSemesters;
+
+	// Визначаємо кількість навчальних форм обраних у всіх семестрах
+	$availableEducationalFormsInWorkingProgram = getAllEducationalFormsAvailableInWorkingProgram($formattedSemesters);
+	$workingProgram->availableEducationalForms = $availableEducationalFormsInWorkingProgram;
+
+	// Рахуємо всі години різних занять для робочої програми
+	$workingProgram->totalHoursForLections = getHoursSumForEducationalForms($lectionsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+	$workingProgram->totalHoursForPracticals = getHoursSumForEducationalForms($practicalsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+	$workingProgram->totalHoursForSeminars = getHoursSumForEducationalForms($seminarsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+	$workingProgram->totalHoursForLabs = getHoursSumForEducationalForms($labsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+	$workingProgram->totalHoursForSelfworks = getHoursSumForEducationalForms($selfworksForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+
+	//Обчислюємо кількість модулів у робочій програмі та додаємо до інформації про робочу програму
+	$workingProgram->modulesInWorkingProgramAmount = count($modulesInWorkingProgram);
 
 	// Обробляємо дані про людину, яка створила робочу програму, та трансформуємо у модель
 	$formattedCreatedByPersons = $workingProgramData->createdByPersons->map(function ($involvedPerson) {

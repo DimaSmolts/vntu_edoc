@@ -1,5 +1,5 @@
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
-	<div class="center">Вінницький національний технічний університет</div>
+	<div class="center change">Вінницький національний технічний університет</div>
 	<div class="center inserted"><?= htmlspecialchars($details->facultyName) ?></div>
 	<div class="center inserted small-bottom-margin"><?= htmlspecialchars($details->departmentName) ?></div>
 	<div class="right ">ЗАТВЕРДЖУЮ</div>
@@ -20,7 +20,7 @@
 		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
+		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="not-inserted">
 				<?= htmlspecialchars($details->fielfOfStudyIdx) ?>
 			</span> – <span class="inserted">
 				<?= htmlspecialchars($details->fielfOfStudyName) ?>
@@ -28,7 +28,7 @@
 		</u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="inserted">
+		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="not-inserted">
 				<?= htmlspecialchars($details->specialtyIdx) ?>
 			</span> – <span class="inserted">
 				<?= htmlspecialchars($details->specialtyName) ?>
@@ -38,8 +38,8 @@
 	<div class="basic-info small-bottom-margin">
 		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
 	</div>
-	<div class="center import large-bottom-margin"><b>СУЯ ВНТУ</b> -08-31.РП.013.01.24</div>
-	<div class="center">ВНТУ, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span></div>
+	<div class="center change large-bottom-margin"><b>СУЯ ВНТУ</b> -08-31.РП.013.01.24</div>
+	<div class="center"><span class="change">ВНТУ</span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span></div>
 </page>
 
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
@@ -50,7 +50,7 @@
 		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
+		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="not-inserted">
 				<?= htmlspecialchars($details->fielfOfStudyIdx) ?>
 			</span> – <span class="inserted">
 				<?= htmlspecialchars($details->fielfOfStudyName) ?>
@@ -58,7 +58,7 @@
 		</u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="inserted">
+		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="not-inserted">
 				<?= htmlspecialchars($details->specialtyIdx) ?>
 			</span> – <span class="inserted">
 				<?= htmlspecialchars($details->specialtyName) ?>
@@ -69,7 +69,7 @@
 		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
 	</div>
 	<div class="basic-info">
-		<span class="import inserted"><?= htmlspecialchars($details->regularYear) ?></span> – <span class="import"> 14 c.</span>
+		<span class="import inserted"><?= htmlspecialchars($details->regularYear) ?></span> – <span class="change"> 14 c.</span>
 	</div>
 
 	<table class="approved-table">
@@ -116,138 +116,221 @@
 		</tr>
 	</table>
 
-	<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($details->createdByPersons[0]->name) ?>. <?= htmlspecialchars($details->createdByPersons[0]->patronymicName) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
+	<?php
+	$copyrightPersonNameLetter = mb_substr($details->createdByPersons[0]->name, 0, 1);
+	$copyrightPersonPatronymicNameLetter = mb_substr($details->createdByPersons[0]->patronymicName, 0, 1);
+	?>
+	<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
 			class="inserted"><?= htmlspecialchars($details->regularYear) ?>.</span></div>
-	<div class="copyright">© ВНТУ, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span> рік</div>
+	<div class="copyright">© <span class="change">ВНТУ</span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span> рік</div>
 
 </page>
 
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
 	<div class="topic-title-page-start">1. Опис навчальної дисципліни</div>
 	<p class="indent">Таблиця 1.1 - Опис навчальної дисципліни</p>
+	<?php
+	$wpDescriptionColumnWidth = 100; // Початкову ширину колонкок "Найменування показників" та "Галузь знань, спец..." (у відсотках)
+	$wpCharacteristicsPartColumnWidth = 12; // Ширина для однієї форми навчання одного семестру
+	$wpCharacteristicsColumnWidth = 0; // Початкова ширина колонки "Характеристика навчальної дисципліни"
+
+	// Зберігаємо всі значення ширини для кожної форми навчання в залежності від кількості семестрів для форми навчання
+	$columnWidthByEducationalForm = [];
+	// Зберігаємо всі семестри кожної форми навчання
+	$semestersByEducationalForm = [];
+
+	// Визначаємо ключ - форма навчання (перебираємо всі доступні в робочій програмі)
+	foreach ($details->availableEducationalForms as $availableEducationalForm) {
+		$columnWidthByEducationalForm[$availableEducationalForm->colName] = 0;
+		$semestersByEducationalForm[$availableEducationalForm->colName] = [];
+	}
+	foreach ($details->semesters as $semester) {
+		if (!empty($semester->educationalForms)) {
+			foreach ($semester->educationalForms as $educationalForm) {
+				// Визначаємо значення (додаємо ширину для кожної форми навчання кожного семестру)
+				$columnWidthByEducationalForm[$educationalForm->colName] += $wpCharacteristicsPartColumnWidth;
+				// Визначаємо значення (додаємо семестр для кожної форми навчання)
+				$semestersByEducationalForm[$educationalForm->colName] = array_merge($semestersByEducationalForm[$educationalForm->colName], [$semester]);
+				// Додаємо ширину до колонки "Характеристика навчальної дисципліни"
+				$wpCharacteristicsColumnWidth += $wpCharacteristicsPartColumnWidth;
+			}
+		}
+	}
+
+	$wpDescriptionColumnWidth -= $wpCharacteristicsColumnWidth;
+
+	$indicatorsColumnWidth = 20; // ширина колонки "Найменування показників"
+	$descColumnWidth = $wpDescriptionColumnWidth - 20; // ширина колонки "Галузь знань, спец..."
+
+	// $indicatorsColumnWidth = $wpDescriptionColumnWidth / 100 * 35; // ширина колонки "Найменування показників"
+	// $descColumnWidth = $wpDescriptionColumnWidth / 100 * 65; // ширина колонки "Галузь знань, спец..."
+	?>
 	<table class="large-bottom-margin">
 		<tr>
-			<th class="characteristic-first-col" rowspan="2" colspan="2">
+			<th style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" rowspan="2" colspan="2">
 				Найменування показників
 			</th>
-			<th class="characteristic-second-col" rowspan="2">
+			<th style="width: <?= htmlspecialchars($descColumnWidth) ?>%" rowspan="2">
 				Галузь знань, спеціальність, освітні програми, рівень вищої освіти
 			</th>
-			<th class="characteristic-third-col" colspan="2">
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" colspan="<?= htmlspecialchars(count($columnWidthByEducationalForm)) ?>">
 				Характеристика навчальної дисципліни
 			</th>
 		</tr>
 		<tr>
-			<th style="width: 15%;" class="none-border-left">
-				денна форма навчання
-			</th>
-			<th style="width: 15%;">
-				заочна форма навчання
-			</th>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<th class="none-border-left" style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;"><?= htmlspecialchars($availableEducationalForm->name) ?> форма</th>
+			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<td class="characteristic-first-col center" colspan="2">
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2">
 				Кількість кредитів<br><span class="import">5</span>
 			</td>
-			<td class="inserted characteristic-second-col center">
+			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="3">
 				<b>Галузь знань</b><br>
 				<?= htmlspecialchars($details->fielfOfStudyIdx) ?> – <?= htmlspecialchars($details->fielfOfStudyName) ?>
 			</td>
-			<td class="characteristic-third-col center" colspan="2">
+			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="2">
 				<span class="import">Обов'язкова (професійна чи загальна)</span>
 			</td>
 		</tr>
 		<tr>
-			<td class="characteristic-first-col center" colspan="2">
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
 				Модулів<br><span class="import">1</span>
 			</td>
-			<td class="inserted characteristic-second-col center" rowspan="2">
-				<b>Cпеціальність</b><br>
-				<?= htmlspecialchars($details->specialtyIdx) ?> – <?= htmlspecialchars($details->specialtyName) ?>
-			</td>
-			<th class="characteristic-third-col center" colspan="2">
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="2">
 				Рік підготовки (курс)
 			</th>
 		</tr>
 		<tr>
-			<td class="characteristic-first-col center" colspan="2">
-				Змістових модулів<br><span class="import">8</span>
+			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="not-inserted none-border-left center" colspan="2">
+				<?= htmlspecialchars($details->academicYear) ?>
 			</td>
-
-			<td class="inserted center"><?= htmlspecialchars($details->academicYear) ?></td>
-			<td class="inserted center"><?= htmlspecialchars($details->academicYear) ?></td>
 		</tr>
 		<tr>
-			<td class="characteristic-first-col center" colspan="2">
-				Індивідуальне завдання<br><span class="import">-</span>
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
+				Змістових модулів<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
 			</td>
-			<td class="inserted characteristic-second-col center" rowspan="2">
-				<b>Освітня програма</b><br><span class="inserted"><?= htmlspecialchars($details->educationalProgram) ?></span>
+			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="5">
+				<b>Cпеціальність</b><br>
+				<?= htmlspecialchars($details->specialtyIdx) ?> – <?= htmlspecialchars($details->specialtyName) ?>
 			</td>
-			<th class="characteristic-third-col center" colspan="2">
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="2">
 				<p>Семестр</p>
 			</th>
 		</tr>
-		<tr>
-			<td class="characteristic-first-col center" colspan="2">
-				Загальна кількість годин<br><span class="import">150</span>
-			</td>
-
-			<td class="inserted center"><?= htmlspecialchars($details->semesters[0]->semesterNumber) ?></td>
-			<td class="inserted center"><?= htmlspecialchars($details->semesters[0]->semesterNumber) ?></td>
+		<tr><?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->semesterNumber) ?>
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<td class="characteristic-first-col center" colspan="2" rowspan="4">
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="3">
+				Індивідуальне завдання<br><span class="import">-</span>
+			</td>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="2">Лекції</th>
+		</tr>
+		<tr><?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForLections[$availableEducationalForm->colName]) ?> год.
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</tr>
+		<tr>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Практичні</th>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
+				Загальна кількість годин<br><span class="change">150</span>
+			</td>
+			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="7">
+				<b>Освітня програма</b><br><span class="inserted"><?= htmlspecialchars($details->educationalProgram) ?></span>
+			</td>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForPracticals[$availableEducationalForm->colName]) ?> год.
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</tr>
+		<tr>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Семінарські</th>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="5">
 				Тижневих годин для денної форми навчання
 			</td>
-			<td class="inserted characteristic-second-col center" rowspan="11">
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForSeminars[$availableEducationalForm->colName]) ?> год.
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</tr>
+		<tr>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Лабораторні</th>
+		</tr>
+		<tr>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForLabs[$availableEducationalForm->colName]) ?> год.
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</tr>
+		<tr>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Курсовий проєкт (робота)</th>
+		</tr>
+		<tr>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						-
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</tr>
+		<tr>
+			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">ауд.</td>
+			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">сам. роб.</td>
+			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="4">
 				<b>Рівень вищої освіти</b><br><span class="inserted"><?= htmlspecialchars($details->degreeName) ?></span>
 			</td>
-			<th class="characteristic-third-col center" colspan="2">Лекції</th>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Самостійна робота</th>
 		</tr>
 		<tr>
-			<td class="import center none-border-left">36 год.</td>
-			<td class="import center">10 год.</td>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForSelfworks[$availableEducationalForm->colName]) ?> год.
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<th class="characteristic-third-col center none-border-left" colspan="2">Практичні, семінарські</th>
+			<td class="center change" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">6</td>
+			<td class="center change" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">4</td>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="2">Вид контролю</th>
 		</tr>
 		<tr>
-			<td class="import center none-border-left">27 год.</td>
-			<td class="import center">5 год.</td>
-		</tr>
-		<tr>
-			<td class="center" rowspan="4" style="width: 15%;">аудиторних</td>
-			<td class="center" rowspan="4" style="width: 15%;">самостійної роботи студента</td>
-			<th class="characteristic-third-col center" colspan="2">Лабораторні</th>
-		</tr>
-		<tr>
-			<td class="import center none-border-left">-</td>
-			<td class="import center">-</td>
-		</tr>
-		<tr>
-			<th class="characteristic-third-col center none-border-left" colspan="2">Курсовий проєкт (робота)</th>
-		</tr>
-		<tr>
-			<td class="import center none-border-left">-</td>
-			<td class="import center">-</td>
-		</tr>
-		<tr>
-			<td class="center import" rowspan="3" style="width: 15%;">6</td>
-			<td class="center import" rowspan="3" style="width: 15%;">4</td>
-			<th class="characteristic-third-col center none-border-left" colspan="2">Самостійна робота</th>
-		</tr>
-		<tr>
-			<td class="import center none-border-left">87 год.</td>
-			<td class="import center">135 год.</td>
-		</tr>
-		<tr>
-			<td class="characteristic-third-col center none-border-left" colspan="2">
-				<b>Вид контролю:</b><br>
-				<span class="inserted"><?= htmlspecialchars($details->semesters[0]->examType) ?></span>
-			</td>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
+					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
+						<?= htmlspecialchars($semesterByEducationalForm->examType) ?>
+					</td>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 		</tr>
 	</table>
+
 	<div class="bold">Примітка:</div>
 	<p class="inserted indent"><?= htmlspecialchars($details->notes) ?></p>
 	<p class="indent">Мова навчання – <span class="inserted"><?= htmlspecialchars($details->language) ?></span></p>
@@ -298,43 +381,21 @@
 	</div>
 	<p class="indent">Таблиця 5.1 - Структура навчальної дисципліни</p>
 	<?php
-
 	// Визначаємо початкову ширину колонки "Назви змістових модулів і тем" (у відсотках)
 	$nameColumnWidth = 100;
 
 	// Визначаємо початкову кількість колонок для об'єднання для форм навчання
 	$hoursColSpan = 0;
 
-	// Визначаємо початкову кількість навчальних форм
-	$allEducationalFormsAvailableInSemesters = [];
-
-	if (!empty($details->semesters)) {
-
-		// Перебираємо усі семестри
-		foreach ($details->semesters as $semester) {
-
-			// Якщо початкова кількість пуста, то копіюємо в неї форми навчання з семестру
-			if (empty($allEducationalFormsAvailableInSemesters)) {
-				$allEducationalFormsAvailableInSemesters = $semester->educationalForms;
-
-				// Якщо ні, то порівнюємо кількість форм в поточному семестрі з уже записаними та обираємо більшу кількість 
-			} else {
-				if (count($semester->educationalForms) > count($allEducationalFormsAvailableInSemesters)) {
-					$allEducationalFormsAvailableInSemesters = $semester->educationalForms;
-				}
-			}
-		}
-
-		// Віднімаємо від ширини колонки "Назви ..." ширину колонок для кількості годин (30%) на кожну форму навчання
-		foreach ($allEducationalFormsAvailableInSemesters as $availableForm) {
-			$nameColumnWidth -= 30;
-			// Додаємо колонки для об'єднання в залежності від форм навчання
-			$hoursColSpan += 6;
-		}
-
-		// Обраховуємо ширину для запису всіх годин на всі доступні форми навчання 
-		$hoursColumnWidth = 100 - $nameColumnWidth;
+	// Віднімаємо від ширини колонки "Назви ..." ширину колонок для кількості годин (30%) на кожну форму навчання
+	foreach ($details->availableEducationalForms as $availableEducationalForm) {
+		$nameColumnWidth -= 30;
+		// Додаємо колонки для об'єднання в залежності від форм навчання
+		$hoursColSpan += 6;
 	}
+
+	// Обраховуємо ширину для запису всіх годин на всі доступні форми навчання 
+	$hoursColumnWidth = 100 - $nameColumnWidth;
 	?>
 	<table>
 		<tr>
@@ -342,12 +403,12 @@
 			<th style="width: <?= htmlspecialchars($hoursColumnWidth) ?>%;" colspan="<?= htmlspecialchars($hoursColSpan) ?>">Кількість годин</th>
 		</tr>
 		<tr>
-			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-				<th class="none-border-left" style="width: 30%;" colspan="6"><?= htmlspecialchars($availableForm->name) ?></th>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+				<th class="none-border-left" style="width: 30%;" colspan="6"><?= htmlspecialchars($availableEducationalForm->name) ?></th>
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<td class="rotated-total-cell none-border-left" style="width: 5%;" rowspan="2">
 					<div>усього</div>
 				</td>
@@ -355,7 +416,7 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
+			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<td style="width: 5%; font-size: 12pt;" class="center none-border-left">лек.</td>
 				<td style="width: 5%; font-size: 12pt;" class="center">пр.</td>
 				<td style="width: 5%; font-size: 12pt;" class="center">лаб.</td>
@@ -382,26 +443,26 @@
 							<?php foreach ($moduleData->themes as $themeData): ?>
 								<tr>
 									<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : '' ?>. <?= htmlspecialchars($themeData->name) ?>. <?= htmlspecialchars($themeData->name) ?>.</td>
-									<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableForm->colName]->totalHours) ?></td>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableForm->colName]->lectionHours) ?></td>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableForm->colName]->practicalHours) ?></td>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableForm->colName]->labHours) ?></td>
+									<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
+										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
+										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
 										<td class="import center"></td>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableForm->colName]->selfworkHours) ?></td>
+										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 									<?php endforeach; ?>
 								</tr>
 							<?php endforeach; ?>
 						<?php endif; ?>
 						<tr>
 							<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Разом за модулем <?= htmlspecialchars($moduleData->moduleNumber) ?></td>
-							<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->totalHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->lectionHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->practicalHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->labHours) ?></td>
+							<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
+								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
+								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
 								<td class="import center"></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableForm->colName]->selfworkHours) ?></td>
+								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 							<?php endforeach; ?>
 						</tr>
 
@@ -409,13 +470,13 @@
 				<?php endif; ?>
 				<tr>
 					<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Усього за <?= htmlspecialchars($semesterData->semesterNumber) ?> семестр</td>
-					<?php foreach ($allEducationalFormsAvailableInSemesters as $availableForm): ?>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->totalHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->lectionHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->practicalHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->labHours) ?></td>
+					<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
+						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
+						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
 						<td class="import center"></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableForm->colName]->selfworkHours) ?></td>
+						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endforeach; ?>
@@ -428,7 +489,7 @@
 	$lessonNameColumnWidth = 95; // 5% для колонки з номером за порядком
 
 	// Віднімаємо від ширини колонки "Назва ..." ширину колонок для кількості годин (15%) на кожну форму навчання
-	foreach ($allEducationalFormsAvailableInSemesters as $availableForm) {
+	foreach ($details->availableEducationalForms as $availableEducationalForm) {
 		$lessonNameColumnWidth -= 15;
 	}
 	?>
@@ -657,7 +718,7 @@
 		11. Методи навчання
 	</div>
 	<p class="indent inserted"><?= htmlspecialchars($details->studingMethods) ?></p>
-	
+
 
 	<div class="topic-title">
 		12. Методи контролю

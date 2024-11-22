@@ -26,8 +26,15 @@ class WPDetailsModel
 	public ?string $controlMeasures;
 	public ?string $studingMethods;
 	public ?string $examingMethods;
+	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
 	public array $createdByPersons;
+	public array $availableEducationalForms;
+	public array $totalHoursForLections;
+	public array $totalHoursForPracticals;
+	public array $totalHoursForSeminars;
+	public array $totalHoursForLabs;
+	public array $totalHoursForSelfworks;
 
 	public function __construct(
 		int $id,
@@ -52,8 +59,15 @@ class WPDetailsModel
 		?string $controlMeasures = "",
 		?string $studingMethods = "",
 		?string $examingMethods = "",
+		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
-		array $createdByPersons = []
+		array $createdByPersons = [],
+		array $availableEducationalForms = [],
+		array $totalHoursForLections = [],
+		array $totalHoursForPracticals = [],
+		array $totalHoursForSeminars = [],
+		array $totalHoursForLabs = [],
+		array $totalHoursForSelfworks = [],
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -77,7 +91,14 @@ class WPDetailsModel
 		$this->controlMeasures = $controlMeasures;
 		$this->studingMethods = $studingMethods;
 		$this->examingMethods = $examingMethods;
+		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
 		$this->createdByPersons = $createdByPersons;
+		$this->availableEducationalForms = $availableEducationalForms;
+		$this->totalHoursForLections = $totalHoursForLections;
+		$this->totalHoursForPracticals = $totalHoursForPracticals;
+		$this->totalHoursForSeminars = $totalHoursForSeminars;
+		$this->totalHoursForLabs = $totalHoursForLabs;
+		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
 	}
 }

@@ -20,7 +20,7 @@ class PDFSemesterModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
-	public array $educationalFormHoursStructure = [];
+	public array $educationalFormHoursStructure;
 
 	public function __construct(
 		$id,

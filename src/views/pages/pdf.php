@@ -15,6 +15,32 @@ $htmlContent = ob_get_clean();
 
 $html2pdf->setDefaultFont('timesnewromancyr', '', 14);
 
+$highlighting = $isHighlighting ? "
+.import {
+	background-color: antiquewhite;
+}
+    
+.inserted {
+	background-color: lightgreen;
+}
+  
+.not-inserted {
+	background-color: indianred;
+}
+
+.global {
+	background-color: cadetblue;
+}
+
+.calculated {
+	background-color: orange;
+}
+
+.change {
+	background-color: red;
+}
+" : "";
+
 $html2pdf->writeHTML("
     <style>
         * {
@@ -23,6 +49,7 @@ $html2pdf->writeHTML("
             font-family: \'timesnewromancyr\';
             font-size: 14pt;
         }
+        $highlighting
         $css
     </style>
     $htmlContent

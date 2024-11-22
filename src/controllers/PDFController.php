@@ -34,10 +34,9 @@ class PDFController
 
 	public function getPDFData()
 	{
-		// header('Content-Type: text/json; charset=UTF-8');
-		header('Content-Type: text/html; charset=UTF-8');
-
 		$wpId = $_GET['id'];
+		$isHighlighting = isset($_GET['highlight']) ? $_GET['highlight'] : false;
+		$isData = isset($_GET['data']) ? $_GET['data'] : false;
 
 		$rawDetails = $this->wpService->getWPDetailsForPDF($wpId);
 		$details = getFullFormattedWorkingProgramDataForPDF($rawDetails);
@@ -45,8 +44,12 @@ class PDFController
 		$rawPersons = $this->personService->getPersons();
 		$persons = getFormattedPersonsData($rawPersons);
 
-		// print_r($details);
-
-		require __DIR__ . '/../views/pages/pdf.php';
+		if ($isData) {
+			header('Content-Type: text/json; charset=UTF-8');
+			print_r($details);
+		} else {
+			header('Content-Type: text/html; charset=UTF-8');
+			require __DIR__ . '/../views/pages/pdf.php';
+		}
 	}
 }
