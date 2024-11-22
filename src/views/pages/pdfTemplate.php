@@ -432,7 +432,7 @@
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<tr>
-							<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>">Модуль <?= htmlspecialchars($moduleData->moduleNumber) ?></th>
+							<th class="inserted" colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>">Модуль <?= htmlspecialchars($moduleData->moduleNumber) ?></th>
 						</tr>
 						<tr>
 							<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>" class="inserted"><?= htmlspecialchars($moduleData->moduleName) ?></th>
@@ -443,7 +443,7 @@
 								<tr>
 									<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : '' ?>. <?= htmlspecialchars($themeData->name) ?>. <?= htmlspecialchars($themeData->name) ?>.</td>
 									<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+										<td class="calculated center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
@@ -454,28 +454,28 @@
 							<?php endforeach; ?>
 						<?php endif; ?>
 						<tr>
-							<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Разом за модулем <?= htmlspecialchars($moduleData->moduleNumber) ?></td>
+							<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="bold">Разом за модулем <span class="inserted"><?= htmlspecialchars($moduleData->moduleNumber) ?></span></td>
 							<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
+								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
+								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
+								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
 								<td class="import center"></td>
-								<td class="inserted center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
+								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 							<?php endforeach; ?>
 						</tr>
 
 					<?php endforeach; ?>
 				<?php endif; ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Усього за <?= htmlspecialchars($semesterData->semesterNumber) ?> семестр</td>
+					<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Усього за <span class="inserted"><?= htmlspecialchars($semesterData->semesterNumber) ?></span> семестр</td>
 					<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
+						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
+						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
+						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
+						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
 						<td class="import center"></td>
-						<td class="inserted center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
+						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endforeach; ?>
@@ -535,7 +535,7 @@
 						<th style="width: 5%;"></th>
 						<td class="bold" style="width: 65%;">Всього:</td>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
-							<th class="inserted" style="width: 15%;"><?= isset($semester->totalHoursForSeminars[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSeminars[$educationalForm->colName]) : 0 ?></th>
+							<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSeminars[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSeminars[$educationalForm->colName]) : 0 ?></th>
 						<?php endforeach; ?>
 					</tr>
 				</table>
@@ -589,7 +589,7 @@
 						<th style="width: 5%;"></th>
 						<td class="bold" style="width: 65%;">Всього:</td>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
-							<th class="inserted" style="width: 15%;"><?= isset($semester->totalHoursForPracticals[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForPracticals[$educationalForm->colName]) : 0 ?></th>
+							<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForPracticals[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForPracticals[$educationalForm->colName]) : 0 ?></th>
 						<?php endforeach; ?>
 					</tr>
 				</table>
@@ -643,7 +643,7 @@
 						<th style="width: 5%;"></th>
 						<td class="bold" style="width: 65%;">Всього:</td>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
-							<th class="inserted" style="width: 15%;"><?= isset($semester->totalHoursForLabs[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForLabs[$educationalForm->colName]) : 0 ?></th>
+							<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForLabs[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForLabs[$educationalForm->colName]) : 0 ?></th>
 						<?php endforeach; ?>
 					</tr>
 				</table>
@@ -697,7 +697,7 @@
 						<th style="width: 5%;"></th>
 						<td class="bold" style="width: 65%;">Всього:</td>
 						<?php foreach ($semester->educationalForms as $educationalForm): ?>
-							<th class="inserted" style="width: 15%;"><?= isset($semester->totalHoursForSelfworks[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSelfworks[$educationalForm->colName]) : 0 ?></th>
+							<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSelfworks[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSelfworks[$educationalForm->colName]) : 0 ?></th>
 						<?php endforeach; ?>
 					</tr>
 				</table>
