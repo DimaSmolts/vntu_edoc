@@ -7,8 +7,11 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/src/controllers/WPController.php';
+require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
 require_once __DIR__ . '/src/controllers/api/WPApiController.php';
+require_once __DIR__ . '/src/controllers/api/GlobalDataApiController.php';
+require_once __DIR__ . '/src/controllers/api/GlobalDataForEducationalDisciplineApiController.php';
 require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
@@ -19,8 +22,11 @@ require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
+use App\Controllers\GlobalDataController;
 use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
+use App\Controllers\GlobalDataApiController;
+use App\Controllers\GlobalDataForEducationalDisciplineApiController;
 use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
@@ -41,6 +47,11 @@ $router->get('/wpdetails', function () {
 	$wpController->getWPDetails();
 });
 
+$router->get('/globalWPData', function () {
+	$globalDataController = new GlobalDataController();
+	$globalDataController->getGlobalWPData();
+});
+
 $router->get('/pdf', function () {
 	$pdfController = new PDFController();
 	$pdfController->getPDFData();
@@ -49,6 +60,16 @@ $router->get('/pdf', function () {
 $router->get('/getThemes', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->getThemesWithLessonsByWPId();
+});
+
+$router->post('/updateGlobalWPData', function () {
+	$globalDataApiController = new GlobalDataApiController();
+	$globalDataApiController->updateGlobalWPData();
+});
+
+$router->post('/updateGlobalWPDataForEducationalDiscipline', function () {
+	$globalDataForEducationalDisciplineApiController = new GlobalDataForEducationalDisciplineApiController();
+	$globalDataForEducationalDisciplineApiController->updateGlobalWPDataForEducationalDiscipline();
 });
 
 $router->post('/createNewWP', function () {
@@ -135,7 +156,6 @@ $router->delete('/deleteSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->deleteSemesterEducationForm();
 });
-
 
 $router->delete('/deleteLesson', function () {
 	$lessonApiController = new LessonApiController();

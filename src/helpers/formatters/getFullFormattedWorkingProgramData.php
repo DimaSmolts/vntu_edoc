@@ -6,6 +6,8 @@ require_once __DIR__ . '/../../models/ModuleModel.php';
 require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
+require_once __DIR__ . '/../../models/GlobalDataForEducationalDisciplineModel.php';
+require_once __DIR__ . '/../../models/AssessmentCriteriaModel.php';
 require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 
 use App\Models\WPDetailsModel;
@@ -14,6 +16,8 @@ use App\Models\ModuleModel;
 use App\Models\ThemeModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
+use App\Models\GlobalDataForEducationalDisciplineModel;
+use App\Models\AssessmentCriteriaModel;
 
 function getFullFormattedWorkingProgramData($workingProgramData)
 {
@@ -97,6 +101,62 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 	})->toArray();
 
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
+
+	$formattedGlobalData = $workingProgramData->globalData->map(function ($global) {
+		$generalAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->generalAssessmentCriteriaForA,
+			$global->generalAssessmentCriteriaForB,
+			$global->generalAssessmentCriteriaForC,
+			$global->generalAssessmentCriteriaForD,
+			$global->generalAssessmentCriteriaForE,
+			$global->generalAssessmentCriteriaForFX,
+			$global->generalAssessmentCriteriaForF,
+		);
+
+		$lessonAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->lessonAssessmentCriteriaForA,
+			$global->lessonAssessmentCriteriaForB,
+			$global->lessonAssessmentCriteriaForC,
+			$global->lessonAssessmentCriteriaForD,
+			$global->lessonAssessmentCriteriaForE,
+			$global->lessonAssessmentCriteriaForFX,
+			$global->lessonAssessmentCriteriaForF,
+		);
+
+		$courseworkAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->courseworkAssessmentCriteriaForA,
+			$global->courseworkAssessmentCriteriaForB,
+			$global->courseworkAssessmentCriteriaForC,
+			$global->courseworkAssessmentCriteriaForD,
+			$global->courseworkAssessmentCriteriaForE,
+			$global->courseworkAssessmentCriteriaForFX,
+			$global->courseworkAssessmentCriteriaForF,
+		);
+
+		$examAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->examAssessmentCriteriaForA,
+			$global->examAssessmentCriteriaForB,
+			$global->examAssessmentCriteriaForC,
+			$global->examAssessmentCriteriaForD,
+			$global->examAssessmentCriteriaForE,
+			$global->examAssessmentCriteriaForFX,
+			$global->examAssessmentCriteriaForF,
+		);
+
+		return new GlobalDataForEducationalDisciplineModel(
+			$global->id,
+			$global->educationalDisciplineWorkingProgramId,
+			$global->universityName,
+			$global->universityShortName,
+			$global->academicRightsAndResponsibilities,
+			$generalAssessmentCriteria,
+			$lessonAssessmentCriteria,
+			$courseworkAssessmentCriteria,
+			$examAssessmentCriteria,
+		);
+	})->toArray();
+
+	$workingProgram->globalData = $formattedGlobalData;
 
 	return $workingProgram;
 }

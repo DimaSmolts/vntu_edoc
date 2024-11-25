@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Details</title>
     <link rel="stylesheet" href="src/views/styles/common.css">
     <link rel="stylesheet" href="src/views/styles/carousel.css">
     <link rel="stylesheet" href="src/views/styles/form.css">
@@ -29,6 +29,7 @@
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
         <script src="src/views/helpers/updating/updateLessonInfo.js"></script>
         <script src="src/views/helpers/updating/updateHours.js"></script>
+        <script src="src/views/helpers/updating/updateGlobalWPDataForEducationalDiscipline.js"></script>
         <script src="src/views/helpers/deleting/deleteLesson.js"></script>
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>

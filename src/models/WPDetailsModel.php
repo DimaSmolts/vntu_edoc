@@ -35,6 +35,7 @@ class WPDetailsModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
+	public array $globalData;
 
 	public function __construct(
 		int $id,
@@ -68,6 +69,7 @@ class WPDetailsModel
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
+		array $globalData = [],
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -100,5 +102,6 @@ class WPDetailsModel
 		$this->totalHoursForSeminars = $totalHoursForSeminars;
 		$this->totalHoursForLabs = $totalHoursForLabs;
 		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
+		$this->globalData = $globalData;
 	}
 }

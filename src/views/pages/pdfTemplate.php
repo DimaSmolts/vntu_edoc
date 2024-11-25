@@ -1,5 +1,5 @@
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
-	<div class="center change">Вінницький національний технічний університет</div>
+	<div class="center global"><?= htmlspecialchars($details->universityNameGl) ?></div>
 	<div class="center inserted"><?= htmlspecialchars($details->facultyName) ?></div>
 	<div class="center inserted small-bottom-margin"><?= htmlspecialchars($details->departmentName) ?></div>
 	<div class="right ">ЗАТВЕРДЖУЮ</div>
@@ -39,7 +39,7 @@
 		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
 	</div>
 	<div class="center inserted large-bottom-margin bold"><?= htmlspecialchars($details->code) ?></div>
-	<div class="center"><span class="change">ВНТУ</span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span></div>
+	<div class="center"><span class="global"><?= htmlspecialchars($details->universityShortNameGl) ?></span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span></div>
 </page>
 
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
@@ -122,7 +122,7 @@
 	?>
 	<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
 			class="inserted"><?= htmlspecialchars($details->regularYear) ?>.</span></div>
-	<div class="copyright">© <span class="change">ВНТУ</span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span> рік</div>
+	<div class="copyright">© <span class="global"><?= htmlspecialchars($details->universityShortNameGl) ?></span>, <span class="inserted"><?= htmlspecialchars($details->regularYear) ?></span> рік</div>
 
 </page>
 

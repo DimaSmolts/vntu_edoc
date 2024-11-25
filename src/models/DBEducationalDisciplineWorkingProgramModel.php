@@ -4,9 +4,11 @@ namespace App\Models;
 
 require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
 require_once __DIR__ . '/DBWorkingProgramInvolvedPersonModel.php';
+require_once __DIR__ . '/DBGlobalDataForEducationalDisciplineModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
+use App\Models\DBGlobalDataForEducationalDisciplineModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,6 +46,11 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 	public function semesters()
 	{
 		return $this->hasMany(DBEducationalDisciplineSemesterModel::class, 'educationalDisciplineWPId');
+	}
+
+	public function globalData()
+	{
+		return $this->hasMany(DBGlobalDataForEducationalDisciplineModel::class, 'educationalDisciplineWorkingProgramId');
 	}
 
 	public function involvedPersons()

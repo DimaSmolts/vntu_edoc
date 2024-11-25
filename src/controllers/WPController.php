@@ -44,6 +44,8 @@ class WPController
 		$items = getFormattedWPListData($rawItems);
 
 		$showReturnBtn = false;
+		$isAbleToEditGlobalData = true;
+		
 		require __DIR__ . '/../views/pages/wpListPage.php';
 	}
 
@@ -64,6 +66,8 @@ class WPController
 		$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 
 		$showReturnBtn = true;
+		$isAbleToEditGlobalData = false;
+
 		require __DIR__ . '/../views/pages/wpDetailsPage.php';
 	}
 }

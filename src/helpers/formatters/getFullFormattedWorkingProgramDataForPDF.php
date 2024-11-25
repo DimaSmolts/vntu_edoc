@@ -44,7 +44,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->controlMeasures,
 		$workingProgramData->studingMethods,
 		$workingProgramData->examingMethods,
-		$workingProgramData->code,
+		$workingProgramData->code
 	);
 
 	// Збираємо всі модулі
