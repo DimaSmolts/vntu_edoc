@@ -3,27 +3,34 @@
 namespace App\Models;
 
 require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
+require_once __DIR__ . '/DBEducationalFormLessonHoursModel.php';
 require_once __DIR__ . '/DBEducationalFormModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
+use App\Models\DBEducationalFormLessonHoursModel;
 use App\Models\DBEducationalFormModel;
 
 use Illuminate\Database\Eloquent\Model;
 
 class DBEducationalDisciplineSemesterEducationFormModel extends Model
 {
-	protected $table = 'educationalDisciplineSemesterEducationForm';
-	protected $fillable = ['educationalDisciplineSemesterId', 'educationalFormId'];
+    protected $table = 'educationalDisciplineSemesterEducationForm';
+    protected $fillable = ['educationalDisciplineSemesterId', 'educationalFormId'];
 
-	public $timestamps = false;
+    public $timestamps = false;
 
-	public function semester()
+    public function semester()
     {
         return $this->belongsTo(DBEducationalDisciplineSemesterModel::class, 'educationalDisciplineSemesterId');
     }
 
-	public function educationalForm()
+    public function educationalForm()
     {
         return $this->belongsTo(DBEducationalFormModel::class, 'educationalFormId');
+    }
+
+    public function educationalFormLessonHours()
+    {
+        return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId');
     }
 }

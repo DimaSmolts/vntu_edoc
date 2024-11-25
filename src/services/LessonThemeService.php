@@ -61,4 +61,17 @@ class LessonThemeService
 			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}
 	}
+
+	public function deleteLesson($id)
+	{
+		// Use Capsule to delete the theme by ID
+		$deleted = Capsule::table('lessonThemes')->where('id', $id)->delete();
+
+		// Check if any row was deleted
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Lesson deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Lesson not found or delete failed']);
+		}
+	}
 }

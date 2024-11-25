@@ -34,7 +34,7 @@ function getFullFormattedThemeData($themes)
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
 						$lessonHours->lessonThemeId,
-						$lessonHours->educationalForm->name,
+						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
@@ -53,7 +53,7 @@ function getFullFormattedThemeData($themes)
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
 						$lessonHours->lessonThemeId,
-						$lessonHours->educationalForm->name,
+						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
@@ -72,7 +72,7 @@ function getFullFormattedThemeData($themes)
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
 						$lessonHours->lessonThemeId,
-						$lessonHours->educationalForm->name,
+						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
@@ -91,7 +91,7 @@ function getFullFormattedThemeData($themes)
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
 						$lessonHours->lessonThemeId,
-						$lessonHours->educationalForm->name,
+						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
@@ -110,7 +110,7 @@ function getFullFormattedThemeData($themes)
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
 						$lessonHours->lessonThemeId,
-						$lessonHours->educationalForm->name,
+						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();

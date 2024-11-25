@@ -136,4 +136,10 @@ $router->delete('/deleteSemesterEducationForm', function () {
 	$semesterEducationFormApiController->deleteSemesterEducationForm();
 });
 
+
+$router->delete('/deleteLesson', function () {
+	$lessonThemeApiController = new LessonThemeApiController();
+	$lessonThemeApiController->deleteLesson();
+});
+
 $router->run();

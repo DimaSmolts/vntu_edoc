@@ -12,11 +12,11 @@ class ThemeService
 	public function getThemesWithLessonThemesByWPId($wpId)
 	{
 		$themes = DBThemeModel::with([
-			'lections.educationalFormLessonHours.educationalForm',
-			'labs.educationalFormLessonHours.educationalForm',
-			'practicals.educationalFormLessonHours.educationalForm',
-			'seminars.educationalFormLessonHours.educationalForm',
-			'selfworks.educationalFormLessonHours.educationalForm',
+			'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+			'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+			'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+			'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+			'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'module.semester.educationalForms.educationalForm'
 		])
 			->whereHas('module.semester', function ($query) use ($wpId) {

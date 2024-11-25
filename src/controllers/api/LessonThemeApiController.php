@@ -60,4 +60,12 @@ class LessonThemeApiController
 
 		$this->lessonThemeService->updateLessonThemeById($id, $field, $value);
 	}
+
+	public function deleteLesson() {
+		header('Content-Type: application/json');
+
+		$id = $_GET['id'];
+
+		$this->lessonThemeService->deleteLesson($id);
+	}
 }

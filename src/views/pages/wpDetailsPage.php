@@ -29,6 +29,7 @@
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
         <script src="src/views/helpers/updating/updateLessonThemeInfo.js"></script>
         <script src="src/views/helpers/updating/updateHours.js"></script>
+        <script src="src/views/helpers/deleting/deleteLesson.js"></script>
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>
         <script src="src/views/helpers/deleting/deleteSemester.js"></script>

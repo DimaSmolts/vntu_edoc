@@ -21,14 +21,13 @@ const createLessonThemesContainer = (themes) => {
 		selfworkHoursBlock.appendChild(selfworkHoursBlockTitle);
 
 		theme.semesterEducationalForms.forEach(form => {
-			console.log(form);
 			const lectionHoursLabel = createLabelWithInput({
 				labelText: `${form.name}:`,
 				inputType: 'number',
 				inputName: 'hours',
 				value: getHours(theme.lections, form.colName),
 				eventListener: (event) => {
-					updateHours(event, theme.lections[0].lessonThemeId, form.educationalFormId)
+					updateHours(event, theme.lections[0].lessonThemeId, form.id)
 				}
 			});
 			lectionHoursBlock.appendChild(lectionHoursLabel);
@@ -39,7 +38,7 @@ const createLessonThemesContainer = (themes) => {
 				inputName: 'hours',
 				value: getHours(theme.selfworks, form.colName),
 				eventListener: (event) => {
-					updateHours(event, theme.selfworks[0].lessonThemeId, form.educationalFormId)
+					updateHours(event, theme.selfworks[0].lessonThemeId, form.id)
 				}
 			});
 			selfworkHoursBlock.appendChild(selfWorkHoursLabel);

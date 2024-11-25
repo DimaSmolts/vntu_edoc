@@ -22,14 +22,6 @@ class DBLessonThemeModel extends Model
 		return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId');
 	}
 
-	// public function educationalFormLessonHoursCorrespondence()
-	// {
-	// 	return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId')
-	// 		->whereHas('educationalForm', function ($query) {
-	// 			$query->where('name', 'correspondence');
-	// 		});
-	// }
-
 	public function lessonType()
 	{
 		return $this->belongsTo(DBLessonTypeModel::class, 'lessonTypeId');
