@@ -18,9 +18,6 @@
 		<li class="slide">
 			<?php include __DIR__ . '/studingAndExamingMethodsSlide.php'; ?>
 		</li>
-		<li class="slide" id="educationalDisciplineStructurePreviewTableSlide">
-			<?php include __DIR__ . '/educationalDisciplineStructurePreviewTableSlide.php'; ?>
-		</li>
 	</ul>
 	<div class="carousel-arrow-container">
 		<button class="carousel-arrow" id="carousel-arrow-prev">

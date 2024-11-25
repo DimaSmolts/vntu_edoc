@@ -1,5 +1,5 @@
 const slidesContainer = document.getElementById("carousel-container");
-const lessonsAndHoursInfoSlideSlides = document.getElementById("lessonsAndHoursInfoSlide");
+const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
 const slide = document.querySelector(".slide");
 const prevButton = document.getElementById("carousel-arrow-prev");
 const nextButton = document.getElementById("carousel-arrow-next");
@@ -19,7 +19,7 @@ const observerOptions = {
 	threshold: 0.5,
 };
 
-const slideObserverCallback = (entries) => {
+const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 	entries.forEach((entry) => {
 		if (entry.isIntersecting) {
 			getThemesForEducationalDisciplineStructure();
@@ -27,5 +27,5 @@ const slideObserverCallback = (entries) => {
 	});
 };
 
-const observer = new IntersectionObserver(slideObserverCallback, observerOptions);
-observer.observe(lessonsAndHoursInfoSlideSlides);
+const educationalDisciplineStructureSlideObserverObserverbserver = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
+educationalDisciplineStructureSlideObserverObserverbserver.observe(educationalDisciplineStructureSlide);
