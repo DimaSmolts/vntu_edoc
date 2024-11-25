@@ -13,7 +13,7 @@ require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
 require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
-require_once __DIR__ . '/src/controllers/api/LessonThemeApiController.php';
+require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
 
@@ -25,7 +25,7 @@ use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
 use App\Controllers\ThemeApiController;
-use App\Controllers\LessonThemeApiController;
+use App\Controllers\LessonApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
 use App\Controllers\SemesterEducationFormApiController;
 
@@ -48,7 +48,7 @@ $router->get('/pdf', function () {
 
 $router->get('/getThemes', function () {
 	$themeApiController = new ThemeApiController();
-	$themeApiController->getThemesWithLessonThemesByWPId();
+	$themeApiController->getThemesWithLessonsByWPId();
 });
 
 $router->post('/createNewWP', function () {
@@ -96,14 +96,14 @@ $router->post('/updateTheme', function () {
 	$themeApiController->updateTheme();
 });
 
-$router->post('/createNewLessonTheme', function () {
-	$lessonThemeApiController = new LessonThemeApiController();
-	$lessonThemeApiController->createNewLessonTheme();
+$router->post('/createNewLesson', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->createNewLesson();
 });
 
-$router->post('/updateLessonTheme', function () {
-	$lessonThemeApiController = new LessonThemeApiController();
-	$lessonThemeApiController->updateLessonTheme();
+$router->post('/updateLesson', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->updateLesson();
 });
 
 $router->post('/updateHours', function () {
@@ -138,8 +138,8 @@ $router->delete('/deleteSemesterEducationForm', function () {
 
 
 $router->delete('/deleteLesson', function () {
-	$lessonThemeApiController = new LessonThemeApiController();
-	$lessonThemeApiController->deleteLesson();
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->deleteLesson();
 });
 
 $router->run();

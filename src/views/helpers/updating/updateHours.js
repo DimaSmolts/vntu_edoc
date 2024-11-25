@@ -1,6 +1,6 @@
-const updateHours = (event, lessonThemeId, educationalFormId) => {
+const updateHours = (event, lessonId, educationalFormId) => {
     const postData = {
-        lessonThemeId,
+        lessonId,
         educationalFormId,
         hours: event.target.value
     };

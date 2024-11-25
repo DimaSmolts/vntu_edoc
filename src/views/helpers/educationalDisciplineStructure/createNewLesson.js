@@ -1,10 +1,10 @@
-const createNewLessonTheme = async ({themeId, lessonTypeName, semesterEducationalForms}) => {
+const createNewLesson = async ({themeId, lessonTypeName, semesterEducationalForms}) => {
     const postData = {
         themeId,
         lessonTypeName
     };
 
-    const response = await fetch('createNewLessonTheme', {
+    const response = await fetch('createNewLesson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ const createNewLessonTheme = async ({themeId, lessonTypeName, semesterEducationa
 
     return createLessonsBlock({
         lessonTypeName,
-        lessonThemeId: data.lessonThemeId,
+        lessonId: data.lessonId,
         semesterEducationalForms
     });
 }

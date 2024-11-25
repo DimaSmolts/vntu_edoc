@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
-require_once __DIR__ . '/../../services/LessonThemeService.php';
+require_once __DIR__ . '/../../services/LessonService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
@@ -12,30 +12,29 @@ require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.ph
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
-use App\Services\LessonThemeService;
-use App\Models\LessonTypeModel;
+use App\Services\LessonService;
 
 class ThemeApiController
 {
 	protected ThemeService $themeService;
 	protected LessonTypeService $lessonTypeService;
-	protected LessonThemeService $lessonThemeService;
+	protected LessonService $lessonService;
 
 	function __construct()
 	{
 		$this->themeService = new ThemeService();
 		$this->lessonTypeService = new LessonTypeService();
-		$this->lessonThemeService = new LessonThemeService();
+		$this->lessonService = new LessonService();
 	}
 
 	// Метод контролера для отримання теми з усіма уроками по id робочої програми
-	public function getThemesWithLessonThemesByWPId()
+	public function getThemesWithLessonsByWPId()
 	{
 		header('Content-Type: application/json');
 
 		$wpId = $_GET['id'];
 
-		$rawThemes = $this->themeService->getThemesWithLessonThemesByWPId($wpId);
+		$rawThemes = $this->themeService->getThemesWithLessonsByWPId($wpId);
 
 		$themes = getFullFormattedThemeData($rawThemes);
 
@@ -62,8 +61,8 @@ class ThemeApiController
 		$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 		$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
-		$this->lessonThemeService->createNewLessonTheme($newThemeId, $lectionLessonTypeId);
-		$this->lessonThemeService->createNewLessonTheme($newThemeId, $selfworkLessonTypeId);
+		$this->lessonService->createNewLesson($newThemeId, $lectionLessonTypeId);
+		$this->lessonService->createNewLesson($newThemeId, $selfworkLessonTypeId);
 
 		echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
 	}
@@ -94,8 +93,8 @@ class ThemeApiController
 
 			$themeId = $id;
 
-			$this->lessonThemeService->updateLessonTheme($themeId, $lectionLessonTypeId, $field, $value);
-			$this->lessonThemeService->updateLessonTheme($themeId, $selfworkLessonTypeId, $field, $value);
+			$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, $field, $value);
+			$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, $field, $value);
 		}
 
 		if ($field == 'themeNumber') {
@@ -107,8 +106,8 @@ class ThemeApiController
 
 			$themeId = $id;
 
-			$this->lessonThemeService->updateLessonTheme($themeId, $lectionLessonTypeId, 'lessonThemeNumber', $value);
-			$this->lessonThemeService->updateLessonTheme($themeId, $selfworkLessonTypeId, 'lessonThemeNumber', $value);
+			$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, 'lessonNumber', $value);
+			$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, 'lessonNumber', $value);
 		}
 	}
 

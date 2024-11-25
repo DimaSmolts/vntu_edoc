@@ -9,7 +9,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ThemeService
 {
-	public function getThemesWithLessonThemesByWPId($wpId)
+	public function getThemesWithLessonsByWPId($wpId)
 	{
 		$themes = DBThemeModel::with([
 			'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',

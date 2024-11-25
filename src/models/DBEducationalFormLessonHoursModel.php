@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class DBEducationalFormLessonHoursModel extends Model
 {
 	protected $table = 'educationalFormLessonHours';
-	protected $fillable = ['educationalFormId', 'lessonThemeId', 'hours'];
+	protected $fillable = ['educationalFormId', 'lessonId', 'hours'];
 
 	public $timestamps = false;
 

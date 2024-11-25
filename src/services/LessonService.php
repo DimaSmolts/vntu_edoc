@@ -4,31 +4,31 @@ namespace App\Services;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class LessonThemeService
+class LessonService
 {
-	public function createNewLessonTheme($themeId, $lessonTypeId): int
+	public function createNewLesson($themeId, $lessonTypeId): int
 	{
-		$lessonThemeId = Capsule::table('lessonThemes')->insertGetId([
+		$lessonId = Capsule::table('lessons')->insertGetId([
 			'themeId' => $themeId,
 			'lessonTypeId' => $lessonTypeId
 		]);
 
-		return $lessonThemeId;
+		return $lessonId;
 	}
 
-	public function updateLessonTheme($themeId, $lessonTypeId, $field, $value)
+	public function updateLesson($themeId, $lessonTypeId, $field, $value)
 	{
-		$lessonTheme = Capsule::table('lessonThemes')
+		$lesson = Capsule::table('lessons')
 			->where('themeId', $themeId)
 			->where('lessonTypeId', $lessonTypeId)
 			->first();
 
-		if (!$lessonTheme) {
+		if (!$lesson) {
 			echo json_encode(['status' => 'error', 'message' => 'Lesson theme not found']);
 			return;
 		}
 
-		$updated = Capsule::table('lessonThemes')
+		$updated = Capsule::table('lessons')
 			->where('themeId', $themeId)
 			->where('lessonTypeId', $lessonTypeId)
 			->update([$field => $value]);
@@ -40,18 +40,18 @@ class LessonThemeService
 		}
 	}
 
-	public function updateLessonThemeById($id, $field, $value)
+	public function updateLessonById($id, $field, $value)
 	{
-		$lessonTheme = Capsule::table('lessonThemes')
+		$lesson = Capsule::table('lessons')
 			->where('id', $id)
 			->first();
 
-		if (!$lessonTheme) {
+		if (!$lesson) {
 			echo json_encode(['status' => 'error', 'message' => 'Lesson theme not found']);
 			return;
 		}
 
-		$updated = Capsule::table('lessonThemes')
+		$updated = Capsule::table('lessons')
 			->where('id', $id)
 			->update([$field => $value]);
 
@@ -65,7 +65,7 @@ class LessonThemeService
 	public function deleteLesson($id)
 	{
 		// Use Capsule to delete the theme by ID
-		$deleted = Capsule::table('lessonThemes')->where('id', $id)->delete();
+		$deleted = Capsule::table('lessons')->where('id', $id)->delete();
 
 		// Check if any row was deleted
 		if ($deleted) {

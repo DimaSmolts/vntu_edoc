@@ -1,12 +1,12 @@
 <?php
 
 require_once __DIR__ . '/../../models/ThemeWithLessonsModel.php';
-require_once __DIR__ . '/../../models/LessonThemeModel.php';
+require_once __DIR__ . '/../../models/LessonModel.php';
 require_once __DIR__ . '/../../models/EducationalFormLessonHourModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 
 use App\Models\ThemeWithLessonsModel;
-use App\Models\LessonThemeModel;
+use App\Models\LessonModel;
 use App\Models\EducationalFormLessonHourModel;
 use App\Models\SemesterEducationalFormModel;
 
@@ -28,98 +28,98 @@ function getFullFormattedThemeData($themes)
 			$theme->name,
 			$theme->description,
 			$theme->themeNumber,
-			$theme->lections->map(function ($lessonTheme) {
-				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
+			$theme->lections->map(function ($lesson) {
+				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
 					return new EducationalFormLessonHourModel(
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
-						$lessonHours->lessonThemeId,
+						$lessonHours->lessonId,
 						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
 
-				return new LessonThemeModel(
-					$lessonTheme->id,
-					$lessonTheme->lessonTypeId,
-					$lessonTheme->name,
-					$lessonTheme->lessonThemeNumber,
+				return new LessonModel(
+					$lesson->id,
+					$lesson->lessonTypeId,
+					$lesson->name,
+					$lesson->lessonNumber,
 					$educationalFormHours
 				);
 			})->toArray(),
-			$theme->practicals->map(function ($lessonTheme) {
-				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
+			$theme->practicals->map(function ($lesson) {
+				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
 					return new EducationalFormLessonHourModel(
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
-						$lessonHours->lessonThemeId,
+						$lessonHours->lessonId,
 						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
 
-				return new LessonThemeModel(
-					$lessonTheme->id,
-					$lessonTheme->lessonTypeId,
-					$lessonTheme->name,
-					$lessonTheme->lessonThemeNumber,
+				return new LessonModel(
+					$lesson->id,
+					$lesson->lessonTypeId,
+					$lesson->name,
+					$lesson->lessonNumber,
 					$educationalFormHours
 				);
 			})->toArray(),
-			$theme->seminars->map(function ($lessonTheme) {
-				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
+			$theme->seminars->map(function ($lesson) {
+				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
 					return new EducationalFormLessonHourModel(
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
-						$lessonHours->lessonThemeId,
+						$lessonHours->lessonId,
 						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
 
-				return new LessonThemeModel(
-					$lessonTheme->id,
-					$lessonTheme->lessonTypeId,
-					$lessonTheme->name,
-					$lessonTheme->lessonThemeNumber,
+				return new LessonModel(
+					$lesson->id,
+					$lesson->lessonTypeId,
+					$lesson->name,
+					$lesson->lessonNumber,
 					$educationalFormHours
 				);
 			})->toArray(),
-			$theme->labs->map(function ($lessonTheme) {
-				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
+			$theme->labs->map(function ($lesson) {
+				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
 					return new EducationalFormLessonHourModel(
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
-						$lessonHours->lessonThemeId,
+						$lessonHours->lessonId,
 						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
 
-				return new LessonThemeModel(
-					$lessonTheme->id,
-					$lessonTheme->lessonTypeId,
-					$lessonTheme->name,
-					$lessonTheme->lessonThemeNumber,
+				return new LessonModel(
+					$lesson->id,
+					$lesson->lessonTypeId,
+					$lesson->name,
+					$lesson->lessonNumber,
 					$educationalFormHours
 				);
 			})->toArray(),
-			$theme->selfworks->map(function ($lessonTheme) {
-				$educationalFormHours = $lessonTheme->educationalFormLessonHours->map(function ($lessonHours) {
+			$theme->selfworks->map(function ($lesson) {
+				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
 					return new EducationalFormLessonHourModel(
 						$lessonHours->id,
 						$lessonHours->educationalFormId,
-						$lessonHours->lessonThemeId,
+						$lessonHours->lessonId,
 						$lessonHours->semesterEducationalForm->educationalForm->name,
 						$lessonHours->hours
 					);
 				})->toArray();
 
-				return new LessonThemeModel(
-					$lessonTheme->id,
-					$lessonTheme->lessonTypeId,
-					$lessonTheme->name,
-					$lessonTheme->lessonThemeNumber,
+				return new LessonModel(
+					$lesson->id,
+					$lesson->lessonTypeId,
+					$lesson->name,
+					$lesson->lessonNumber,
 					$educationalFormHours
 				);
 			})->toArray(),

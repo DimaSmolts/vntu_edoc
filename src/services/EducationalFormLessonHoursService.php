@@ -8,22 +8,22 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class EducationalFormLessonHoursService
 {
-	public function createNewEducationalFormLessonHours($lessonThemeId, $educationalFormId): int
+	public function createNewEducationalFormLessonHours($lessonId, $educationalFormId): int
 	{
 		$educationalFormLessonHoursId = Capsule::table('educationalFormLessonHours')->insertGetId([
-			'lessonThemeId' => $lessonThemeId,
+			'lessonId' => $lessonId,
 			'educationalFormId' => $educationalFormId
 		]);
 
 		return $educationalFormLessonHoursId;
 	}
 
-	public function updateEducationalFormLessonHours($lessonThemeId, $educationalFormId, $hours)
+	public function updateEducationalFormLessonHours($lessonId, $educationalFormId, $hours)
 	{
 		Capsule::table('educationalFormLessonHours')->updateOrInsert(
 			[
 				'educationalFormId' => $educationalFormId,
-				'lessonThemeId' => $lessonThemeId
+				'lessonId' => $lessonId
 			],
 			[
 				'hours' => $hours

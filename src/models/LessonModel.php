@@ -4,32 +4,23 @@ namespace App\Models;
 
 class LessonModel
 {
-	public int $id;
-	public int $themeId;
-	public string $lessonTypeId;
-	public string $name;
-	public int $educationalFormLessonHoursId;
-	public int $educationalFormId;
-	public int $lessonThemeId;
-	public int $hours;
+	public int $lessonId;
+	public int $lessonTypeId;
+	public ?string $lessonName;
+	public ?int $lessonNumber;
+	public array $educationalFormHours;
 
 	public function __construct(
-		$id,
-		$themeId,
-		$lessonTypeId,
-		$name,
-		$educationalFormLessonHoursId,
-		$educationalFormId,
-		$lessonThemeId,
-		$hours
+		int $lessonId,
+		int $lessonTypeId,
+		?string $lessonName = "",
+		?int $lessonNumber = null,
+		array $educationalFormHours = []
 	) {
-		$this->id = $id;
-		$this->themeId = $themeId;
+		$this->lessonId = $lessonId;
 		$this->lessonTypeId = $lessonTypeId;
-		$this->name = $name;
-		$this->educationalFormLessonHoursId = $educationalFormLessonHoursId;
-		$this->educationalFormId = $educationalFormId;
-		$this->lessonThemeId = $lessonThemeId;
-		$this->hours = $hours;
+		$this->lessonName = $lessonName;
+		$this->lessonNumber = $lessonNumber;
+		$this->educationalFormHours = $educationalFormHours;
 	}
 }

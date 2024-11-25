@@ -22,10 +22,10 @@ class EducationalFormLessonHoursApiController
 		$input = file_get_contents('php://input');
 		$data = json_decode($input, true);
 
-		$lessonThemeId = intval($data['lessonThemeId']);
+		$lessonId = intval($data['lessonId']);
 		$educationalFormId = intval($data['educationalFormId']);
 		$hours = intval($data['hours']);
 
-		$this->educationalFormLessonHoursService->updateEducationalFormLessonHours($lessonThemeId, $educationalFormId, $hours);
+		$this->educationalFormLessonHoursService->updateEducationalFormLessonHours($lessonId, $educationalFormId, $hours);
 	}
 }

@@ -6,20 +6,20 @@ class EducationalFormLessonHourModel
 {
     public int $id;
     public int $educationalFormId;
-    public int $lessonThemeId;
+    public int $lessonId;
     public string $lessonFormName;
     public ?int $hours;
 
     public function __construct(
         int $id,
         int $educationalFormId,
-        int $lessonThemeId,
+        int $lessonId,
         string $lessonFormName,
         ?int $hours = null
     ) {
         $this->id = $id;
         $this->educationalFormId = $educationalFormId;
-        $this->lessonThemeId = $lessonThemeId;
+        $this->lessonId = $lessonId;
         $this->lessonFormName = $lessonFormName;
         $this->hours = $hours;
     }

@@ -16,7 +16,7 @@ const getThemesForEducationalDisciplineStructure = () => {
 			return response.json();
 		})
 		.then(data => {
-			createLessonThemesContainer(data.themes);
+			createLessonsContainer(data.themes);
 		})
 		.catch(error => console.error('Post error:', error));
 }

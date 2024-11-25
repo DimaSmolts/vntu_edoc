@@ -524,8 +524,8 @@
 						}
 						?>
 						<tr>
-							<td class="center inserted" style="width: 5%;"><?= $seminar->lessonThemeNumber ? htmlspecialchars($seminar->lessonThemeNumber) : "" ?></td>
-							<td class="inserted" style="width: 65%;"><?= $seminar->lessonThemeName ? htmlspecialchars($seminar->lessonThemeName) : "" ?></td>
+							<td class="center inserted" style="width: 5%;"><?= $seminar->lessonNumber ? htmlspecialchars($seminar->lessonNumber) : "" ?></td>
+							<td class="inserted" style="width: 65%;"><?= $seminar->lessonName ? htmlspecialchars($seminar->lessonName) : "" ?></td>
 							<?php foreach ($semester->educationalForms as $educationalForm): ?>
 								<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
 							<?php endforeach; ?>
@@ -578,8 +578,8 @@
 						}
 						?>
 						<tr>
-							<td class="center inserted" style="width: 5%;"><?= $practical->lessonThemeNumber ? htmlspecialchars($practical->lessonThemeNumber) : "" ?></td>
-							<td class="inserted" style="width: 65%;"><?= $practical->lessonThemeName ? htmlspecialchars($practical->lessonThemeName) : "" ?></td>
+							<td class="center inserted" style="width: 5%;"><?= $practical->lessonNumber ? htmlspecialchars($practical->lessonNumber) : "" ?></td>
+							<td class="inserted" style="width: 65%;"><?= $practical->lessonName ? htmlspecialchars($practical->lessonName) : "" ?></td>
 							<?php foreach ($semester->educationalForms as $educationalForm): ?>
 								<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
 							<?php endforeach; ?>
@@ -632,8 +632,8 @@
 						}
 						?>
 						<tr>
-							<td class="center inserted" style="width: 5%;"><?= $lab->lessonThemeNumber ? htmlspecialchars($lab->lessonThemeNumber) : "" ?></td>
-							<td class="inserted" style="width: 65%;"><?= $lab->lessonThemeName ? htmlspecialchars($lab->lessonThemeName) : "" ?></td>
+							<td class="center inserted" style="width: 5%;"><?= $lab->lessonNumber ? htmlspecialchars($lab->lessonNumber) : "" ?></td>
+							<td class="inserted" style="width: 65%;"><?= $lab->lessonName ? htmlspecialchars($lab->lessonName) : "" ?></td>
 							<?php foreach ($semester->educationalForms as $educationalForm): ?>
 								<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
 							<?php endforeach; ?>
@@ -686,8 +686,8 @@
 						}
 						?>
 						<tr>
-							<td class="center inserted" style="width: 5%;"><?= $selfwork->lessonThemeNumber ? htmlspecialchars($selfwork->lessonThemeNumber) : "" ?></td>
-							<td class="inserted" style="width: 65%;"><?= $selfwork->lessonThemeName ? htmlspecialchars($selfwork->lessonThemeName) : "" ?></td>
+							<td class="center inserted" style="width: 5%;"><?= $selfwork->lessonNumber ? htmlspecialchars($selfwork->lessonNumber) : "" ?></td>
+							<td class="inserted" style="width: 65%;"><?= $selfwork->lessonName ? htmlspecialchars($selfwork->lessonName) : "" ?></td>
 							<?php foreach ($semester->educationalForms as $educationalForm): ?>
 								<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
 							<?php endforeach; ?>

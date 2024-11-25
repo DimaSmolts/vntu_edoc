@@ -1,6 +1,6 @@
-const createLessonThemesContainer = (themes) => {
-	const lessonThemesContainer = document.getElementById('educationalDisciplineSemesterStructure');
-	lessonThemesContainer.replaceChildren();
+const createLessonsContainer = (themes) => {
+	const lessonsContainer = document.getElementById('educationalDisciplineSemesterStructure');
+	lessonsContainer.replaceChildren();
 
 	themes.forEach(theme => {
 		const themeBlock = createElement({ elementName: "div", classList: ['lesson-themes-block'] });
@@ -27,7 +27,7 @@ const createLessonThemesContainer = (themes) => {
 				inputName: 'hours',
 				value: getHours(theme.lections, form.colName),
 				eventListener: (event) => {
-					updateHours(event, theme.lections[0].lessonThemeId, form.id)
+					updateHours(event, theme.lections[0].lessonId, form.id)
 				}
 			});
 			lectionHoursBlock.appendChild(lectionHoursLabel);
@@ -38,13 +38,13 @@ const createLessonThemesContainer = (themes) => {
 				inputName: 'hours',
 				value: getHours(theme.selfworks, form.colName),
 				eventListener: (event) => {
-					updateHours(event, theme.selfworks[0].lessonThemeId, form.id)
+					updateHours(event, theme.selfworks[0].lessonId, form.id)
 				}
 			});
 			selfworkHoursBlock.appendChild(selfWorkHoursLabel);
 		})
 
-		const lessonThemesButtonsBlock = createElement({ elementName: "div", classList: ['lesson-themes-btn-block'] });
+		const lessonsButtonsBlock = createElement({ elementName: "div", classList: ['lesson-themes-btn-block'] });
 
 		const addPracticalButton = createElement({
 			elementName: "button",
@@ -52,7 +52,7 @@ const createLessonThemesContainer = (themes) => {
 			innerText: 'Додати практичне',
 			eventListenerType: 'click',
 			eventListener: () => {
-				createNewLessonThemeBlock({
+				createNewLessonBlock({
 					titleName: 'Практичні:',
 					lessonTypeName: LessonTypesName.practical,
 					themeId: theme.id,
@@ -67,7 +67,7 @@ const createLessonThemesContainer = (themes) => {
 			innerText: 'Додати семінар',
 			eventListenerType: 'click',
 			eventListener: () => {
-				createNewLessonThemeBlock({
+				createNewLessonBlock({
 					titleName: 'Семінари:',
 					lessonTypeName: LessonTypesName.seminar,
 					themeId: theme.id,
@@ -82,7 +82,7 @@ const createLessonThemesContainer = (themes) => {
 			innerText: 'Додати лабораторне',
 			eventListenerType: 'click',
 			eventListener: () => {
-				createNewLessonThemeBlock({
+				createNewLessonBlock({
 					titleName: 'Лабораторні:',
 					lessonTypeName: LessonTypesName.laboratory,
 					themeId: theme.id,
@@ -91,18 +91,18 @@ const createLessonThemesContainer = (themes) => {
 			}
 		});
 
-		lessonThemesButtonsBlock.appendChild(addPracticalButton);
-		lessonThemesButtonsBlock.appendChild(addSeminarButton);
-		lessonThemesButtonsBlock.appendChild(addLabButton);
+		lessonsButtonsBlock.appendChild(addPracticalButton);
+		lessonsButtonsBlock.appendChild(addSeminarButton);
+		lessonsButtonsBlock.appendChild(addLabButton);
 
-		const additionalLessonThemesBlock = createAdditionalLessonThemesContainer(theme);
+		const additionalLessonsBlock = createAdditionalLessonsContainer(theme);
 
 		themeBlock.appendChild(themeTitle);
 		themeBlock.appendChild(lectionHoursBlock);
 		themeBlock.appendChild(selfworkHoursBlock);
-		themeBlock.appendChild(lessonThemesButtonsBlock);
-		themeBlock.appendChild(additionalLessonThemesBlock);
+		themeBlock.appendChild(lessonsButtonsBlock);
+		themeBlock.appendChild(additionalLessonsBlock);
 
-		lessonThemesContainer.appendChild(themeBlock);
+		lessonsContainer.appendChild(themeBlock);
 	});
 }

@@ -1,11 +1,11 @@
-const updateLessonThemeInfo = (event, lessonThemeId) => {
+const updateLessonInfo = (event, lessonId) => {
     const postData = {
-        id: lessonThemeId,
+        id: lessonId,
         field: event.target.name,
         value: event.target.value
     };
 
-    fetch('updateLessonTheme', {
+    fetch('updateLesson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

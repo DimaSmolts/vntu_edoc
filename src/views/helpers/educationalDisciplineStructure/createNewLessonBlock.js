@@ -1,7 +1,7 @@
-const createNewLessonThemeBlock = async ({ titleName, lessonTypeName, themeId, semesterEducationalForms }) => {
+const createNewLessonBlock = async ({ titleName, lessonTypeName, themeId, semesterEducationalForms }) => {
 	const container = document.getElementById(`${lessonTypeName}Container${themeId}`);
 
-	const newThemeBlock = await createNewLessonTheme({ themeId, lessonTypeName, semesterEducationalForms });
+	const newThemeBlock = await createNewLesson({ themeId, lessonTypeName, semesterEducationalForms });
 
 	if (container.hasChildNodes()) {
 		container.appendChild(newThemeBlock);

@@ -1,29 +1,29 @@
-const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId, semesterEducationalForms }) => {
+const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms }) => {
 	const block = createElement({
 		elementName: "div",
-		id: `lessonBlock${lessonThemeId}`,
+		id: `lessonBlock${lessonId}`,
 		classList: ['additional-lesson-themes-block']
 	});
 
 	const lessonNumberInput = createElement({
 		elementName: "input",
 		type: 'number',
-		name: 'lessonThemeNumber',
-		value: lesson?.lessonThemeNumber ? lesson.lessonThemeNumber : null,
+		name: 'lessonNumber',
+		value: lesson?.lessonNumber ? lesson.lessonNumber : null,
 		eventListenerType: 'input',
 		eventListener: (event) => {
-			updateLessonThemeInfo(event, lessonThemeId);
+			updateLessonInfo(event, lessonId);
 		}
 	});
 
-	const lessonThemeNameInput = createElement({
+	const lessonNameInput = createElement({
 		elementName: "input",
 		type: 'text',
 		name: 'name',
-		value: lesson?.lessonThemeName ? lesson.lessonThemeName : '',
+		value: lesson?.lessonName ? lesson.lessonName : '',
 		eventListenerType: 'input',
 		eventListener: (event) => {
-			updateLessonThemeInfo(event, lessonThemeId);
+			updateLessonInfo(event, lessonId);
 		}
 	});
 
@@ -39,7 +39,7 @@ const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId, semesterEdu
 			value: getHours([lesson], form.colName) ?? '',
 			eventListenerType: 'input',
 			eventListener: (event) => {
-				updateHours(event, lessonThemeId, form.id)
+				updateHours(event, lessonId, form.id)
 			}
 		});
 		lessonHoursBlockForInputs.appendChild(hoursInput);
@@ -51,12 +51,12 @@ const createLessonsBlock = ({ lesson, lessonTypeName, lessonThemeId, semesterEdu
 		classList: ["btn", "remove-lesson-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteLesson(event, lessonThemeId);
+			deleteLesson(event, lessonId);
 		}
 	});
 
 	block.appendChild(lessonNumberInput);
-	block.appendChild(lessonThemeNameInput);
+	block.appendChild(lessonNameInput);
 	block.appendChild(lessonHoursBlockForInputs);
 	block.appendChild(removeLessonBtn);
 
@@ -82,7 +82,7 @@ const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, t
 		const title = createLessonsBlockTitle({ titleName });
 
 		const lessonNumberLabel = createElement({ elementName: "p", innerText: `Номер заняття:`, classList: ['lesson-name-label'] });
-		const lessonThemeNameLabel = createElement({ elementName: "p", innerText: `Назва теми:` });
+		const lessonNameLabel = createElement({ elementName: "p", innerText: `Назва теми:` });
 
 		const hoursBlockColumnsClass = semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
 
@@ -101,7 +101,7 @@ const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, t
 		labels.appendChild(title);
 		labels.appendChild(lessonHoursBlockForHeader);
 		labels.appendChild(lessonNumberLabel);
-		labels.appendChild(lessonThemeNameLabel);
+		labels.appendChild(lessonNameLabel);
 		labels.appendChild(lessonHoursBlockForLabels);
 
 		semesterEducationalForms.forEach(form => {
@@ -112,7 +112,7 @@ const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, t
 		container.appendChild(labels);
 
 		lessons.forEach(lesson => {
-			const block = createLessonsBlock({ lesson, lessonTypeName, lessonThemeId: lesson.lessonThemeId, semesterEducationalForms });
+			const block = createLessonsBlock({ lesson, lessonId: lesson.lessonId, semesterEducationalForms });
 
 			container.appendChild(block);
 		})

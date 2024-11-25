@@ -31,6 +31,6 @@ class DBEducationalDisciplineSemesterEducationFormModel extends Model
 
     public function educationalFormLessonHours()
     {
-        return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId');
+        return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonId');
     }
 }

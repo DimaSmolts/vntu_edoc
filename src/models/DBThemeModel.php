@@ -3,10 +3,10 @@
 namespace App\Models;
 
 require_once __DIR__ . '/DBModuleModel.php';
-require_once __DIR__ . '/DBLessonThemeModel.php';
+require_once __DIR__ . '/DBLessonModel.php';
 
 use App\Models\DBModuleModel;
-use App\Models\DBLessonThemeModel;
+use App\Models\DBLessonModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +24,7 @@ class DBThemeModel extends Model
 
 	public function lections()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'themeId')
+		return $this->hasMany(DBLessonModel::class, 'themeId')
 			->whereHas('lessonType', function ($query) {
 				$query->where('name', 'lection');
 			});
@@ -32,7 +32,7 @@ class DBThemeModel extends Model
 
 	public function practicals()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'themeId')
+		return $this->hasMany(DBLessonModel::class, 'themeId')
 			->whereHas('lessonType', function ($query) {
 				$query->where('name', 'practical');
 			});
@@ -40,7 +40,7 @@ class DBThemeModel extends Model
 
 	public function seminars()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'themeId')
+		return $this->hasMany(DBLessonModel::class, 'themeId')
 			->whereHas('lessonType', function ($query) {
 				$query->where('name', 'seminar');
 			});
@@ -48,7 +48,7 @@ class DBThemeModel extends Model
 
 	public function labs()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'themeId')
+		return $this->hasMany(DBLessonModel::class, 'themeId')
 			->whereHas('lessonType', function ($query) {
 				$query->where('name', 'laboratory');
 			});
@@ -56,7 +56,7 @@ class DBThemeModel extends Model
 
 	public function selfworks()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'themeId')
+		return $this->hasMany(DBLessonModel::class, 'themeId')
 			->whereHas('lessonType', function ($query) {
 				$query->where('name', 'selfwork');
 			});

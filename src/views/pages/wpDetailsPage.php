@@ -27,7 +27,7 @@
         <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
         <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
-        <script src="src/views/helpers/updating/updateLessonThemeInfo.js"></script>
+        <script src="src/views/helpers/updating/updateLessonInfo.js"></script>
         <script src="src/views/helpers/updating/updateHours.js"></script>
         <script src="src/views/helpers/deleting/deleteLesson.js"></script>
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
@@ -44,12 +44,12 @@
         <script src="src/views/helpers/semester/updateNumberInput.js"></script>
         <script src="src/views/helpers/semester/toggleEducationalForm.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
-        <script src="src/views/helpers/educationalDisciplineStructure/getLessonThemeId.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/getLessonId.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/createLessonsBlock.js"></script>
-        <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonThemesContainer.js"></script>
-        <script src="src/views/helpers/educationalDisciplineStructure/createLessonThemesContainer.js"></script>
-        <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonThemeBlock.js"></script>
-        <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonTheme.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonsContainer.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/createLessonsContainer.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonBlock.js"></script>
+        <script src="src/views/helpers/educationalDisciplineStructure/createNewLesson.js"></script>
     </main>
 </body>

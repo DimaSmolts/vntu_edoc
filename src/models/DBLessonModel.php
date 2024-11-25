@@ -10,16 +10,16 @@ use App\Models\DBLessonTypeModel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DBLessonThemeModel extends Model
+class DBLessonModel extends Model
 {
-	protected $table = 'lessonThemes';
-	protected $fillable = ['themeId', 'lessonTypeId', 'name', 'lessonThemeNumber'];
+	protected $table = 'lessons';
+	protected $fillable = ['themeId', 'lessonTypeId', 'name', 'lessonNumber'];
 
 	public $timestamps = false;
 
 	public function educationalFormLessonHours()
 	{
-		return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonThemeId');
+		return $this->hasMany(DBEducationalFormLessonHoursModel::class, 'lessonId');
 	}
 
 	public function lessonType()

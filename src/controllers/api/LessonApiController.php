@@ -4,30 +4,30 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
-require_once __DIR__ . '/../../services/LessonThemeService.php';
+require_once __DIR__ . '/../../services/LessonService.php';
 require_once __DIR__ . '/../../services/EducationalFormLessonHoursService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
 use App\Services\LessonTypeService;
-use App\Services\LessonThemeService;
+use App\Services\LessonService;
 use App\Services\EducationalFormLessonHoursService;
 
-class LessonThemeApiController
+class LessonApiController
 {
 	protected LessonTypeService $lessonTypeService;
-	protected LessonThemeService $lessonThemeService;
+	protected LessonService $lessonService;
 	protected EducationalFormLessonHoursService $educationalFormLessonHoursService;
 
 	function __construct()
 	{
 		$this->lessonTypeService = new LessonTypeService();
-		$this->lessonThemeService = new LessonThemeService();
+		$this->lessonService = new LessonService();
 		$this->educationalFormLessonHoursService = new EducationalFormLessonHoursService();
 	}
 
-	public function createNewLessonTheme()
+	public function createNewLesson()
 	{
 		header('Content-Type: application/json');
 
@@ -42,12 +42,12 @@ class LessonThemeApiController
 
 		$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
-		$newLessonThemeId = $this->lessonThemeService->createNewLessonTheme($themeId, $lessonTypeId);
+		$newLessonId = $this->lessonService->createNewLesson($themeId, $lessonTypeId);
 
-		echo json_encode(['status' => 'success', 'lessonThemeId' => $newLessonThemeId]);
+		echo json_encode(['status' => 'success', 'lessonId' => $newLessonId]);
 	}
 
-	public function updateLessonTheme()
+	public function updateLesson()
 	{
 		header('Content-Type: application/json');
 
@@ -58,14 +58,15 @@ class LessonThemeApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->lessonThemeService->updateLessonThemeById($id, $field, $value);
+		$this->lessonService->updateLessonById($id, $field, $value);
 	}
 
-	public function deleteLesson() {
+	public function deleteLesson()
+	{
 		header('Content-Type: application/json');
 
 		$id = $_GET['id'];
 
-		$this->lessonThemeService->deleteLesson($id);
+		$this->lessonService->deleteLesson($id);
 	}
 }

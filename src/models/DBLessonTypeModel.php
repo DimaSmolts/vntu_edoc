@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-require_once __DIR__ . '/DBLessonThemeModel.php';
+require_once __DIR__ . '/DBLessonModel.php';
 
-use App\Models\DBLessonThemeModel;
+use App\Models\DBLessonModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +15,8 @@ class DBLessonTypeModel extends Model
 
 	public $timestamps = false;
 
-	public function lessonTheme()
+	public function lesson()
 	{
-		return $this->hasMany(DBLessonThemeModel::class, 'lessonTypeId');
+		return $this->hasMany(DBLessonModel::class, 'lessonTypeId');
 	}
 }

@@ -1,10 +1,10 @@
-const createAdditionalLessonThemesContainer = (theme) => {
-	const additionalLessonThemesBlock = createElement({
+const createAdditionalLessonsContainer = (theme) => {
+	const additionalLessonsBlock = createElement({
 		elementName: "div",
 		classList: ['additional-lessons-themes-block']
 	});
 
-	const practicalsLessonThemesBlock = createLessonsBlockWithContainer({
+	const practicalsLessonsBlock = createLessonsBlockWithContainer({
 		titleName: 'Практичні:',
 		lessons: theme.practicals,
 		lessonTypeName: LessonTypesName.practical,
@@ -12,7 +12,7 @@ const createAdditionalLessonThemesContainer = (theme) => {
 		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
-	const seminarsLessonThemesBlock = createLessonsBlockWithContainer({
+	const seminarsLessonsBlock = createLessonsBlockWithContainer({
 		titleName: 'Семінари:',
 		lessons: theme.seminars,
 		lessonTypeName: LessonTypesName.seminar,
@@ -20,7 +20,7 @@ const createAdditionalLessonThemesContainer = (theme) => {
 		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
-	const labsLessonThemesBlock = createLessonsBlockWithContainer({
+	const labsLessonsBlock = createLessonsBlockWithContainer({
 		titleName: 'Лабораторні:',
 		lessons: theme.labs,
 		lessonTypeName: LessonTypesName.laboratory,
@@ -28,9 +28,9 @@ const createAdditionalLessonThemesContainer = (theme) => {
 		semesterEducationalForms: theme.semesterEducationalForms
 	})
 
-	additionalLessonThemesBlock.appendChild(practicalsLessonThemesBlock);
-	additionalLessonThemesBlock.appendChild(seminarsLessonThemesBlock);
-	additionalLessonThemesBlock.appendChild(labsLessonThemesBlock);
+	additionalLessonsBlock.appendChild(practicalsLessonsBlock);
+	additionalLessonsBlock.appendChild(seminarsLessonsBlock);
+	additionalLessonsBlock.appendChild(labsLessonsBlock);
 
-	return additionalLessonThemesBlock;
+	return additionalLessonsBlock;
 }
