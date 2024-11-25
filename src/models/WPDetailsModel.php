@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+require_once __DIR__ . '/GlobalDataForEducationalDisciplineModel.php';
+require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
+
+use App\Models\GlobalDataForEducationalDisciplineModel;
+use App\Models\WorkingProgramLiteratureModel;
+
 class WPDetailsModel
 {
 	public int $id;
@@ -35,7 +41,8 @@ class WPDetailsModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
-	public array $globalData;
+	public GlobalDataForEducationalDisciplineModel $globalData;
+	public WorkingProgramLiteratureModel $literature;
 
 	public function __construct(
 		int $id,
@@ -69,7 +76,8 @@ class WPDetailsModel
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
-		array $globalData = [],
+		GlobalDataForEducationalDisciplineModel $globalData = new GlobalDataForEducationalDisciplineModel(),
+		WorkingProgramLiteratureModel $literature = new WorkingProgramLiteratureModel(),
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -103,5 +111,6 @@ class WPDetailsModel
 		$this->totalHoursForLabs = $totalHoursForLabs;
 		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
 		$this->globalData = $globalData;
+		$this->literature = $literature;
 	}
 }

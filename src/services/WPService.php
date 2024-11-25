@@ -63,7 +63,8 @@ class WPService
 				$query->with(['person', 'involvedRole']);
 			},
 			'semesters.educationalForms.educationalForm',
-			'globalData'
+			'globalData',
+			'literature'
 		])
 			->where('id', $id)
 			->get();

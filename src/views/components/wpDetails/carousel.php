@@ -30,6 +30,9 @@
 		<li class="slide">
 			<?php include __DIR__ . '/examAssessmentCriteriaSlide.php'; ?>
 		</li>
+		<li class="slide">
+			<?php include __DIR__ . '/literatureSlide.php'; ?>
+		</li>
 	</ul>
 	<div class="carousel-arrow-container">
 		<button class="carousel-arrow" id="carousel-arrow-prev">

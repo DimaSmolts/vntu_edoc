@@ -30,6 +30,7 @@
         <script src="src/views/helpers/updating/updateLessonInfo.js"></script>
         <script src="src/views/helpers/updating/updateHours.js"></script>
         <script src="src/views/helpers/updating/updateGlobalWPDataForEducationalDiscipline.js"></script>
+        <script src="src/views/helpers/updating/updateWPLiterature.js"></script>
         <script src="src/views/helpers/deleting/deleteLesson.js"></script>
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>

@@ -12,6 +12,7 @@ class DBGlobalDataForEducationalDisciplineModel extends Model
 {
 	protected $table = 'globalDataForEducationalDiscipline';
 	protected $fillable = [
+		'educationalDisciplineWorkingProgramId',
 		'universityName',
 		'universityShortName',
 		'generalAssessmentCriteriaForA',

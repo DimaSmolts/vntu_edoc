@@ -19,6 +19,7 @@ require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
 require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
+require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -34,6 +35,7 @@ use App\Controllers\ThemeApiController;
 use App\Controllers\LessonApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
 use App\Controllers\SemesterEducationFormApiController;
+use App\Controllers\WorkingProgramLiteratureApiController;
 
 $router = new Router();
 
@@ -135,6 +137,11 @@ $router->post('/updateHours', function () {
 $router->post('/createSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->createSemesterEducationForm();
+});
+
+$router->post('/updateWPLiterature', function () {
+	$workingProgramLiteratureApiController = new WorkingProgramLiteratureApiController();
+	$workingProgramLiteratureApiController->updateWPLiterature();
 });
 
 $router->delete('/deleteTheme', function () {

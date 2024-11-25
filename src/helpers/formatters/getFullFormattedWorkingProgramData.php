@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/GlobalDataForEducationalDisciplineModel.php';
 require_once __DIR__ . '/../../models/AssessmentCriteriaModel.php';
+require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 
 use App\Models\WPDetailsModel;
@@ -18,6 +19,7 @@ use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\GlobalDataForEducationalDisciplineModel;
 use App\Models\AssessmentCriteriaModel;
+use App\Models\WorkingProgramLiteratureModel;
 
 function getFullFormattedWorkingProgramData($workingProgramData)
 {
@@ -144,8 +146,6 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		);
 
 		return new GlobalDataForEducationalDisciplineModel(
-			$global->id,
-			$global->educationalDisciplineWorkingProgramId,
 			$global->universityName,
 			$global->universityShortName,
 			$global->academicRightsAndResponsibilities,
@@ -154,9 +154,20 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			$courseworkAssessmentCriteria,
 			$examAssessmentCriteria,
 		);
-	})->toArray();
+	});
 
 	$workingProgram->globalData = $formattedGlobalData;
+
+	$formattedLiterature = $workingProgramData->literature->map(function ($literatureItem) {
+		return new WorkingProgramLiteratureModel(
+			$literatureItem->main,
+			$literatureItem->supporting,
+			$literatureItem->additional,
+			$literatureItem->informationResources
+		);
+	});
+
+	$workingProgram->literature = $formattedLiterature;
 
 	return $workingProgram;
 }

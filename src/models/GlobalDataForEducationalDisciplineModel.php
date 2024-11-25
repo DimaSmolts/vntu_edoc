@@ -8,8 +8,6 @@ use App\Models\AssessmentCriteriaModel;
 
 class GlobalDataForEducationalDisciplineModel
 {
-	public int $id;
-	public int $educationalDisciplineWorkingProgramId;
 	public ?string $universityName;
 	public ?string $universityShortName;
 	public ?string $academicRightsAndResponsibilities;
@@ -19,8 +17,6 @@ class GlobalDataForEducationalDisciplineModel
 	public AssessmentCriteriaModel $examAssessmentCriteria;
 
 	public function __construct(
-		int $id,
-		int $educationalDisciplineWorkingProgramId,
 		?string $universityName = "",
 		?string $universityShortName = "",
 		?string $academicRightsAndResponsibilities = "",
@@ -29,8 +25,6 @@ class GlobalDataForEducationalDisciplineModel
 		AssessmentCriteriaModel $courseworkAssessmentCriteria = new AssessmentCriteriaModel(),
 		AssessmentCriteriaModel $examAssessmentCriteria = new AssessmentCriteriaModel(),
 	) {
-		$this->id = $id;
-		$this->educationalDisciplineWorkingProgramId = $educationalDisciplineWorkingProgramId;
 		$this->universityName = $universityName;
 		$this->universityShortName = $universityShortName;
 		$this->academicRightsAndResponsibilities = $academicRightsAndResponsibilities;

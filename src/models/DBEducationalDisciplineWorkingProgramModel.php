@@ -5,10 +5,12 @@ namespace App\Models;
 require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
 require_once __DIR__ . '/DBWorkingProgramInvolvedPersonModel.php';
 require_once __DIR__ . '/DBGlobalDataForEducationalDisciplineModel.php';
+require_once __DIR__ . '/DBWorkingProgramLiteratureModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
 use App\Models\DBGlobalDataForEducationalDisciplineModel;
+use App\Models\DBWorkingProgramLiteratureModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,7 +52,12 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 
 	public function globalData()
 	{
-		return $this->hasMany(DBGlobalDataForEducationalDisciplineModel::class, 'educationalDisciplineWorkingProgramId');
+		return $this->hasOne(DBGlobalDataForEducationalDisciplineModel::class, 'educationalDisciplineWorkingProgramId');
+	}
+
+	public function literature()
+	{
+		return $this->hasOne(DBWorkingProgramLiteratureModel::class, 'educationalDisciplineWorkingProgramId');
 	}
 
 	public function involvedPersons()
