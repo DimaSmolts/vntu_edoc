@@ -15,5 +15,6 @@
         <?php include __DIR__ . '/../components/globalData/carousel.php'; ?>
 
         <script src="src/views/helpers/updating/updateGlobalWPData.js"></script>
+        <script src="src/views/helpers/carousel/arrowsHandler.js"></script>
     </main>
 </body>

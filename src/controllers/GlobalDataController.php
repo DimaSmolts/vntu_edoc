@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../../services/GlobalWorkingProgramDataService.php';
+require_once __DIR__ . '/../services/GlobalWorkingProgramDataService.php';
 
 use App\Services\GlobalWorkingProgramDataService;
 
@@ -23,6 +23,8 @@ class GlobalDataController
 
 		$data = getFullFormattedGlobalWorkingProgramData($rawGlobalWPData);
 
+		$showReturnBtn = true;
+		$isAbleToEditGlobalData = false;
 		require __DIR__ . '/../views/pages/globalDataPage.php';
 	}
 }

@@ -94,7 +94,9 @@ class WPService
 			'createdByPersons' => function ($query) {
 				$query->with(['person', 'involvedRole']);
 			},
-			'semesters.educationalForms.educationalForm'
+			'semesters.educationalForms.educationalForm',
+			'globalData',
+			'literature'
 		])
 			->where('id', $id)
 			->get();

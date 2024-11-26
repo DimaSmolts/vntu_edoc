@@ -32,6 +32,8 @@ class WPDetailsModel
 	public ?string $studingMethods;
 	public ?string $examingMethods;
 	public ?string $code;
+	public ?string $methodologicalSupport;
+	public ?string $individualTaskNotes;
 	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
 	public array $createdByPersons;
@@ -41,8 +43,8 @@ class WPDetailsModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
-	public GlobalDataForEducationalDisciplineModel $globalData;
-	public WorkingProgramLiteratureModel $literature;
+	public ?GlobalDataForEducationalDisciplineModel $globalData;
+	public ?WorkingProgramLiteratureModel $literature;
 
 	public function __construct(
 		int $id,
@@ -67,6 +69,8 @@ class WPDetailsModel
 		?string $studingMethods = "",
 		?string $examingMethods = "",
 		?string $code = "",
+		?string $methodologicalSupport = "",
+		?string $individualTaskNotes = "",
 		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
 		array $createdByPersons = [],
@@ -76,8 +80,8 @@ class WPDetailsModel
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
-		GlobalDataForEducationalDisciplineModel $globalData = new GlobalDataForEducationalDisciplineModel(),
-		WorkingProgramLiteratureModel $literature = new WorkingProgramLiteratureModel(),
+		?GlobalDataForEducationalDisciplineModel $globalData = null,
+		?WorkingProgramLiteratureModel $literature = null,
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -101,6 +105,8 @@ class WPDetailsModel
 		$this->studingMethods = $studingMethods;
 		$this->examingMethods = $examingMethods;
 		$this->code = $code;
+		$this->methodologicalSupport = $methodologicalSupport;
+		$this->individualTaskNotes = $individualTaskNotes;
 		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
 		$this->createdByPersons = $createdByPersons;

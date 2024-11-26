@@ -14,8 +14,8 @@ const createLessonsContainer = (themes) => {
 		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
 		const selfworkHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
 
-		const lectionHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин лекцій:' });
-		const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['mini-block-title', 'hours-block-title'], innerText: 'Кількість годин самостійної роботи:' });
+		const lectionHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин лекцій:' });
+		const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин самостійної роботи:' });
 
 		lectionHoursBlock.appendChild(lectionHoursBlockTitle);
 		selfworkHoursBlock.appendChild(selfworkHoursBlockTitle);

@@ -21,12 +21,12 @@ class AssessmentCriteriaModel
 		?string $FX = "",
 		?string $F = "",
 	) {
-		$this->$A = $A;
-		$this->$B = $B;
-		$this->$C = $C;
-		$this->$D = $D;
-		$this->$E = $E;
-		$this->$FX = $FX;
-		$this->$F = $F;
+		$this->A = $A;
+		$this->B = $B;
+		$this->C = $C;
+		$this->D = $D;
+		$this->E = $E;
+		$this->FX = $FX;
+		$this->F = $F;
 	}
 }

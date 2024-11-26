@@ -5,60 +5,53 @@ $title = "Критерії оцінювання за заняттями";
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100)
-		<input
-			type="text"
+	<label>A (90-100):
+		<textarea
 			id="lessonAssessmentCriteriaForA"
 			name="lessonAssessmentCriteriaForA"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForA ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForA ?? '') ?></textarea>
 	</label>
-	<label>B (82-89)
-		<input
-			type="text"
+	<label>B (82-89):
+		<textarea
 			id="lessonAssessmentCriteriaForB"
 			name="lessonAssessmentCriteriaForB"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForB ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForB ?? '') ?></textarea>
 	</label>
-	<label>C (75-81)
-		<input
-			type="text"
+	<label>C (75-81):
+		<textarea
 			id="lessonAssessmentCriteriaForC"
 			name="lessonAssessmentCriteriaForC"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForC ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForC ?? '') ?></textarea>
 	</label>
-	<label>D (64-74)
-		<input
-			type="text"
+	<label>D (64-74):
+		<textarea
 			id="lessonAssessmentCriteriaForD"
 			name="lessonAssessmentCriteriaForD"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForD ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForD ?? '') ?></textarea>
 	</label>
-	<label>E (60-63)
-		<input
-			type="text"
+	<label>E (60-63):
+		<textarea
 			id="lessonAssessmentCriteriaForE"
 			name="lessonAssessmentCriteriaForE"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForE ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForE ?? '') ?></textarea>
 	</label>
-	<label>FX (35-59)
-		<input
-			type="text"
+	<label>FX (35-59):
+		<textarea
 			id="lessonAssessmentCriteriaForFX"
 			name="lessonAssessmentCriteriaForFX"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForFX ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForFX ?? '') ?></textarea>
 	</label>
-	<label>F (0-34)
-		<input
-			type="text"
+	<label>F (0-34):
+		<textarea
 			id="lessonAssessmentCriteriaForF"
 			name="lessonAssessmentCriteriaForF"
-			value="<?= htmlspecialchars($data->lessonAssessmentCriteriaForF ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			rows="5"
+			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForF ?? '') ?></textarea>
 	</label>
 </form>

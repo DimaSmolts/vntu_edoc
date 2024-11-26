@@ -15,6 +15,7 @@ class DBGlobalDataForEducationalDisciplineModel extends Model
 		'educationalDisciplineWorkingProgramId',
 		'universityName',
 		'universityShortName',
+		'academicRightsAndResponsibilities',
 		'generalAssessmentCriteriaForA',
 		'generalAssessmentCriteriaForB',
 		'generalAssessmentCriteriaForC',
@@ -43,11 +44,9 @@ class DBGlobalDataForEducationalDisciplineModel extends Model
 		'examAssessmentCriteriaForE',
 		'examAssessmentCriteriaForFX',
 		'examAssessmentCriteriaForF',
-		'academicRightsAndResponsibilities',
 	];
 
 	public $timestamps = false;
-
 
 	public function workingProgram()
 	{

@@ -3,23 +3,15 @@
 		<li class="slide">
 			<?php include __DIR__ . '/generalInfoSlide.php'; ?>
 		</li>
-	</ul>
-	<ul class="carousel-container" id="carousel-container">
 		<li class="slide">
 			<?php include __DIR__ . '/generalAssessmentCriteriaSlide.php'; ?>
 		</li>
-	</ul>
-	<ul class="carousel-container" id="carousel-container">
 		<li class="slide">
 			<?php include __DIR__ . '/lessonAssessmentCriteriaSlide.php'; ?>
 		</li>
-	</ul>
-	<ul class="carousel-container" id="carousel-container">
 		<li class="slide">
 			<?php include __DIR__ . '/courseworkAssessmentCriteriaSlide.php'; ?>
 		</li>
-	</ul>
-	<ul class="carousel-container" id="carousel-container">
 		<li class="slide">
 			<?php include __DIR__ . '/examAssessmentCriteriaSlide.php'; ?>
 		</li>
@@ -28,6 +20,7 @@
 		<button class="carousel-arrow" id="carousel-arrow-prev">
 			Назад
 		</button>
+		<div></div>
 		<button class="carousel-arrow" id="carousel-arrow-next">
 			Далі
 		</button>

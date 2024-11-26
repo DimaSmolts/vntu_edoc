@@ -1,7 +1,7 @@
 const updateWPLiterature = (event, wpId) => {
     const postData = {
         wpId,
-        fieldName: event.target.name,
+        field: event.target.name,
         value: event.target.value
     };
 

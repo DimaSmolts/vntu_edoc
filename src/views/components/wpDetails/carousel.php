@@ -19,6 +19,9 @@
 			<?php include __DIR__ . '/studingAndExamingMethodsSlide.php'; ?>
 		</li>
 		<li class="slide">
+			<?php include __DIR__ . '/literatureSlide.php'; ?>
+		</li>
+		<li class="slide">
 			<?php include __DIR__ . '/generalAssessmentCriteriaSlide.php'; ?>
 		</li>
 		<li class="slide">
@@ -29,9 +32,6 @@
 		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/examAssessmentCriteriaSlide.php'; ?>
-		</li>
-		<li class="slide">
-			<?php include __DIR__ . '/literatureSlide.php'; ?>
 		</li>
 	</ul>
 	<div class="carousel-arrow-container">

@@ -40,7 +40,9 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'controlMeasures',
 		'studingMethods',
 		'examingMethods',
-		'code'
+		'code',
+		'methodologicalSupport',
+		'individualTaskNotes',
 	];
 
 	public $timestamps = false;

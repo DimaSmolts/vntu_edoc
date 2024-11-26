@@ -6,6 +6,9 @@ require_once __DIR__ . '/../../models/PDFModuleModel.php';
 require_once __DIR__ . '/../../models/PDFThemeWithLessonsModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
+require_once __DIR__ . '/../../models/GlobalDataForEducationalDisciplineModel.php';
+require_once __DIR__ . '/../../models/AssessmentCriteriaModel.php';
+require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
 require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php';
@@ -18,6 +21,9 @@ use App\Models\PDFModuleModel;
 use App\Models\PDFThemeWithLessonsModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
+use App\Models\GlobalDataForEducationalDisciplineModel;
+use App\Models\AssessmentCriteriaModel;
+use App\Models\WorkingProgramLiteratureModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
@@ -44,7 +50,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->controlMeasures,
 		$workingProgramData->studingMethods,
 		$workingProgramData->examingMethods,
-		$workingProgramData->code
+		$workingProgramData->code,
+		$workingProgramData->methodologicalSupport,
+		$workingProgramData->individualTaskNotes,
 	);
 
 	// Збираємо всі модулі
@@ -266,6 +274,73 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 	// Додаємо дані про людину, яка створила робочу програму, в інформацію про робочу програму
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
+
+	// Додаємо глобальні дані
+	$formattedGlobalData = $workingProgramData->globalData->map(function ($global) {
+		$generalAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->generalAssessmentCriteriaForA,
+			$global->generalAssessmentCriteriaForB,
+			$global->generalAssessmentCriteriaForC,
+			$global->generalAssessmentCriteriaForD,
+			$global->generalAssessmentCriteriaForE,
+			$global->generalAssessmentCriteriaForFX,
+			$global->generalAssessmentCriteriaForF,
+		);
+
+		$lessonAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->lessonAssessmentCriteriaForA,
+			$global->lessonAssessmentCriteriaForB,
+			$global->lessonAssessmentCriteriaForC,
+			$global->lessonAssessmentCriteriaForD,
+			$global->lessonAssessmentCriteriaForE,
+			$global->lessonAssessmentCriteriaForFX,
+			$global->lessonAssessmentCriteriaForF,
+		);
+
+		$courseworkAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->courseworkAssessmentCriteriaForA,
+			$global->courseworkAssessmentCriteriaForB,
+			$global->courseworkAssessmentCriteriaForC,
+			$global->courseworkAssessmentCriteriaForD,
+			$global->courseworkAssessmentCriteriaForE,
+			$global->courseworkAssessmentCriteriaForFX,
+			$global->courseworkAssessmentCriteriaForF,
+		);
+
+		$examAssessmentCriteria = new AssessmentCriteriaModel(
+			$global->examAssessmentCriteriaForA,
+			$global->examAssessmentCriteriaForB,
+			$global->examAssessmentCriteriaForC,
+			$global->examAssessmentCriteriaForD,
+			$global->examAssessmentCriteriaForE,
+			$global->examAssessmentCriteriaForFX,
+			$global->examAssessmentCriteriaForF,
+		);
+
+		return new GlobalDataForEducationalDisciplineModel(
+			$global->universityName,
+			$global->universityShortName,
+			$global->academicRightsAndResponsibilities,
+			$generalAssessmentCriteria,
+			$lessonAssessmentCriteria,
+			$courseworkAssessmentCriteria,
+			$examAssessmentCriteria,
+		);
+	});
+
+	$workingProgram->globalData = $formattedGlobalData;
+
+	// Додаємо літературу
+	$formattedLiterature = $workingProgramData->literature->map(function ($literatureItem) {
+		return new WorkingProgramLiteratureModel(
+			$literatureItem->main,
+			$literatureItem->supporting,
+			$literatureItem->additional,
+			$literatureItem->informationResources
+		);
+	});
+
+	$workingProgram->literature = $formattedLiterature;
 
 	return $workingProgram;
 };

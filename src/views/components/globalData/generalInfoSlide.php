@@ -25,7 +25,7 @@ $title = "Загальна інформація";
 		<textarea
 			id="academicRightsAndResponsibilities"
 			name="academicRightsAndResponsibilities"
-			rows="15"
+			rows="25"
 			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->academicRightsAndResponsibilities ?? '') ?></textarea>
 	</label>
 </form>

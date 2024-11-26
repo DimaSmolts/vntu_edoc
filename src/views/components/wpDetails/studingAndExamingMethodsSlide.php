@@ -1,5 +1,5 @@
 <?php
-$title = "Передумови, мета та завдання";
+$title = "Методи навчання, контролю та розподіл балів";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
@@ -18,5 +18,19 @@ $title = "Передумови, мета та завдання";
             name="examingMethods"
             rows="10"
             oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->examingMethods ?? '') ?></textarea>
+    </label>
+    <label>Методичне забезпечення:
+        <textarea
+            id="methodologicalSupport"
+            name="methodologicalSupport"
+            rows="10"
+            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->methodologicalSupport ?? '') ?></textarea>
+    </label>
+    <label>Нотатки до індивідуального завдання (Розділ 14):
+        <textarea
+            id="individualTaskNotes"
+            name="individualTaskNotes"
+            rows="10"
+            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->individualTaskNotes ?? '') ?></textarea>
     </label>
 </form>
