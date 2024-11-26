@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    font-family: Open Sans;
+    font-family: 'Times New Roman';
     box-sizing: border-box;
 }
 
@@ -17,6 +17,7 @@ p {
     width: 61%;
     margin: 75px auto;
     background-color: white;
+    padding-bottom: 10px;
 }
 
 .page-title-container {
@@ -48,6 +49,11 @@ p {
 .to-list-btn {
     position: absolute;
     left: 10px;
+}
+
+.edit-global-btn {
+    position: absolute;
+    right: 10px;
 }
 
 ::-webkit-scrollbar {

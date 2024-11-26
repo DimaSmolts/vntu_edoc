@@ -4,21 +4,34 @@
 
 .wp-list-item {
     margin-bottom: 10px;
-} 
+}
 
 .wp-list-item:nth-child(even) {
     background-color: ghostwhite;
 }
 
+.wp-list-item-content-header {
+    font-size: 19px;
+}
+
+.wp-list-item-content-header b {
+    text-align: center;
+}
+
 .wp-list-item-content {
     display: grid;
-    grid-template-columns: 1fr 15% max-content max-content;
+    grid-template-columns: 1fr 25% 10% 10% 130px 110px;
     align-items: center;
     gap: 15px;
 }
 
+.wp-list-item-content .academic-year {
+    text-align: center;
+}
+
 .create-new-wp-btn-container {
     display: grid;
+    justify-items: center;
 }
 
 .wp-modal-container {

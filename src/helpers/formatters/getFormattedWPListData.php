@@ -10,7 +10,9 @@ function getFormattedWPListData($wps)
 		return new WPListItemModel(
 			$wp->id,
 			$wp->disciplineName,
-			$wp->createdAt
+			$wp->createdAt,
+			$wp->specialtyName,
+			$wp->academicYear
 		);
 	});
 }

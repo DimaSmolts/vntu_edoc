@@ -11,7 +11,7 @@ class WPService
 {
 	public function getWPList()
 	{
-		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'createdAt'])
+		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'academicYear', 'specialtyName', 'createdAt'])
 			->orderBy('createdAt')
 			->get();
 
