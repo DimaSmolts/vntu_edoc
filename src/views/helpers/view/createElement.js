@@ -8,7 +8,8 @@ const createElement = ({
 	value,
 	rows,
 	eventListenerType,
-	eventListener
+	eventListener,
+	href
 }) => {
 	const element = document.createElement(elementName);
 
@@ -44,6 +45,10 @@ const createElement = ({
 
 	if (eventListenerType && eventListener) {
 		element.addEventListener(eventListenerType, eventListener);
+	}
+
+	if (href) {
+		element.href = href;
 	}
 
 	return element;

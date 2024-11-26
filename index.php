@@ -64,6 +64,11 @@ $router->get('/getThemes', function () {
 	$themeApiController->getThemesWithLessonsByWPId();
 });
 
+$router->post('/duplicateWP', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->duplicateWP();
+});
+
 $router->post('/updateGlobalWPData', function () {
 	$globalDataApiController = new GlobalDataApiController();
 	$globalDataApiController->updateGlobalWPData();

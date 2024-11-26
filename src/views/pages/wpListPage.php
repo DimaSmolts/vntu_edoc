@@ -23,6 +23,9 @@ $title = "Робочі програми";
     </main>
 
     <script src="src/views/helpers/wplist/openCreateNewWPModal.js"></script>
+    <script src="src/views/helpers/view/createElement.js"></script>
+    <script src="src/views/helpers/wplist/createNewListItem.js"></script>
+    <script src="src/views/helpers/wplist/duplicateWP.js"></script>
 </body>
 
 </html>

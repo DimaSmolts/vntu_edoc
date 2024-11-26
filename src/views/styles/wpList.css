@@ -12,8 +12,9 @@
 
 .wp-list-item-content {
     display: grid;
-    grid-template-columns: 1fr 15% 130px;
+    grid-template-columns: 1fr 15% max-content max-content;
     align-items: center;
+    gap: 15px;
 }
 
 .create-new-wp-btn-container {

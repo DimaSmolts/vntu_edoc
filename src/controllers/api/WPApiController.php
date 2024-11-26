@@ -62,4 +62,18 @@ class WPApiController
 
 		exit();
 	}
+
+	public function duplicateWP()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$wpId = intval($data['wpId']);
+
+		$newWPData = $this->wpService->duplicateWP($wpId);
+
+		echo json_encode($newWPData);
+	}
 }
