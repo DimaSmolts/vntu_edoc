@@ -14,7 +14,7 @@ $title = "Програма навчальної дисципліни";
 						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class=" mini-block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 						<button
 							class="btn"
-							onclick="deleteSemester(event, <?= htmlspecialchars($semesterData->id) ?>)">
+							onclick="openApproveDeletingModal('семестр', (event)=>deleteSemester(event, <?= htmlspecialchars($semesterData->id) ?>))">
 							Видалити семестр
 						</button>
 					</div>
@@ -39,7 +39,7 @@ $title = "Програма навчальної дисципліни";
 										type="checkbox"
 										name="<?= htmlspecialchars($educationalForm->colName) ?>"
 										<?= $isChecked ? 'checked' : '' ?>
-										onclick="toggleEducationalForm(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($educationalForm->id) ?>)">
+										onclick="checkTogglingEducationalForm(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($educationalForm->id) ?>)">
 									<p><?= htmlspecialchars($educationalForm->name) ?></p>
 								</label>
 							<?php endforeach; ?>
@@ -69,7 +69,7 @@ $title = "Програма навчальної дисципліни";
 										<p class="mini-block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>">Mодуль <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?></p>
 										<button
 											class="btn"
-											onclick="deleteModule(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
+											onclick="openApproveDeletingModal('модуль', (event)=>deleteModule(event, <?= htmlspecialchars($moduleData->moduleId) ?>))">
 											Видалити модуль
 										</button>
 									</div>
@@ -99,7 +99,7 @@ $title = "Програма навчальної дисципліни";
 														<p class="mini-block-title theme-title" id="themeTitle<?= htmlspecialchars($themeData->themeId) ?>">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : "" ?></p>
 														<button
 															class="btn theme-btn"
-															onclick="deleteTheme(event, <?= htmlspecialchars($themeData->themeId) ?>)">
+															onclick="openApproveDeletingModal('тему', (event)=>deleteTheme(event, <?= htmlspecialchars($themeData->themeId) ?>))">
 															Видалити тему
 														</button>
 													</div>

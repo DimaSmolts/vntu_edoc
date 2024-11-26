@@ -16,7 +16,7 @@ const createModuleBlock = (moduleId) => {
 		classList: ["btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteModule(event, moduleId);
+			openApproveDeletingModal('модуль', () => deleteModule(event, moduleId));
 		}
 	});
 

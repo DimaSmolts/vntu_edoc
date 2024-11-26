@@ -19,7 +19,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 		classList: ["btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteSemester(event, semesterId);
+			openApproveDeletingModal('семестр', () => deleteSemester(event, semesterId));
 		}
 	});
 
@@ -38,7 +38,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 			labelText: form.name,
 			inputName: form.colName,
 			eventListener: (event) => {
-				toggleEducationalForm(event, semesterId, form.id);
+				checkTogglingEducationalForm(event, semesterId, form.id)
 			}
 		})
 

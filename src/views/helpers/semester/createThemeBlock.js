@@ -16,7 +16,7 @@ const createThemeBlock = (themeId) => {
 		classList: ["btn", "theme-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteTheme(event, themeId);
+			openApproveDeletingModal('тему', () => deleteTheme(event, themeId));
 		}
 	});
 

@@ -51,7 +51,7 @@ const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms }) => {
 		classList: ["btn", "remove-lesson-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteLesson(event, lessonId);
+			openApproveDeletingModal('заняття', () => deleteLesson(event, lessonId));
 		}
 	});
 

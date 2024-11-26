@@ -14,9 +14,11 @@
 <body>
     <main class="container">
         <?php include __DIR__ . '/../components/wpDetails/carousel.php'; ?>
+        <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
 
         <script src="src/views/constants/EducationalFormName.js"></script>
         <script src="src/views/constants/LessonTypesName.js"></script>
+        <script src="src/views/helpers/modal/openApproveDeletingModal.js"></script>
         <script src="src/views/helpers/view/createElement.js"></script>
         <script src="src/views/helpers/view/createLabelWithInput.js"></script>
         <script src="src/views/helpers/view/createLabelWithTextarea.js"></script>
@@ -40,6 +42,7 @@
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
         <script src="src/views/helpers/semester/addNewModule.js"></script>
         <script src="src/views/helpers/semester/addNewTheme.js"></script>
+        <script src="src/views/helpers/semester/checkTogglingEducationalForm.js"></script>
         <script src="src/views/helpers/semester/createSemesterContainer.js"></script>
         <script src="src/views/helpers/semester/createModuleBlock.js"></script>
         <script src="src/views/helpers/semester/createThemeBlock.js"></script>

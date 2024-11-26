@@ -1,5 +1,6 @@
 const toggleEducationalForm = (event, educationalDisciplineSemesterId, educationalFormId) => {
 	if (event.target.checked) {
+		console.log('here');
 		const postData = {
 			educationalDisciplineSemesterId,
 			educationalFormId
