@@ -2,6 +2,16 @@ const createLessonsContainer = (themes) => {
 	const lessonsContainer = document.getElementById('educationalDisciplineSemesterStructure');
 	lessonsContainer.replaceChildren();
 
+	if (themes.length === 0) {
+		const noModulesText = createElement({
+			elementName: "p",
+			innerText: "Немає тем модулів. Додайте теми до модуля, щоб мати можливість відредагувати структуру навчальної дисципліни"
+		});
+
+		lessonsContainer.appendChild(noModulesText);
+		return;
+	}
+
 	themes.forEach(theme => {
 		const themeBlock = createElement({ elementName: "div", classList: ['lesson-themes-block'] });
 
@@ -11,8 +21,10 @@ const createLessonsContainer = (themes) => {
 			classList: ['mini-block-title', 'lesson-theme-title']
 		});
 
-		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
-		const selfworkHoursBlock = createElement({ elementName: "div", classList: ['hours-block'] });
+		const hoursBlockColumnsClass = theme.semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
+
+		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
+		const selfworkHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
 
 		const lectionHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин лекцій:' });
 		const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин самостійної роботи:' });

@@ -5,6 +5,13 @@ $title = "Методи навчання, контролю та розподіл 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form id="studingAndExamingMethods" class="wp-form">
+    <label>Нотатки до індивідуального завдання (Розділ 10):
+        <textarea
+            id="individualTaskNotes"
+            name="individualTaskNotes"
+            rows="10"
+            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->individualTaskNotes ?? '') ?></textarea>
+    </label>
     <label>Методи навчання:
         <textarea
             id="studingMethods"
@@ -14,8 +21,8 @@ $title = "Методи навчання, контролю та розподіл 
     </label>
     <label>Методи контролю:
         <textarea
-            id="examingMethods"
-            name="examingMethods"
+            id="controlMeasures"
+            name="controlMeasures"
             rows="10"
             oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->examingMethods ?? '') ?></textarea>
     </label>
@@ -25,12 +32,5 @@ $title = "Методи навчання, контролю та розподіл 
             name="methodologicalSupport"
             rows="10"
             oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->methodologicalSupport ?? '') ?></textarea>
-    </label>
-    <label>Нотатки до індивідуального завдання (Розділ 14):
-        <textarea
-            id="individualTaskNotes"
-            name="individualTaskNotes"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->individualTaskNotes ?? '') ?></textarea>
     </label>
 </form>

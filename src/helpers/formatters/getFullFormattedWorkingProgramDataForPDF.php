@@ -32,27 +32,28 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->id,
 		$workingProgramData->regularYear,
 		$workingProgramData->academicYear,
-		$workingProgramData->facultyName,
-		$workingProgramData->departmentName,
-		$workingProgramData->disciplineName,
-		$workingProgramData->degreeName,
-		$workingProgramData->fielfOfStudyIdx,
-		$workingProgramData->fielfOfStudyName,
-		$workingProgramData->specialtyIdx,
-		$workingProgramData->specialtyName,
-		$workingProgramData->educationalProgram,
-		$workingProgramData->notes,
-		$workingProgramData->prerequisites,
-		$workingProgramData->goal,
-		$workingProgramData->tasks,
-		$workingProgramData->competences,
-		$workingProgramData->programResults,
-		$workingProgramData->controlMeasures,
-		$workingProgramData->studingMethods,
-		$workingProgramData->examingMethods,
-		$workingProgramData->code,
-		$workingProgramData->methodologicalSupport,
-		$workingProgramData->individualTaskNotes,
+		$workingProgramData->facultyName ?? '',
+		$workingProgramData->departmentName ?? '',
+		$workingProgramData->disciplineName ?? '',
+		$workingProgramData->degreeName ?? '',
+		$workingProgramData->fielfOfStudyIdx ?? '',
+		$workingProgramData->fielfOfStudyName ?? '',
+		$workingProgramData->specialtyIdx ?? '',
+		$workingProgramData->specialtyName ?? '',
+		$workingProgramData->educationalProgram ?? '',
+		$workingProgramData->notes ?? '',
+		$workingProgramData->prerequisites ?? '',
+		$workingProgramData->goal ?? '',
+		$workingProgramData->tasks ?? '',
+		$workingProgramData->competences ?? '',
+		$workingProgramData->programResults ?? '',
+		$workingProgramData->controlMeasures ?? '',
+		$workingProgramData->studingMethods ?? '',
+		$workingProgramData->examingMethods ?? '',
+		$workingProgramData->code ?? '',
+		$workingProgramData->methodologicalSupport ?? '',
+		$workingProgramData->individualTaskNotes ?? '',
+		$workingProgramData->creditsAmount,
 	);
 
 	// Збираємо всі модулі
@@ -206,6 +207,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$totalHoursForLabs = getHoursSumForEducationalForms($labsForSemester, $educationalForms);
 		$totalHoursForSelfworks = getHoursSumForEducationalForms($selfworksForSemester, $educationalForms);
 
+		// echo ($semester->semesterNumber);
+		// echo ('------');
+		// print_r($totalHoursForPracticals);
 		// Рахуємо всі години різних занять для семестра
 		$totalEducationalFormHoursStructureForSemester = [];
 
@@ -276,69 +280,65 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
 	// Додаємо глобальні дані
-	$formattedGlobalData = $workingProgramData->globalData->map(function ($global) {
-		$generalAssessmentCriteria = new AssessmentCriteriaModel(
-			$global->generalAssessmentCriteriaForA,
-			$global->generalAssessmentCriteriaForB,
-			$global->generalAssessmentCriteriaForC,
-			$global->generalAssessmentCriteriaForD,
-			$global->generalAssessmentCriteriaForE,
-			$global->generalAssessmentCriteriaForFX,
-			$global->generalAssessmentCriteriaForF,
-		);
+	$generalAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
+		$workingProgramData->globalData->generalAssessmentCriteriaForA,
+		$workingProgramData->globalData->generalAssessmentCriteriaForB,
+		$workingProgramData->globalData->generalAssessmentCriteriaForC,
+		$workingProgramData->globalData->generalAssessmentCriteriaForD,
+		$workingProgramData->globalData->generalAssessmentCriteriaForE,
+		$workingProgramData->globalData->generalAssessmentCriteriaForFX,
+		$workingProgramData->globalData->generalAssessmentCriteriaForF,
+	) : null;
 
-		$lessonAssessmentCriteria = new AssessmentCriteriaModel(
-			$global->lessonAssessmentCriteriaForA,
-			$global->lessonAssessmentCriteriaForB,
-			$global->lessonAssessmentCriteriaForC,
-			$global->lessonAssessmentCriteriaForD,
-			$global->lessonAssessmentCriteriaForE,
-			$global->lessonAssessmentCriteriaForFX,
-			$global->lessonAssessmentCriteriaForF,
-		);
+	$lessonAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
+		$workingProgramData->globalData->lessonAssessmentCriteriaForA,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForB,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForC,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForD,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForE,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForFX,
+		$workingProgramData->globalData->lessonAssessmentCriteriaForF,
+	) : null;
 
-		$courseworkAssessmentCriteria = new AssessmentCriteriaModel(
-			$global->courseworkAssessmentCriteriaForA,
-			$global->courseworkAssessmentCriteriaForB,
-			$global->courseworkAssessmentCriteriaForC,
-			$global->courseworkAssessmentCriteriaForD,
-			$global->courseworkAssessmentCriteriaForE,
-			$global->courseworkAssessmentCriteriaForFX,
-			$global->courseworkAssessmentCriteriaForF,
-		);
+	$courseworkAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForA,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForB,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForC,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForD,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForE,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForFX,
+		$workingProgramData->globalData->courseworkAssessmentCriteriaForF,
+	) : null;
 
-		$examAssessmentCriteria = new AssessmentCriteriaModel(
-			$global->examAssessmentCriteriaForA,
-			$global->examAssessmentCriteriaForB,
-			$global->examAssessmentCriteriaForC,
-			$global->examAssessmentCriteriaForD,
-			$global->examAssessmentCriteriaForE,
-			$global->examAssessmentCriteriaForFX,
-			$global->examAssessmentCriteriaForF,
-		);
+	$examAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
+		$workingProgramData->globalData->examAssessmentCriteriaForA,
+		$workingProgramData->globalData->examAssessmentCriteriaForB,
+		$workingProgramData->globalData->examAssessmentCriteriaForC,
+		$workingProgramData->globalData->examAssessmentCriteriaForD,
+		$workingProgramData->globalData->examAssessmentCriteriaForE,
+		$workingProgramData->globalData->examAssessmentCriteriaForFX,
+		$workingProgramData->globalData->examAssessmentCriteriaForF,
+	) : null;
 
-		return new GlobalDataForEducationalDisciplineModel(
-			$global->universityName,
-			$global->universityShortName,
-			$global->academicRightsAndResponsibilities,
-			$generalAssessmentCriteria,
-			$lessonAssessmentCriteria,
-			$courseworkAssessmentCriteria,
-			$examAssessmentCriteria,
-		);
-	});
+	$formattedGlobalData = new GlobalDataForEducationalDisciplineModel(
+		isset($workingProgramData->globalData) ? $workingProgramData->globalData->universityName : '',
+		isset($workingProgramData->globalData) ? $workingProgramData->globalData->universityShortName : '',
+		isset($workingProgramData->globalData) ? $workingProgramData->globalData->academicRightsAndResponsibilities : '',
+		$generalAssessmentCriteria,
+		$lessonAssessmentCriteria,
+		$courseworkAssessmentCriteria,
+		$examAssessmentCriteria,
+	);
 
 	$workingProgram->globalData = $formattedGlobalData;
 
 	// Додаємо літературу
-	$formattedLiterature = $workingProgramData->literature->map(function ($literatureItem) {
-		return new WorkingProgramLiteratureModel(
-			$literatureItem->main,
-			$literatureItem->supporting,
-			$literatureItem->additional,
-			$literatureItem->informationResources
-		);
-	});
+	$formattedLiterature = isset($workingProgramData->literature) ? new WorkingProgramLiteratureModel(
+		$workingProgramData->literature->main,
+		$workingProgramData->literature->supporting,
+		$workingProgramData->literature->additional,
+		$workingProgramData->literature->informationResources
+	) : null;
 
 	$workingProgram->literature = $formattedLiterature;
 

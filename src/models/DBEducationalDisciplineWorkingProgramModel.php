@@ -43,6 +43,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'code',
 		'methodologicalSupport',
 		'individualTaskNotes',
+		'creditsAmount',
 	];
 
 	public $timestamps = false;

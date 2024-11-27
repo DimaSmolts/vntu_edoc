@@ -34,6 +34,7 @@ class WPDetailsModel
 	public ?string $code;
 	public ?string $methodologicalSupport;
 	public ?string $individualTaskNotes;
+	public ?int $creditsAmount;
 	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
 	public array $createdByPersons;
@@ -71,6 +72,7 @@ class WPDetailsModel
 		?string $code = "",
 		?string $methodologicalSupport = "",
 		?string $individualTaskNotes = "",
+		?int $creditsAmount = null,
 		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
 		array $createdByPersons = [],
@@ -107,6 +109,7 @@ class WPDetailsModel
 		$this->code = $code;
 		$this->methodologicalSupport = $methodologicalSupport;
 		$this->individualTaskNotes = $individualTaskNotes;
+		$this->creditsAmount = $creditsAmount;
 		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
 		$this->createdByPersons = $createdByPersons;

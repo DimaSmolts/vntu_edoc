@@ -22,6 +22,7 @@ class ThemeService
 			->whereHas('module.semester', function ($query) use ($wpId) {
 				$query->where('educationalDisciplineWPId', $wpId);
 			})
+			->orderBy('themeNumber')
 			->get();
 
 		return $themes;

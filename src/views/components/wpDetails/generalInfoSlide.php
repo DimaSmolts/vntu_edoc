@@ -73,6 +73,22 @@ $title = "Загальна інформація";
 	</div>
 	<div class="mini-block">
 		<p class="mini-block-title">Деталі робочої програми:</p>
+		<label>Рік підготовки:
+			<input
+				type="number"
+				id="academicYear"
+				name="academicYear"
+				value="<?= htmlspecialchars($details->academicYear ?? '') ?>"
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+		</label>
+		<label>Кількість кредитів:
+			<input
+				type="number"
+				id="creditsAmount"
+				name="creditsAmount"
+				value="<?= htmlspecialchars($details->creditsAmount ?? '') ?>"
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+		</label>
 		<label>Код:
 			<input
 				type="text"

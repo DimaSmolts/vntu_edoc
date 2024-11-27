@@ -1,4 +1,4 @@
-const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms }) => {
+const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms, container }) => {
 	const block = createElement({
 		elementName: "div",
 		id: `lessonBlock${lessonId}`,
@@ -45,13 +45,14 @@ const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms }) => {
 		lessonHoursBlockForInputs.appendChild(hoursInput);
 	})
 
+	console.log(container);
 	const removeLessonBtn = createElement({
 		elementName: "button",
 		innerText: "Видалити",
 		classList: ["btn", "remove-lesson-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			openApproveDeletingModal('заняття', () => deleteLesson(event, lessonId));
+			openApproveDeletingModal('заняття', () => deleteLesson(event, lessonId, container));
 		}
 	});
 
@@ -69,50 +70,56 @@ const createLessonsBlockTitle = ({ titleName }) => {
 	return title;
 }
 
+const createLessonsBlockLabels = ({ titleName, lessonTypeName, semesterEducationalForms }) => {
+	const labels = createElement({
+		elementName: "div",
+		id: `${lessonTypeName}LabelsBlock`,
+		classList: ['additional-lesson-themes-block']
+	});
+
+	const title = createLessonsBlockTitle({ titleName });
+
+	const lessonNumberLabel = createElement({ elementName: "p", innerText: `Номер заняття:`, classList: ['lesson-name-label'] });
+	const lessonNameLabel = createElement({ elementName: "p", innerText: `Назва теми:` });
+
+	const hoursBlockColumnsClass = semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
+
+	const lessonHoursBlockForHeader = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass, 'additional-hours-block-for-header'] });
+
+	const hoursBlockTitle = createElement({
+		elementName: "p",
+		classList: ['hours-block-title', 'additional-hours-block-title'],
+		innerText: 'Кількість годин:'
+	});
+
+	lessonHoursBlockForHeader.appendChild(hoursBlockTitle);
+
+	const lessonHoursBlockForLabels = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
+
+	semesterEducationalForms.forEach(form => {
+		const hoursLabel = createElement({ elementName: "p", innerText: `${form.name}:` });
+		lessonHoursBlockForLabels.appendChild(hoursLabel);
+	})
+
+	labels.appendChild(title);
+	labels.appendChild(lessonHoursBlockForHeader);
+	labels.appendChild(lessonNumberLabel);
+	labels.appendChild(lessonNameLabel);
+	labels.appendChild(lessonHoursBlockForLabels);
+
+	return labels;
+}
+
 const createLessonsBlockWithContainer = ({ titleName, lessons, lessonTypeName, themeId, semesterEducationalForms }) => {
 	const container = createElement({ elementName: "div", id: `${lessonTypeName}Container${themeId}` });
 
 	if (lessons.length !== 0) {
-		const labels = createElement({
-			elementName: "div",
-			id: `${lessonTypeName}LabelsBlock`,
-			classList: ['additional-lesson-themes-block']
-		});
-
-		const title = createLessonsBlockTitle({ titleName });
-
-		const lessonNumberLabel = createElement({ elementName: "p", innerText: `Номер заняття:`, classList: ['lesson-name-label'] });
-		const lessonNameLabel = createElement({ elementName: "p", innerText: `Назва теми:` });
-
-		const hoursBlockColumnsClass = semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
-
-		const lessonHoursBlockForHeader = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass, 'additional-hours-block-for-header'] });
-
-		const hoursBlockTitle = createElement({
-			elementName: "p",
-			classList: ['hours-block-title', 'additional-hours-block-title'],
-			innerText: 'Кількість годин:'
-		});
-
-		lessonHoursBlockForHeader.appendChild(hoursBlockTitle);
-
-		const lessonHoursBlockForLabels = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
-
-		labels.appendChild(title);
-		labels.appendChild(lessonHoursBlockForHeader);
-		labels.appendChild(lessonNumberLabel);
-		labels.appendChild(lessonNameLabel);
-		labels.appendChild(lessonHoursBlockForLabels);
-
-		semesterEducationalForms.forEach(form => {
-			const hoursLabel = createElement({ elementName: "p", innerText: `${form.name}:` });
-			lessonHoursBlockForLabels.appendChild(hoursLabel);
-		})
+		const labels = createLessonsBlockLabels({ titleName, lessonTypeName, semesterEducationalForms })
 
 		container.appendChild(labels);
 
 		lessons.forEach(lesson => {
-			const block = createLessonsBlock({ lesson, lessonId: lesson.lessonId, semesterEducationalForms });
+			const block = createLessonsBlock({ lesson, lessonId: lesson.lessonId, semesterEducationalForms, container });
 
 			container.appendChild(block);
 		})
