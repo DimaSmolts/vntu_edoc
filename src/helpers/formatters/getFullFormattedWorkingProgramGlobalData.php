@@ -14,18 +14,42 @@ function getFullFormattedWorkingProgramGlobalData($globalWPData)
 		$globalWPData->generalAssessmentCriteriaForC,
 		$globalWPData->generalAssessmentCriteriaForD,
 		$globalWPData->generalAssessmentCriteriaForE,
-		$globalWPData->generalAssessmentCriteriaForFX,
-		$globalWPData->generalAssessmentCriteriaForF,
+		$globalWPData->generalAssessmentCriteriaForFX ?? '',
+		$globalWPData->generalAssessmentCriteriaForF ?? '',
+		$globalWPData->generalAssessmentCriteriaForFXAndF ?? '',
 	) : null;
 
-	$lessonAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
-		$globalWPData->lessonAssessmentCriteriaForA,
-		$globalWPData->lessonAssessmentCriteriaForB,
-		$globalWPData->lessonAssessmentCriteriaForC,
-		$globalWPData->lessonAssessmentCriteriaForD,
-		$globalWPData->lessonAssessmentCriteriaForE,
-		$globalWPData->lessonAssessmentCriteriaForFX,
-		$globalWPData->lessonAssessmentCriteriaForF,
+	$practicalAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
+		$globalWPData->practicalAssessmentCriteriaForA,
+		$globalWPData->practicalAssessmentCriteriaForB,
+		$globalWPData->practicalAssessmentCriteriaForC,
+		$globalWPData->practicalAssessmentCriteriaForD,
+		$globalWPData->practicalAssessmentCriteriaForE,
+		$globalWPData->practicalAssessmentCriteriaForFX ?? '',
+		$globalWPData->practicalAssessmentCriteriaForF ?? '',
+		$globalWPData->practicalAssessmentCriteriaForFXAndF ?? '',
+	) : null;
+
+	$labAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
+		$globalWPData->labAssessmentCriteriaForA,
+		$globalWPData->labAssessmentCriteriaForB,
+		$globalWPData->labAssessmentCriteriaForC,
+		$globalWPData->labAssessmentCriteriaForD,
+		$globalWPData->labAssessmentCriteriaForE,
+		$globalWPData->labAssessmentCriteriaForFX ?? '',
+		$globalWPData->labAssessmentCriteriaForF ?? '',
+		$globalWPData->labAssessmentCriteriaForFXAndF ?? '',
+	) : null;
+
+	$seminarAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
+		$globalWPData->seminarAssessmentCriteriaForA,
+		$globalWPData->seminarAssessmentCriteriaForB,
+		$globalWPData->seminarAssessmentCriteriaForC,
+		$globalWPData->seminarAssessmentCriteriaForD,
+		$globalWPData->seminarAssessmentCriteriaForE,
+		$globalWPData->seminarAssessmentCriteriaForFX ?? '',
+		$globalWPData->seminarAssessmentCriteriaForF ?? '',
+		$globalWPData->seminarAssessmentCriteriaForFXAndF ?? '',
 	) : null;
 
 	$courseworkAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
@@ -34,18 +58,20 @@ function getFullFormattedWorkingProgramGlobalData($globalWPData)
 		$globalWPData->courseworkAssessmentCriteriaForC,
 		$globalWPData->courseworkAssessmentCriteriaForD,
 		$globalWPData->courseworkAssessmentCriteriaForE,
-		$globalWPData->courseworkAssessmentCriteriaForFX,
-		$globalWPData->courseworkAssessmentCriteriaForF,
+		$globalWPData->courseworkAssessmentCriteriaForFX ?? '',
+		$globalWPData->courseworkAssessmentCriteriaForF ?? '',
+		$globalWPData->courseworkAssessmentCriteriaForFXAndF ?? '',
 	) : null;
 
-	$examAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
-		$globalWPData->examAssessmentCriteriaForA,
-		$globalWPData->examAssessmentCriteriaForB,
-		$globalWPData->examAssessmentCriteriaForC,
-		$globalWPData->examAssessmentCriteriaForD,
-		$globalWPData->examAssessmentCriteriaForE,
-		$globalWPData->examAssessmentCriteriaForFX,
-		$globalWPData->examAssessmentCriteriaForF,
+	$colloquiumAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
+		$globalWPData->colloquiumAssessmentCriteriaForA,
+		$globalWPData->colloquiumAssessmentCriteriaForB,
+		$globalWPData->colloquiumAssessmentCriteriaForC,
+		$globalWPData->colloquiumAssessmentCriteriaForD,
+		$globalWPData->colloquiumAssessmentCriteriaForE,
+		$globalWPData->colloquiumAssessmentCriteriaForFX ?? '',
+		$globalWPData->colloquiumAssessmentCriteriaForF ?? '',
+		$globalWPData->colloquiumAssessmentCriteriaForFXAndF ?? '',
 	) : null;
 
 	return new WorkingProgramGlobalDataOverwriteModel(
@@ -53,8 +79,10 @@ function getFullFormattedWorkingProgramGlobalData($globalWPData)
 		isset($globalWPData) ? $globalWPData->universityShortName : '',
 		isset($globalWPData) ? $globalWPData->academicRightsAndResponsibilities : '',
 		$generalAssessmentCriteria,
-		$lessonAssessmentCriteria,
+		$practicalAssessmentCriteria,
+		$labAssessmentCriteria,
+		$seminarAssessmentCriteria,
 		$courseworkAssessmentCriteria,
-		$examAssessmentCriteria,
+		$colloquiumAssessmentCriteria
 	);
 };

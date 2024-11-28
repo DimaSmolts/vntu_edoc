@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global data</title>
+    <title>Глобальні дані</title>
     <link rel="stylesheet" href="src/views/styles/common.css">
     <link rel="stylesheet" href="src/views/styles/carousel.css">
     <link rel="stylesheet" href="src/views/styles/form.css">

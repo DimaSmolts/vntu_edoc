@@ -40,18 +40,11 @@ $title = "Критерії оцінювання за індивідуальни�
 			rows="5"
 			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->courseworkAssessmentCriteria->E ?? '') ?></textarea>
 	</label>
-	<label>FX (35-59):
+	<label>FX, F та (0-59):
 		<textarea
-			id="courseworkAssessmentCriteriaForFX"
-			name="courseworkAssessmentCriteriaForFX"
+			id="courseworkAssessmentCriteriaForFXAndF"
+			name="courseworkAssessmentCriteriaForFXAndF"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->courseworkAssessmentCriteria->FX ?? '') ?></textarea>
-	</label>
-	<label>F (0-34):
-		<textarea
-			id="courseworkAssessmentCriteriaForF"
-			name="courseworkAssessmentCriteriaForF"
-			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->courseworkAssessmentCriteria->F ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->courseworkAssessmentCriteria->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

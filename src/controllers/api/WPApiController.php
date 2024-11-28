@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStrucrture.php';
 
 use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataOverwriteService;
@@ -71,5 +72,42 @@ class WPApiController
 		$newWPData = $this->wpService->duplicateWP($wpId);
 
 		echo json_encode($newWPData);
+	}
+
+	public function getLessonsAndExamingsStructure()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+
+		$rawStructure = $this->wpService->getLessonsAndExamingsStructure($wpId);
+
+		$structure = getFormattedLessonsAndExamingsStrucrture($rawStructure);
+
+		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getGlobalDataByWPId($wpId);
+
+		$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
+
+		$showReturnBtn = true;
+		$isAbleToEditGlobalData = false;
+
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/practicalAssessmentCriteriaSlide.php';
+		$practicalSlideContent = ob_get_clean();
+
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/labAssessmentCriteriaSlide.php';
+		$labSlideContent = ob_get_clean();
+
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
+		$seminarSlideContent = ob_get_clean();
+
+		echo json_encode([
+			'structure' => $structure,
+			'practicalSlideContent' => $practicalSlideContent,
+			'labSlideContent' => $labSlideContent,
+			'seminarSlideContent' => $seminarSlideContent,
+		]);
 	}
 }

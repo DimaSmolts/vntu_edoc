@@ -293,4 +293,22 @@ class WPService
 
 		return $newWPData;
 	}
+
+	// Функція для отримання всіх даних пов'язаних з курсовим, колоквіумами, видами занять
+	public function getLessonsAndExamingsStructure($wpId)
+	{
+		$wps = DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters.modules.themes' => function ($query) {
+				$query->with([
+					'labs',
+					'practicals',
+					'seminars'
+				]);
+			}
+		])
+			->where('id', $wpId)
+			->get();
+
+		return $wps->first();
+	}
 }

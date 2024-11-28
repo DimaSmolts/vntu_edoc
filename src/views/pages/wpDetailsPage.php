@@ -26,6 +26,8 @@
         <script src="src/views/helpers/updating/updateWP.js"></script>
         <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
         <script src="src/views/helpers/carousel/arrowsHandler.js"></script>
+        <script src="src/views/helpers/carousel/getStructureForAssessmentCriteriasSlides.js"></script>
+        <script src="src/views/helpers/carousel/addAssessmentCriteriasSlides.js"></script>
         <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
         <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>

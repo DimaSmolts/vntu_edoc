@@ -2,6 +2,7 @@ const createElement = ({
 	elementName,
 	id,
 	innerText,
+	innerHTML,
 	classList,
 	type,
 	name,
@@ -19,6 +20,10 @@ const createElement = ({
 
 	if (innerText) {
 		element.innerText = innerText;
+	}
+
+	if (innerHTML) {
+		element.innerHTML = innerHTML;
 	}
 
 	if (classList && classList.length !== 0) {

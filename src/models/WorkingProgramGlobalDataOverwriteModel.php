@@ -12,25 +12,31 @@ class WorkingProgramGlobalDataOverwriteModel
 	public ?string $universityShortName;
 	public ?string $academicRightsAndResponsibilities;
 	public ?AssessmentCriteriaModel $generalAssessmentCriteria;
-	public ?AssessmentCriteriaModel $lessonAssessmentCriteria;
+	public ?AssessmentCriteriaModel $practicalAssessmentCriteria;
+	public ?AssessmentCriteriaModel $labAssessmentCriteria;
+	public ?AssessmentCriteriaModel $seminarAssessmentCriteria;
 	public ?AssessmentCriteriaModel $courseworkAssessmentCriteria;
-	public ?AssessmentCriteriaModel $examAssessmentCriteria;
+	public ?AssessmentCriteriaModel $colloquiumAssessmentCriteria;
 
 	public function __construct(
 		?string $universityName = "",
 		?string $universityShortName = "",
 		?string $academicRightsAndResponsibilities = "",
 		?AssessmentCriteriaModel $generalAssessmentCriteria = null,
-		?AssessmentCriteriaModel $lessonAssessmentCriteria = null,
+		?AssessmentCriteriaModel $practicalAssessmentCriteria = null,
+		?AssessmentCriteriaModel $labAssessmentCriteria = null,
+		?AssessmentCriteriaModel $seminarAssessmentCriteria = null,
 		?AssessmentCriteriaModel $courseworkAssessmentCriteria = null,
-		?AssessmentCriteriaModel $examAssessmentCriteria = null,
+		?AssessmentCriteriaModel $colloquiumAssessmentCriteria = null,
 	) {
 		$this->universityName = $universityName;
 		$this->universityShortName = $universityShortName;
 		$this->academicRightsAndResponsibilities = $academicRightsAndResponsibilities;
 		$this->generalAssessmentCriteria = $generalAssessmentCriteria;
-		$this->lessonAssessmentCriteria = $lessonAssessmentCriteria;
+		$this->practicalAssessmentCriteria = $practicalAssessmentCriteria;
+		$this->labAssessmentCriteria = $labAssessmentCriteria;
+		$this->seminarAssessmentCriteria = $seminarAssessmentCriteria;
 		$this->courseworkAssessmentCriteria = $courseworkAssessmentCriteria;
-		$this->examAssessmentCriteria = $examAssessmentCriteria;
+		$this->colloquiumAssessmentCriteria = $colloquiumAssessmentCriteria;
 	}
 }

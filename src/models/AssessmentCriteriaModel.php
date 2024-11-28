@@ -11,6 +11,7 @@ class AssessmentCriteriaModel
 	public ?string $E;
 	public ?string $FX;
 	public ?string $F;
+	public ?string $FXAndF;
 
 	public function __construct(
 		?string $A = "",
@@ -20,6 +21,7 @@ class AssessmentCriteriaModel
 		?string $E = "",
 		?string $FX = "",
 		?string $F = "",
+		?string $FXAndF = "",
 	) {
 		$this->A = $A;
 		$this->B = $B;
@@ -28,5 +30,6 @@ class AssessmentCriteriaModel
 		$this->E = $E;
 		$this->FX = $FX;
 		$this->F = $F;
+		$this->FXAndF = $FXAndF;
 	}
 }

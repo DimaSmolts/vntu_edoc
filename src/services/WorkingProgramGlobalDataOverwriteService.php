@@ -66,6 +66,14 @@ class WorkingProgramGlobalDataOverwriteService
 			);
 	}
 
+	// Функція для отримання глобальних даних певної робочої програми
+	public function getGlobalDataByWPId($wpId)
+	{
+		return Capsule::table('workingProgramGlobalDataOverwrite')
+			->where('educationalDisciplineWorkingProgramId', $wpId)
+			->first();
+	}
+
 	// Функція для зміни дефолтних даних на рівні робочої програми
 	public function updateWorkingProgramGlobalDataOverwrite($wpId, $field, $value)
 	{
