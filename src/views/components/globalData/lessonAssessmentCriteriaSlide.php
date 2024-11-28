@@ -10,48 +10,48 @@ $title = "Критерії оцінювання за заняттями";
 			id="lessonAssessmentCriteriaForA"
 			name="lessonAssessmentCriteriaForA"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForA ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->A ?? '') ?></textarea>
 	</label>
 	<label>B (82-89):
 		<textarea
 			id="lessonAssessmentCriteriaForB"
 			name="lessonAssessmentCriteriaForB"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForB ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->B ?? '') ?></textarea>
 	</label>
 	<label>C (75-81):
 		<textarea
 			id="lessonAssessmentCriteriaForC"
 			name="lessonAssessmentCriteriaForC"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForC ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->C ?? '') ?></textarea>
 	</label>
 	<label>D (64-74):
 		<textarea
 			id="lessonAssessmentCriteriaForD"
 			name="lessonAssessmentCriteriaForD"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForD ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->D ?? '') ?></textarea>
 	</label>
 	<label>E (60-63):
 		<textarea
 			id="lessonAssessmentCriteriaForE"
 			name="lessonAssessmentCriteriaForE"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForE ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->E ?? '') ?></textarea>
 	</label>
 	<label>FX (35-59):
 		<textarea
 			id="lessonAssessmentCriteriaForFX"
 			name="lessonAssessmentCriteriaForFX"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForFX ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->FX ?? '') ?></textarea>
 	</label>
 	<label>F (0-34):
 		<textarea
 			id="lessonAssessmentCriteriaForF"
 			name="lessonAssessmentCriteriaForF"
 			rows="5"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteriaForF ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->lessonAssessmentCriteria->F ?? '') ?></textarea>
 	</label>
 </form>

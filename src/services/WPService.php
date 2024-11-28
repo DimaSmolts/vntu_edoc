@@ -130,17 +130,17 @@ class WPService
 					->first();
 
 				// Дістаємо глобальні значення для даної робочої програми
-				$oldGlobalDataForEducationalDisciplineData = Capsule::table('globalDataForEducationalDiscipline')
+				$oldWorkingProgramGlobalDataOverwriteData = Capsule::table('workingProgramGlobalDataOverwrite')
 					->where('educationalDisciplineWorkingProgramId', $wpId)
 					->first();
 
-				$oldGlobalDataForEducationalDisciplineData = (array)$oldGlobalDataForEducationalDisciplineData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
-				unset($oldGlobalDataForEducationalDisciplineData['id']); // Видаляємо з скопійованих даних id
-				unset($oldGlobalDataForEducationalDisciplineData['educationalDisciplineWorkingProgramId']); // Видаляємо з скопійованих даних id старої робочої програми
-				$oldGlobalDataForEducationalDisciplineData['educationalDisciplineWorkingProgramId'] = $newWPId; // Вставляємо id нової робочої програми
+				$oldWorkingProgramGlobalDataOverwriteData = (array)$oldWorkingProgramGlobalDataOverwriteData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+				unset($oldWorkingProgramGlobalDataOverwriteData['id']); // Видаляємо з скопійованих даних id
+				unset($oldWorkingProgramGlobalDataOverwriteData['educationalDisciplineWorkingProgramId']); // Видаляємо з скопійованих даних id старої робочої програми
+				$oldWorkingProgramGlobalDataOverwriteData['educationalDisciplineWorkingProgramId'] = $newWPId; // Вставляємо id нової робочої програми
 
 				// Створюємо новий запис глобальних даних
-				Capsule::table('globalDataForEducationalDiscipline')->insertGetId($oldGlobalDataForEducationalDisciplineData);
+				Capsule::table('workingProgramGlobalDataOverwrite')->insertGetId($oldWorkingProgramGlobalDataOverwriteData);
 
 				// Дістаємо літературу для даної робочої програми
 				$oldWorkingProgramLiteratureData = Capsule::table('workingProgramLiterature')

@@ -3,28 +3,24 @@
 namespace App\Controllers;
 
 require_once __DIR__ . '/../../services/WPService.php';
-require_once __DIR__ . '/../../services/GlobalWorkingProgramDataService.php';
-require_once __DIR__ . '/../../services/GlobalDataForEducationalDisciplineService.php';
+require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
-require_once __DIR__ . '/../../helpers/formatters/getFullFormattedGlobalWorkingProgramData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
 
 use App\Services\WPService;
-use App\Services\GlobalWorkingProgramDataService;
-use App\Services\GlobalDataForEducationalDisciplineService;
+use App\Services\WorkingProgramGlobalDataOverwriteService;
 use App\Services\WorkingProgramLiteratureService;
 
 class WPApiController
 {
 	protected WPService $wpService;
-	protected GlobalWorkingProgramDataService $globalWorkingProgramDataService;
-	protected GlobalDataForEducationalDisciplineService $globalDataForEducationalDisciplineService;
+	protected WorkingProgramGlobalDataOverwriteService $workingProgramGlobalDataOverwriteService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
-		$this->globalWorkingProgramDataService = new GlobalWorkingProgramDataService();
-		$this->globalDataForEducationalDisciplineService = new GlobalDataForEducationalDisciplineService();
+		$this->workingProgramGlobalDataOverwriteService = new WorkingProgramGlobalDataOverwriteService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 	}
 
@@ -34,12 +30,12 @@ class WPApiController
 
 		$disciplineName = $_POST['disciplineName'] ?? null;
 
-		$rawGlobalWPData = $this->globalWorkingProgramDataService->getGlobalWPData();
+		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getWorkingProgramGlobalData();
 
-		$globalWPData = getFullFormattedGlobalWorkingProgramData($rawGlobalWPData);
+		$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
 		$newWPId = $this->wpService->createNewWP($disciplineName);
-		$this->globalDataForEducationalDisciplineService->createNewDataForEducationalDiscipline($newWPId, $globalWPData);
+		$this->workingProgramGlobalDataOverwriteService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
 		$this->workingProgramLiteratureService->createNewWPLiterature($newWPId);
 
 		header("Location: wpdetails?id=" . $newWPId);

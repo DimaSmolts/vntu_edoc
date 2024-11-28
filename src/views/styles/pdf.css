@@ -61,6 +61,13 @@ div.topic-title {
 	margin-bottom: 7.41mm;
 }
 
+.sub-topic-title {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	line-height: 7.41mm;
+}
+
 div.copyright {
 	text-align: right;
 }

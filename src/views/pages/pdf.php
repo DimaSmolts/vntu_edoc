@@ -25,7 +25,6 @@ $highlighting = $isHighlighting ? "
 }
   
 .not-inserted {
-	background-color: indianred;
 }
 
 .global {
@@ -37,7 +36,7 @@ $highlighting = $isHighlighting ? "
 }
 
 .change {
-	background-color: red;
+	background-color: #CC5500;
 }
 " : "";
 

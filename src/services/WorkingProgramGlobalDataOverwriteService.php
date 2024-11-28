@@ -4,11 +4,20 @@ namespace App\Services;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class GlobalDataForEducationalDisciplineService
+class WorkingProgramGlobalDataOverwriteService
 {
-	public function createNewDataForEducationalDiscipline($wpId, $globalWPData)
+	// Функція для отримання дефолтних глобальних даних
+	public function getWorkingProgramGlobalData()
 	{
-		return Capsule::table('globalDataForEducationalDiscipline')->insertGetId([
+		return Capsule::table('workingProgramGlobalDataOverwrite')
+			->where('id', 1)
+			->first();
+	}
+
+	// Функція для створення запису з дефолтними значеннями для певної робочої програми
+	public function createNewWorkingProgramGlobalDataOverwrite($wpId, $globalWPData)
+	{
+		return Capsule::table('workingProgramGlobalDataOverwrite')->insertGetId([
 			'educationalDisciplineWorkingProgramId' => $wpId,
 			'universityName' => $globalWPData->universityName,
 			'universityShortName' => $globalWPData->universityShortName,
@@ -44,16 +53,39 @@ class GlobalDataForEducationalDisciplineService
 		]);
 	}
 
-	public function updateGlobalWPDataForEducationalDiscipline($wpId, $field, $value)
+	// Функція оновлення глобальних даних для адміна
+	public function updateGlobalData($field, $value)
 	{
-		$data = Capsule::table('globalDataForEducationalDiscipline')->where('educationalDisciplineWorkingProgramId', $wpId)->first();
+		Capsule::table('workingProgramGlobalDataOverwrite')
+			// Додаємо новий запис або оновлюємо запис глобальних даних
+			->updateOrInsert(
+				['id' => 1],
+				[
+					$field => $value
+				]
+			);
+	}
+
+	// Функція для зміни дефолтних даних на рівні робочої програми
+	public function updateWorkingProgramGlobalDataOverwrite($wpId, $field, $value)
+	{
+		$globalData = Capsule::table('workingProgramGlobalDataOverwrite')->where('id', 1)->first(); // перевіряємо чи є глобальні дані в таблиці
+
+		// Якщо глобальних даних немає, то просимо, щоб адміністратор заповнив їх спочатку, для того щоб його запис мав id 1
+		if (!$globalData) {
+			echo json_encode(['status' => 'error', 'message' => 'Admin should insert global data first!']);
+			return;
+		}
+
+		$data = Capsule::table('workingProgramGlobalDataOverwrite')->where('educationalDisciplineWorkingProgramId', $wpId)->first(); // перевіряємо чи запис з дефолтними даними існує
 
 		if (!$data) {
 			echo json_encode(['status' => 'error', 'message' => 'Global data not found']);
 			return;
 		}
 
-		$updated = Capsule::table('globalDataForEducationalDiscipline')
+		// оновлюємо запис з дефолтними даними
+		$updated = Capsule::table('workingProgramGlobalDataOverwrite')
 			->where('educationalDisciplineWorkingProgramId', $wpId)
 			->update([$field => $value]);
 

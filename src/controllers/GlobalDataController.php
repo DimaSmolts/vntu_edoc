@@ -2,26 +2,26 @@
 
 namespace App\Controllers;
 
-require_once __DIR__ . '/../services/GlobalWorkingProgramDataService.php';
+require_once __DIR__ . '/../services/WorkingProgramGlobalDataOverwriteService.php';
 
-use App\Services\GlobalWorkingProgramDataService;
+use App\Services\WorkingProgramGlobalDataOverwriteService;
 
 class GlobalDataController
 {
-	protected GlobalWorkingProgramDataService $globalWorkingProgramDataService;
+	protected WorkingProgramGlobalDataOverwriteService $workingProgramGlobalDataOverwriteService;
 
 	function __construct()
 	{
-		$this->globalWorkingProgramDataService = new GlobalWorkingProgramDataService();
+		$this->workingProgramGlobalDataOverwriteService = new WorkingProgramGlobalDataOverwriteService();
 	}
 
-	public function getGlobalWPData()
+	public function getWorkingProgramGlobalData()
 	{
 		header('Content-Type: text/html');
 
-		$rawGlobalWPData = $this->globalWorkingProgramDataService->getGlobalWPData();
+		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getWorkingProgramGlobalData();
 
-		$data = getFullFormattedGlobalWorkingProgramData($rawGlobalWPData);
+		$data = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
 		$showReturnBtn = true;
 		$isAbleToEditGlobalData = false;

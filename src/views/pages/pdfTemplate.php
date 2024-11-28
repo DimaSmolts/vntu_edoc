@@ -3,10 +3,10 @@
 	<div class="center inserted"><?= htmlspecialchars($details->facultyName) ?></div>
 	<div class="center inserted small-bottom-margin"><?= htmlspecialchars($details->departmentName) ?></div>
 	<div class="right ">ЗАТВЕРДЖУЮ</div>
-	<div class="approved-position-container import">
+	<div class="approved-position-container change">
 		<div class="right approved-position">Проректор з науково-педагогічної роботи та організації освітнього процесу</div>
 	</div>
-	<div class="right">__________ <span class="import">Олександр ПЕТРОВ</span></div>
+	<div class="right">__________ <span class="change">Олександр ПЕТРОВ</span></div>
 	<div class="right">"___"____________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
 	<div class="center">
 		<img src="src/images/logo.png" style="width: 60mm" alt="logo">
@@ -20,9 +20,7 @@
 		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="not-inserted">
-				<?= htmlspecialchars($details->fielfOfStudyIdx) ?>
-			</span> – <span class="inserted">
+		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
 				<?= htmlspecialchars($details->fielfOfStudyName) ?>
 			</span>
 		</u>
@@ -50,17 +48,13 @@
 		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="not-inserted">
-				<?= htmlspecialchars($details->fielfOfStudyIdx) ?>
-			</span> – <span class="inserted">
+		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
 				<?= htmlspecialchars($details->fielfOfStudyName) ?>
 			</span>
 		</u>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="not-inserted">
-				<?= htmlspecialchars($details->specialtyIdx) ?>
-			</span> – <span class="inserted">
+		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="inserted">
 				<?= htmlspecialchars($details->specialtyName) ?>
 			</span>
 		</u>
@@ -69,7 +63,7 @@
 		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
 	</div>
 	<div class="basic-info">
-		<span class="import inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> – <span class="change"> 14 c.</span>
+		<span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> – <span class="change"> 14 c.</span>
 	</div>
 
 	<table class="approved-table">
@@ -81,8 +75,8 @@
 		</tr>
 		<tr>
 			<td class="approved-first-col">Розроблено</td>
-			<td class="approved-second-col import">Професор кафедри АІІТ</td>
-			<?php if (!empty($details->createdByPerson) && isset($details->createdByPersons[0])): ?>
+			<td class="approved-second-col change">Професор кафедри АІІТ</td>
+			<?php if (isset($details->createdByPersons[0])): ?>
 				<td class="approved-third-col inserted"><?= htmlspecialchars($details->createdByPersons[0]->degree) ?>, <?= htmlspecialchars($details->createdByPersons[0]->name) ?> <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></td>
 			<?php else: ?>
 				<td class="approved-third-col inserted"></td>
@@ -91,31 +85,31 @@
 		</tr>
 		<tr>
 			<td rowspan="3" class="approved-first-col">Схвалено</td>
-			<td class="approved-second-col import">Гарант освітньої програми</td>
-			<td class="approved-third-col import">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
+			<td class="approved-second-col change">Гарант освітньої програми</td>
+			<td class="approved-third-col change">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col import none-border-left">Зав. кафедри АІІТ<br>
+			<td class="approved-second-col change none-border-left">Зав. кафедри АІІТ<br>
 				Засідання кафедри АІІТ<br>
 				(протокол № 1 від 13.08.2024 р.)
 			</td>
-			<td class="approved-third-col import">д.т.н., професор Олег БІСІКАЛО</td>
+			<td class="approved-third-col change">д.т.н., професор Олег БІСІКАЛО</td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col import none-border-left">Голова вченої ради ФІІТА<br>
+			<td class="approved-second-col change none-border-left">Голова вченої ради ФІІТА<br>
 				Вчена рада ФІІТА<br>
 				(протокол № 1 від 19.08.2024 р.)</td>
-			<td class="approved-third-col import">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
+			<td class="approved-third-col change">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
 			<td class="approved-first-col">Затверджено</td>
-			<td class="approved-second-col import">Голова Ради з якості освіти<br>
+			<td class="approved-second-col change">Голова Ради з якості освіти<br>
 				Рада з якості освіти ВНТУ<br>
 				(протокол № _ від ___ 2024 р.)</td>
-			<td class="approved-third-col import">к.т.н., доцент Олександр ПЕТРОВ</td>
+			<td class="approved-third-col change">к.т.н., доцент Олександр ПЕТРОВ</td>
 			<td class="approved-forth-col"></td>
 		</tr>
 	</table>
@@ -124,12 +118,12 @@
 	$copyrightPersonNameLetter = "";
 	$copyrightPersonPatronymicNameLetter = "";
 
-	if (!empty($details->createdByPerson) && isset($details->createdByPersons[0])) {
+	if (isset($details->createdByPersons[0])) {
 		$copyrightPersonNameLetter = mb_substr($details->createdByPersons[0]->name, 0, 1);
 		$copyrightPersonPatronymicNameLetter = mb_substr($details->createdByPersons[0]->patronymicName, 0, 1);
 	}
 	?>
-	<?php if (!empty($details->createdByPerson) && isset($details->createdByPersons[0])): ?>
+	<?php if (isset($details->createdByPersons[0])): ?>
 		<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
 				class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
 	<?php else: ?>
@@ -210,11 +204,11 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2">
-				Кількість кредитів<br><span class="import">5</span>
+				Кількість кредитів<br><span class="inserted"><?= htmlspecialchars($details->creditsAmount) ?></span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="3">
 				<b>Галузь знань</b><br>
-				<?= htmlspecialchars($details->fielfOfStudyIdx) ?> – <?= htmlspecialchars($details->fielfOfStudyName) ?>
+				<?= htmlspecialchars($details->fielfOfStudyName) ?>
 			</td>
 			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<span class="change">Обов'язкова (професійна чи загальна)</span>
@@ -222,14 +216,14 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
-				Модулів<br><span class="import">1</span>
+				Модулів<br><span class="change">1</span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				Рік підготовки (курс)
 			</th>
 		</tr>
 		<tr>
-			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="not-inserted none-border-left center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
+			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="inserted none-border-left center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<?= isset($details->academicYear) ? htmlspecialchars($details->academicYear) : '' ?>
 			</td>
 		</tr>
@@ -239,7 +233,7 @@
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="5">
 				<b>Cпеціальність</b><br>
-				<?= htmlspecialchars($details->specialtyIdx) ?> – <?= htmlspecialchars($details->specialtyName) ?>
+				<?= htmlspecialchars($details->specialtyName) ?>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<p>Семестр</p>
@@ -256,7 +250,7 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="3">
-				Індивідуальне завдання<br><span class="import">-</span>
+				Індивідуальне завдання<br><span class="change">-</span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Лекції</th>
 		</tr>
@@ -473,7 +467,7 @@
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
-										<td class="import center"></td>
+										<td class="center"></td>
 										<td class="inserted center"><?= htmlspecialchars($themeData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 									<?php endforeach; ?>
 								</tr>
@@ -486,7 +480,7 @@
 								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
 								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
 								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
-								<td class="import center"></td>
+								<td class="center"></td>
 								<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 							<?php endforeach; ?>
 						</tr>
@@ -500,7 +494,7 @@
 						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
 						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
 						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
-						<td class="import center"></td>
+						<td class="center"></td>
 						<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
 					<?php endforeach; ?>
 				</tr>
@@ -781,15 +775,61 @@
 	<div class="topic-title">
 		10. Індивідуальні завдання
 	</div>
-	<p class="indent inserted"><?= htmlspecialchars($details->individualTaskNotes) ?></p>
+	<p class="indent inserted"><?= isset($details->individualTaskNotes) ? htmlspecialchars($details->individualTaskNotes) : "" ?></p>
 
 	<div class="topic-title">
 		11. Методи навчання
 	</div>
-	<p class="indent inserted"><?= htmlspecialchars($details->studingMethods) ?></p>
+	<p class="indent inserted"><?= isset($details->studingMethods) ? htmlspecialchars($details->studingMethods) : '' ?></p>
 
 	<div class="topic-title">
 		12. Методи контролю
 	</div>
-	<p class="indent inserted"><?= htmlspecialchars($details->examingMethods) ?></p>
+	<p class="indent inserted"><?= isset($details->examingMethods) ? htmlspecialchars($details->examingMethods) : '' ?></p>
+
+	<div class="topic-title">
+		13. Розподіл балів, які отримують студенти
+	</div>
+
+	<div class="topic-title">
+		14. Методичне забезпечення
+	</div>
+	<p class="indent inserted"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
+
+	<div class="topic-title">
+		15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти
+	</div>
+
+	<div class="topic-title">
+		16. Академічні права та обов’язки
+	</div>
+	<p class="indent inserted"><?= isset($details->globalData->academicRightsAndResponsibilities) ? htmlspecialchars($details->globalData->academicRightsAndResponsibilities) : '' ?></p>
+
+	<div class="topic-title">
+		17. Рекомендована література
+	</div>
+	<?php if (isset($details->literature->main)): ?>
+		<div class="sub-topic-title">
+			Основна
+		</div>
+		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->main) ?></p>
+	<?php endif; ?>
+	<?php if (isset($details->literature->supporting)): ?>
+		<div class="sub-topic-title">
+			Допоміжна
+		</div>
+		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->supporting) ?></p>
+	<?php endif; ?>
+	<?php if (isset($details->literature->additional)): ?>
+		<div class="sub-topic-title">
+			Додаткова
+		</div>
+		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->additional) ?></p>
+	<?php endif; ?>
+	<?php if (isset($details->literature->informationResources)): ?>
+		<div class="sub-topic-title">
+			Інформаційні ресурси
+		</div>
+		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->informationResources) ?></p>
+	<?php endif; ?>
 </page>

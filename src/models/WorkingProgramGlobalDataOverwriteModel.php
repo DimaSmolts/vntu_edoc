@@ -6,7 +6,7 @@ require_once __DIR__ . '/AssessmentCriteriaModel.php';
 
 use App\Models\AssessmentCriteriaModel;
 
-class GlobalDataForEducationalDisciplineModel
+class WorkingProgramGlobalDataOverwriteModel
 {
 	public ?string $universityName;
 	public ?string $universityShortName;

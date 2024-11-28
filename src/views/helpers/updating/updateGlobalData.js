@@ -1,11 +1,10 @@
-const updateGlobalWPDataForEducationalDiscipline = (event, wpId) => {
+const updateGlobalData = (event) => {
     const postData = {
-        wpId,
         field: event.target.name,
         value: event.target.value
     };
 
-    fetch('updateGlobalWPDataForEducationalDiscipline', {
+    fetch('updateGlobalData', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

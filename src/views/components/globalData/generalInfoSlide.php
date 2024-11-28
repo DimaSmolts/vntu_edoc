@@ -11,7 +11,7 @@ $title = "Загальна інформація";
 			id="universityName"
 			name="universityName"
 			value="<?= htmlspecialchars($data->universityName ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			oninput="updateGlobalData(event)">
 	</label>
 	<label>Абревіатура навчального закладу:
 		<input
@@ -19,13 +19,13 @@ $title = "Загальна інформація";
 			id="universityShortName"
 			name="universityShortName"
 			value="<?= htmlspecialchars($data->universityShortName ?? '') ?>"
-			oninput="updateGlobalWPData(event)">
+			oninput="updateGlobalData(event)">
 	</label>
 	<label>Академічні права та обов'язки:
 		<textarea
 			id="academicRightsAndResponsibilities"
 			name="academicRightsAndResponsibilities"
 			rows="25"
-			oninput="updateGlobalWPData(event)"><?= htmlspecialchars($data->academicRightsAndResponsibilities ?? '') ?></textarea>
+			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->academicRightsAndResponsibilities ?? '') ?></textarea>
 	</label>
 </form>

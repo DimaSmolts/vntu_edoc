@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-require_once __DIR__ . '/GlobalDataForEducationalDisciplineModel.php';
+require_once __DIR__ . '/WorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
 
-use App\Models\GlobalDataForEducationalDisciplineModel;
+use App\Models\WorkingProgramGlobalDataOverwriteModel;
 use App\Models\WorkingProgramLiteratureModel;
 
 class WPDetailsModel
@@ -44,7 +44,7 @@ class WPDetailsModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
-	public ?GlobalDataForEducationalDisciplineModel $globalData;
+	public ?WorkingProgramGlobalDataOverwriteModel $globalData;
 	public ?WorkingProgramLiteratureModel $literature;
 
 	public function __construct(
@@ -82,7 +82,7 @@ class WPDetailsModel
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
-		?GlobalDataForEducationalDisciplineModel $globalData = null,
+		?WorkingProgramGlobalDataOverwriteModel $globalData = null,
 		?WorkingProgramLiteratureModel $literature = null,
 	) {
 		$this->id = $id;

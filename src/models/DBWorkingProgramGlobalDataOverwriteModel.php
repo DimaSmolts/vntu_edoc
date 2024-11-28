@@ -8,9 +8,9 @@ use App\Models\DBEducationalDisciplineWorkingProgramModel;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DBGlobalDataForEducationalDisciplineModel extends Model
+class DBWorkingProgramGlobalDataOverwriteModel extends Model
 {
-	protected $table = 'globalDataForEducationalDiscipline';
+	protected $table = 'workingProgramGlobalDataOverwrite';
 	protected $fillable = [
 		'educationalDisciplineWorkingProgramId',
 		'universityName',

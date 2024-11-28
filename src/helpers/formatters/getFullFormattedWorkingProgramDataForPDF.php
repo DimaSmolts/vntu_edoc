@@ -6,8 +6,6 @@ require_once __DIR__ . '/../../models/PDFModuleModel.php';
 require_once __DIR__ . '/../../models/PDFThemeWithLessonsModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
-require_once __DIR__ . '/../../models/GlobalDataForEducationalDisciplineModel.php';
-require_once __DIR__ . '/../../models/AssessmentCriteriaModel.php';
 require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
@@ -21,8 +19,6 @@ use App\Models\PDFModuleModel;
 use App\Models\PDFThemeWithLessonsModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
-use App\Models\GlobalDataForEducationalDisciplineModel;
-use App\Models\AssessmentCriteriaModel;
 use App\Models\WorkingProgramLiteratureModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
@@ -280,57 +276,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
 	// Додаємо глобальні дані
-	$generalAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
-		$workingProgramData->globalData->generalAssessmentCriteriaForA,
-		$workingProgramData->globalData->generalAssessmentCriteriaForB,
-		$workingProgramData->globalData->generalAssessmentCriteriaForC,
-		$workingProgramData->globalData->generalAssessmentCriteriaForD,
-		$workingProgramData->globalData->generalAssessmentCriteriaForE,
-		$workingProgramData->globalData->generalAssessmentCriteriaForFX,
-		$workingProgramData->globalData->generalAssessmentCriteriaForF,
-	) : null;
-
-	$lessonAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
-		$workingProgramData->globalData->lessonAssessmentCriteriaForA,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForB,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForC,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForD,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForE,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForFX,
-		$workingProgramData->globalData->lessonAssessmentCriteriaForF,
-	) : null;
-
-	$courseworkAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForA,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForB,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForC,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForD,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForE,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForFX,
-		$workingProgramData->globalData->courseworkAssessmentCriteriaForF,
-	) : null;
-
-	$examAssessmentCriteria = isset($workingProgramData->globalData) ? new AssessmentCriteriaModel(
-		$workingProgramData->globalData->examAssessmentCriteriaForA,
-		$workingProgramData->globalData->examAssessmentCriteriaForB,
-		$workingProgramData->globalData->examAssessmentCriteriaForC,
-		$workingProgramData->globalData->examAssessmentCriteriaForD,
-		$workingProgramData->globalData->examAssessmentCriteriaForE,
-		$workingProgramData->globalData->examAssessmentCriteriaForFX,
-		$workingProgramData->globalData->examAssessmentCriteriaForF,
-	) : null;
-
-	$formattedGlobalData = new GlobalDataForEducationalDisciplineModel(
-		isset($workingProgramData->globalData) ? $workingProgramData->globalData->universityName : '',
-		isset($workingProgramData->globalData) ? $workingProgramData->globalData->universityShortName : '',
-		isset($workingProgramData->globalData) ? $workingProgramData->globalData->academicRightsAndResponsibilities : '',
-		$generalAssessmentCriteria,
-		$lessonAssessmentCriteria,
-		$courseworkAssessmentCriteria,
-		$examAssessmentCriteria,
-	);
-
-	$workingProgram->globalData = $formattedGlobalData;
+	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
 
 	// Додаємо літературу
 	$formattedLiterature = isset($workingProgramData->literature) ? new WorkingProgramLiteratureModel(

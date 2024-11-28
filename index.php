@@ -10,8 +10,7 @@ require_once __DIR__ . '/src/controllers/WPController.php';
 require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
 require_once __DIR__ . '/src/controllers/api/WPApiController.php';
-require_once __DIR__ . '/src/controllers/api/GlobalDataApiController.php';
-require_once __DIR__ . '/src/controllers/api/GlobalDataForEducationalDisciplineApiController.php';
+require_once __DIR__ . '/src/controllers/api/WorkingProgramGlobalDataOverwriteApiController.php';
 require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
@@ -26,8 +25,7 @@ use App\Controllers\WPController;
 use App\Controllers\GlobalDataController;
 use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
-use App\Controllers\GlobalDataApiController;
-use App\Controllers\GlobalDataForEducationalDisciplineApiController;
+use App\Controllers\WorkingProgramGlobalDataOverwriteApiController;
 use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
@@ -51,7 +49,7 @@ $router->get('/wpdetails', function () {
 
 $router->get('/globalWPData', function () {
 	$globalDataController = new GlobalDataController();
-	$globalDataController->getGlobalWPData();
+	$globalDataController->getWorkingProgramGlobalData();
 });
 
 $router->get('/pdf', function () {
@@ -69,14 +67,14 @@ $router->post('/duplicateWP', function () {
 	$wpApiController->duplicateWP();
 });
 
-$router->post('/updateGlobalWPData', function () {
-	$globalDataApiController = new GlobalDataApiController();
-	$globalDataApiController->updateGlobalWPData();
+$router->post('/updateGlobalData', function () {
+	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
+	$workingProgramGlobalDataOverwriteApiController->updateGlobalData();
 });
 
-$router->post('/updateGlobalWPDataForEducationalDiscipline', function () {
-	$globalDataForEducationalDisciplineApiController = new GlobalDataForEducationalDisciplineApiController();
-	$globalDataForEducationalDisciplineApiController->updateGlobalWPDataForEducationalDiscipline();
+$router->post('/updateWorkingProgramGlobalDataOverwrite', function () {
+	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
+	$workingProgramGlobalDataOverwriteApiController->updateWorkingProgramGlobalDataOverwrite();
 });
 
 $router->post('/createNewWP', function () {

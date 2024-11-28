@@ -1,10 +1,11 @@
-const updateGlobalWPData = (event) => {
+const updateWorkingProgramGlobalDataOverwrite = (event, wpId) => {
     const postData = {
-        fieldName: event.target.name,
+        wpId,
+        field: event.target.name,
         value: event.target.value
     };
 
-    fetch('updateGlobalWPData', {
+    fetch('updateWorkingProgramGlobalDataOverwrite', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
