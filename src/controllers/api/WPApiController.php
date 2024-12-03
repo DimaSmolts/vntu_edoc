@@ -103,11 +103,16 @@ class WPApiController
 		include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
 		$seminarSlideContent = ob_get_clean();
 
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
+		$courseworkSlideContent = ob_get_clean();
+
 		echo json_encode([
 			'structure' => $structure,
 			'practicalSlideContent' => $practicalSlideContent,
 			'labSlideContent' => $labSlideContent,
 			'seminarSlideContent' => $seminarSlideContent,
+			'courseworkSlideContent' => $courseworkSlideContent
 		]);
 	}
 }

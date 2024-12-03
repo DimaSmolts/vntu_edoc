@@ -5,10 +5,11 @@ namespace App\Models;
 class PDFSemesterModel
 {
 	public int $id;
+	public bool $isCourseworkExists;
+	public ?string $courseworkAssessmentComponents;
 	public ?int $semesterNumber;
 	public ?string $examType;
 	public array $modules;
-	public ?int $courseWork;
 	public array $educationalForms;
 	public array $lections;
 	public array $practicals;
@@ -21,13 +22,15 @@ class PDFSemesterModel
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
 	public array $educationalFormHoursStructure;
+	public array $courseworkHours;
 
 	public function __construct(
 		$id,
+		$isCourseworkExists,
+		?string $courseworkAssessmentComponents = '',
 		?int $semesterNumber = null,
 		?string $examType = '',
 		$modules = [],
-		?int $courseWork = null,
 		$educationalForms = [],
 		array $lections = [],
 		array $practicals = [],
@@ -40,12 +43,14 @@ class PDFSemesterModel
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
 		array $educationalFormHoursStructure = [],
+		$courseworkHours = [],
 	) {
 		$this->id = $id;
+		$this->isCourseworkExists = $isCourseworkExists;
+		$this->courseworkAssessmentComponents = $courseworkAssessmentComponents;
 		$this->semesterNumber = $semesterNumber;
 		$this->examType = $examType;
 		$this->modules = $modules;
-		$this->courseWork = $courseWork;
 		$this->educationalForms = $educationalForms;
 		$this->lections = $lections;
 		$this->practicals = $practicals;
@@ -58,5 +63,6 @@ class PDFSemesterModel
 		$this->totalHoursForLabs = $totalHoursForLabs;
 		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
+		$this->courseworkHours = $courseworkHours;
 	}
 }

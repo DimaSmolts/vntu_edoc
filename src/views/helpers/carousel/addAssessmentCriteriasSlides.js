@@ -2,34 +2,34 @@ const addAssessmentCriteriasSlides = ({
 	structure,
 	practicalSlideContent,
 	labSlideContent,
-	seminarSlideContent
+	seminarSlideContent,
+	courseworkSlideContent
 }) => {
 	const carouselContainer = document.getElementById('wpDetailsCarouselContainer');
 
 	if (structure.isPracticalsExist) {
-		const practicalSlide = createAssessmentCriteriasSlide(practicalSlideContent);
+		const practicalSlide = createSlide(practicalSlideContent);
 
 		carouselContainer.appendChild(practicalSlide);
 	}
 
 	if (structure.isLabsExist) {
-		const labSlide = createAssessmentCriteriasSlide(labSlideContent);
+		const labSlide = createSlide(labSlideContent);
 
 		carouselContainer.appendChild(labSlide);
 	}
 
 	if (structure.isSeminarsExist) {
-		const seminarSlide = createAssessmentCriteriasSlide(seminarSlideContent);
+		const seminarSlide = createSlide(seminarSlideContent);
 
 		carouselContainer.appendChild(seminarSlide);
 	}
+
+	if (structure.isCourseworkExists) {
+		const courseworkSlide = createSlide(courseworkSlideContent);
+
+		carouselContainer.appendChild(courseworkSlide);
+	} 
 }
 
-const createAssessmentCriteriasSlide = (page) => {
-	return createElement({
-		elementName: 'li',
-		classList: ['slide'],
-		innerHTML: page
-	})
-}
 

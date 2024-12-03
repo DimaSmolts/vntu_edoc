@@ -59,6 +59,7 @@ class WPService
 			'semesters.modules.themes' => function ($query) {
 				$query->orderBy('themeNumber');
 			},
+			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person', 'involvedRole']);
 			},
@@ -91,6 +92,7 @@ class WPService
 						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 					]);
 			},
+			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person', 'involvedRole']);
 			},

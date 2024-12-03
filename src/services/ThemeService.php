@@ -17,7 +17,8 @@ class ThemeService
 			'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'module.semester.educationalForms.educationalForm'
+			'module.semester.educationalForms.educationalForm',
+			'module.semester'
 		])
 			->whereHas('module.semester', function ($query) use ($wpId) {
 				$query->where('educationalDisciplineWPId', $wpId);

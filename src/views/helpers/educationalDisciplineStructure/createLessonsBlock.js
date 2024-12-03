@@ -45,7 +45,6 @@ const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms, contai
 		lessonHoursBlockForInputs.appendChild(hoursInput);
 	})
 
-	console.log(container);
 	const removeLessonBtn = createElement({
 		elementName: "button",
 		innerText: "Видалити",

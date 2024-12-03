@@ -11,7 +11,7 @@ $title = "Програма навчальної дисципліни";
 				<!-- Створення контейнера з інформацією про існуючий семестр -->
 				<div id="semesterBlock<?= htmlspecialchars($semesterData->id) ?>" class="mini-block">
 					<div class="semester-title-container">
-						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class=" mini-block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
+						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class="mini-block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 						<button
 							class="btn"
 							onclick="openApproveDeletingModal('семестр', (event)=>deleteSemester(event, <?= htmlspecialchars($semesterData->id) ?>))">
@@ -21,7 +21,7 @@ $title = "Програма навчальної дисципліни";
 					<!-- Створення блоку з даними про існуючий семестр -->
 					<div class="semester-data-block">
 						<!-- Додавання контейнеру для чекбоксів форм навчання -->
-						<div class="educational-forms-container">
+						<div id="educationalFormsContainer" class="educational-forms-container">
 							<!-- Додавання чекбоксів для усіх існуючих форм навчання -->
 							<?php foreach ($educationalForms as $educationalForm): ?>
 								<?php
@@ -35,6 +35,7 @@ $title = "Програма навчальної дисципліни";
 								?>
 								<label>
 									<input
+										id="semester<?= htmlspecialchars($semesterData->id) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
 										class="checkbox"
 										type="checkbox"
 										name="<?= htmlspecialchars($educationalForm->colName) ?>"
@@ -59,6 +60,15 @@ $title = "Програма навчальної дисципліни";
 								name="examType"
 								value="<?= $semesterData->examType ? htmlspecialchars($semesterData->examType) : "" ?>"
 								oninput="updateSemesterInfo(event, <?= htmlspecialchars($semesterData->id) ?>)">
+						</label>
+						<label class="label-with-checkbox">
+							<p>Є курсовий</p>
+							<input
+								class="checkbox"
+								type="checkbox"
+								name="isCourseworkExists"
+								<?= $semesterData->isCourseworkExists ? 'checked' : '' ?>
+								onclick="checkTogglingCoursework(event, <?= htmlspecialchars($semesterData->id) ?>)">
 						</label>
 					</div>
 					<div id="modulesContainer<?= htmlspecialchars($semesterData->id) ?>" class="modules-container">

@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
+require_once __DIR__ . '/../../models/EducationalFormCourseworkHourModel.php';
 require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/getFullFormattedWorkingProgramGlobalData.php';
@@ -18,6 +19,7 @@ use App\Models\ThemeModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\WorkingProgramLiteratureModel;
+use App\Models\EducationalFormCourseworkHourModel;
 
 function getFullFormattedWorkingProgramData($workingProgramData)
 {
@@ -78,13 +80,23 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			);
 		})->toArray();
 
+		$courseworkHours = $semester->educationalFormCourseworkHours->map(function ($hours) {
+			return new EducationalFormCourseworkHourModel(
+				$hours->id,
+				$hours->educationalFormId,
+				$hours->semesterEducationalForm->educationalForm->name,
+				$hours->hours
+			);
+		})->toArray();
+
 		return new SemesterModel(
 			$semester->id,
+			$semester->isCourseworkExists,
 			$semester->semesterNumber,
 			$semester->examType,
 			$modules,
-			$semester->courseWork,
-			$educationalForms
+			$educationalForms,
+			$courseworkHours
 		);
 	})->toArray();
 

@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../models/PDFThemeWithLessonsModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
+require_once __DIR__ . '/../../models/EducationalFormCourseworkHourModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
 require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php';
@@ -20,6 +21,7 @@ use App\Models\PDFThemeWithLessonsModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\WorkingProgramLiteratureModel;
+use App\Models\EducationalFormCourseworkHourModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
@@ -203,9 +205,6 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$totalHoursForLabs = getHoursSumForEducationalForms($labsForSemester, $educationalForms);
 		$totalHoursForSelfworks = getHoursSumForEducationalForms($selfworksForSemester, $educationalForms);
 
-		// echo ($semester->semesterNumber);
-		// echo ('------');
-		// print_r($totalHoursForPracticals);
 		// Рахуємо всі години різних занять для семестра
 		$totalEducationalFormHoursStructureForSemester = [];
 
@@ -220,12 +219,23 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			);
 		};
 
+		// Додаємо години для курсової роботи
+		$courseworkHours = $semester->educationalFormCourseworkHours->map(function ($hours) {
+			return new EducationalFormCourseworkHourModel(
+				$hours->id,
+				$hours->educationalFormId,
+				$hours->semesterEducationalForm->educationalForm->name,
+				$hours->hours
+			);
+		})->toArray();
+
 		return new PDFSemesterModel(
 			$semester->id,
+			$semester->isCourseworkExists,
+			$semester->courseworkAssessmentComponents,
 			$semester->semesterNumber,
 			$semester->examType,
 			$modules,
-			$semester->courseWork,
 			$educationalForms,
 			$lectionsForSemester,
 			$practicalsForSemester,
@@ -237,7 +247,8 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$totalHoursForSeminars,
 			$totalHoursForLabs,
 			$totalHoursForSelfworks,
-			$totalEducationalFormHoursStructureForSemester
+			$totalEducationalFormHoursStructureForSemester,
+			$courseworkHours
 		);
 	})->toArray();
 

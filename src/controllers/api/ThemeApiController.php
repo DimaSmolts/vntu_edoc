@@ -5,26 +5,31 @@ namespace App\Controllers;
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonService.php';
+require_once __DIR__ . '/../../services/EducationalFormCourseworkHoursService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworkHoursData.php';
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
 use App\Services\LessonService;
+use App\Services\EducationalFormCourseworkHoursService;
 
 class ThemeApiController
 {
 	protected ThemeService $themeService;
 	protected LessonTypeService $lessonTypeService;
 	protected LessonService $lessonService;
+	protected EducationalFormCourseworkHoursService $educationalFormCourseworkHoursService;
 
 	function __construct()
 	{
 		$this->themeService = new ThemeService();
 		$this->lessonTypeService = new LessonTypeService();
 		$this->lessonService = new LessonService();
+		$this->educationalFormCourseworkHoursService = new EducationalFormCourseworkHoursService();
 	}
 
 	// Метод контролера для отримання теми з усіма уроками по id робочої програми
@@ -35,7 +40,6 @@ class ThemeApiController
 		$wpId = $_GET['id'];
 
 		$rawThemes = $this->themeService->getThemesWithLessonsByWPId($wpId);
-
 		$themes = getFullFormattedThemeData($rawThemes);
 
 		echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);

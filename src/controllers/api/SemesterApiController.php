@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 require_once __DIR__ . '/../../services/SemesterService.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworkData.php';
+require_once __DIR__ . '/../../helpers/getIsCourseworkExistsInWP.php';
 
 use App\Services\SemesterService;
 
@@ -50,5 +52,56 @@ class SemesterApiController
 		$id = $_GET['id'];
 
 		$this->semesterService->deleteSemester($id);
+	}
+
+	public function getCoursework()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+
+		$rawSemestersCourseworkInfo = $this->semesterService->getCourseworkHoursByWPId($wpId);
+		$semesters = getFullFormattedCourseworkData($rawSemestersCourseworkInfo);
+		$isCourseworkExists = getIsCourseworkExistsInWP($semesters);
+
+		if ($isCourseworkExists) {
+			$showReturnBtn = true;
+			$isAbleToEditGlobalData = false;
+
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/courseworkInfoSlide.php';
+			$courseworkInfoSlideContent = ob_get_clean();
+
+			echo json_encode([
+				'isCourseworkExists' => $isCourseworkExists,
+				'courseworkInfoSlideContent' => $courseworkInfoSlideContent
+			]);
+		} else {
+			echo json_encode([
+				'isCourseworkExists' => $isCourseworkExists
+			]);
+		}
+	}
+
+	public function updateCourseworkAssesmentComponents()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$id = intval($data['semesterId']);
+		$courseworkAssessmentComponents = json_encode($data['courseworkAssessmentComponents']);
+
+		$this->semesterService->updateCourseworkAssesmentComponents($id, $courseworkAssessmentComponents);
+	}
+
+	public function deleteCoursework()
+	{
+		header('Content-Type: application/json');
+
+		$semesterId = $_GET['semesterId'];
+
+		$this->semesterService->deleteCoursework($semesterId);
 	}
 }

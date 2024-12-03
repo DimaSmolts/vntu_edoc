@@ -4,34 +4,27 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/PersonService.php';
-require_once __DIR__ . '/../services/SemesterService.php';
-require_once __DIR__ . '/../services/ModuleService.php';
 require_once __DIR__ . '/../services/EducationalFormService.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedWPListData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedPersonsData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedEducationalFormData.php';
+require_once __DIR__ . '/../helpers/formatters/getFullFormattedCourseworkHoursData.php';
 
 use App\Services\WPService;
 use App\Services\PersonService;
-use App\Services\SemesterService;
-use App\Services\ModuleService;
 use App\Services\EducationalFormService;
 
 class WPController
 {
 	protected WPService $wpService;
 	protected PersonService $personService;
-	protected SemesterService $semesterService;
-	protected ModuleService $moduleService;
 	protected EducationalFormService $educationalFormService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
 		$this->personService = new PersonService();
-		$this->semesterService = new SemesterService();
-		$this->moduleService = new ModuleService();
 		$this->educationalFormService = new EducationalFormService();
 	}
 

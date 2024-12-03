@@ -19,6 +19,7 @@ require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
 require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -34,6 +35,7 @@ use App\Controllers\LessonApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
 use App\Controllers\SemesterEducationFormApiController;
 use App\Controllers\WorkingProgramLiteratureApiController;
+use App\Controllers\EducationalFormCourseworkHoursApiController;
 
 $router = new Router();
 
@@ -60,6 +62,11 @@ $router->get('/pdf', function () {
 $router->get('/getThemes', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->getThemesWithLessonsByWPId();
+});
+
+$router->get('/getCoursework', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->getCoursework();
 });
 
 $router->get('/getLessonsAndExamingsStructure', function () {
@@ -107,6 +114,11 @@ $router->post('/updateSemester', function () {
 	$semesterApiController->updateSemester();
 });
 
+$router->post('/updateCourseworkAssesmentComponents', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->updateCourseworkAssesmentComponents();
+});
+
 $router->post('/createNewModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->createNewModule();
@@ -142,6 +154,11 @@ $router->post('/updateHours', function () {
 	$educationalFormLessonHoursApiController->updateEducationalFormLessonHours();
 });
 
+$router->post('/updateCourseworkHours', function () {
+	$educationalFormCourseworkHoursApiController = new EducationalFormCourseworkHoursApiController();
+	$educationalFormCourseworkHoursApiController->updateEducationalFormCourseworkHours();
+});
+
 $router->post('/createSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->createSemesterEducationForm();
@@ -170,6 +187,11 @@ $router->delete('/deleteSemester', function () {
 $router->delete('/deleteSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->deleteSemesterEducationForm();
+});
+
+$router->delete('/deleteCoursework', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->deleteCoursework();
 });
 
 $router->delete('/deleteLesson', function () {

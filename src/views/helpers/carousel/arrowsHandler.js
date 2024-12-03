@@ -24,7 +24,11 @@ const educationalDisciplineStructureSlide = document.getElementById("educational
 const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 	entries.forEach((entry) => {
 		if (entry.isIntersecting) {
+			// отримуємо всі теми з уроками до тем
 			getThemesForEducationalDisciplineStructure();
+
+			// перевіряємо чи є курсовий та рендеримо наступний слайдм про курсовий
+			getCourseworkSlide();
 		}
 	});
 };

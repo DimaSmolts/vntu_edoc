@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../models/LessonsAndExamingsStructureModel.php';
+require_once __DIR__ . '/../getIsCourseworkExistsInWP.php';
 
 use App\Models\LessonsAndExamingsStructureModel;
 
@@ -9,8 +10,12 @@ function getFormattedLessonsAndExamingsStrucrture($data)
 	$isPracticalsExist = false;
 	$isLabsExist = false;
 	$isSeminarsExist = false;
+	$isCourseworkExists = false;
 
 	if (isset($data->semesters)) {
+
+		$isCourseworkExists = getIsCourseworkExistsInWP($data->semesters);
+
 		foreach ($data->semesters as $semester) {
 			if (isset($semester->modules)) {
 				foreach ($semester->modules as $module) {
@@ -32,11 +37,12 @@ function getFormattedLessonsAndExamingsStrucrture($data)
 		}
 	}
 
+
 	return new LessonsAndExamingsStructureModel(
 		$isPracticalsExist,
 		$isLabsExist,
 		$isSeminarsExist,
-		$isCourseworkExists ?? false,
+		$isCourseworkExists,
 		$isColloquiumExists ?? false
 	);
 }

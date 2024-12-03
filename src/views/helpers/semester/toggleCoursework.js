@@ -1,11 +1,12 @@
-const toggleEducationalForm = (event, educationalDisciplineSemesterId, educationalFormId) => {
+const toggleCoursework = (event, semesterId) => {
 	if (event.target.checked) {
 		const postData = {
-			educationalDisciplineSemesterId,
-			educationalFormId
+			id: semesterId,
+			field: event.target.name,
+			value: event.target.checked
 		};
 
-		fetch('createSemesterEducationForm', {
+		fetch('updateSemester', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -19,7 +20,7 @@ const toggleEducationalForm = (event, educationalDisciplineSemesterId, education
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`, {
+		fetch(`deleteCoursework?semesterId=${semesterId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'
