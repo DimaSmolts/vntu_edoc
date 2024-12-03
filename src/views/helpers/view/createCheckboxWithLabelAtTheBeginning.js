@@ -1,4 +1,4 @@
-const createLabelWithCheckbox = ({ labelText, inputName, value, eventListener }) => {
+const createCheckboxWithLabelAtTheBeginning = ({ labelText, inputName, checked, eventListener }) => {
 	const label = createElement({ elementName: "label" });
 
 	const labelName = createElement({ elementName: "p", innerText: `${labelText}` });
@@ -6,15 +6,15 @@ const createLabelWithCheckbox = ({ labelText, inputName, value, eventListener })
 	const checkbox = createElement({
 		elementName: "input",
 		type: 'checkbox',
-		classList: ['checkbox'],
+		classList: ['label-with-checkbox'],
 		name: inputName,
-		value,
+		checked,
 		eventListenerType: 'click',
 		eventListener
 	});
 
-	label.appendChild(checkbox);
 	label.appendChild(labelName);
+	label.appendChild(checkbox);
 
 	return label;
 }

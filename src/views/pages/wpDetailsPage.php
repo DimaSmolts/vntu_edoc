@@ -22,7 +22,8 @@
         <script src="src/views/helpers/view/createElement.js"></script>
         <script src="src/views/helpers/view/createLabelWithInput.js"></script>
         <script src="src/views/helpers/view/createLabelWithTextarea.js"></script>
-        <script src="src/views/helpers/view/createLabelWithCheckbox.js"></script>
+        <script src="src/views/helpers/view/createCheckboxWithLabelAtTheEnd.js"></script>
+        <script src="src/views/helpers/view/createCheckboxWithLabelAtTheBeginning.js"></script>
         <script src="src/views/helpers/view/createSlide.js"></script>
         <script src="src/views/helpers/updating/updateWP.js"></script>
         <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
@@ -49,12 +50,14 @@
         <script src="src/views/helpers/semester/addNewTheme.js"></script>
         <script src="src/views/helpers/semester/checkTogglingEducationalForm.js"></script>
         <script src="src/views/helpers/semester/checkTogglingCoursework.js"></script>
+        <script src="src/views/helpers/semester/checkTogglingColloquium.js"></script>
         <script src="src/views/helpers/semester/createSemesterContainer.js"></script>
         <script src="src/views/helpers/semester/createModuleBlock.js"></script>
         <script src="src/views/helpers/semester/createThemeBlock.js"></script>
         <script src="src/views/helpers/semester/updateNumberInput.js"></script>
         <script src="src/views/helpers/semester/toggleEducationalForm.js"></script>
         <script src="src/views/helpers/semester/toggleCoursework.js"></script>
+        <script src="src/views/helpers/semester/toggleColloquium.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getLessonId.js"></script>
         <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>

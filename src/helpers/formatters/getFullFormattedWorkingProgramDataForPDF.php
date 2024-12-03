@@ -183,6 +183,8 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 				$module->id,
 				$module->name ?? "",
 				$module->moduleNumber,
+				$module->isColloquiumExists,
+				$module->colloquiumPoints,
 				$themes,
 				$totalEducationalFormHoursStructureForModule
 			);

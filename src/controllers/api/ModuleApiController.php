@@ -51,4 +51,13 @@ class ModuleApiController
 
 		$this->moduleService->deleteModule($id);
 	}
+
+	public function deleteColloquium()
+	{
+		header('Content-Type: application/json');
+
+		$moduleId = $_GET['moduleId'];
+
+		$this->moduleService->deleteColloquium($moduleId);
+	}
 }

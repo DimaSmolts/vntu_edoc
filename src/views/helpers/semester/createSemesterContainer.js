@@ -34,7 +34,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 
 	// Додавання чекбоксів для усіх існуючих форм навчання
 	educationalForms.forEach(form => {
-		const formCheckbox = createLabelWithCheckbox({
+		const formCheckbox = createCheckboxWithLabelAtTheEnd({
 			labelText: form.name,
 			inputName: form.colName,
 			eventListener: (event) => {
@@ -62,6 +62,16 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 			updateSemesterInfo(event, semesterId);
 		}
 	});
+
+	const colloquiumCheckbox = createCheckboxWithLabelAtTheBeginning({
+		labelText: 'Є курсовий',
+		inputName: 'isCourseworkExists',
+		checked: false,
+		eventListener: (event) => {
+			checkTogglingCoursework(event, semesterId);
+		}
+	})
+
 	// Створення контейнера для модулів, які додаватимуться
 	const modulesContainer = createElement({ elementName: "div", id: `modulesContainer${semesterId}`, classList: ['modules-container'] });
 
@@ -79,9 +89,10 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 
 	modulesContainer.appendChild(addModuleBtn);
 
-	semesterDataBlock.appendChild(educationalFormsContainer)
-	semesterDataBlock.appendChild(semesterNumberLabel)
-	semesterDataBlock.appendChild(examTypeLabel)
+	semesterDataBlock.appendChild(educationalFormsContainer);
+	semesterDataBlock.appendChild(semesterNumberLabel);
+	semesterDataBlock.appendChild(examTypeLabel);
+	semesterDataBlock.appendChild(colloquiumCheckbox);
 
 	semesterBlock.appendChild(titleContainer);
 	semesterBlock.appendChild(semesterDataBlock);

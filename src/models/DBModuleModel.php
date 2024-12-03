@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class DBModuleModel extends Model
 {
 	protected $table = 'modules';
-	protected $fillable = ['educationalDisciplineSemesterId', 'name', 'moduleNumber'];
+	protected $fillable = ['educationalDisciplineSemesterId', 'name', 'moduleNumber', 'isColloquiumExists', 'colloquiumPoints'];
 
 	public $timestamps = false;
 

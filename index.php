@@ -194,6 +194,11 @@ $router->delete('/deleteCoursework', function () {
 	$semesterApiController->deleteCoursework();
 });
 
+$router->delete('/deleteColloquium', function () {
+	$moduleApiController = new ModuleApiController();
+	$moduleApiController->deleteColloquium();
+});
+
 $router->delete('/deleteLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->deleteLesson();

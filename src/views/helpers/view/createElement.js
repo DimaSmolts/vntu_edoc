@@ -10,7 +10,8 @@ const createElement = ({
 	rows,
 	eventListenerType,
 	eventListener,
-	href
+	href,
+	checked
 }) => {
 	const element = document.createElement(elementName);
 
@@ -54,6 +55,10 @@ const createElement = ({
 
 	if (href) {
 		element.href = href;
+	}
+
+	if (checked) {
+		element.checked = checked;
 	}
 
 	return element;
