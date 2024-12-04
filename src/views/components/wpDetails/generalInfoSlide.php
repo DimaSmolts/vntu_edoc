@@ -5,22 +5,68 @@ $title = "Загальна інформація";
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>Факультет:
-		<input
-			type="text"
-			id="facultyName"
-			name="facultyName"
-			value="<?= htmlspecialchars($details->facultyName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+	<label id="facultyDropdownLabel">Факультет:
+		<?php if (!empty($details->facultyId)): ?>
+			<select
+				id="facultyDropdown"
+				name="facultyId"
+				onchange="updateFaculty(event, <?= htmlspecialchars($details->id) ?>)">
+				<?php foreach ($faculties as $faculty): ?>
+					<option value="<?= htmlspecialchars($faculty->id) ?>" <?php if ($faculty->id == $details->facultyId): ?>selected<?php endif; ?>>
+						<?= htmlspecialchars($faculty->name) ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		<?php else: ?>
+			<select
+				id="facultyDropdown"
+				name="facultyId"
+				onchange="updateFaculty(event, <?= htmlspecialchars($details->id) ?>)">
+				<option></option>
+				<?php foreach ($faculties as $faculty): ?>
+					<option value="<?= htmlspecialchars($faculty->id) ?>">
+						<?= htmlspecialchars($faculty->name) ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		<?php endif; ?>
 	</label>
-	<label>Кафедра:
+	<?php if (!empty($details->facultyId)): ?>
+		<div id="departmentDropdownLabelContainer">
+			<label id="departmentDropdownLabel">Кафедра:
+				<?php if (!empty($details->departmentId)): ?>
+					<select
+						name="departmentId"
+						onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+						<?php foreach ($departments as $department): ?>
+							<option value="<?= htmlspecialchars($department->id) ?>" <?php if ($department->id == $details->departmentId): ?>selected<?php endif; ?>>
+								<?= htmlspecialchars($department->name) ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				<?php else: ?>
+					<select
+						name="departmentId"
+						onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+						<option></option>
+						<?php foreach ($departments as $department): ?>
+							<option value="<?= htmlspecialchars($department->id) ?>">
+								<?= htmlspecialchars($department->name) ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				<?php endif; ?>
+			</label>
+		</div>
+	<?php endif; ?>
+	<!-- <label>Кафедра:
 		<input
 			type="text"
 			id="departmentName"
 			name="departmentName"
 			value="<?= htmlspecialchars($details->departmentName ?? '') ?>"
 			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-	</label>
+	</label> -->
 	<label>Дисципліна:
 		<input
 			type="text"

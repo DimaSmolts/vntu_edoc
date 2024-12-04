@@ -15,8 +15,8 @@ class WPDetailsModel
 	public int $id;
 	public ?int $regularYear;
 	public ?int $academicYear;
-	public ?string $facultyName;
-	public ?string $departmentName;
+	public ?int $facultyId;
+	public ?int $departmentId;
 	public ?string $disciplineName;
 	public ?string $degreeName;
 	public ?string $fielfOfStudyIdx;
@@ -55,8 +55,8 @@ class WPDetailsModel
 		int $id,
 		?int $regularYear = null,
 		?int $academicYear = null,
-		?string $facultyName = "",
-		?string $departmentName = "",
+		?int $facultyId = null,
+		?int $departmentId = null,
 		?string $disciplineName = "",
 		?string $degreeName = "",
 		?string $fielfOfStudyIdx = "",
@@ -94,8 +94,8 @@ class WPDetailsModel
 		$this->id = $id;
 		$this->regularYear = $regularYear;
 		$this->academicYear = $academicYear;
-		$this->facultyName = $facultyName;
-		$this->departmentName = $departmentName;
+		$this->facultyId = $facultyId;
+		$this->departmentId = $departmentId;
 		$this->disciplineName = $disciplineName;
 		$this->degreeName = $degreeName;
 		$this->fielfOfStudyIdx = $fielfOfStudyIdx;

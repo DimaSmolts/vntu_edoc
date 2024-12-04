@@ -5,26 +5,31 @@ namespace App\Controllers;
 require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
+require_once __DIR__ . '/../../services/DepartmentService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 
 use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataOverwriteService;
 use App\Services\WorkingProgramLiteratureService;
+use App\Services\DepartmentService;
 
 class WPApiController
 {
 	protected WPService $wpService;
 	protected WorkingProgramGlobalDataOverwriteService $workingProgramGlobalDataOverwriteService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
+	protected DepartmentService $departmentService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
 		$this->workingProgramGlobalDataOverwriteService = new WorkingProgramGlobalDataOverwriteService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
+		$this->departmentService = new DepartmentService();
 	}
 
 	public function createNewWP()
@@ -59,7 +64,16 @@ class WPApiController
 
 		$this->wpService->updateWPDetails($id, $field, $value);
 
-		exit();
+		if ($field === 'facultyId') {
+			$rawDepartments = $this->departmentService->getDepartments($value);
+			$departments = getFormattedDepartmentsData($rawDepartments);
+
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/departmentDropdownLabel.php';
+			$departmentDropdownLabel = ob_get_clean();
+
+			echo json_encode((['departmentDropdownLabel' => $departmentDropdownLabel]));
+		}
 	}
 
 	public function duplicateWP()
@@ -144,6 +158,6 @@ class WPApiController
 		include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
 		$pointsDistributionSlideContent = ob_get_clean();
 
-		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent, '$pointsByTypeOfWork'=> $pointsByTypeOfWork, '$pointsDistributionRelatedData' => $pointsDistributionRelatedData]));
+		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent, '$pointsByTypeOfWork' => $pointsByTypeOfWork, '$pointsDistributionRelatedData' => $pointsDistributionRelatedData]));
 	}
 }

@@ -5,27 +5,37 @@ namespace App\Controllers;
 require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/PersonService.php';
 require_once __DIR__ . '/../services/EducationalFormService.php';
+require_once __DIR__ . '/../services/FacultyService.php';
+require_once __DIR__ . '/../services/DepartmentService.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedWPListData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedPersonsData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedEducationalFormData.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedCourseworkHoursData.php';
+require_once __DIR__ . '/../helpers/formatters/getFormattedFacultiesData.php';
+require_once __DIR__ . '/../helpers/formatters/getFormattedDepartmentsData.php';
 
 use App\Services\WPService;
 use App\Services\PersonService;
 use App\Services\EducationalFormService;
+use App\Services\FacultyService;
+use App\Services\DepartmentService;
 
 class WPController
 {
 	protected WPService $wpService;
 	protected PersonService $personService;
 	protected EducationalFormService $educationalFormService;
+	protected FacultyService $facultyService;
+	protected DepartmentService $departmentService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
 		$this->personService = new PersonService();
 		$this->educationalFormService = new EducationalFormService();
+		$this->facultyService = new FacultyService();
+		$this->departmentService = new DepartmentService();
 	}
 
 	public function getWPListItems()
@@ -55,6 +65,12 @@ class WPController
 		$rawPersons = $this->personService->getPersons();
 		$persons = getFormattedPersonsData($rawPersons);
 
+		$rawFaculties = $this->facultyService->getFaculties();
+		$faculties = getFormattedFacultiesData($rawFaculties);
+		
+		$rawDepartments = $this->departmentService->getDepartments($details->facultyId);
+		$departments = getFormattedDepartmentsData($rawDepartments);
+		
 		$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 		$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 

@@ -41,7 +41,7 @@ class WPService
 			->update([$field => $value]);
 
 		if ($updated) {
-			echo json_encode(['status' => 'success', 'message' => 'WP details updated successfully']);
+			return $updated;
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
 		}

@@ -40,6 +40,7 @@
         <script src="src/views/helpers/updating/updateCourseworkHours.js"></script>
         <script src="src/views/helpers/updating/updateWorkingProgramGlobalDataOverwrite.js"></script>
         <script src="src/views/helpers/updating/updateWPLiterature.js"></script>
+        <script src="src/views/helpers/updating/updateFaculty.js"></script>
         <script src="src/views/helpers/deleting/deleteLesson.js"></script>
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>

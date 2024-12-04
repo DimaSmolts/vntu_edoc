@@ -6,6 +6,7 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 		'practicalPoints' => [],
 		'labPoints' => [],
 		'seminarPoints' => [],
+		'colloquiumPoints' => [],
 	];
 
 	$pointsDistribution = isset($pointsDistributionRelatedData->pointsDistribution) ? json_decode($pointsDistributionRelatedData->pointsDistribution, true) : null;
