@@ -34,27 +34,6 @@ const createModuleBlock = (moduleId) => {
 		}
 	});
 
-	const colloquiumCheckbox = createCheckboxWithLabelAtTheBeginning({
-		labelText: 'Є колоквіум',
-		inputName: 'isColloquiumExists',
-		checked: false,
-		eventListener: (event) => {
-			checkTogglingColloquium(event, moduleId)
-		}
-	})
-
-	const colloquiumPointsLabel = createLabelWithInput({
-		labelText: 'Бали за колоквіум:',
-		inputType: 'number',
-		inputName: 'moduleNumber',
-		id: `colloquiumPoint${moduleId}`,
-		eventListener: (event) => {
-			updateNumberInput(event, moduleId, `moduleTitle${moduleId}`, 'Модуль', updateModuleInfo);
-		}
-	});
-
-	const moduleNameDataBlock = createElement({ elementName: "div", classList: ["module-name-data-block"] });
-
 	const moduleLabel = createLabelWithInput({
 		labelText: 'Назва:',
 		inputType: 'text',
@@ -63,6 +42,15 @@ const createModuleBlock = (moduleId) => {
 			updateModuleInfo(event, moduleId);
 		}
 	});
+
+	const colloquiumCheckbox = createCheckboxWithLabelAtTheBeginning({
+		labelText: 'Є колоквіум',
+		inputName: 'isColloquiumExists',
+		checked: false,
+		eventListener: (event) => {
+			checkTogglingColloquium(event, moduleId)
+		}
+	})
 
 	const themesContainer = createElement({ elementName: "div", id: `themesContainer${moduleId}`, classList: ["themes-container"] });
 
@@ -80,14 +68,11 @@ const createModuleBlock = (moduleId) => {
 	themesContainer.appendChild(addThemeBtn);
 
 	moduleDataBlock.appendChild(moduleNumberLabel);
+	moduleDataBlock.appendChild(moduleLabel);
 	moduleDataBlock.appendChild(colloquiumCheckbox);
-	moduleDataBlock.appendChild(colloquiumPointsLabel);
-
-	moduleNameDataBlock.appendChild(moduleLabel);
 
 	moduleContainer.appendChild(titleContainer);
 	moduleContainer.appendChild(moduleDataBlock);
-	moduleContainer.appendChild(moduleNameDataBlock);
 	moduleContainer.appendChild(themesContainer);
 
 	return moduleContainer;

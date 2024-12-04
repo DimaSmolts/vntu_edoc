@@ -20,7 +20,7 @@ const getCourseworkSlide = async () => {
 	if (data?.isCourseworkExists) {
 		const courseworkInfoSlide = createSlide(data?.courseworkInfoSlideContent, 'courseworkInfoSlide');
 
-		const prevSlide = document.getElementById('educationalDisciplineStructureSlide');
+		const prevSlide = document.getElementById('pointsDistributionSlide');
 
 		prevSlide.after(courseworkInfoSlide);
 	}

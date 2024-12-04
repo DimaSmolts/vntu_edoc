@@ -1,8 +1,5 @@
 const toggleColloquium = (event, moduleId) => {
-	const pointsInput = document.getElementById(`colloquiumPoint${moduleId}`);
-
 	if (event.target.checked) {
-		pointsInput.disabled = false;
 
 		const postData = {
 			id: moduleId,
@@ -24,9 +21,6 @@ const toggleColloquium = (event, moduleId) => {
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		pointsInput.disabled = true;
-		pointsInput.value = '';
-
 		fetch(`deleteColloquium?moduleId=${moduleId}`, {
 			method: 'DELETE',
 			headers: {

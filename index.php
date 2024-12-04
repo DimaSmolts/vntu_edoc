@@ -74,6 +74,11 @@ $router->get('/getLessonsAndExamingsStructure', function () {
 	$wpApiController->getLessonsAndExamingsStructure();
 });
 
+$router->get('/getPointsDistributionSlideContent', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->getPointsDistributionSlideContent();
+});
+
 $router->post('/duplicateWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->duplicateWP();

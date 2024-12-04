@@ -4,9 +4,11 @@ namespace App\Models;
 
 require_once __DIR__ . '/WorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
+require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
 
 use App\Models\WorkingProgramGlobalDataOverwriteModel;
 use App\Models\WorkingProgramLiteratureModel;
+use App\Models\LessonsAndExamingsStructureModel;
 
 class WPDetailsModel
 {
@@ -35,6 +37,7 @@ class WPDetailsModel
 	public ?string $methodologicalSupport;
 	public ?string $individualTaskNotes;
 	public ?int $creditsAmount;
+	public ?string $pointsDistribution;
 	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
 	public array $createdByPersons;
@@ -46,6 +49,7 @@ class WPDetailsModel
 	public array $totalHoursForSelfworks;
 	public ?WorkingProgramGlobalDataOverwriteModel $globalData;
 	public ?WorkingProgramLiteratureModel $literature;
+	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
 
 	public function __construct(
 		int $id,
@@ -73,6 +77,7 @@ class WPDetailsModel
 		?string $methodologicalSupport = "",
 		?string $individualTaskNotes = "",
 		?int $creditsAmount = null,
+		?string $pointsDistribution = "",
 		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
 		array $createdByPersons = [],
@@ -84,6 +89,7 @@ class WPDetailsModel
 		array $totalHoursForSelfworks = [],
 		?WorkingProgramGlobalDataOverwriteModel $globalData = null,
 		?WorkingProgramLiteratureModel $literature = null,
+		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -110,6 +116,7 @@ class WPDetailsModel
 		$this->methodologicalSupport = $methodologicalSupport;
 		$this->individualTaskNotes = $individualTaskNotes;
 		$this->creditsAmount = $creditsAmount;
+		$this->pointsDistribution = $pointsDistribution;
 		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
 		$this->createdByPersons = $createdByPersons;
@@ -121,5 +128,6 @@ class WPDetailsModel
 		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
 		$this->globalData = $globalData;
 		$this->literature = $literature;
+		$this->lessonsAndExamingsStructure = $lessonsAndExamingsStructure;
 	}
 }

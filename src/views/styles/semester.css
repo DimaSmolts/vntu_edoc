@@ -46,14 +46,21 @@
 	margin-top: 10px;
 }
 
-.module-data-block,
 .theme-data-block {
 	display: grid;
 	grid-template-columns: 1fr 5fr;
 	gap: 15px;
 }
 
-.semester-data-block .label-with-checkbox {
+.module-data-block {
+	display: grid;
+	grid-template-columns: 1fr 4fr 1fr;
+	gap: 15px;
+	margin-top: 10px;
+}
+
+.semester-data-block .label-with-checkbox,
+.module-data-block .label-with-checkbox {
 	display: grid;
 	justify-items: center;
 }

@@ -92,6 +92,14 @@ $title = "Програма навчальної дисципліни";
 												value="<?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?>"
 												oninput="updateNumberInput(event, <?= htmlspecialchars($moduleData->moduleId) ?>, 'moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>', 'Модуль', updateModuleInfo);">
 										</label>
+										<label>
+											<p>Назва:</p>
+											<input
+												type="text"
+												name="name"
+												value="<?= htmlspecialchars($moduleData->moduleName) ?>"
+												oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
+										</label>
 										<label class="label-with-checkbox">
 											<p>Є колоквіум</p>
 											<input
@@ -100,26 +108,6 @@ $title = "Програма навчальної дисципліни";
 												name="isColloquiumExists"
 												<?= $moduleData->isColloquiumExists ? 'checked' : '' ?>
 												onclick="checkTogglingColloquium(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
-										</label>
-										<label>
-											<p>Бали за колоквіум:</p>
-											<input
-												type="number"
-												name="colloquiumPoints"
-												id="colloquiumPoint<?= htmlspecialchars($moduleData->moduleId) ?>"
-												<?= $moduleData->isColloquiumExists ? '' : 'disabled' ?>
-												value="<?= htmlspecialchars($moduleData->colloquiumPoints) ?>"
-												oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
-										</label>
-									</div>
-									<div class="module-name-data-block">
-										<label>
-											<p>Назва:</p>
-											<input
-												type="text"
-												name="name"
-												value="<?= htmlspecialchars($moduleData->moduleName) ?>"
-												oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
 										</label>
 									</div>
 									<div id="themesContainer<?= htmlspecialchars($moduleData->moduleId) ?>" class="themes-container">

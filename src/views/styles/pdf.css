@@ -42,6 +42,13 @@ table {
 	width: 100%;
 }
 
+th,
+td {
+	border: solid 0.3mm black;
+	border-collapse: collapse;
+	padding: 1mm;
+}
+
 table.approved-table {
 	margin-bottom: 40mm;
 }
@@ -70,13 +77,6 @@ div.topic-title {
 
 div.copyright {
 	text-align: right;
-}
-
-th,
-td {
-	border: solid 0.3mm black;
-	border-collapse: collapse;
-	padding: 1mm;
 }
 
 .none-border-left {

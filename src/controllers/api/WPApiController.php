@@ -6,7 +6,9 @@ require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
-require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStrucrture.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
+require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 
 use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataOverwriteService;
@@ -82,7 +84,7 @@ class WPApiController
 
 		$rawStructure = $this->wpService->getLessonsAndExamingsStructure($wpId);
 
-		$structure = getFormattedLessonsAndExamingsStrucrture($rawStructure);
+		$structure = getFormattedLessonsAndExamingsStructure($rawStructure);
 
 		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getGlobalDataByWPId($wpId);
 
@@ -107,12 +109,41 @@ class WPApiController
 		include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
 		$courseworkSlideContent = ob_get_clean();
 
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
+		$colloquiumSlideContent = ob_get_clean();
+
 		echo json_encode([
 			'structure' => $structure,
 			'practicalSlideContent' => $practicalSlideContent,
 			'labSlideContent' => $labSlideContent,
 			'seminarSlideContent' => $seminarSlideContent,
-			'courseworkSlideContent' => $courseworkSlideContent
+			'courseworkSlideContent' => $courseworkSlideContent,
+			'colloquiumSlideContent' => $colloquiumSlideContent
 		]);
+	}
+
+	public function getPointsDistributionSlideContent()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+
+		$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
+
+		$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
+
+		$structure = getFormattedLessonsAndExamingsStructure($wpData);
+
+		$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
+
+		// print_r($pointsDistributionRelatedData);
+		// print_r($structure);
+
+		ob_start();
+		include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
+		$pointsDistributionSlideContent = ob_get_clean();
+
+		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent, '$pointsByTypeOfWork'=> $pointsByTypeOfWork, '$pointsDistributionRelatedData' => $pointsDistributionRelatedData]));
 	}
 }

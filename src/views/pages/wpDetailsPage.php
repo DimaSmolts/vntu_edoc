@@ -31,6 +31,7 @@
         <script src="src/views/helpers/carousel/getStructureForAssessmentCriteriasSlides.js"></script>
         <script src="src/views/helpers/carousel/addAssessmentCriteriasSlides.js"></script>
         <script src="src/views/helpers/carousel/getCourseworkSlide.js"></script>
+        <script src="src/views/helpers/carousel/getPointsDistributionSlide.js"></script>
         <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
         <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
         <script src="src/views/helpers/updating/updateThemeInfo.js"></script>

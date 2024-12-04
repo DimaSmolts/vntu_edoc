@@ -2,28 +2,31 @@
 
 namespace App\Models;
 
-class ModuleModel
+class PointsDistributionRelatedModuleWithLessonsModel
 {
 	public int $moduleId;
+	public int $practicals;
+	public int $seminars;
+	public int $labs;
 	public bool $isColloquiumExists;
-	public ?string $moduleName;
 	public ?int $moduleNumber;
 	public ?int $colloquiumPoints;
-    public array $themes;
 
 	public function __construct(
 		int $moduleId,
+		int $practicals,
+		int $seminars,
+		int $labs,
 		bool $isColloquiumExists,
-		?string $moduleName = '',
 		?int $moduleNumber = null,
-		?int $colloquiumPoints = null,
-		array $themes = []
+		?int $colloquiumPoints = null
 	) {
 		$this->moduleId = $moduleId;
+		$this->practicals = $practicals;
+		$this->seminars = $seminars;
+		$this->labs = $labs;
 		$this->isColloquiumExists = $isColloquiumExists;
-		$this->moduleName = $moduleName;
 		$this->moduleNumber = $moduleNumber;
 		$this->colloquiumPoints = $colloquiumPoints;
-		$this->themes = $themes;
 	}
 }

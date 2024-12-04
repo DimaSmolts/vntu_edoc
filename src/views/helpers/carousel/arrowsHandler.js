@@ -29,6 +29,9 @@ const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 
 			// перевіряємо чи є курсовий та рендеримо наступний слайдм про курсовий
 			getCourseworkSlide();
+
+			// отримуємо всі дані для розподілу балів оцінювання знань  з окремих видів роботи та в цілому по модулях (в балах)
+			getPointsDistributionSlide();
 		}
 	});
 };

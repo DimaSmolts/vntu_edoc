@@ -13,6 +13,7 @@ require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
 require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
+require_once __DIR__ . '/getFormattedLessonsAndExamingsStructure.php';
 
 use App\Models\WPDetailsModel;
 use App\Models\PDFSemesterModel;
@@ -181,9 +182,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 			return new PDFModuleModel(
 				$module->id,
+				$module->isColloquiumExists,
 				$module->name ?? "",
 				$module->moduleNumber,
-				$module->isColloquiumExists,
 				$module->colloquiumPoints,
 				$themes,
 				$totalEducationalFormHoursStructureForModule
@@ -300,6 +301,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	) : null;
 
 	$workingProgram->literature = $formattedLiterature;
+
+	// Додаємо структуру уроків та типів контролю
+	$workingProgram->lessonsAndExamingsStructure = getFormattedLessonsAndExamingsStructure($workingProgramData);
 
 	return $workingProgram;
 };

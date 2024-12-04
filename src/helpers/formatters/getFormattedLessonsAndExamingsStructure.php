@@ -5,12 +5,13 @@ require_once __DIR__ . '/../getIsCourseworkExistsInWP.php';
 
 use App\Models\LessonsAndExamingsStructureModel;
 
-function getFormattedLessonsAndExamingsStrucrture($data)
+function getFormattedLessonsAndExamingsStructure($data)
 {
 	$isPracticalsExist = false;
 	$isLabsExist = false;
 	$isSeminarsExist = false;
 	$isCourseworkExists = false;
+	$isColloquiumExists = false;
 
 	if (isset($data->semesters)) {
 
@@ -19,6 +20,10 @@ function getFormattedLessonsAndExamingsStrucrture($data)
 		foreach ($data->semesters as $semester) {
 			if (isset($semester->modules)) {
 				foreach ($semester->modules as $module) {
+					if ($module->isColloquiumExists) {
+						$isColloquiumExists = true;
+					}
+
 					if (isset($module->themes)) {
 						foreach ($module->themes as $theme) {
 							if (!$theme->practicals->isEmpty()) {
@@ -37,12 +42,11 @@ function getFormattedLessonsAndExamingsStrucrture($data)
 		}
 	}
 
-
 	return new LessonsAndExamingsStructureModel(
 		$isPracticalsExist,
 		$isLabsExist,
 		$isSeminarsExist,
 		$isCourseworkExists,
-		$isColloquiumExists ?? false
+		$isColloquiumExists
 	);
 }

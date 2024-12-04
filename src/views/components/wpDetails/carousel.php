@@ -15,6 +15,9 @@
 		<li class="slide" id="educationalDisciplineStructureSlide">
 			<?php include __DIR__ . '/educationalDisciplineStructureSlide.php'; ?>
 		</li>
+		<li class="slide" id="pointsDistributionSlide">
+			<?php include __DIR__ . '/pointsDistributionSlide.php'; ?>
+		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/studingAndExamingMethodsSlide.php'; ?>
 		</li>

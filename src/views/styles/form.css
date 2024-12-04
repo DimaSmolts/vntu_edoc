@@ -241,3 +241,17 @@
 	grid-template-columns: 2fr 1fr 100px;
 	column-gap: 15px
 }
+
+table {
+	padding: 0;
+	vertical-align: middle;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,
+td {
+	border: solid 1px black;
+	border-collapse: collapse;
+	padding: 3px;
+}

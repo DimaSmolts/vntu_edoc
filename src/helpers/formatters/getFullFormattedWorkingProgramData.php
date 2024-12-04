@@ -64,9 +64,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 
 			return new ModuleModel(
 				$module->id,
+				$module->isColloquiumExists,
 				$module->name ?? "",
 				$module->moduleNumber,
-				$module->isColloquiumExists,
 				$module->colloquiumPoints,
 				$themes
 			);
