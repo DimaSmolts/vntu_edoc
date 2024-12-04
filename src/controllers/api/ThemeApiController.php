@@ -10,7 +10,6 @@ require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
-require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworkHoursData.php';
 
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;

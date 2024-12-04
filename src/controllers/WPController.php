@@ -11,7 +11,6 @@ require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramDat
 require_once __DIR__ . '/../helpers/formatters/getFormattedWPListData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedPersonsData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedEducationalFormData.php';
-require_once __DIR__ . '/../helpers/formatters/getFullFormattedCourseworkHoursData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedFacultiesData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedDepartmentsData.php';
 
@@ -48,7 +47,7 @@ class WPController
 
 		$showReturnBtn = false;
 		$isAbleToEditGlobalData = true;
-		
+
 		require __DIR__ . '/../views/pages/wpListPage.php';
 	}
 
@@ -67,10 +66,11 @@ class WPController
 
 		$rawFaculties = $this->facultyService->getFaculties();
 		$faculties = getFormattedFacultiesData($rawFaculties);
-		
+
+
 		$rawDepartments = $this->departmentService->getDepartments($details->facultyId);
 		$departments = getFormattedDepartmentsData($rawDepartments);
-		
+
 		$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 		$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 
