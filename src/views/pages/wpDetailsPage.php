@@ -71,5 +71,12 @@
         <script src="src/views/helpers/coursework/updateAssesmentComponents.js"></script>
         <script src="src/views/helpers/coursework/removeAssesmentComponentInputs.js"></script>
         <script src="src/views/helpers/coursework/addAssesmentComponentsInputs.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateExamPoints.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateFullTotalBySemesterCell.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateTotalBySemesterCell.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateTotalByModuleCell.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateColloquiumPoints.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
+        <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
     </main>
 </body>

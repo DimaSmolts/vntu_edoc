@@ -57,6 +57,10 @@ p {
     right: 10px;
 }
 
+.center-text-align {
+    text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 12px;
     /* Width of vertical scrollbar */

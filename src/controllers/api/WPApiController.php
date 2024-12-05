@@ -11,6 +11,9 @@ require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamings
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
+require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
+require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
+require_once __DIR__ . '/../../helpers/getSemestersIdsByControlType.php';
 
 use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataOverwriteService;
@@ -146,13 +149,11 @@ class WPApiController
 		$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
 
 		$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
-
 		$structure = getFormattedLessonsAndExamingsStructure($wpData);
-
 		$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
-
-		// print_r($pointsDistributionRelatedData);
-		// print_r($structure);
+		$semestersWithModulesWithLessons = getSemestersWithModulesWithLessons($pointsDistributionRelatedData);
+		$semestersAndModulesIds = getSemestersAndModulesIds($pointsDistributionRelatedData);
+		$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
 
 		ob_start();
 		include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';

@@ -255,3 +255,35 @@ td {
 	border-collapse: collapse;
 	padding: 3px;
 }
+
+.table-input-cell {
+	padding: 0;
+}
+
+.table-input-cell input {
+	border: 0;
+	-moz-appearance: textfield;
+	appearance: textfield;
+}
+
+.table-input-cell input::-webkit-inner-spin-button {
+	opacity: 1;
+	display: block;
+}
+
+.table-input-cell input:focus-visible {
+	outline: 0;
+}
+
+.points-column {
+	width: 65px;
+	text-align: center;
+}
+
+.disabled-cell {
+	background-color: #ccc;
+}
+
+.coursework-container {
+	margin-bottom: 15px;
+}

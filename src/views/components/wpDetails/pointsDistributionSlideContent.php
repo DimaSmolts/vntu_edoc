@@ -1,16 +1,36 @@
+<?php
+$pointsDistribution = isset($pointsDistributionRelatedData->pointsDistribution) ? json_decode($pointsDistributionRelatedData->pointsDistribution, true) : null;
+
+$practicalPoints = $pointsByTypeOfWork['practicalPoints'];
+$labPoints = $pointsByTypeOfWork['labPoints'];
+$seminarPoints = $pointsByTypeOfWork['seminarPoints'];
+$colloquiumPoints = $pointsByTypeOfWork['colloquiumPoints'];
+$totalByModules = $pointsByTypeOfWork['totalByModules'];
+$totalBySemesters = $pointsByTypeOfWork['totalBySemesters'];
+
+$semestersWithModulesWithPracticals = $semestersWithModulesWithLessons['semestersWithModulesWithPracticals'];
+$semestersWithModulesWithLabs = $semestersWithModulesWithLessons['semestersWithModulesWithLabs'];
+$semestersWithModulesWithSeminars = $semestersWithModulesWithLessons['semestersWithModulesWithSeminars'];
+
+$semesterIds = $semestersAndModulesIds['semesterIds'];
+$modulesIdsInSemester = $semestersAndModulesIds['modulesIdsInSemester'];
+
+$semesterWithDifferentialCreditIds = $semestersIdsByControlType['semesterWithDifferentialCreditId'];
+$semesterWithExamIds = $semestersIdsByControlType['semesterWithExamId'];
+?>
 <div>
 	<table>
 		<tr>
 			<th rowspan="2">Вид роботи</th>
-			<th rowspan="2">Бал за 1 завдання</th>
+			<th rowspan="2" class="points-column">Бал за 1 завдання</th>
 			<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
 				<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 					<?php
 					$modulesAmount = count($semesterData->modules);
 					$semesterColSpan = $modulesAmount;
 					?>
-					<th colspan="<?= htmlspecialchars($semesterColSpan) ?>">Семестр <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : '' ?>
-					<th rowspan="2">Разом</th>
+					<th colspan="<?= htmlspecialchars($semesterColSpan) ?>" class="center-text-align">Семестр <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : '' ?>
+					<th rowspan="2" class="points-column">Разом</th>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tr>
@@ -19,21 +39,12 @@
 				<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<th>М <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : '' ?></th>
+							<th class="points-column">М <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : '' ?></th>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tr>
-		<?php
-		$pointsDistribution = isset($pointsDistributionRelatedData->pointsDistribution) ? json_decode($pointsDistributionRelatedData->pointsDistribution, true) : null;
-		$practicalPoints = $pointsByTypeOfWork['practicalPoints'];
-		$labPoints = $pointsByTypeOfWork['labPoints'];
-		$seminarPoints = $pointsByTypeOfWork['seminarPoints'];
-		$colloquiumPoints = $pointsByTypeOfWork['colloquiumPoints'];
-		$totalByModules = $pointsByTypeOfWork['totalByModules'];
-		$totalBySemesters = $pointsByTypeOfWork['totalBySemesters'];
-		?>
 		<?php if ($structure->isPracticalsExist): ?>
 			<tr>
 				<td>Виконання практичних завдань</td>
@@ -42,18 +53,23 @@
 						type="number"
 						min="0"
 						name="practicalPoints"
+						id="practicalPoints"
 						value="<?= isset($pointsDistribution['practicalPoints']) ? htmlspecialchars($pointsDistribution['practicalPoints']) : "" ?>"
-						oninput="'update'">
+						oninput="updateLessonPoints(event, 'practical', <?= htmlspecialchars($wpId) ?>, <?= htmlspecialchars(json_encode($semestersWithModulesWithPracticals, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>, <?= json_encode($semesterIds) ?>)">
 				</td>
 
 				<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
 					<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td><?= htmlspecialchars($practicalPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?></td>
+								<td id="practicalModule<?= htmlspecialchars($moduleData->moduleId) ?>" class="center-text-align disabled-cell">
+									<?= htmlspecialchars($practicalPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?>
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td><?= htmlspecialchars($practicalPoints['semester' . $semesterData->id . 'Sum']) ?></td>
+						<td id="practicalSemester<?= htmlspecialchars($semesterData->id) ?>" class="center-text-align disabled-cell">
+							<?= htmlspecialchars($practicalPoints['semester' . $semesterData->id . 'Sum']) ?>
+						</td>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -66,18 +82,23 @@
 						type="number"
 						min="0"
 						name="labPoints"
+						id="labPoints"
 						value="<?= isset($pointsDistribution['labPoints']) ? htmlspecialchars($pointsDistribution['labPoints']) : "" ?>"
-						oninput="'update'">
+						oninput="updateLessonPoints(event, 'lab', <?= htmlspecialchars($wpId) ?>, <?= htmlspecialchars(json_encode($semestersWithModulesWithLabs, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>, <?= json_encode($semesterIds) ?>)">
 				</td>
 
 				<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
 					<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td><?= htmlspecialchars($labPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?></td>
+								<td id="labModule<?= htmlspecialchars($moduleData->moduleId) ?>" class="center-text-align disabled-cell">
+									<?= htmlspecialchars($labPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?>
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td><?= htmlspecialchars($labPoints['semester' . $semesterData->id . 'Sum']) ?></td>
+						<td id="labSemester<?= htmlspecialchars($semesterData->id) ?>" class="center-text-align disabled-cell">
+							<?= htmlspecialchars($labPoints['semester' . $semesterData->id . 'Sum']) ?>
+						</td>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -90,18 +111,23 @@
 						type="number"
 						min="0"
 						name="seminarPoints"
+						id="seminarPoints"
 						value="<?= isset($pointsDistribution['seminarPoints']) ? htmlspecialchars($pointsDistribution['seminarPoints']) : "" ?>"
-						oninput="'update'">
+						oninput="updateLessonPoints(event, 'seminar', <?= htmlspecialchars($wpId) ?>, <?= htmlspecialchars(json_encode($semestersWithModulesWithSeminars, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>, <?= json_encode($semesterIds) ?>)">
 				</td>
 
 				<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
 					<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td><?= htmlspecialchars($seminarPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?></td>
+								<td id="seminarModule<?= htmlspecialchars($moduleData->moduleId) ?>" class="center-text-align disabled-cell">
+									<?= htmlspecialchars($seminarPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?>
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td><?= htmlspecialchars($seminarPoints['semester' . $semesterData->id . 'Sum']) ?></td>
+						<td id="seminarSemester<?= htmlspecialchars($semesterData->id) ?>" class="center-text-align disabled-cell">
+							<?= htmlspecialchars($seminarPoints['semester' . $semesterData->id . 'Sum']) ?>
+						</td>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -112,22 +138,28 @@
 				<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
 					<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
+							<?php
+							$modulesIds = $modulesIdsInSemester[$semesterData->id];
+							?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
 								<?php if ($moduleData->isColloquiumExists): ?>
 									<td class="table-input-cell">
 										<input
+											id="colloquiumModule<?= htmlspecialchars($moduleData->moduleId) ?>"
 											type="number"
 											min="0"
 											name="colloquiumPoints"
 											value="<?= htmlspecialchars($colloquiumPoints['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?>"
-											oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>">
+											oninput="updateColloquiumPoints(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($moduleData->moduleId) ?>, <?= json_encode($modulesIds) ?>)">
 									</td>
 								<?php else: ?>
-									<td>-</td>
+									<td class="center-text-align disabled-cell">-</td>
 								<?php endif; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td><?= htmlspecialchars($colloquiumPoints['semester' . $semesterData->id . 'Sum']) ?></td>
+						<td id="colloquiumSemester<?= htmlspecialchars($semesterData->id) ?>" class="center-text-align disabled-cell">
+							<?= htmlspecialchars($colloquiumPoints['semester' . $semesterData->id . 'Sum']) ?>
+						</td>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -138,79 +170,69 @@
 				<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<th><?= htmlspecialchars($totalByModules['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?></th>
+							<th id="module<?= htmlspecialchars($moduleData->moduleId) ?>Total" class="center-text-align disabled-cell">
+								<?= htmlspecialchars($totalByModules['semester' . $semesterData->id]['module' . $moduleData->moduleId]) ?>
+							</th>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<th><?= htmlspecialchars($totalByModules['semester' . $semesterData->id . 'Sum']) ?></th>
+					<th id="semester<?= htmlspecialchars($semesterData->id) ?>Total" class="center-text-align disabled-cell">
+						<?= htmlspecialchars($totalByModules['semester' . $semesterData->id . 'Sum']) ?>
+					</th>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tr>
-		<?php
-		$semesterWithDifferentialCreditId = 0;
-		$semesterWithExamId = 0;
-
-		if (!empty($pointsDistributionRelatedData->semesters)) {
-			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
-				if ($semesterData->examType === "диф. залік") {
-					$semesterWithDifferentialCreditId = $semesterData->id;
-				}
-				if ($semesterData->examType === "іспит") {
-					$semesterWithExamId = $semesterData->id;
-				}
-			}
-		}
-		?>
-		<?php if ($semesterWithDifferentialCreditId > 0): ?>
+		<?php if (!empty($semesterWithDifferentialCreditIds)): ?>
 			<tr>
 				<td colspan="2">Диф. залік</td>
 				<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<td>
-								</thd>
-							<?php endforeach; ?>
-						<?php endif; ?>
-						<?php if ($semesterWithDifferentialCreditId === $semesterData->id): ?>
-							<td>+</td>
-						<?php else: ?>
-							<td>-</td>
-						<?php endif; ?>
-					<?php endforeach; ?>
+							<td class="disabled-cell">
+							</td>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<?php if (in_array($semesterData->id, $semesterWithDifferentialCreditIds)): ?>
+						<td class="center-text-align disabled-cell">+</td>
+					<?php else: ?>
+						<td class="center-text-align disabled-cell">-</td>
+					<?php endif; ?>
+				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
-		<?php if ($semesterWithExamId > 0): ?>
+		<?php if (!empty($semesterWithExamIds)): ?>
 			<tr>
 				<td colspan="2">Іспит</td>
 				<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<td></td>
+							<td class="center-text-align disabled-cell"></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<?php if ($semesterWithExamId === $semesterData->id): ?>
+					<?php if (in_array($semesterData->id, $semesterWithExamIds)): ?>
 						<td class="table-input-cell">
 							<input
+								id="examSemester<?= htmlspecialchars($semesterData->id) ?>"
 								type="number"
 								min="0"
-								name="examPoints"
-								value="<?= isset($pointsDistribution['examPoints']) ? htmlspecialchars($pointsDistribution['examPoints']) : "" ?>"
-								oninput="'update'">
+								name="examPoints<?= htmlspecialchars($semesterData->id) ?>"
+								value="<?= isset($pointsDistribution["examPointsSemester$semesterData->id"]) ? htmlspecialchars($pointsDistribution["examPointsSemester$semesterData->id"]) : "" ?>"
+								oninput="updateExamPoints(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($wpId) ?>, <?= json_encode($semesterIds) ?>)">
 						</td>
 					<?php else: ?>
-						<td>-</td>
+						<td class="center-text-align disabled-cell">-</td>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
 		<tr>
-			<td colspan="2">Всього</td>
+			<th colspan="2">Всього</th>
 			<?php foreach ($pointsDistributionRelatedData->semesters as $semesterData): ?>
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
-						<td></td>
+						<td class="center-text-align disabled-cell"></td>
 					<?php endforeach; ?>
 				<?php endif; ?>
-				<th><?= htmlspecialchars($totalBySemesters['semester' . $semesterData->id . 'Sum']) ?></th>
+				<th id="fullSemester<?= htmlspecialchars($semesterData->id) ?>Total" class="center-text-align disabled-cell"><?= htmlspecialchars($totalBySemesters['semester' . $semesterData->id . 'Sum']) ?></th>
 			<?php endforeach; ?>
 		</tr>
 	</table>
