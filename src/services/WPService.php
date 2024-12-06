@@ -98,7 +98,9 @@ class WPService
 			},
 			'semesters.educationalForms.educationalForm',
 			'globalData',
-			'literature'
+			'literature',
+			'faculty',
+			'department'
 		])
 			->where('id', $id)
 			->get();

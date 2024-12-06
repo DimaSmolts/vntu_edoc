@@ -159,6 +159,6 @@ class WPApiController
 		include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
 		$pointsDistributionSlideContent = ob_get_clean();
 
-		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent, '$pointsByTypeOfWork' => $pointsByTypeOfWork, '$pointsDistributionRelatedData' => $pointsDistributionRelatedData]));
+		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent]));
 	}
 }

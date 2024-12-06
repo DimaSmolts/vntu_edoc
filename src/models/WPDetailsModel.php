@@ -5,10 +5,14 @@ namespace App\Models;
 require_once __DIR__ . '/WorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
+require_once __DIR__ . '/FacultyModel.php';
+require_once __DIR__ . '/DepartmentModel.php';
 
 use App\Models\WorkingProgramGlobalDataOverwriteModel;
 use App\Models\WorkingProgramLiteratureModel;
 use App\Models\LessonsAndExamingsStructureModel;
+use App\Models\FacultyModel;
+use App\Models\DepartmentModel;
 
 class WPDetailsModel
 {
@@ -50,6 +54,8 @@ class WPDetailsModel
 	public ?WorkingProgramGlobalDataOverwriteModel $globalData;
 	public ?WorkingProgramLiteratureModel $literature;
 	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
+	public ?FacultyModel $faculty;
+	public ?DepartmentModel $department;
 
 	public function __construct(
 		int $id,
@@ -90,6 +96,8 @@ class WPDetailsModel
 		?WorkingProgramGlobalDataOverwriteModel $globalData = null,
 		?WorkingProgramLiteratureModel $literature = null,
 		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
+		?FacultyModel $faculty = null,
+		?DepartmentModel $department = null
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -129,5 +137,7 @@ class WPDetailsModel
 		$this->globalData = $globalData;
 		$this->literature = $literature;
 		$this->lessonsAndExamingsStructure = $lessonsAndExamingsStructure;
+		$this->faculty = $faculty;
+		$this->department = $department;
 	}
 }

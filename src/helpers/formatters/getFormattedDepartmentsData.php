@@ -11,5 +11,5 @@ function getFormattedDepartmentsData($departments)
 			$department->id,
 			$department->d_name
 		);
-	});
+	})->toArray();
 }

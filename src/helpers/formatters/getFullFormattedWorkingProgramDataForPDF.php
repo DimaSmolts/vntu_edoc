@@ -14,7 +14,9 @@ require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php'
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 require_once __DIR__ . '/getFormattedLessonsAndExamingsStructure.php';
+require_once __DIR__ . '/getFormattedFacultiesData.php';
 
+use App\Models\DepartmentModel;
 use App\Models\WPDetailsModel;
 use App\Models\PDFSemesterModel;
 use App\Models\PDFModuleModel;
@@ -23,6 +25,7 @@ use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\WorkingProgramLiteratureModel;
 use App\Models\EducationalFormCourseworkHourModel;
+use App\Models\FacultyModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
@@ -254,6 +257,22 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$courseworkHours
 		);
 	})->toArray();
+
+	// Додаємо дані про факультет, якщо факультет обраний
+	if ($workingProgramData->facultyId) {
+		$workingProgram->faculty = new FacultyModel(
+			$workingProgramData->faculty->id,
+			$workingProgramData->faculty->d_name,
+		);
+	}
+
+	// Додаємо дані про кафедру, якщо кафедра обрана
+	if ($workingProgramData->departmentId) {
+		$workingProgram->department = new DepartmentModel(
+			$workingProgramData->department->id,
+			$workingProgramData->department->d_name,
+		);
+	}
 
 	// Додаємо дані про семестри в робочу програму
 	$workingProgram->semesters = $formattedSemesters;

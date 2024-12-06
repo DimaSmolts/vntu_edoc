@@ -6,11 +6,15 @@ require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
 require_once __DIR__ . '/DBWorkingProgramInvolvedPersonModel.php';
 require_once __DIR__ . '/DBWorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/DBWorkingProgramLiteratureModel.php';
+require_once __DIR__ . '/DBFacultyModel.php';
+require_once __DIR__ . '/DBDepartmentModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
 use App\Models\DBWorkingProgramGlobalDataOverwriteModel;
 use App\Models\DBWorkingProgramLiteratureModel;
+use App\Models\DBFacultyModel;
+use App\Models\DBDepartmentModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -75,5 +79,15 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 			->whereHas('involvedRole', function ($query) {
 				$query->where('role', 'created');
 			});
+	}
+
+	public function faculty()
+	{
+		return $this->belongsTo(DBFacultyModel::class, 'facultyId');
+	}
+
+	public function department()
+	{
+		return $this->belongsTo(DBDepartmentModel::class, 'departmentId');
 	}
 }

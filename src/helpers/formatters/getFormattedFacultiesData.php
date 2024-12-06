@@ -11,5 +11,5 @@ function getFormattedFacultiesData($faculties)
 			$faculty->id,
 			$faculty->d_name ?? ''
 		);
-	});
+	})->toArray();
 }
