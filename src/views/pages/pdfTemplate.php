@@ -1016,10 +1016,50 @@
 		<?php endif; ?>
 	<?php endif; ?>
 
+	<p class="indent">Шкала оцінювання в балах та ЄКТС відображена в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?></p>
+	<p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?> - Шкала оцінювання в балах та ЄКТС</p>
+	<table>
+		<tr>
+			<th style="width: 32%;" class="center">Сума балів за всі види навчальної діяльності</th>
+			<th style="width: 68%;" class="center">Оцінка ECTS</th>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">90 - 100</td>
+			<td style="width: 68%;" class="center"><span class="bold">A</span></td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">82 - 89</td>
+			<td style="width: 68%;" class="center"><span class="bold">B</span></td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">75 - 81</td>
+			<td style="width: 68%;" class="center"><span class="bold">C</span></td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">64 - 74</td>
+			<td style="width: 68%;" class="center"><span class="bold">D</span></td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">60 - 63</td>
+			<td style="width: 68%;" class="center"><span class="bold">E</span></td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">35 - 59</td>
+			<td style="width: 68%;" class="center"><span class="bold">FX</span><br>незадовільно з можливістю повторного складання</td>
+		</tr>
+		<tr>
+			<td style="width: 32%;" class="center">0 - 34</td>
+			<td style="width: 68%;" class="center"><span class="bold">F</span><br>незадовільно з обов’язковим повторним вивченням дисципліни</td>
+		</tr>
+	</table>
+
+
 	<div class="topic-title">
 		14. Методичне забезпечення
 	</div>
-	<p class="indent inserted"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
+	<div style="width: 100%; align: justify;">
+		<p class="indent inserted" style="text-align: justify;"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
+	</div>
 
 	<div class="topic-title">
 		15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти
