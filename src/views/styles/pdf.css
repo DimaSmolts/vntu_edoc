@@ -148,3 +148,8 @@ td.characteristic-third-col {
 	rotate: 90;
 	font-size: 12pt;
 }
+
+.coursework-table {
+	width: 60%;
+	margin-left: 20%;
+}

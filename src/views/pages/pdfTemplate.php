@@ -791,7 +791,7 @@
 		13. Розподіл балів, які отримують студенти
 	</div>
 	<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах) відображено в таблиці 13.1</p>
-	<p class="indent">13.1 - Оцінювання знань, умінь та навичок в балах</p>
+	<p class="indent">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p>
 
 	<?php if (!empty($pointsDistributionSemestersData['semesters'])): ?>
 		<?php
@@ -825,7 +825,7 @@
 		$labPoints = $pointsDistributionSemestersData['pointsDistribution']['labPoints'] ?? 0;
 		$seminarPoints = $pointsDistributionSemestersData['pointsDistribution']['seminarPoints'] ?? 0;
 		?>
-		<table>
+		<table class="small-bottom-margin">
 			<tr>
 				<th rowspan="2" style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Вид роботи</th>
 				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
@@ -968,6 +968,52 @@
 		</table>
 	<?php else: ?>
 		<p class="indent">Недостатньо даних для генерації таблиці</p>
+	<?php endif; ?>
+
+	<?php if ($structure->isCourseworkExists): ?>
+		<?php
+		$startedNumberOfCourseworkTable = 2;
+		?>
+		<?php if (!empty($details->semesters)): ?>
+			<?php foreach ($details->semesters as $semesterData): ?>
+				<?php if ($semesterData->isCourseworkExists && $semesterData->courseworkAssessmentComponents): ?>
+					<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?></p>
+					<p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?> - Оцінювання знань, умінь та навичок в балах за результатами виконання курсового проєкту в семестрі 7 (в балах)</p>
+
+					<div class="coursework-table small-bottom-margin">
+						<?php
+						$courseworkAssessmentComponents = json_decode($semesterData->courseworkAssessmentComponents);
+						?>
+						<table>
+							<tr>
+								<th style="width: 70%;">Складові оцінювання</th>
+								<th style="width: 30%;">Бали</th>
+							</tr>
+							<?php
+							$totalCourseworkPoints = 0;
+							foreach ($courseworkAssessmentComponents as $assesmentComponentName => $points) {
+								$totalCourseworkPoints += $points;
+							}
+							?>
+							<?php foreach ($courseworkAssessmentComponents as $assesmentComponentName => $points): ?>
+								<tr>
+									<td style="width: 70%;"><?= htmlspecialchars($assesmentComponentName) ?></td>
+									<td style="width: 30%;" class="center"><?= htmlspecialchars($points) ?></td>
+								</tr>
+							<?php endforeach; ?>
+							<tr>
+								<td style="width: 70%;" class="bold">Усього</td>
+								<th style="width: 30%;" class="center"><?= htmlspecialchars($totalCourseworkPoints) ?></th>
+							</tr>
+						</table>
+					</div>
+
+				<?php elseif ($semesterData->isCourseworkExists): ?>
+					<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?></p>
+					<p class="indent">Недостатньо даних для генерації таблиці</p>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<div class="topic-title">
