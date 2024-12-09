@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="src/views/styles/carousel.css">
     <link rel="stylesheet" href="src/views/styles/form.css">
     <link rel="stylesheet" href="src/views/styles/semester.css">
+    <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -78,5 +80,35 @@
         <script src="src/views/helpers/pointsDistribution/updateColloquiumPoints.js"></script>
         <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
         <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
+
+        <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
+        <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+        <!-- Змінюємо інпут для введення основної літератури -->
+        <script>
+            // Ініціалізуємо редактор тексту
+            const quill = new Quill('#main-literature-editor-container', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'], // додаємо можливості для зміни тексту
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }], // додаємо можливості для зміни списків
+                        ['link'] // // додаємо можливість роботи з посиланнями
+                    ]
+                }
+            });
+
+            quill.setContents([{
+                insert: <?= htmlspecialchars($details->literature->main ?? '') ?>
+            }]);
+
+            quill.on('text-change', function() {
+                updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>, 'main', quill.root.innerHTML)
+            });
+        </script>
     </main>
 </body>
