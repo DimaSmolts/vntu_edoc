@@ -12,6 +12,9 @@ div.right {
 	text-align: right;
 }
 
+.justify {
+	text-align: justify;
+}
 
 .small-bottom-margin {
 	margin-bottom: 10mm;
@@ -152,4 +155,9 @@ td.characteristic-third-col {
 .coursework-table {
 	width: 60%;
 	margin-left: 20%;
+}
+
+.assessment-criteria-table th,
+.assessment-criteria-table td {
+	font-size: 12pt;
 }

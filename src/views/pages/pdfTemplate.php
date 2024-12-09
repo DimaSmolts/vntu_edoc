@@ -353,24 +353,24 @@
 	</table>
 
 	<div class="bold">Примітка:</div>
-	<p class="inserted indent"><?= htmlspecialchars($details->notes) ?></p>
+	<p class="inserted indent justify"><?= htmlspecialchars($details->notes) ?></p>
 
 	<div class="topic-title">
 		2. Передумови для вивчення дисципліни
 	</div>
-	<p class="indent inserted"><?= htmlspecialchars($details->prerequisites) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->prerequisites) ?></p>
 
 	<div class="topic-title">
 		3. Мета та завдання навчальної дисципліни
 	</div>
-	<p class="indent inserted"><?= htmlspecialchars($details->goal) ?></p>
-	<p class="indent inserted"><?= htmlspecialchars($details->tasks) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->goal) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->tasks) ?></p>
 	<p class="indent bold">Компетентності, якими повинен оволодіти здобувач в результаті вивчення дисципліни:</p>
-	<p class="indent inserted"><?= htmlspecialchars($details->competences) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->competences) ?></p>
 	<p class="indent bold">Програмні результати:</p>
-	<p class="indent inserted"><?= htmlspecialchars($details->programResults) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->programResults) ?></p>
 	<p class="indent bold">Контрольні заходи:</p>
-	<p class="indent inserted"><?= htmlspecialchars($details->controlMeasures) ?></p>
+	<p class="indent inserted justify"><?= htmlspecialchars($details->controlMeasures) ?></p>
 
 	<div class="topic-title">
 		4. Програма навчальної дисципліни
@@ -379,12 +379,12 @@
 		<?php foreach ($details->semesters as $semesterData): ?>
 			<?php if (!empty($semesterData->modules)): ?>
 				<?php foreach ($semesterData->modules as $moduleData): ?>
-					<p class="inserted indent bold">
+					<p class="inserted indent bold justify">
 						Змістовий модуль <?= htmlspecialchars($moduleData->moduleNumber) ?>. <?= htmlspecialchars($moduleData->moduleName) ?>.
 					</p>
 					<?php if (!empty($moduleData->themes)): ?>
 						<?php foreach ($moduleData->themes as $themeData): ?>
-							<p class="indent inserted">
+							<p class="indent inserted justify">
 								<span class="inserted bold italic">Тема <?= htmlspecialchars($themeData->themeNumber) ?>. <?= htmlspecialchars($themeData->name) ?>.</span>
 								<?= htmlspecialchars($themeData->description) ?>.
 							</p>
@@ -775,23 +775,23 @@
 	<div class="topic-title">
 		10. Індивідуальні завдання
 	</div>
-	<p class="indent inserted"><?= isset($details->individualTaskNotes) ? htmlspecialchars($details->individualTaskNotes) : "" ?></p>
+	<p class="indent inserted justify"><?= isset($details->individualTaskNotes) ? htmlspecialchars($details->individualTaskNotes) : "" ?></p>
 
 	<div class="topic-title">
 		11. Методи навчання
 	</div>
-	<p class="indent inserted"><?= isset($details->studingMethods) ? htmlspecialchars($details->studingMethods) : '' ?></p>
+	<p class="indent inserted justify"><?= isset($details->studingMethods) ? htmlspecialchars($details->studingMethods) : '' ?></p>
 
 	<div class="topic-title">
 		12. Методи контролю
 	</div>
-	<p class="indent inserted"><?= isset($details->examingMethods) ? htmlspecialchars($details->examingMethods) : '' ?></p>
+	<p class="indent inserted justify"><?= isset($details->examingMethods) ? htmlspecialchars($details->examingMethods) : '' ?></p>
 
 	<div class="topic-title">
 		13. Розподіл балів, які отримують студенти
 	</div>
-	<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах) відображено в таблиці 13.1</p>
-	<p class="indent">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p>
+	<p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах) відображено в таблиці 13.1.</p>
+	<p class="indent justify">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p>
 
 	<?php if (!empty($pointsDistributionSemestersData['semesters'])): ?>
 		<?php
@@ -852,53 +852,53 @@
 			</tr>
 			<?php if ($structure->isPracticalsExist): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Виконання практичних завдань (1 завдання - <?= htmlspecialchars($practicalPoints) ?> б)</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання практичних завдань (1 завдання - <?= htmlspecialchars($practicalPoints) ?> б)</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td class="center"><?= htmlspecialchars($moduleData->practicalsPoints) ?></td>
+								<td class="center calculated"><?= htmlspecialchars($moduleData->practicalsPoints) ?></td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td class="center"><?= htmlspecialchars($semesterData->modulesTotal->practicalsPoints) ?></td>
+						<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->practicalsPoints) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endif; ?>
 			<?php if ($structure->isLabsExist): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Виконання лабораторних завдань (1 завдання - <?= htmlspecialchars($labPoints) ?> б)</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання лабораторних завдань (1 завдання - <?= htmlspecialchars($labPoints) ?> б)</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td class="center"><?= htmlspecialchars($moduleData->labsPoints) ?></td>
+								<td class="center calculated"><?= htmlspecialchars($moduleData->labsPoints) ?></td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td class="center"><?= htmlspecialchars($semesterData->modulesTotal->labsPoints) ?></td>
+						<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->labsPoints) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endif; ?>
 			<?php if ($structure->isSeminarsExist): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Виконання семінарських завдань (1 завдання - <?= htmlspecialchars($seminarPoints) ?> б)</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання семінарських завдань (1 завдання - <?= htmlspecialchars($seminarPoints) ?> б)</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td class="center"><?= htmlspecialchars($moduleData->seminarsPoints) ?></td>
+								<td class="center calculated"><?= htmlspecialchars($moduleData->seminarsPoints) ?></td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td class="center"><?= htmlspecialchars($semesterData->modulesTotal->seminarsPoints) ?></td>
+						<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->seminarsPoints) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endif; ?>
 			<?php if ($structure->isColloquiumExists): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Колоквіуми</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Колоквіуми</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<td class="center"><?= htmlspecialchars($moduleData->colloquiumPoints) ?></td>
+								<td class="center inserted"><?= htmlspecialchars($moduleData->colloquiumPoints) ?></td>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<td class="center"><?= htmlspecialchars($semesterData->modulesTotal->colloquiumPoints) ?></td>
+						<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->colloquiumPoints) ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endif; ?>
@@ -907,10 +907,10 @@
 				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<th><?= htmlspecialchars($moduleData->moduleTotal) ?></th>
+							<th class="calculated"><?= htmlspecialchars($moduleData->moduleTotal) ?></th>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<th><?= htmlspecialchars($semesterData->modulesTotal->modulesTotalPoints) ?></th>
+					<th class="calculated"><?= htmlspecialchars($semesterData->modulesTotal->modulesTotalPoints) ?></th>
 				<?php endforeach; ?>
 			</tr>
 			<?php
@@ -919,7 +919,7 @@
 			?>
 			<?php if (!empty($semesterWithDifferentialCreditIds)): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Диф. залік</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Диф. залік</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
@@ -927,16 +927,16 @@
 							<?php endforeach; ?>
 						<?php endif; ?>
 						<?php if (in_array($semesterData->id, $semesterWithDifferentialCreditIds)): ?>
-							<td class="center">+</td>
+							<td class="center inserted">+</td>
 						<?php else: ?>
-							<td class="center">-</td>
+							<td class="center inserted">-</td>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</tr>
 			<?php endif; ?>
 			<?php if (!empty($semesterWithExamIds)): ?>
 				<tr>
-					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Іспит</td>
+					<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Іспит</td>
 					<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
@@ -947,9 +947,9 @@
 							<?php
 							$examPoints = $pointsDistributionSemestersData['pointsDistribution']["examPointsSemester$semesterData->id"] ?? 0;
 							?>
-							<td class="center"><?= htmlspecialchars($examPoints) ?></td>
+							<td class="center inserted"><?= htmlspecialchars($examPoints) ?></td>
 						<?php else: ?>
-							<td class="center">-</td>
+							<td class="center inserted">-</td>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</tr>
@@ -962,7 +962,7 @@
 							<td></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<th><?= htmlspecialchars($semesterData->semesterTotal) ?></th>
+					<th class="calculated"><?= htmlspecialchars($semesterData->semesterTotal) ?></th>
 				<?php endforeach; ?>
 			</tr>
 		</table>
@@ -977,8 +977,8 @@
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
 				<?php if ($semesterData->isCourseworkExists && $semesterData->courseworkAssessmentComponents): ?>
-					<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?></p>
-					<p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?> - Оцінювання знань, умінь та навичок в балах за результатами виконання курсового проєкту в семестрі 7 (в балах)</p>
+					<p class="indent justify inserted">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?>.</p>
+					<p class="indent justify inserted">13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?> - Оцінювання знань, умінь та навичок в балах за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах)</p>
 
 					<div class="coursework-table small-bottom-margin">
 						<?php
@@ -997,26 +997,26 @@
 							?>
 							<?php foreach ($courseworkAssessmentComponents as $assesmentComponentName => $points): ?>
 								<tr>
-									<td style="width: 70%;"><?= htmlspecialchars($assesmentComponentName) ?></td>
-									<td style="width: 30%;" class="center"><?= htmlspecialchars($points) ?></td>
+									<td style="width: 70%;" class="inserted"><?= htmlspecialchars($assesmentComponentName) ?></td>
+									<td style="width: 30%;" class="center inserted"><?= htmlspecialchars($points) ?></td>
 								</tr>
 							<?php endforeach; ?>
 							<tr>
 								<td style="width: 70%;" class="bold">Усього</td>
-								<th style="width: 30%;" class="center"><?= htmlspecialchars($totalCourseworkPoints) ?></th>
+								<th style="width: 30%;" class="center calculated"><?= htmlspecialchars($totalCourseworkPoints) ?></th>
 							</tr>
 						</table>
 					</div>
 
 				<?php elseif ($semesterData->isCourseworkExists): ?>
-					<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?></p>
+					<p class="indent">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?>.</p>
 					<p class="indent">Недостатньо даних для генерації таблиці</p>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	<?php endif; ?>
 
-	<p class="indent">Шкала оцінювання в балах та ЄКТС відображена в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?></p>
+	<p class="indent">Шкала оцінювання в балах та ЄКТС відображена в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?>.</p>
 	<p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?> - Шкала оцінювання в балах та ЄКТС</p>
 	<table>
 		<tr>
@@ -1057,13 +1057,325 @@
 	<div class="topic-title">
 		14. Методичне забезпечення
 	</div>
-	<div style="width: 100%; align: justify;">
-		<p class="indent inserted" style="text-align: justify;"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
-	</div>
-
+	<p class="indent inserted justify"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
 	<div class="topic-title">
 		15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти
 	</div>
+	<p class="indent justify">У даному розділі представлено загальні критерії оцінювання знань, умінь та навичок здобувачів вищої освіти (див. табл. 15.1)<?php if ($structure->isCourseworkExists): ?>, критерії за індивідуальним завданням курсової роботи (див. табл. 15.2)<?php endif; ?> та критерії за видами робіт (див. табл. 15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?>).</p>
+	<p class="indent justify">15.1 Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти</p>
+	<table class="assessment-criteria-table small-bottom-margin">
+		<tr>
+			<th style="width: 12%;">Рівень компе-<br>тентно-<br>сті</th>
+			<th style="width: 10%;">За баль-<br>ною шкалою</th>
+			<th style="width: 10%;">За шкалою ECTS</th>
+			<th style="width: 68%;">Критерії оцінювання</th>
+		</tr>
+		<tr>
+			<td style="width: 12%;" class="center">IV<br>Високий<br>(творчий)</td>
+			<td style="width: 10%;" class="center">90 - 100</td>
+			<td style="width: 10%;" class="center">A</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->A) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 12%;" class="center" rowspan="2">III<br>Доста-<br>тній<br>(констру-<br>ктивний)</td>
+			<td style="width: 10%;" class="center">82 - 89</td>
+			<td style="width: 10%;" class="center">B</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->B) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 10%;" class="none-border-left center">75 - 81</td>
+			<td style="width: 10%;" class="center">C</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->C) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 12%;" class="center" rowspan="2">II<br>Середній<br>(репро-<br>дуктив-<br>ний)</td>
+			<td style="width: 10%;" class="center">64 - 74</td>
+			<td style="width: 10%;" class="center">D</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->D) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 10%;" class="none-border-left center">60 - 63</td>
+			<td style="width: 10%;" class="center">E</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->E) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 12%;" class="center" rowspan="2">І<br>Низький</td>
+			<td style="width: 10%;" class="center">35 - 59</td>
+			<td style="width: 10%;" class="center">FX</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->FX) ?></td>
+		</tr>
+		<tr>
+			<td style="width: 10%;" class="none-border-left center">0 - 34</td>
+			<td style="width: 10%;" class="center">F</td>
+			<td style="width: 68%;" class="global"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->F) ?></td>
+		</tr>
+	</table>
+	<?php if ($structure->isCourseworkExists): ?>
+		<p class="indent justify">15.2 Критерії оцінювання знань, умінь та навичок здобувачів за індивідуальним завданням курсової роботи</p>
+		<table class="assessment-criteria-table small-bottom-margin">
+			<tr>
+				<th style="width: 12%;" rowspan="2">Рівень компе-<br>тентно-<br>сті</th>
+				<th style="width: 10%;" rowspan="2">За шкалою ECTS</th>
+				<th style="width: 78%;">Критерії оцінювання</th>
+			</tr>
+			<tr>
+				<td style="width: 12%;" class="center">IV<br>Високий<br>(творчий)</td>
+				<td style="width: 10%;" class="center">A</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->A) ?>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 12%;" class="center" rowspan="2">III<br>Доста-<br>тній<br>(констру-<br>ктивний)</td>
+				<td style="width: 10%;" class="center">B</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->B) ?>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 10%;" class="center none-border-left">C</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->C) ?>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 12%;" class="center" rowspan="2">II<br>Середній<br>(репро-<br>дуктив-<br>ний)</td>
+				<td style="width: 10%;" class="center">D</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->D) ?>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 10%;" class="center none-border-left">E</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->E) ?>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 12%;" class="center">І<br>Низький</td>
+				<td style="width: 10%;" class="center">FX, F</td>
+				<td style="width: 78%;" class="global">
+					<?= htmlspecialchars($details->globalData->courseworkAssessmentCriteria->FXAndF) ?>
+				</td>
+			</tr>
+		</table>
+	<?php endif; ?>
+	<p class="indent justify">15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?> Критерії оцінювання знань, умінь та навичок здобувачів за видами робіт</p>
+	<?php
+	$fullTableWidth = 100;
+	$minColloquiumColumnWidth = 15;
+	$colloquiumColumnWidth = 15;
+	$lessonsTypesAmount = 0;
+	$competenceLevelColumnWidth = 12;
+	$ECTSColumnWidth = 10;
+
+	$assessmentsCriteriaColumns = [
+		'width' => 0,
+		'colspan' => 0
+	];
+
+	if ($structure->isColloquiumExists && !$structure->isPracticalsExist && !$structure->isLabsExists && !$structure->isSeminarExists) {
+		$assessmentsCriteriaColumns['colspan'] = 1;
+		$assessmentsCriteriaColumns['width'] = $fullTableWidth - $competenceLevelColumnWidth - $ECTSColumnWidth;
+		$colloquiumColumnWidth = $fullTableWidth - $competenceLevelColumnWidth - $ECTSColumnWidth;
+	} elseif ($structure->isColloquiumExists) {
+		$assessmentsCriteriaColumns['colspan'] += 1;
+		$colloquiumColumnWidth = $minColloquiumColumnWidth;
+	}
+
+	if ($structure->isPracticalsExist) {
+		$lessonsTypesAmount += 1;
+		$assessmentsCriteriaColumns['colspan'] += 1;
+	}
+
+	if ($structure->isLabsExists) {
+		$lessonsTypesAmount += 1;
+		$assessmentsCriteriaColumns['colspan'] += 1;
+	}
+
+	if ($structure->isSeminarExists) {
+		$lessonsTypesAmount += 1;
+		$assessmentsCriteriaColumns['colspan'] += 1;
+	}
+
+	$freeWidth = $fullTableWidth - $competenceLevelColumnWidth - $ECTSColumnWidth - $minColloquiumColumnWidth;
+	$lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
+	?>
+	<table class="assessment-criteria-table small-bottom-margin">
+		<tr>
+			<th style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" rowspan="2">Рівень компе-<br>тентно-<br>сті</th>
+			<th style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" rowspan="2">За шкалою ECTS</th>
+			<th
+				style="width: <?= htmlspecialchars($assessmentsCriteriaColumns['width']) ?>%;"
+				colspan="<?= htmlspecialchars($assessmentsCriteriaColumns['colspan']) ?>">
+				Критерії оцінювання
+			</th>
+		</tr>
+		<tr>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left">
+					Практичне завдання
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left">
+					Лабораторна робота
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left">
+					Семінарська робота
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<th style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="none-border-left">
+					Колоквіум (тести)
+				</th>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center">IV<br>Високий<br>(творчий)</td>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">A</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->A) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->A) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->A) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->A) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center" rowspan="2">III<br>Доста-<br>тній<br>(констру-<br>ктивний)</td>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">B</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->B) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->B) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->B) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->B) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center none-border-left">C</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->C) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->C) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->C) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->C) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center" rowspan="2">II<br>Середній<br>(репро-<br>дуктив-<br>ний)</td>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">D</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->D) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->D) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->D) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->D) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center none-border-left">E</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->E) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->E) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->E) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->E) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+		<tr>
+			<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center">І<br>Низький</td>
+			<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">FX, F</td>
+			<?php if ($structure->isPracticalsExist): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->FXAndF) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isLabsExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->labAssessmentCriteria->FXAndF) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isSeminarExists): ?>
+				<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+					<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->FXAndF) ?>
+				</th>
+			<?php endif; ?>
+			<?php if ($structure->isColloquiumExists): ?>
+				<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
+					<?= htmlspecialchars($details->globalData->colloquiumAssessmentCriteria->FXAndF) ?>
+				</td>
+			<?php endif; ?>
+		</tr>
+	</table>
 
 	<div class="topic-title">
 		16. Академічні права та обов’язки
