@@ -80,26 +80,57 @@ $hoursColumnWidth = 100 - $nameColumnWidth;
 					<tr>
 						<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="bold">Разом за модулем <span class="inserted"><?= htmlspecialchars($moduleData->moduleNumber) ?></span></td>
 						<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-							<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
-							<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
-							<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
-							<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
-							<td class="center"></td>
-							<td class="calculated center"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
+							<th class="calculated"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></th>
+							<th class="calculated"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></th>
+							<th class="calculated"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></th>
+							<th class="calculated"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></th>
+							<th class="center"></th>
+							<th class="calculated"><?= htmlspecialchars($moduleData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></th>
 						<?php endforeach; ?>
 					</tr>
 
 				<?php endforeach; ?>
 			<?php endif; ?>
+			<?php if ($semesterData->isCourseworkExists): ?>
+				<tr>
+					<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="bold">Курсовий проєкт</td>
+					<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
+						<?php
+						$rawCourseworkHours = array_filter($semesterData->courseworkHours, function ($hours) use (&$availableEducationalForm) {
+							return $hours->courseworkFormName === $availableEducationalForm->colName;
+						});
+
+						$courseworkHours = reset($rawCourseworkHours);
+						?>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th class="inserted"><?= htmlspecialchars($courseworkHours) ?></th>
+						<th></th>
+					<?php endforeach; ?>
+				</tr>
+			<?php endif; ?>
 			<tr>
-				<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="inserted bold">Усього за <span class="inserted"><?= htmlspecialchars($semesterData->semesterNumber) ?></span> семестр</td>
+				<td style="width: <?= htmlspecialchars($nameColumnWidth) ?>%;" class="bold">Усього за <span class="inserted"><?= htmlspecialchars($semesterData->semesterNumber) ?></span> семестр</td>
 				<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-					<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></td>
-					<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></td>
-					<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></td>
-					<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></td>
-					<td class="center"></td>
-					<td class="calculated center"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></td>
+					<th class="calculated"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->totalHours) ?></th>
+					<th class="calculated"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->lectionHours) ?></th>
+					<th class="calculated"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->practicalHours) ?></th>
+					<th class="calculated"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->labHours) ?></th>
+					<?php if ($semesterData->isCourseworkExists): ?>
+						<?php
+						$rawCourseworkHours = array_filter($semesterData->courseworkHours, function ($hours) use (&$availableEducationalForm) {
+							return $hours->courseworkFormName === $availableEducationalForm->colName;
+						});
+
+						$courseworkHours = reset($rawCourseworkHours);
+						?>
+						<th class="inserted"><?= htmlspecialchars($courseworkHours) ?></th>
+					<?php else: ?>
+						<th class="center"></th>
+					<?php endif; ?>
+					<th class="calculated"><?= htmlspecialchars($semesterData->educationalFormHoursStructure[$availableEducationalForm->colName]->selfworkHours) ?></th>
 				<?php endforeach; ?>
 			</tr>
 		<?php endforeach; ?>
