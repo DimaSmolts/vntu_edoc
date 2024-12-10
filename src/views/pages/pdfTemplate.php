@@ -73,7 +73,7 @@
 		<div class="sub-topic-title">
 			Основна
 		</div>
-		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->main) ?></p>
+		<p class="inserted justify" style="width: 100%, font-size: 14pt;"><?= $details->literature->main; ?></p>
 	<?php endif; ?>
 	<?php if (isset($details->literature->supporting)): ?>
 		<div class="sub-topic-title">

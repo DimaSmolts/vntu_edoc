@@ -5,15 +5,9 @@ $title = "Рекомендована література";
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>Основна:
-		<!-- Створюємо контейнер для редагування основної літератури -->
-		<div id="main-literature-editor-container" style="height: 200px;"></div>
-		<!-- <textarea
-			id="main"
-			name="main"
-			rows="20"
-			oninput="updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->literature->main ?? '') ?></textarea> -->
-	</label>
+	<label>Основна:</label>
+	<!-- Створюємо контейнер для редагування основної літератури -->
+	<div id="main-literature-editor-container" style="height: 400px;"></div>
 	<label>Допоміжна:
 		<textarea
 			id="supporting"

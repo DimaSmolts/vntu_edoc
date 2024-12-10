@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="src/views/styles/semester.css">
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <!-- Бібліотека для випадаючих списків з пошуком -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 </head>
 
 <body>
@@ -47,7 +49,11 @@
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>
         <script src="src/views/helpers/deleting/deleteSemester.js"></script>
-        <script src="src/views/helpers/search/teacher.js"></script>
+        <script src="src/views/helpers/select/personsSelectsHandlers.js"></script>
+        <script src="src/views/helpers/select/selectCreatedBy.js"></script>
+        <script src="src/views/helpers/select/updateWPInvolvedPerson.js"></script>
+        <script src="src/views/helpers/select/updateWPInvolvedPersonDetails.js"></script>
+        <script src="src/views/helpers/select/selectEducationalProgramGuarantor.js"></script>
         <script src="src/views/helpers/semester/buttonsHandlers.js"></script>
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
         <script src="src/views/helpers/semester/addNewModule.js"></script>
@@ -84,6 +90,9 @@
         <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
         <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 
+        <!-- Бібліотека для випадаючих списків з пошуком -->
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
         <!-- Змінюємо інпут для введення основної літератури -->
         <script>
             // Ініціалізуємо редактор тексту
@@ -101,10 +110,9 @@
                     ]
                 }
             });
+            const savedContent = <?php echo json_encode($details->literature->main); ?>;
 
-            quill.setContents([{
-                insert: <?= htmlspecialchars($details->literature->main ?? '') ?>
-            }]);
+            quill.root.innerHTML = savedContent;
 
             quill.on('text-change', function() {
                 updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>, 'main', quill.root.innerHTML)
