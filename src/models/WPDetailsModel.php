@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+require_once __DIR__ . '/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/WorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
 require_once __DIR__ . '/FacultyModel.php';
 require_once __DIR__ . '/DepartmentModel.php';
 
+use App\Models\WPInvolvedPersonModel;
 use App\Models\WorkingProgramGlobalDataOverwriteModel;
 use App\Models\WorkingProgramLiteratureModel;
 use App\Models\LessonsAndExamingsStructureModel;
@@ -44,13 +46,18 @@ class WPDetailsModel
 	public ?string $pointsDistribution;
 	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
-	public array $createdByPersons;
 	public array $availableEducationalForms;
 	public array $totalHoursForLections;
 	public array $totalHoursForPracticals;
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $totalHoursForSelfworks;
+	public array $createdByPersons;
+	public ?WPInvolvedPersonModel $educationalProgramGuarantor;
+	public ?WPInvolvedPersonModel $headOfDepartment;
+	public ?WPInvolvedPersonModel $headOfCommission;
+	public ?WPInvolvedPersonModel $approvedBy;
+	public ?WPInvolvedPersonModel $docApprovedBy;
 	public ?WorkingProgramGlobalDataOverwriteModel $globalData;
 	public ?WorkingProgramLiteratureModel $literature;
 	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
@@ -86,13 +93,18 @@ class WPDetailsModel
 		?string $pointsDistribution = "",
 		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
-		array $createdByPersons = [],
 		array $availableEducationalForms = [],
 		array $totalHoursForLections = [],
 		array $totalHoursForPracticals = [],
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
 		array $totalHoursForSelfworks = [],
+		array $createdByPersons = [],
+		?WPInvolvedPersonModel $educationalProgramGuarantor = null,
+		?WPInvolvedPersonModel $headOfDepartment = null,
+		?WPInvolvedPersonModel $headOfCommission = null,
+		?WPInvolvedPersonModel $approvedBy = null,
+		?WPInvolvedPersonModel $docApprovedBy = null,
 		?WorkingProgramGlobalDataOverwriteModel $globalData = null,
 		?WorkingProgramLiteratureModel $literature = null,
 		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
@@ -127,13 +139,18 @@ class WPDetailsModel
 		$this->pointsDistribution = $pointsDistribution;
 		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
-		$this->createdByPersons = $createdByPersons;
 		$this->availableEducationalForms = $availableEducationalForms;
 		$this->totalHoursForLections = $totalHoursForLections;
 		$this->totalHoursForPracticals = $totalHoursForPracticals;
 		$this->totalHoursForSeminars = $totalHoursForSeminars;
 		$this->totalHoursForLabs = $totalHoursForLabs;
 		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
+		$this->createdByPersons = $createdByPersons;
+		$this->educationalProgramGuarantor = $educationalProgramGuarantor;
+		$this->headOfDepartment = $headOfDepartment;
+		$this->headOfCommission = $headOfCommission;
+		$this->approvedBy = $approvedBy;
+		$this->docApprovedBy = $docApprovedBy;
 		$this->globalData = $globalData;
 		$this->literature = $literature;
 		$this->lessonsAndExamingsStructure = $lessonsAndExamingsStructure;

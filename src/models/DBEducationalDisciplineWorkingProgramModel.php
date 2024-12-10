@@ -81,6 +81,46 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 			});
 	}
 
+	public function educationalProgramGuarantor()
+	{
+		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
+			->whereHas('involvedRole', function ($query) {
+				$query->where('role', 'educationalProgramGuarantor');
+			});
+	}
+
+	public function headOfDepartment()
+	{
+		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
+			->whereHas('involvedRole', function ($query) {
+				$query->where('role', 'headOfDepartment');
+			});
+	}
+
+	public function headOfCommission()
+	{
+		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
+			->whereHas('involvedRole', function ($query) {
+				$query->where('role', 'headOfCommission');
+			});
+	}
+	
+	public function approvedBy()
+	{
+		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
+			->whereHas('involvedRole', function ($query) {
+				$query->where('role', 'approved');
+			});
+	}
+
+	public function docApprovedBy()
+	{
+		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
+			->whereHas('involvedRole', function ($query) {
+				$query->where('role', 'docApproved');
+			});
+	}
+
 	public function faculty()
 	{
 		return $this->belongsTo(DBFacultyModel::class, 'facultyId');

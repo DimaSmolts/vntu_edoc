@@ -297,11 +297,10 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$involvedPerson->id,
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
-			$involvedPerson->person->surname,
-			$involvedPerson->person->name,
-			$involvedPerson->person->patronymicName,
-			$involvedPerson->person->degree,
-			$involvedPerson->involvedRole->role
+			'',
+			'',
+			$involvedPerson->involvedRole->role,
+			''
 		);
 	})->toArray();
 

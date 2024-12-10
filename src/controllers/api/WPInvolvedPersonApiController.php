@@ -27,6 +27,33 @@ class WPInvolvedPersonApiController
 		$personId = intval($data['personId']);
 		$involvedPersonRoleId = intval($data['roleId']);
 
-		$this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson($wpInvolvedPersonId, $wpId, $personId, $involvedPersonRoleId);
+		$id = $this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson(
+			$wpInvolvedPersonId,
+			$wpId,
+			$personId,
+			$involvedPersonRoleId
+		);
+
+		echo json_encode((['id' => $id]));
+	}
+
+	public function updateWorkingProgramInvolvedPersonDetails()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$wpInvolvedPersonId = intval($data['wpInvolvedPersonId']) ?? NULL;
+		$wpId = intval($data['wpId']);
+		$field = $data['field'];
+		$value = $data['value'];
+
+		$this->wpInvolvedPersonService->updateWorkingProgramInvolvedPersonDetails(
+			$wpInvolvedPersonId,
+			$wpId,
+			$field,
+			$value
+		);
 	}
 }

@@ -20,6 +20,7 @@ require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiContro
 require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
 require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
+require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -36,6 +37,7 @@ use App\Controllers\EducationalFormLessonHoursApiController;
 use App\Controllers\SemesterEducationFormApiController;
 use App\Controllers\WorkingProgramLiteratureApiController;
 use App\Controllers\EducationalFormCourseworkHoursApiController;
+use App\Controllers\TeacherApiController;
 
 $router = new Router();
 
@@ -79,6 +81,11 @@ $router->get('/getPointsDistributionSlideContent', function () {
 	$wpApiController->getPointsDistributionSlideContent();
 });
 
+$router->get('/searchTeachers', function () {
+	$teacherApiController = new TeacherApiController();
+	$teacherApiController->searchTeachers();
+});
+
 $router->post('/duplicateWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->duplicateWP();
@@ -107,6 +114,11 @@ $router->post('/updateWPDetails', function () {
 $router->post('/updateWPInvolvedPerson', function () {
 	$involvedPersonApiController = new WPInvolvedPersonApiController();
 	$involvedPersonApiController->updateWorkingProgramInvolvedPerson();
+});
+
+$router->post('/updateWPInvolvedPersonDetails', function () {
+	$involvedPersonApiController = new WPInvolvedPersonApiController();
+	$involvedPersonApiController->updateWorkingProgramInvolvedPersonDetails();
 });
 
 $router->post('/createNewSemester', function () {

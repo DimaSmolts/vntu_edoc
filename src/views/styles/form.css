@@ -287,3 +287,23 @@ td {
 .coursework-container {
 	margin-bottom: 15px;
 }
+
+.choices__inner {
+	background-color: white !important;
+	border-color: #777 !important;
+	padding: 7.5px 5px 3.75px !important;
+}
+
+.choices__list--single .choices__item {
+	font-size: 17px !important;
+	font-weight: normal !important;
+}
+
+.choices[data-type*=select-one] .choices__input option {
+	font-size: 17px !important;
+	font-weight: normal !important;
+}
+
+.choices__list--single {
+	padding: 0;
+}

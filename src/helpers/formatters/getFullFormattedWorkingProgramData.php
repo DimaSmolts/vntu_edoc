@@ -109,15 +109,64 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			$involvedPerson->id,
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
-			$involvedPerson->person->surname,
 			$involvedPerson->person->name,
-			$involvedPerson->person->patronymicName,
-			$involvedPerson->person->degree,
-			$involvedPerson->involvedRole->role
+			$involvedPerson->person->positionData->brief,
+			$involvedPerson->involvedRole->role,
+			$involvedPerson->positionAndMinutesOfMeeting
 		);
 	})->toArray();
 
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
+
+	$workingProgram->educationalProgramGuarantor = isset($workingProgramData->educationalProgramGuarantor) ? new WPInvolvedPersonModel(
+		$workingProgramData->educationalProgramGuarantor->id,
+		$workingProgramData->educationalProgramGuarantor->personId,
+		$workingProgramData->educationalProgramGuarantor->involvedPersonRoleId,
+		$workingProgramData->educationalProgramGuarantor->person->t_name,
+		$workingProgramData->educationalProgramGuarantor->person->positionData->name,
+		$workingProgramData->educationalProgramGuarantor->involvedRole->role,
+		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting
+	) : null;
+
+	$workingProgram->headOfDepartment = isset($workingProgramData->headOfDepartment) ? new WPInvolvedPersonModel(
+		$workingProgramData->headOfDepartment->id,
+		$workingProgramData->headOfDepartment->personId,
+		$workingProgramData->headOfDepartment->involvedPersonRoleId,
+		$workingProgramData->headOfDepartment->person->t_name,
+		$workingProgramData->headOfDepartment->person->positionData->name,
+		$workingProgramData->headOfDepartment->involvedRole->role,
+		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting
+	) : null;
+
+	$workingProgram->headOfCommission = isset($workingProgramData->headOfCommission) ? new WPInvolvedPersonModel(
+		$workingProgramData->headOfCommission->id,
+		$workingProgramData->headOfCommission->personId,
+		$workingProgramData->headOfCommission->involvedPersonRoleId,
+		$workingProgramData->headOfCommission->person->t_name,
+		$workingProgramData->headOfCommission->person->positionData->name,
+		$workingProgramData->headOfCommission->involvedRole->role,
+		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting
+	) : null;
+
+	$workingProgram->approvedBy = isset($workingProgramData->approvedBy) ? new WPInvolvedPersonModel(
+		$workingProgramData->approvedBy->id,
+		$workingProgramData->approvedBy->personId,
+		$workingProgramData->approvedBy->involvedPersonRoleId,
+		$workingProgramData->approvedBy->person->t_name,
+		$workingProgramData->approvedBy->person->positionData->name,
+		$workingProgramData->approvedBy->involvedRole->role,
+		$workingProgramData->approvedBy->positionAndMinutesOfMeeting
+	) : null;
+
+	$workingProgram->docApprovedBy = isset($workingProgramData->docApprovedBy) ? new WPInvolvedPersonModel(
+		$workingProgramData->docApprovedBy->id,
+		$workingProgramData->docApprovedBy->personId,
+		$workingProgramData->docApprovedBy->involvedPersonRoleId,
+		$workingProgramData->docApprovedBy->person->t_name,
+		$workingProgramData->docApprovedBy->person->positionData->name,
+		$workingProgramData->docApprovedBy->involvedRole->role,
+		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting
+	) : null;
 
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
 

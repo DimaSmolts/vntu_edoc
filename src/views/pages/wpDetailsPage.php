@@ -54,6 +54,7 @@
         <script src="src/views/helpers/select/updateWPInvolvedPerson.js"></script>
         <script src="src/views/helpers/select/updateWPInvolvedPersonDetails.js"></script>
         <script src="src/views/helpers/select/selectEducationalProgramGuarantor.js"></script>
+        <script src="src/views/helpers/select/selectNewEducationalProgramGuarantor.js"></script>
         <script src="src/views/helpers/semester/buttonsHandlers.js"></script>
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
         <script src="src/views/helpers/semester/addNewModule.js"></script>

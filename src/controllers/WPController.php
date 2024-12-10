@@ -67,7 +67,6 @@ class WPController
 		$rawFaculties = $this->facultyService->getFaculties();
 		$faculties = getFormattedFacultiesData($rawFaculties);
 
-
 		$rawDepartments = $this->departmentService->getDepartments($details->facultyId);
 		$departments = getFormattedDepartmentsData($rawDepartments);
 

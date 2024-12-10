@@ -1,8 +1,8 @@
-const updateWPLiterature = (event, wpId, name, value, ) => {
+const updateWPLiterature = (event, wpId, name, value,) => {
     const postData = {
         wpId,
-        field: event.target.name ?? name,
-        value: event.target.value ?? value
+        field: name,
+        value: value
     };
 
     fetch('updateWPLiterature', {

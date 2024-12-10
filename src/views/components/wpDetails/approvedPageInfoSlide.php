@@ -35,6 +35,35 @@ $title = "Затверження робочої програми навчаль�
     <div class="mini-block">
         <p class="mini-block-title">Схвалено:</p>
         <div class="micro-block">
+            <?php if ($details->educationalProgramGuarantor): ?>
+                <label id="educationalProgramGuarantorLabel">
+                    Ім'я та прізвище:
+                    <select
+                        id="educationalProgramGuarantorSelect"
+                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>"
+                        data-wpId=<?= htmlspecialchars($details->id) ?>>
+                        <option
+                            value=<?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>
+                            selected>
+                            <?= htmlspecialchars($details->educationalProgramGuarantor->name ?? '') ?>, <?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>
+                        </option>
+                    </select>
+                </label>
+                <label>Посада. Протокол засідання:
+                    <textarea
+                        name="positionAndMinutesOfMeeting"
+                        rows="5"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '') ?></textarea>
+                </label>
+            <?php else: ?>
+                <label id="educationalProgramGuarantorLabel">
+                    Ім'я та прізвище:
+                    <select id="educationalProgramGuarantorSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
+                </label>
+            <?php endif; ?>
+        </div>
+        
+        <div class="micro-block">
             <label>Посада:
                 <input placeholder="Посада" type="text" id="epApprovedFirstByPosition"
                     name="epApprovedFirstByPosition" oninput="updateGeneralInfo(event)">

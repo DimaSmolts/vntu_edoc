@@ -106,7 +106,7 @@ $hoursColumnWidth = 100 - $nameColumnWidth;
 						<th></th>
 						<th></th>
 						<th></th>
-						<th class="inserted"><?= htmlspecialchars($courseworkHours) ?></th>
+						<th class="inserted"><?= htmlspecialchars($courseworkHours->hours) ?></th>
 						<th></th>
 					<?php endforeach; ?>
 				</tr>
@@ -126,7 +126,7 @@ $hoursColumnWidth = 100 - $nameColumnWidth;
 
 						$courseworkHours = reset($rawCourseworkHours);
 						?>
-						<th class="inserted"><?= htmlspecialchars($courseworkHours) ?></th>
+						<th class="inserted"><?= htmlspecialchars($courseworkHours->hours) ?></th>
 					<?php else: ?>
 						<th class="center"></th>
 					<?php endif; ?>
