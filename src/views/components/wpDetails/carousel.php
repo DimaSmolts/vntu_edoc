@@ -33,7 +33,7 @@
 			Назад
 		</button>
 		<div>
-			<a class="btn" type="button" href="pdf?id=<?= htmlspecialchars($details->id) ?>">Згенерувати PDF</a>
+			<a class="btn" type="button" href="pdf?id=<?= htmlspecialchars($details->id) ?>" target="_blank">Згенерувати PDF</a>
 		</div>
 		<button class="carousel-arrow" id="carousel-arrow-next">
 			Далі

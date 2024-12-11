@@ -34,6 +34,10 @@
     justify-items: center;
 }
 
+.new-wp-btn {
+    margin-bottom: 15px;
+}
+
 .wp-modal-container {
     margin: 20px 0px;
 }

@@ -1,10 +1,9 @@
 .carousel-wrapper {
-	position: relative;
 	overflow: hidden;
 }
 
 .carousel-container {
-	height: calc(100vh - 231px);
+	height: calc(100vh - 81px);
 	width: 100%;
 	display: flex;
 	scroll-behavior: smooth;
@@ -13,6 +12,8 @@
 	padding: 0;
 	overflow: hidden;
 	/* Prevent content overflow */
+	scroll-snap-type: x mandatory;
+	/* Enable snapping horizontally */
 }
 
 .carousel-arrow-container {
@@ -35,7 +36,7 @@
 	width: 85px;
 	cursor: pointer;
 	opacity: 0.5;
-	transition: opacity 0.05s ease-in-out;
+	transition: opacity 0.1s ease-in-out;
 	/* Smooth transition for opacity changes */
 }
 
@@ -54,18 +55,12 @@
 .slide {
 	width: 100%;
 	/* Each slide takes up full width of the container */
-	height: 85%;
 	flex: 0 0 100%;
 	/* Prevent shrinking or growing and ensure exact width */
 	scroll-snap-align: start;
 	/* Ensures slides align perfectly */
 	scroll-snap-stop: always;
 	/* Forces stopping at the start of each slide */
-}
-
-.carousel-container {
-	scroll-snap-type: x mandatory;
-	/* Enable snapping horizontally */
 }
 
 /* Optional improvements for better appearance */

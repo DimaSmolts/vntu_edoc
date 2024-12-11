@@ -1,10 +1,9 @@
 .global-data-carousel-wrapper {
-	position: relative;
 	overflow: hidden;
 }
 
 .global-data-carousel-container {
-	height: calc(100vh - 231px);
+	height: calc(100vh - 81px);
 	width: 100%;
 	display: flex;
 	scroll-behavior: smooth;
@@ -55,7 +54,6 @@
 .globalDataSlide {
 	width: 100%;
 	/* Each slide takes up full width of the container */
-	height: 85%;
 	flex: 0 0 100%;
 	/* Prevent shrinking or growing and ensure exact width */
 	scroll-snap-align: start;

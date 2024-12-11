@@ -48,6 +48,10 @@ $html2pdf->writeHTML("
             font-family: \'timesnewromancyr\';
             font-size: 14pt;
         }
+        ol.numbered-list {
+            font-family: \'timesnewromancyr\';
+            font-size: 14pt;
+        }
         $highlighting
         $css
     </style>

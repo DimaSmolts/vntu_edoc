@@ -15,9 +15,8 @@ p {
 
 .container {
     width: 61%;
-    margin: 75px auto;
+    margin: 0 auto;
     background-color: white;
-    padding-bottom: 10px;
 }
 
 .page-title-container {
