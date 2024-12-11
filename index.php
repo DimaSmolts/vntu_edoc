@@ -21,6 +21,7 @@ require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.
 require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
+require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -38,8 +39,33 @@ use App\Controllers\SemesterEducationFormApiController;
 use App\Controllers\WorkingProgramLiteratureApiController;
 use App\Controllers\EducationalFormCourseworkHoursApiController;
 use App\Controllers\TeacherApiController;
+use App\Controllers\SessionApiController;
 
 $router = new Router();
+
+session_start();
+
+$router->get('/teacherLogin', function () {
+	$wpController = new SessionApiController();
+	$wpController->teacherLogin();
+});
+
+$router->get('/studentLogin', function () {
+	$wpController = new SessionApiController();
+	$wpController->studentLogin();
+});
+$router->get('/getInfo', function () {
+	$wpController = new SessionApiController();
+	$wpController->getInfo();
+});
+$router->get('/logOut', function () {
+	$wpController = new SessionApiController();
+	$wpController->logOut();
+});
+
+
+
+
 
 $router->get('/wplist', function () {
 	$wpController = new WPController();

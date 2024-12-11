@@ -35,7 +35,7 @@
 			<td class="approved-first-col">Розроблено</td>
 			<td class="approved-second-col change">Професор кафедри АІІТ</td>
 			<?php if (isset($details->createdByPersons[0])): ?>
-				<td class="approved-third-col inserted"><?= htmlspecialchars($details->createdByPersons[0]->degree) ?>, <?= htmlspecialchars($details->createdByPersons[0]->name) ?> <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></td>
+				<td class="approved-third-col inserted"><?= htmlspecialchars($details->createdByPersons[0]->degree) ?>, <?= htmlspecialchars($details->createdByPersons[0]->name) ?></td>
 			<?php else: ?>
 				<td class="approved-third-col inserted"></td>
 			<?php endif; ?>
@@ -73,20 +73,20 @@
 	</table>
 
 	<?php
-	$copyrightPersonNameLetter = "";
-	$copyrightPersonPatronymicNameLetter = "";
+	// $copyrightPersonNameLetter = "";
+	// $copyrightPersonPatronymicNameLetter = "";
 
-	if (isset($details->createdByPersons[0])) {
-		$copyrightPersonNameLetter = mb_substr($details->createdByPersons[0]->name, 0, 1);
-		$copyrightPersonPatronymicNameLetter = mb_substr($details->createdByPersons[0]->patronymicName, 0, 1);
-	}
+	// if (isset($details->createdByPersons[0])) {
+	// 	$copyrightPersonNameLetter = mb_substr($details->createdByPersons[0]->name, 0, 1);
+	// 	$copyrightPersonPatronymicNameLetter = mb_substr($details->createdByPersons[0]->patronymicName, 0, 1);
+	// }
 	?>
-	<?php if (isset($details->createdByPersons[0])): ?>
+	<!-- <?php if (isset($details->createdByPersons[0])): ?>
 		<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($details->createdByPersons[0]->surname) ?></span>, <span
 				class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
-	<?php else: ?>
-		<div class="copyright copyright-name">© <span class="inserted">. .</span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
-	<?php endif; ?>
+	<?php else: ?> -->
+	<div class="copyright copyright-name">© <span class="inserted">. .</span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
+	<!-- <?php endif; ?> -->
 
 	<div class="copyright">© <span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> рік</div>
 </page>

@@ -297,15 +297,26 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$involvedPerson->id,
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
-			'',
-			'',
+			$involvedPerson->person->t_name,
+			$involvedPerson->person->positionData->name,
 			$involvedPerson->involvedRole->role,
-			''
+			$involvedPerson->positionAndMinutesOfMeeting
 		);
 	})->toArray();
 
 	// Додаємо дані про людину, яка створила робочу програму, в інформацію про робочу програму
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
+
+	// Додаємо дані про людину, яка є гарантом
+	$workingProgram->educationalProgramGuarantor = isset($workingProgramData->educationalProgramGuarantor) ? new WPInvolvedPersonModel(
+		$workingProgramData->educationalProgramGuarantor->id,
+		$workingProgramData->educationalProgramGuarantor->personId,
+		$workingProgramData->educationalProgramGuarantor->involvedPersonRoleId,
+		$workingProgramData->educationalProgramGuarantor->person->t_name,
+		$workingProgramData->educationalProgramGuarantor->person->positionData->name,
+		$workingProgramData->educationalProgramGuarantor->involvedRole->role,
+		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting
+	) : null;
 
 	// Додаємо глобальні дані
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);

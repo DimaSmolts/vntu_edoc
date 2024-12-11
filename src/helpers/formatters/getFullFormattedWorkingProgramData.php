@@ -109,8 +109,8 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			$involvedPerson->id,
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
-			$involvedPerson->person->name,
-			$involvedPerson->person->positionData->brief,
+			$involvedPerson->person->t_name,
+			$involvedPerson->person->positionData->name,
 			$involvedPerson->involvedRole->role,
 			$involvedPerson->positionAndMinutesOfMeeting
 		);
@@ -118,6 +118,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
+	print_r($workingProgramData->educationalProgramGuarantor);
 	$workingProgram->educationalProgramGuarantor = isset($workingProgramData->educationalProgramGuarantor) ? new WPInvolvedPersonModel(
 		$workingProgramData->educationalProgramGuarantor->id,
 		$workingProgramData->educationalProgramGuarantor->personId,

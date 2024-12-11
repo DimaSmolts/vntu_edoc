@@ -54,8 +54,8 @@
 	<p class="indent justify">15.2 Критерії оцінювання знань, умінь та навичок здобувачів за індивідуальним завданням курсової роботи</p>
 	<table class="assessment-criteria-table small-bottom-margin">
 		<tr>
-			<th style="width: 12%;" rowspan="2">Рівень компе-<br>тентно-<br>сті</th>
-			<th style="width: 10%;" rowspan="2">За шкалою ECTS</th>
+			<th style="width: 12%;">Рівень компе-<br>тентно-<br>сті</th>
+			<th style="width: 10%;">За шкалою ECTS</th>
 			<th style="width: 78%;">Критерії оцінювання</th>
 		</tr>
 		<tr>
@@ -128,12 +128,12 @@ if ($structure->isPracticalsExist) {
 	$assessmentsCriteriaColumns['colspan'] += 1;
 }
 
-if ($structure->isLabsExists) {
+if ($structure->isLabsExist) {
 	$lessonsTypesAmount += 1;
 	$assessmentsCriteriaColumns['colspan'] += 1;
 }
 
-if ($structure->isSeminarExists) {
+if ($structure->isSeminarsExist) {
 	$lessonsTypesAmount += 1;
 	$assessmentsCriteriaColumns['colspan'] += 1;
 }
@@ -157,12 +157,12 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 				Практичне завдання
 			</th>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
+		<?php if ($structure->isLabsExist): ?>
 			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left">
 				Лабораторна робота
 			</th>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
+		<?php if ($structure->isSeminarsExist): ?>
 			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left">
 				Семінарська робота
 			</th>
@@ -177,19 +177,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 		<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center">IV<br>Високий<br>(творчий)</td>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">A</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->A) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->A) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->A) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
@@ -201,19 +201,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 		<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center" rowspan="2">III<br>Доста-<br>тній<br>(констру-<br>ктивний)</td>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">B</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->B) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->B) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->B) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
@@ -224,19 +224,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 	<tr>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center none-border-left">C</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->C) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->C) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->C) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
@@ -248,19 +248,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 		<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center" rowspan="2">II<br>Середній<br>(репро-<br>дуктив-<br>ний)</td>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">D</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->D) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->D) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->D) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
@@ -271,19 +271,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 	<tr>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center none-border-left">E</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->E) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->E) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->E) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">
@@ -295,19 +295,19 @@ $lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
 		<td style="width: <?= htmlspecialchars($competenceLevelColumnWidth) ?>%;" class="center">І<br>Низький</td>
 		<td style="width: <?= htmlspecialchars($ECTSColumnWidth) ?>%;" class="center">FX, F</td>
 		<?php if ($structure->isPracticalsExist): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->practicalAssessmentCriteria->FXAndF) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isLabsExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isLabsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->labAssessmentCriteria->FXAndF) ?>
-			</th>
+			</td>
 		<?php endif; ?>
-		<?php if ($structure->isSeminarExists): ?>
-			<th style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
+		<?php if ($structure->isSeminarsExist): ?>
+			<td style="width: <?= htmlspecialchars($lessonTypeColumnWidth) ?>%;" class="none-border-left global">
 				<?= htmlspecialchars($details->globalData->seminarAssessmentCriteria->FXAndF) ?>
-			</th>
+			</td>
 		<?php endif; ?>
 		<?php if ($structure->isColloquiumExists): ?>
 			<td style="width: <?= htmlspecialchars($colloquiumColumnWidth) ?>%;" class="global">

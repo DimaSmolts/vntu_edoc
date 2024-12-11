@@ -62,7 +62,7 @@ class WPService
 			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
-					$query->with('positionData'); // Include position relation for person
+					$query->with('positionData');
 				}, 'involvedRole']);
 			},
 			'semesters.educationalForms.educationalForm',
@@ -96,7 +96,9 @@ class WPService
 			},
 			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
-				$query->with(['person', 'involvedRole']);
+				$query->with(['person' => function ($query) {
+					$query->with('positionData');
+				}, 'involvedRole']);
 			},
 			'semesters.educationalForms.educationalForm',
 			'globalData',
