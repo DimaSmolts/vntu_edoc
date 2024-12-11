@@ -1,9 +1,9 @@
-.carousel-wrapper {
+.global-data-carousel-wrapper {
 	position: relative;
 	overflow: hidden;
 }
 
-.carousel-container {
+.global-data-carousel-container {
 	height: calc(100vh - 231px);
 	width: 100%;
 	display: flex;
@@ -13,9 +13,10 @@
 	padding: 0;
 	overflow: hidden;
 	/* Prevent content overflow */
+	scroll-snap-type: x mandatory;
 }
 
-.carousel-arrow-container {
+.global-data-carousel-arrow-container {
 	display: grid;
 	align-items: center;
 	justify-items: center;
@@ -24,7 +25,7 @@
 	height: 81px;
 }
 
-.carousel-arrow {
+.global-data-carousel-arrow {
 	background-color: #05a2ae;
 	color: #ffffff;
 	padding: 10px;
@@ -39,19 +40,19 @@
 	/* Smooth transition for opacity changes */
 }
 
-.carousel-arrow:hover,
-.carousel-arrow:focus {
+.global-data-carousel-arrow:hover,
+.global-data-carousel-arrow:focus {
 	opacity: 1;
 }
 
-.carousel-arrow:disabled,
-.carousel-arrow:disabled {
+.global-data-carousel-arrow:disabled,
+.global-data-carousel-arrow:disabled {
 	background-color: #777;
 	cursor: default;
 	opacity: 1;
 }
 
-.slide {
+.globalDataSlide {
 	width: 100%;
 	/* Each slide takes up full width of the container */
 	height: 85%;
@@ -63,13 +64,8 @@
 	/* Forces stopping at the start of each slide */
 }
 
-.carousel-container {
-	scroll-snap-type: x mandatory;
-	/* Enable snapping horizontally */
-}
-
 /* Optional improvements for better appearance */
-.carousel-wrapper::after {
+.global-data-carousel-wrapper::after {
 	content: '';
 	position: absolute;
 	top: 0;

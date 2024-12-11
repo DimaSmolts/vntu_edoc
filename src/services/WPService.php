@@ -65,6 +65,11 @@ class WPService
 					$query->with('positionData');
 				}, 'involvedRole']);
 			},
+			'educationalProgramGuarantor' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('positionData');
+				}, 'involvedRole']);
+			},
 			'semesters.educationalForms.educationalForm',
 			'globalData',
 			'literature'

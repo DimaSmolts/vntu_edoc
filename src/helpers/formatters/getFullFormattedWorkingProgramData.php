@@ -118,7 +118,6 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
-	print_r($workingProgramData->educationalProgramGuarantor);
 	$workingProgram->educationalProgramGuarantor = isset($workingProgramData->educationalProgramGuarantor) ? new WPInvolvedPersonModel(
 		$workingProgramData->educationalProgramGuarantor->id,
 		$workingProgramData->educationalProgramGuarantor->personId,

@@ -307,3 +307,8 @@ td {
 .choices__list--single {
 	padding: 0;
 }
+
+.ql-editor ol,
+.ql-editor ul {
+	font-size: 17px;
+}

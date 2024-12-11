@@ -1,17 +1,47 @@
 const slidesContainer = document.getElementById("wpDetailsCarouselContainer");
-const slide = document.querySelector(".slide");
+const slides = document.querySelectorAll(".slide");
 const prevButton = document.getElementById("carousel-arrow-prev");
 const nextButton = document.getElementById("carousel-arrow-next");
 
+let currentIndex = 0; // Track the current slide index
+
+// Update the carousel to align the visible slide
+const updateSlidePosition = () => {
+	const slideWidth = slides[0].clientWidth; // Get the width of a single slide
+	slidesContainer.scrollTo({
+		left: currentIndex * slideWidth,
+		behavior: "smooth", // Smooth scrolling
+	});
+	updateButtonState();
+};
+
+// Enable/Disable navigation buttons based on the current index
+const updateButtonState = () => {
+	const updatedSlides = document.querySelectorAll(".slide");
+	console.log(updatedSlides.length);
+	prevButton.disabled = currentIndex === 0;
+	nextButton.disabled = currentIndex === updatedSlides.length - 1;
+};
+
+// Move to the next slide
 nextButton.addEventListener("click", () => {
-	const slideWidth = slide.clientWidth;
-	slidesContainer.scrollLeft += slideWidth;
+	const updatedSlides = document.querySelectorAll(".slide");
+	if (currentIndex < updatedSlides.length - 1) {
+		currentIndex++;
+		updateSlidePosition();
+	}
 });
 
+// Move to the previous slide
 prevButton.addEventListener("click", () => {
-	const slideWidth = slide.clientWidth;
-	slidesContainer.scrollLeft -= slideWidth;
+	if (currentIndex > 0) {
+		currentIndex--;
+		updateSlidePosition();
+	}
 });
+
+// Initial state of buttons
+updateButtonState();
 
 // додаємо функції які слідкують за перегортанням певних слайдів
 const observerOptions = {
@@ -42,9 +72,11 @@ educationalDisciplineStructureSlideObserverObserverbserver.observe(educationalDi
 const generalAssessmentCriteriaSlide = document.getElementById("generalAssessmentCriteriaSlide");
 
 const generalAssessmentCriteriaSlideObserverCallback = (entries) => {
-	entries.forEach((entry) => {
+	entries.forEach(async (entry) => {
 		if (entry.isIntersecting) {
-			getStructureForAssessmentCriteriasSlides()
+			await getStructureForAssessmentCriteriasSlides();
+			console.log('here')
+			updateButtonState();
 		}
 	});
 };
