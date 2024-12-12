@@ -7,26 +7,14 @@ $title = "Рекомендована література";
 <form class="wp-form">
 	<label>Основна:</label>
 	<!-- Створюємо контейнер для редагування основної літератури -->
-	<div id="main-literature-editor-container" style="height: 400px;"></div>
-	<label>Допоміжна:
-		<textarea
-			id="supporting"
-			name="supporting"
-			rows="20"
-			oninput="updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->literature->supporting ?? '') ?></textarea>
-	</label>
-	<label>Додаткова:
-		<textarea
-			id="additional"
-			name="additional"
-			rows="20"
-			oninput="updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->literature->additional ?? '') ?></textarea>
-	</label>
-	<label>Інформаційні ресурси:
-		<textarea
-			id="informationResources"
-			name="informationResources"
-			rows="20"
-			oninput="updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->literature->informationResources ?? '') ?></textarea>
-	</label>
+	<div id="main-literature-editor-container" style="height: 400px"></div>
+	<label class="margin-top">Допоміжна:</label>
+	<!-- Створюємо контейнер для редагування допоміжної літератури -->
+	<div id="supporting-literature-editor-container" style="height: 400px"></div>
+	<label class="margin-top">Додаткова:</label>
+	<!-- Створюємо контейнер для редагування додаткової літератури -->
+	<div id="additional-literature-editor-container" style="height: 400px"></div>
+	<label class="margin-top">Інформаційні ресурси:</label>
+	<!-- Створюємо контейнер для редагування інформаційні ресурсів -->
+	<div id="information-resources-editor-container" style="height: 400px"></div>
 </form>

@@ -310,5 +310,17 @@ td {
 
 .ql-editor ol,
 .ql-editor ul {
-	font-size: 17px;	
+	font-size: 17px;
+}
+
+.ql-toolbar.ql-snow {
+	border-color: #777 !important;
+}
+
+.ql-container.ql-snow {
+	border-color: #777 !important;
+}
+
+.margin-top {
+	margin-top: 15px;
 }

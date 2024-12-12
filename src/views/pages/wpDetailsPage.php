@@ -87,6 +87,8 @@
         <script src="src/views/helpers/pointsDistribution/updateColloquiumPoints.js"></script>
         <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
         <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
+        <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
+        <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
 
         <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
         <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
@@ -96,59 +98,15 @@
 
         <!-- Змінюємо інпут для введення основної літератури -->
         <script>
-            // Імпортуємо списки з бібліотеки
-            const List = Quill.import('formats/list');
-
-            // Налаштовуємо створення списків із потрібним класом
-            class CustomList extends List {
-                static create(value) {
-                    let node;
-                    if (value === 'bullet') {
-                        node = document.createElement('ul'); // Create an unordered list
-                    } else if (value === 'ordered') {
-                        node = document.createElement('ol'); // Create an ordered list
-                        // node.classList.add('numbered-list');
-                    }
-                    return node;
-                }
-
-                static formats(domNode) {
-                    if (domNode.tagName === 'UL') {
-                        return 'bullet';
-                    } else if (domNode.tagName === 'OL') {
-                        return 'ordered';
-                    }
-                    return undefined;
-                }
-            }
-
-            CustomList.blotName = 'list';
-            CustomList.tagName = ['OL', 'UL']; // Handle both ordered and unordered lists
-            // Реєструємо зміни у списках
-            Quill.register(CustomList, true);
-
-            // Ініціалізуємо редактор тексту
-            const quill = new Quill('#main-literature-editor-container', {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'], // додаємо можливості для зміни тексту
-                        [{
-                            'list': 'ordered'
-                        }, {
-                            'list': 'bullet'
-                        }], // додаємо можливості для зміни списків
-                        ['link'] // // додаємо можливість роботи з посиланнями
-                    ]
-                }
+            // Змінюємо інпути для введення літератури
+            initializeTextEditorForLiterature({
+                mainLiterature: <?php echo json_encode($details->literature->main); ?>,
+                supportingLiterature: <?php echo json_encode($details->literature->supporting); ?>,
+                additionalLiterature: <?php echo json_encode($details->literature->additional); ?>,
+                informationResources: <?php echo json_encode($details->literature->informationResources); ?>,
+                wpId: <?= htmlspecialchars($details->id) ?>
             });
-            const savedContent = <?php echo json_encode($details->literature->main); ?>;
-
-            quill.root.innerHTML = savedContent;
-
-            quill.on('text-change', function() {
-                updateWPLiterature(event, <?= htmlspecialchars($details->id) ?>, 'main', quill.root.innerHTML)
-            });
+            
         </script>
     </main>
 </body>
