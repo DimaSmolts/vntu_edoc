@@ -7,22 +7,24 @@ foreach ($details->availableEducationalForms as $availableEducationalForm) {
 	$lessonNameColumnWidth -= 15;
 }
 ?>
-<div class="topic-title">
-	6. Семінарські заняття
-</div>
-<?php
-$isSeminarsExists = false;
 
-if (!empty($details->semesters)) {
-	foreach ($details->semesters as $semester) {
-		if (!empty($semester->seminars)) {
-			$isSeminarsExists = true;
-		}
-	}
-}
-?>
-<?php if ($isSeminarsExists): ?>
-	<p class="indent">Таблиця 6.1 - Теми семінарських занять</p>
+<div class="empty"></div>
+<?php if ($structure->isSeminarsExist): ?>
+	<div class="topic-title">
+		6. Теми семінарських занять
+	</div>
+	<!-- <?php
+			// $isSeminarsExists = false;
+
+			// if (!empty($details->semesters)) {
+			// 	foreach ($details->semesters as $semester) {
+			// 		if (!empty($semester->seminars)) {
+			// 			$isSeminarsExists = true;
+			// 		}
+			// 	}
+			// }
+			?> -->
+	<!-- <p class="indent">Таблиця 6.1 - Теми семінарських занять</p> -->
 	<table>
 		<tr>
 			<th style="width: 5%;">№ з/п</th>
@@ -69,25 +71,29 @@ if (!empty($details->semesters)) {
 		<?php endforeach; ?>
 	</table>
 <?php else: ?>
-	<p class="indent">Семінарські заняття не передбачені.</p>
+	<div class="topic-title">
+		6. Теми семінарських занять – не передбачені
+	</div>
+	<!-- <p class="indent">Семінарські заняття не передбачені.</p> -->
 <?php endif; ?>
 
-<div class="topic-title">
-	7. Практичні заняття
-</div>
-<?php
-$isPracticalsExists = false;
+<div class="empty"></div>
+<?php if ($structure->isPracticalsExist): ?>
+	<div class="topic-title">
+		7. Теми практичних занять
+	</div>
+	<?php
+	// $isPracticalsExists = false;
 
-if (!empty($details->semesters)) {
-	foreach ($details->semesters as $semester) {
-		if (!empty($semester->practicals)) {
-			$isPracticalsExists = true;
-		}
-	}
-}
-?>
-<?php if ($isPracticalsExists): ?>
-	<p class="indent">Таблиця 7.1 - Теми практичних занять</p>
+	// if (!empty($details->semesters)) {
+	// 	foreach ($details->semesters as $semester) {
+	// 		if (!empty($semester->practicals)) {
+	// 			$isPracticalsExists = true;
+	// 		}
+	// 	}
+	// }
+	?>
+	<!-- <p class="indent">Таблиця 7.1 - Теми практичних занять</p> -->
 	<table>
 		<tr>
 			<th style="width: 5%;">№ з/п</th>
@@ -134,25 +140,29 @@ if (!empty($details->semesters)) {
 		<?php endforeach; ?>
 	</table>
 <?php else: ?>
-	<p class="indent">Практичні заняття не передбачені.</p>
+	<div class="topic-title">
+		7. Теми практичних занять – не передбачені
+	</div>
+	<!-- <p class="indent">Практичні заняття не передбачені.</p> -->
 <?php endif; ?>
 
-<div class="topic-title">
-	8. Лабораторні заняття
-</div>
-<?php
-$isLabsExists = false;
+<div class="empty"></div>
+<?php if ($structure->isLabsExist): ?>
+	<div class="topic-title">
+		8. Теми лабораторних занять
+	</div>
+	<?php
+	// $isLabsExists = false;
 
-if (!empty($details->semesters)) {
-	foreach ($details->semesters as $semester) {
-		if (!empty($semester->labs)) {
-			$isLabsExists = true;
-		}
-	}
-}
-?>
-<?php if ($isLabsExists): ?>
-	<p class="indent">Таблиця 8.1 - Теми лабораторних занять</p>
+	// if (!empty($details->semesters)) {
+	// 	foreach ($details->semesters as $semester) {
+	// 		if (!empty($semester->labs)) {
+	// 			$isLabsExists = true;
+	// 		}
+	// 	}
+	// }
+	?>
+	<!-- <p class="indent">Таблиця 8.1 - Теми лабораторних занять</p> -->
 	<table>
 		<tr>
 			<th style="width: 5%;">№ з/п</th>
@@ -199,71 +209,59 @@ if (!empty($details->semesters)) {
 		<?php endforeach; ?>
 	</table>
 <?php else: ?>
-	<p class="indent">Лабораторні заняття не передбачені.</p>
+	<div class="topic-title">
+		8. Теми лабораторних занять – не передбачені
+	</div>
+	<!-- <p class="indent">Лабораторні заняття не передбачені.</p> -->
 <?php endif; ?>
 
+<div class="empty"></div>
 <div class="topic-title">
 	9. Самостійна робота
 </div>
-
-<?php
-$isSelfworksExists = false;
-
-if (!empty($details->semesters)) {
-	foreach ($details->semesters as $semester) {
-		if (!empty($semester->selfworks)) {
-			$isSelfworksExists = true;
-		}
-	}
-}
-?>
-<?php if ($isSelfworksExists): ?>
-	<p class="indent">Таблиця 9.1 - Теми самостійних робіт</p>
-	<table>
-		<tr>
-			<th style="width: 5%;">№ з/п</th>
-			<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
-			<?php foreach ($semester->educationalForms as $educationalForm): ?>
-				<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
-			<?php endforeach; ?>
-		</tr>
-
-		<?php foreach ($details->semesters as $semester): ?>
-			<?php if (!empty($semester->selfworks)): ?>
-				<tr>
-					<th style="width: 5%;"></th>
-					<th class="inserted" style="width: 65%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
-					<?php foreach ($semester->educationalForms as $educationalForm): ?>
-						<th style="width: 15%;"></th>
-					<?php endforeach; ?>
-				</tr>
-				<?php foreach ($semester->selfworks as $selfwork): ?>
-					<?php
-					$educationalFormHours = [];
-					if (!empty($selfwork->educationalFormHours)) {
-						foreach ($selfwork->educationalFormHours as $form) {
-							$educationalFormHours[$form->lessonFormName] = $form->hours;
-						}
-					}
-					?>
-					<tr>
-						<td class="center inserted" style="width: 5%;"><?= $selfwork->lessonNumber ? htmlspecialchars($selfwork->lessonNumber) : "" ?></td>
-						<td class="inserted" style="width: 65%;"><?= $selfwork->lessonName ? htmlspecialchars($selfwork->lessonName) : "" ?></td>
-						<?php foreach ($semester->educationalForms as $educationalForm): ?>
-							<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
-						<?php endforeach; ?>
-					</tr>
-				<?php endforeach; ?>
-				<tr>
-					<th style="width: 5%;"></th>
-					<td class="bold" style="width: 65%;">Всього за <?= htmlspecialchars($semester->semesterNumber) ?> семестр:</td>
-					<?php foreach ($semester->educationalForms as $educationalForm): ?>
-						<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSelfworks[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSelfworks[$educationalForm->colName]) : 0 ?></th>
-					<?php endforeach; ?>
-				</tr>
-			<?php endif; ?>
+<!-- <p class="indent">Таблиця 9.1 - Теми самостійних робіт</p> -->
+<table>
+	<tr>
+		<th style="width: 5%;">№ з/п</th>
+		<th style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Назва теми</th>
+		<?php foreach ($semester->educationalForms as $educationalForm): ?>
+			<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
 		<?php endforeach; ?>
-	</table>
-<?php else: ?>
-	<p class="indent">Самостійні роботи не передбачені.</p>
-<?php endif; ?>
+	</tr>
+
+	<?php foreach ($details->semesters as $semester): ?>
+		<?php if (!empty($semester->selfworks)): ?>
+			<tr>
+				<th style="width: 5%;"></th>
+				<th class="inserted" style="width: 65%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
+				<?php foreach ($semester->educationalForms as $educationalForm): ?>
+					<th style="width: 15%;"></th>
+				<?php endforeach; ?>
+			</tr>
+			<?php foreach ($semester->selfworks as $selfwork): ?>
+				<?php
+				$educationalFormHours = [];
+				if (!empty($selfwork->educationalFormHours)) {
+					foreach ($selfwork->educationalFormHours as $form) {
+						$educationalFormHours[$form->lessonFormName] = $form->hours;
+					}
+				}
+				?>
+				<tr>
+					<td class="center inserted" style="width: 5%;"><?= $selfwork->lessonNumber ? htmlspecialchars($selfwork->lessonNumber) : "" ?></td>
+					<td class="inserted" style="width: 65%;"><?= $selfwork->lessonName ? htmlspecialchars($selfwork->lessonName) : "" ?></td>
+					<?php foreach ($semester->educationalForms as $educationalForm): ?>
+						<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
+					<?php endforeach; ?>
+				</tr>
+			<?php endforeach; ?>
+			<tr>
+				<th style="width: 5%;"></th>
+				<td class="bold" style="width: 65%;">Всього за <?= htmlspecialchars($semester->semesterNumber) ?> семестр:</td>
+				<?php foreach ($semester->educationalForms as $educationalForm): ?>
+					<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSelfworks[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSelfworks[$educationalForm->colName]) : 0 ?></th>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</table>

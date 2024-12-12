@@ -1,8 +1,9 @@
+<div class="empty"></div>
 <div class="topic-title">
 	13. Розподіл балів, які отримують студенти
 </div>
-<p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах) відображено в таблиці 13.1.</p>
-<p class="indent justify">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p>
+<p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах):</p>
+<!-- <p class="indent justify">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p> -->
 
 <?php if (!empty($pointsDistributionSemestersData['semesters'])): ?>
 	<?php
@@ -183,13 +184,13 @@
 
 <?php if ($structure->isCourseworkExists): ?>
 	<?php
-	$startedNumberOfCourseworkTable = 2;
+	// $startedNumberOfCourseworkTable = 2;
 	?>
 	<?php if (!empty($details->semesters)): ?>
 		<?php foreach ($details->semesters as $semesterData): ?>
 			<?php if ($semesterData->isCourseworkExists && $semesterData->courseworkAssessmentComponents): ?>
-				<p class="indent justify inserted">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах) відображено в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?>.</p>
-				<p class="indent justify inserted">13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?> - Оцінювання знань, умінь та навичок в балах за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах)</p>
+				<p class="indent justify inserted">Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсового проекту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах):</p>
+				<!-- <p class="indent justify inserted">13.<?= htmlspecialchars($startedNumberOfCourseworkTable++) ?> - Оцінювання знань, умінь та навичок в балах за результатами виконання курсового проєкту в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах)</p> -->
 
 				<div class="coursework-table small-bottom-margin">
 					<?php
@@ -227,8 +228,9 @@
 	<?php endif; ?>
 <?php endif; ?>
 
-<p class="indent">Шкала оцінювання в балах та ЄКТС відображена в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?>.</p>
-<p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?> - Шкала оцінювання в балах та ЄКТС</p>
+<p class="indent">Шкала оцінювання в балах та ЄКТС:</p>
+<!-- <p class="indent">Шкала оцінювання в балах та ЄКТС відображена в таблиці 13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?>.</p> -->
+<!-- <p class="indent">13.<?= htmlspecialchars($startedNumberOfCourseworkTable) ?> - Шкала оцінювання в балах та ЄКТС</p> -->
 <table>
 	<tr>
 		<th style="width: 32%;" class="center">Сума балів за всі види навчальної діяльності</th>

@@ -1,8 +1,9 @@
+<div class="empty"></div>
 <div class="topic-title">
 	15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти
 </div>
-<p class="indent justify">У даному розділі представлено загальні критерії оцінювання знань, умінь та навичок здобувачів вищої освіти (див. табл. 15.1)<?php if ($structure->isCourseworkExists): ?>, критерії за індивідуальним завданням курсової роботи (див. табл. 15.2)<?php endif; ?> та критерії за видами робіт (див. табл. 15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?>).</p>
-<p class="indent justify">15.1 Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти</p>
+<!-- <p class="indent justify">У даному розділі представлено загальні критерії оцінювання знань, умінь та навичок здобувачів вищої освіти (див. табл. 15.1)<?php if ($structure->isCourseworkExists): ?>, критерії за індивідуальним завданням курсової роботи (див. табл. 15.2)<?php endif; ?> та критерії за видами робіт (див. табл. 15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?>).</p>
+<p class="indent justify">15.1 Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти</p> -->
 <table class="assessment-criteria-table small-bottom-margin">
 	<tr>
 		<th style="width: 12%;">Рівень компе-<br>тентно-<br>сті</th>
@@ -51,7 +52,10 @@
 	</tr>
 </table>
 <?php if ($structure->isCourseworkExists): ?>
-	<p class="indent justify">15.2 Критерії оцінювання знань, умінь та навичок здобувачів за індивідуальним завданням курсової роботи</p>
+	<div class="sub-topic-title">
+		Критерії оцінювання знань, умінь та навичок здобувачів за індивідуальним завданням курсової роботи
+	</div>
+	<!-- <p class="indent justify">15.2 Критерії оцінювання знань, умінь та навичок здобувачів за індивідуальним завданням курсової роботи</p> -->
 	<table class="assessment-criteria-table small-bottom-margin">
 		<tr>
 			<th style="width: 12%;">Рівень компе-<br>тентно-<br>сті</th>
@@ -100,7 +104,10 @@
 		</tr>
 	</table>
 <?php endif; ?>
-<p class="indent justify">15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?> Критерії оцінювання знань, умінь та навичок здобувачів за видами робіт</p>
+<div class="sub-topic-title">
+	Критерії оцінювання знань, умінь та навичок здобувачів за видами робіт
+</div>
+<!-- <p class="indent justify">15.<?php if ($structure->isCourseworkExists): ?>3<?php else: ?>2<?php endif; ?> Критерії оцінювання знань, умінь та навичок здобувачів за видами робіт</p> -->
 <?php
 $fullTableWidth = 100;
 $minColloquiumColumnWidth = 15;

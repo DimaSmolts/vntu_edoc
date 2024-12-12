@@ -9,11 +9,13 @@
 
 <!-- Всі наступні розділи будуть переноситись на наступну сторінку за потреби -->
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
+	<div class="empty"></div>
 	<div class="topic-title">
 		2. Передумови для вивчення дисципліни
 	</div>
 	<p class="indent inserted justify"><?= htmlspecialchars($details->prerequisites) ?></p>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		3. Мета та завдання навчальної дисципліни
 	</div>
@@ -35,16 +37,19 @@
 	<!-- Додаємо розділи 6-9 з описом всіх типів занять -->
 	<?php include __DIR__ . '/../components/pdfTemplate/lessonsStructureTopics.php'; ?>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		10. Індивідуальні завдання
 	</div>
 	<p class="indent inserted justify"><?= isset($details->individualTaskNotes) ? htmlspecialchars($details->individualTaskNotes) : "" ?></p>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		11. Методи навчання
 	</div>
 	<p class="indent inserted justify"><?= isset($details->studingMethods) ? htmlspecialchars($details->studingMethods) : '' ?></p>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		12. Методи контролю
 	</div>
@@ -53,6 +58,7 @@
 	<!-- Додаємо розділ 13. Розподіл балів, які отримують студенти -->
 	<?php include __DIR__ . '/../components/pdfTemplate/pointsDistributionTopic.php'; ?>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		14. Методичне забезпечення
 	</div>
@@ -61,11 +67,13 @@
 	<!-- Додаємо розділ 15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти -->
 	<?php include __DIR__ . '/../components/pdfTemplate/assessmentCriteriaTopic.php'; ?>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		16. Академічні права та обов’язки
 	</div>
-	<p class="indent inserted"><?= isset($details->globalData->academicRightsAndResponsibilities) ? htmlspecialchars($details->globalData->academicRightsAndResponsibilities) : '' ?></p>
+	<p class="indent inserted justify"><?= isset($details->globalData->academicRightsAndResponsibilities) ? htmlspecialchars($details->globalData->academicRightsAndResponsibilities) : '' ?></p>
 
+	<div class="empty"></div>
 	<div class="topic-title">
 		17. Рекомендована література
 	</div>

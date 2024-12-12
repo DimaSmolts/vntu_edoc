@@ -1,6 +1,5 @@
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
 	<div class="topic-title-page-start">1. Опис навчальної дисципліни</div>
-	<p class="indent">Таблиця 1.1 - Опис навчальної дисципліни</p>
 	<?php
 	$wpDescriptionColumnWidth = 100; // Початкову ширину колонкок "Найменування показників" та "Галузь знань, спец..." (у відсотках)
 	$wpCharacteristicsPartColumnWidth = 12; // Ширина для однієї форми навчання одного семестру

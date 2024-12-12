@@ -3,6 +3,11 @@ p {
 	line-height: 7.41mm;
 }
 
+.span {
+	display: inline;
+	white-space: pre-wrap;
+}
+
 div.center,
 td.center {
 	text-align: center;
@@ -67,7 +72,7 @@ div.topic-title {
 	width: 100%;
 	text-align: center;
 	font-weight: bold;
-	margin-top: 7.41mm;
+	margin-top: 3mm;
 	margin-bottom: 7.41mm;
 }
 
@@ -148,4 +153,9 @@ div.title-placeholder {
 .assessment-criteria-table th,
 .assessment-criteria-table td {
 	font-size: 12pt;
+}
+
+.empty {
+	height: 0;
+	margin: 1px;
 }

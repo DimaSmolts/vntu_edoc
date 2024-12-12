@@ -1,26 +1,29 @@
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
-	<div class="topic-title-page-start">
-		Робоча програма навчальної дисципліни <span class="inserted"><?= htmlspecialchars($details->disciplineName) ?></span>
+	<!-- <div class="topic-title-page-start">
+		Робоча програма навчальної дисципліни <span class="inserted">«<?= htmlspecialchars($details->disciplineName) ?>»</span>
+	</div> -->
+	<p class="justify">Робоча програма навчальної дисципліни <span class="span inserted">«<?= htmlspecialchars($details->disciplineName) ?>»</span></p>
+	<div>
+		<b>рівень вищої освіти</b> – <span class="inserted">
+			<?= htmlspecialchars($details->degreeName) ?>
+		</span>
 	</div>
-	<div class="basic-info">
-		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
+	<div>
+		<b>галузь знань</b> – <span class="inserted">
+			<?= htmlspecialchars($details->fielfOfStudyName) ?>
+		</span>
 	</div>
-	<div class="basic-info">
-		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
-				<?= htmlspecialchars($details->fielfOfStudyName) ?>
-			</span>
-		</u>
+	<div>
+		<b>спеціальність</b> – <span class="inserted">
+			<?= htmlspecialchars($details->specialtyName) ?>
+		</span>
 	</div>
-	<div class="basic-info">
-		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="inserted">
-				<?= htmlspecialchars($details->specialtyName) ?>
-			</span>
-		</u>
+	<div>
+		<b>освітня програма</b> – <span class="inserted">
+			<?= htmlspecialchars($details->educationalProgram) ?>
+		</span>
 	</div>
-	<div class="basic-info">
-		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
-	</div>
-	<div class="basic-info">
+	<div>
 		<span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> – <span class="change"> 14 c.</span>
 	</div>
 

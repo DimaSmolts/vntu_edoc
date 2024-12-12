@@ -96,6 +96,37 @@
 
         <!-- Змінюємо інпут для введення основної літератури -->
         <script>
+            // Імпортуємо списки з бібліотеки
+            const List = Quill.import('formats/list');
+
+            // Налаштовуємо створення списків із потрібним класом
+            class CustomList extends List {
+                static create(value) {
+                    let node;
+                    if (value === 'bullet') {
+                        node = document.createElement('ul'); // Create an unordered list
+                    } else if (value === 'ordered') {
+                        node = document.createElement('ol'); // Create an ordered list
+                        // node.classList.add('numbered-list');
+                    }
+                    return node;
+                }
+
+                static formats(domNode) {
+                    if (domNode.tagName === 'UL') {
+                        return 'bullet';
+                    } else if (domNode.tagName === 'OL') {
+                        return 'ordered';
+                    }
+                    return undefined;
+                }
+            }
+
+            CustomList.blotName = 'list';
+            CustomList.tagName = ['OL', 'UL']; // Handle both ordered and unordered lists
+            // Реєструємо зміни у списках
+            Quill.register(CustomList, true);
+
             // Ініціалізуємо редактор тексту
             const quill = new Quill('#main-literature-editor-container', {
                 theme: 'snow',
