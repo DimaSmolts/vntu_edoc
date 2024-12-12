@@ -15,12 +15,12 @@ function addNumbersToList($content)
             $listItems = '';
             $itemsContent = $matches[1] ?: $matches[2];  // Get content inside <ol> or <ul>
 
-            preg_match_all('/<li>(.*?)<\/li>/is', $itemsContent, $items); // Extract <li> items
+            preg_match_all('/<li data-list="ordered">(.*?)<\/li>/is', $itemsContent, $items); // Extract <li> items
 
             foreach ($items[1] as $index => $item) {
                 $number = $index + 1;
                 // Create a table row for each list item
-                $listItems .= "<tr><td style='width: 3%; vertical-align: top; border: 0;'>$number.</td><td style='width: 92%; border: 0;'>$item</td></tr>";
+                $listItems .= "<tr><td style='width: 3%; vertical-align: top; text-align: right; border: 0;'>$number.</td><td style='width: 2%; border: 0;'></td><td style='width: 90%; border: 0;'>$item</td></tr>";
             }
 
             // Wrap the <tr> rows inside a <table> tag

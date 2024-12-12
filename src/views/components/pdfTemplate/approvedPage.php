@@ -37,40 +37,33 @@
 		<tr>
 			<td class="approved-first-col">Розроблено</td>
 			<td class="approved-second-col change">Професор кафедри АІІТ</td>
-			<?php if (isset($details->createdByPersons[0])): ?>
+			<!-- <?php if (isset($details->createdByPersons[0])): ?>
 				<td class="approved-third-col inserted"><?= htmlspecialchars($details->createdByPersons[0]->degree) ?>, <?= htmlspecialchars($details->createdByPersons[0]->name) ?></td>
-			<?php else: ?>
-				<td class="approved-third-col inserted"></td>
-			<?php endif; ?>
-			<td class="approved-forth-col"></td>
+			<?php else: ?> -->
+			<td class="approved-third-col change"></td>
+		<?php endif; ?>
+		<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
 			<td rowspan="3" class="approved-first-col">Схвалено</td>
-			<td class="approved-second-col change">Гарант освітньої програми</td>
-			<td class="approved-third-col change">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
+			<td class="approved-second-col inserted"><?= isset($details->educationalProgramGuarantor) ? $details->educationalProgramGuarantor->positionAndMinutesOfMeeting : '' ?></td>
+			<td class="approved-third-col inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>, <?= htmlspecialchars($details->educationalProgramGuarantor->workPosition ?? '') ?> <?= htmlspecialchars($details->educationalProgramGuarantor->name ?? '') ?></td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col change none-border-left">Зав. кафедри АІІТ<br>
-				Засідання кафедри АІІТ<br>
-				(протокол № 1 від 13.08.2024 р.)
-			</td>
-			<td class="approved-third-col change">д.т.н., професор Олег БІСІКАЛО</td>
+			<td class="approved-second-col none-border-left inserted"><?= isset($details->headOfDepartment) ? $details->headOfDepartment->positionAndMinutesOfMeeting : '' ?></td>
+			<td class="approved-third-col inserted"><?= htmlspecialchars($details->headOfDepartment->degree ?? '') ?>, <?= htmlspecialchars($details->headOfDepartment->workPosition ?? '') ?> <?= htmlspecialchars($details->headOfDepartment->name ?? '') ?></td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
-			<td class="approved-second-col change none-border-left">Голова вченої ради ФІІТА<br>
-				Вчена рада ФІІТА<br>
-				(протокол № 1 від 19.08.2024 р.)</td>
-			<td class="approved-third-col change">к.т.н., доцент Володимир СЕВАСТЬЯНОВ</td>
+			<td class="approved-second-col none-border-left inserted"><?= isset($details->headOfCommission) ? $details->headOfCommission->positionAndMinutesOfMeeting : '' ?></td>
+			<td class="approved-third-col inserted"><?= htmlspecialchars($details->headOfCommission->degree ?? '') ?>, <?= htmlspecialchars($details->headOfCommission->workPosition ?? '') ?> <?= htmlspecialchars($details->headOfCommission->name ?? '') ?></td>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
 			<td class="approved-first-col">Затверджено</td>
-			<td class="approved-second-col change">Голова Ради з якості освіти<br>
-				Рада з якості освіти ВНТУ<br>
-				(протокол № _ від ___ 2024 р.)</td>
-			<td class="approved-third-col change">к.т.н., доцент Олександр ПЕТРОВ</td>
+			<td class="approved-second-col inserted"><?= isset($details->approvedBy) ? $details->approvedBy->positionAndMinutesOfMeeting : '' ?></td>
+			<td class="approved-third-col inserted"><?= htmlspecialchars($details->approvedBy->degree ?? '') ?>, <?= htmlspecialchars($details->approvedBy->workPosition ?? '') ?> <?= htmlspecialchars($details->approvedBy->name ?? '') ?></td>
 			<td class="approved-forth-col"></td>
 		</tr>
 	</table>

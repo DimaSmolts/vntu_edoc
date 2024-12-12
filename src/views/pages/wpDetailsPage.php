@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="src/views/styles/form.css">
     <link rel="stylesheet" href="src/views/styles/semester.css">
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <!-- Бібліотека для випадаючих списків з пошуком -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 </head>
@@ -49,12 +49,24 @@
         <script src="src/views/helpers/deleting/deleteTheme.js"></script>
         <script src="src/views/helpers/deleting/deleteModule.js"></script>
         <script src="src/views/helpers/deleting/deleteSemester.js"></script>
+        <script src="src/views/helpers/select/createNewSelect.js"></script>
+        <script src="src/views/helpers/select/fetchSearchTeachersResults.js"></script>
+        <script src="src/views/helpers/select/educationalProgramGuarantorSelectHandler.js"></script>
+        <script src="src/views/helpers/select/headOfDepartmentSelectHandler.js"></script>
+        <script src="src/views/helpers/select/headOfCommissionSelectHandler.js"></script>
+        <script src="src/views/helpers/select/approvedBySelectHandler.js"></script>
         <script src="src/views/helpers/select/personsSelectsHandlers.js"></script>
         <script src="src/views/helpers/select/selectCreatedBy.js"></script>
         <script src="src/views/helpers/select/updateWPInvolvedPerson.js"></script>
         <script src="src/views/helpers/select/updateWPInvolvedPersonDetails.js"></script>
         <script src="src/views/helpers/select/selectEducationalProgramGuarantor.js"></script>
         <script src="src/views/helpers/select/selectNewEducationalProgramGuarantor.js"></script>
+        <script src="src/views/helpers/select/selectHeadOfDepartment.js"></script>
+        <script src="src/views/helpers/select/selectNewHeadOfDepartment.js"></script>
+        <script src="src/views/helpers/select/selectHeadOfCommission.js"></script>
+        <script src="src/views/helpers/select/selectNewHeadOfCommission.js"></script>
+        <script src="src/views/helpers/select/selectApprovedBy.js"></script>
+        <script src="src/views/helpers/select/selectNewApprovedBy.js"></script>
         <script src="src/views/helpers/semester/buttonsHandlers.js"></script>
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
         <script src="src/views/helpers/semester/addNewModule.js"></script>
@@ -88,10 +100,15 @@
         <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
         <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
         <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
+        <script src="src/views/helpers/textEditor/educationalProgramGuarantorPosition.js"></script>
+        <script src="src/views/helpers/textEditor/headOfDepartmentPosition.js"></script>
+        <script src="src/views/helpers/textEditor/headOfCommissionPosition.js"></script>
+        <script src="src/views/helpers/textEditor/approvedByPosition.js"></script>
+        <script src="src/views/helpers/textEditor/initializeTextEditorsForApprovedPage.js"></script>
         <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
 
         <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
-        <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
         <!-- Бібліотека для випадаючих списків з пошуком -->
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
@@ -106,7 +123,18 @@
                 informationResources: <?php echo json_encode($details->literature->informationResources); ?>,
                 wpId: <?= htmlspecialchars($details->id) ?>
             });
-            
+
+            initializeTextEditorsForApprovedPage({
+                educationalProgramGuarantorId: <?= isset($details->educationalProgramGuarantor) ? htmlspecialchars($details->educationalProgramGuarantor->id) : json_encode(null) ?>,
+                educationalProgramGuarantorPosition: <?= isset($details->educationalProgramGuarantor) ? json_encode($details->educationalProgramGuarantor->positionAndMinutesOfMeeting) : json_encode(null) ?>,
+                headOfDepartmentId: <?= isset($details->headOfDepartment) ? htmlspecialchars($details->headOfDepartment->id) : json_encode(null) ?>,
+                headOfDepartmentPositionName: <?= isset($details->headOfDepartment) ? json_encode($details->headOfDepartment->positionAndMinutesOfMeeting) : json_encode(null) ?>,
+                headOfCommissionId: <?= isset($details->headOfCommission) ? htmlspecialchars($details->headOfCommission->id) : json_encode(null) ?>,
+                headOfCommissionPositionName: <?= isset($details->headOfCommission) ? json_encode($details->headOfCommission->positionAndMinutesOfMeeting) : json_encode(null) ?>,
+                approvedById: <?= isset($details->approvedBy) ? htmlspecialchars($details->approvedBy->id) : json_encode(null) ?>,
+                approvedByPositionName: <?= isset($details->approvedBy) ? json_encode($details->approvedBy->positionAndMinutesOfMeeting) : json_encode(null) ?>,
+                wpId: <?= htmlspecialchars($details->id) ?>
+            })
         </script>
     </main>
 </body>

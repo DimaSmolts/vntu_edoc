@@ -22,7 +22,7 @@ class DBTeacherModel extends Model
 		return $this->hasMany(DBWorkingProgramInvolvedPersonModel::class, 'personId');
 	}
 
-	public function positionData()
+	public function workPositionData()
 	{
 		return $this->belongsTo(DBPositionModel::class, 'position');
 	}

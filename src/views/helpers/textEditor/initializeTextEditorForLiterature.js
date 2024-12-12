@@ -16,18 +16,26 @@ const initializeTextEditorForLiterature = ({ mainLiterature, supportingLiteratur
 
 	// Зберігаємо текст на кожне введення символу
 	mainLiteratureTextEditor.on('text-change', function () {
-		updateWPLiterature(wpId, 'main', mainLiteratureTextEditor.root.innerHTML);
+		if (mainLiteratureTextEditor.root.innerHTML !== mainLiterature) {
+			updateWPLiterature(wpId, 'main', mainLiteratureTextEditor.root.innerHTML);
+		}
 	});
 	// Зберігаємо текст на кожне введення символу
 	supportingLiteratureTextEditor.on('text-change', function () {
-		updateWPLiterature(wpId, 'supporting', supportingLiteratureTextEditor.root.innerHTML);
+		if (supportingLiteratureTextEditor.root.innerHTML !== supportingLiterature) {
+			updateWPLiterature(wpId, 'supporting', supportingLiteratureTextEditor.root.innerHTML);
+		}
 	});
 	// Зберігаємо текст на кожне введення символу
 	additionalLiteratureTextEditor.on('text-change', function () {
-		updateWPLiterature(wpId, 'additional', additionalLiteratureTextEditor.root.innerHTML);
+		if (additionalLiteratureTextEditor.root.innerHTML !== additionalLiterature) {
+			updateWPLiterature(wpId, 'additional', additionalLiteratureTextEditor.root.innerHTML);
+		}
 	});
 	// Зберігаємо текст на кожне введення символу
 	informationResourcesTextEditor.on('text-change', function () {
-		updateWPLiterature(wpId, 'informationResources', informationResourcesTextEditor.root.innerHTML);
+		if (informationResourcesTextEditor.root.innerHTML !== informationResources) {
+			updateWPLiterature(wpId, 'informationResources', informationResourcesTextEditor.root.innerHTML);
+		}
 	});
 } 

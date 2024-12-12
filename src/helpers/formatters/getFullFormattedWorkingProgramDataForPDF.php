@@ -298,9 +298,10 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
 			$involvedPerson->person->t_name,
-			$involvedPerson->person->positionData->name,
+			$involvedPerson->person->workPositionData->name,
 			$involvedPerson->involvedRole->role,
-			$involvedPerson->positionAndMinutesOfMeeting
+			$involvedPerson->positionAndMinutesOfMeeting,
+			$involvedPerson->degree
 		);
 	})->toArray();
 
@@ -313,9 +314,46 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->educationalProgramGuarantor->personId,
 		$workingProgramData->educationalProgramGuarantor->involvedPersonRoleId,
 		$workingProgramData->educationalProgramGuarantor->person->t_name,
-		$workingProgramData->educationalProgramGuarantor->person->positionData->name,
+		$workingProgramData->educationalProgramGuarantor->person->workPositionData->name,
 		$workingProgramData->educationalProgramGuarantor->involvedRole->role,
-		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting
+		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting,
+		$workingProgramData->educationalProgramGuarantor->degree
+	) : null;
+
+	// Додаємо дані про людину, яка є зав. кафедри
+	$workingProgram->headOfDepartment = isset($workingProgramData->headOfDepartment) ? new WPInvolvedPersonModel(
+		$workingProgramData->headOfDepartment->id,
+		$workingProgramData->headOfDepartment->personId,
+		$workingProgramData->headOfDepartment->involvedPersonRoleId,
+		$workingProgramData->headOfDepartment->person->t_name,
+		$workingProgramData->headOfDepartment->person->workPositionData->name,
+		$workingProgramData->headOfDepartment->involvedRole->role,
+		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting,
+		$workingProgramData->headOfDepartment->degree
+	) : null;
+
+	// Додаємо дані про людину, яка є головою комісії/ради
+	$workingProgram->headOfCommission = isset($workingProgramData->headOfCommission) ? new WPInvolvedPersonModel(
+		$workingProgramData->headOfCommission->id,
+		$workingProgramData->headOfCommission->personId,
+		$workingProgramData->headOfCommission->involvedPersonRoleId,
+		$workingProgramData->headOfCommission->person->t_name,
+		$workingProgramData->headOfCommission->person->workPositionData->name,
+		$workingProgramData->headOfCommission->involvedRole->role,
+		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting,
+		$workingProgramData->headOfCommission->degree
+	) : null;
+
+	// Додаємо дані про людину, яка затвердила робочу програму
+	$workingProgram->approvedBy = isset($workingProgramData->approvedBy) ? new WPInvolvedPersonModel(
+		$workingProgramData->approvedBy->id,
+		$workingProgramData->approvedBy->personId,
+		$workingProgramData->approvedBy->involvedPersonRoleId,
+		$workingProgramData->approvedBy->person->t_name,
+		$workingProgramData->approvedBy->person->workPositionData->name,
+		$workingProgramData->approvedBy->involvedRole->role,
+		$workingProgramData->approvedBy->positionAndMinutesOfMeeting,
+		$workingProgramData->approvedBy->degree
 	) : null;
 
 	// Додаємо глобальні дані

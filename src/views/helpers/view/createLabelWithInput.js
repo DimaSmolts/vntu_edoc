@@ -1,4 +1,4 @@
-const createLabelWithInput = ({ labelText, inputType, inputName, value, eventListener, id }) => {
+const createLabelWithInput = ({ labelText, inputType, inputName, value, eventListener, id, placeholder }) => {
 	const label = createElement({ elementName: "label" });
 
 	const labelName = createElement({ elementName: "p", innerText: `${labelText}` });
@@ -10,7 +10,8 @@ const createLabelWithInput = ({ labelText, inputType, inputName, value, eventLis
 		value,
 		eventListenerType: 'input',
 		eventListener,
-		id
+		id,
+		placeholder
 	});
 
 	label.appendChild(labelName);

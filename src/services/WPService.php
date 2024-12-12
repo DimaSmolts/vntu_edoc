@@ -62,12 +62,27 @@ class WPService
 			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
-					$query->with('positionData');
+					$query->with('workPositionData');
 				}, 'involvedRole']);
 			},
 			'educationalProgramGuarantor' => function ($query) {
 				$query->with(['person' => function ($query) {
-					$query->with('positionData');
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'headOfDepartment' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'headOfCommission' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'approvedBy' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
 				}, 'involvedRole']);
 			},
 			'semesters.educationalForms.educationalForm',
@@ -102,7 +117,27 @@ class WPService
 			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
-					$query->with('positionData');
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'educationalProgramGuarantor' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'headOfDepartment' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'headOfCommission' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'approvedBy' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
 				}, 'involvedRole']);
 			},
 			'semesters.educationalForms.educationalForm',

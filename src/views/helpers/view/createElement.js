@@ -11,7 +11,9 @@ const createElement = ({
 	eventListenerType,
 	eventListener,
 	href,
-	checked
+	checked,
+	style,
+	placeholder
 }) => {
 	const element = document.createElement(elementName);
 
@@ -59,6 +61,14 @@ const createElement = ({
 
 	if (checked) {
 		element.checked = checked;
+	}
+
+	if (style) {
+		element.style = style;
+	}
+
+	if (placeholder) {
+		element.placeholder = placeholder;
 	}
 
 	return element;

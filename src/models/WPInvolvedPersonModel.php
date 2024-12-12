@@ -8,25 +8,28 @@ class WPInvolvedPersonModel
     public ?int $involvedPersonId;
     public ?int $involvedPersonRoleId;
     public ?string $name;
-    public ?string $degree;
+    public ?string $workPosition;
     public ?string $role;
     public ?string $positionAndMinutesOfMeeting;
+    public ?string $degree;
 
     public function __construct(
         int $id,
         ?int $involvedPersonId = null,
         ?int $involvedPersonRoleId = null,
         ?string $name = '',
-        ?string $degree = '',
+        ?string $workPosition = '',
         ?string $role = '',
-        ?string $positionAndMinutesOfMeeting = ''
+        ?string $positionAndMinutesOfMeeting = '',
+        ?string $degree = '',
     ) {
         $this->id = $id;
         $this->involvedPersonId = $involvedPersonId;
         $this->involvedPersonRoleId = $involvedPersonRoleId;
         $this->name = $name;
-        $this->degree = $degree;
+        $this->workPosition = $workPosition;
         $this->role = $role;
         $this->positionAndMinutesOfMeeting = $positionAndMinutesOfMeeting;
+        $this->degree = $degree;
     }
 }
