@@ -109,13 +109,40 @@ $title = "Загальна інформація";
 	</label>
 	<div class="mini-block">
 		<p class="mini-block-title">Документ затверджено:</p>
-		<label>Посада:
-			<input placeholder="Посада" type="text" id="docApprovedByPosition" name="docApprovedByPosition" oninput="updateGeneralInfo(event)">
-		</label>
-		<label>Ім'я та прізвище:
-			<input placeholder="Іван Іванов" type="text" id="docApprovedByName"
-				name="docApprovedByName" oninput="">
-		</label>
+		<div class="micro-block">
+			<?php if ($details->docApprovedBy): ?>
+				<label id="docApprovedByLabel">
+					Ім'я та прізвище:
+					<select
+						id="docApprovedBySelect"
+						data-wpInvolvedPersonId="<?= htmlspecialchars($details->docApprovedBy->id) ?>"
+						data-wpId=<?= htmlspecialchars($details->id) ?>>
+						<option
+							value=<?= htmlspecialchars($details->docApprovedBy->id) ?>
+							selected>
+							<?= htmlspecialchars($details->docApprovedBy->name ?? '') ?>, <?= htmlspecialchars($details->docApprovedBy->workPosition ?? '') ?>
+						</option>
+					</select>
+				</label>
+				<label>Cтупінь:
+					<input
+						placeholder="к.т.н."
+						type="text"
+						name="degree"
+						value="<?= htmlspecialchars($details->docApprovedBy->degree ?? '') ?>"
+						oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->docApprovedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+				</label>
+				<label>Посада. Протокол засідання:</label>
+				<div id="docApprovedByPosition" style="height: 100px">
+					<?= $details->docApprovedBy->positionAndMinutesOfMeeting ?? '' ?>
+				</div>
+			<?php else: ?>
+				<label id="docApprovedByLabel">
+					Ім'я та прізвище:
+					<select id="docApprovedBySelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
+				</label>
+			<?php endif; ?>
+		</div>
 	</div>
 	<div class="mini-block">
 		<p class="mini-block-title">Деталі робочої програми:</p>

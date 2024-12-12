@@ -123,9 +123,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->educationalProgramGuarantor->id,
 		$workingProgramData->educationalProgramGuarantor->personId,
 		$workingProgramData->educationalProgramGuarantor->involvedPersonRoleId,
-		$workingProgramData->educationalProgramGuarantor->person->t_name,
-		$workingProgramData->educationalProgramGuarantor->person->workPositionData->name,
-		$workingProgramData->educationalProgramGuarantor->involvedRole->role,
+		isset($workingProgramData->educationalProgramGuarantor->person->t_name) ? $workingProgramData->educationalProgramGuarantor->person->t_name : '',
+		isset($workingProgramData->educationalProgramGuarantor->person->workPositionData->name) ? $workingProgramData->educationalProgramGuarantor->person->workPositionData->name : '',
+		isset($workingProgramData->educationalProgramGuarantor->involvedRole->role) ? $workingProgramData->educationalProgramGuarantor->involvedRole->role : '',
 		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting,
 		$workingProgramData->educationalProgramGuarantor->degree
 	) : null;
@@ -134,9 +134,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->headOfDepartment->id,
 		$workingProgramData->headOfDepartment->personId,
 		$workingProgramData->headOfDepartment->involvedPersonRoleId,
-		$workingProgramData->headOfDepartment->person->t_name,
-		$workingProgramData->headOfDepartment->person->workPositionData->name,
-		$workingProgramData->headOfDepartment->involvedRole->role,
+		isset($workingProgramData->headOfDepartment->person->t_name) ? $workingProgramData->headOfDepartment->person->t_name : '',
+		isset($workingProgramData->headOfDepartment->person->workPositionData->name) ? $workingProgramData->headOfDepartment->person->workPositionData->name : '',
+		isset($workingProgramData->headOfDepartment->involvedRole->role) ? $workingProgramData->headOfDepartment->involvedRole->role : '',
 		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting,
 		$workingProgramData->headOfDepartment->degree
 	) : null;
@@ -145,9 +145,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->headOfCommission->id,
 		$workingProgramData->headOfCommission->personId,
 		$workingProgramData->headOfCommission->involvedPersonRoleId,
-		$workingProgramData->headOfCommission->person->t_name,
-		$workingProgramData->headOfCommission->person->workPositionData->name,
-		$workingProgramData->headOfCommission->involvedRole->role,
+		isset($workingProgramData->headOfCommission->person->t_name) ? $workingProgramData->headOfCommission->person->t_name : '',
+		isset($workingProgramData->headOfCommission->person->workPositionData->name) ? $workingProgramData->headOfCommission->person->workPositionData->name : '',
+		isset($workingProgramData->headOfCommission->involvedRole->role) ? $workingProgramData->headOfCommission->involvedRole->role : '',
 		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting,
 		$workingProgramData->headOfCommission->degree
 	) : null;
@@ -156,9 +156,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->approvedBy->id,
 		$workingProgramData->approvedBy->personId,
 		$workingProgramData->approvedBy->involvedPersonRoleId,
-		$workingProgramData->approvedBy->person->t_name,
-		$workingProgramData->approvedBy->person->workPositionData->name,
-		$workingProgramData->approvedBy->involvedRole->role,
+		isset($workingProgramData->approvedBy->person->t_name) ? $workingProgramData->approvedBy->person->t_name : '',
+		isset($workingProgramData->approvedBy->person->workPositionData->name) ? $workingProgramData->approvedBy->person->workPositionData->name : '',
+		isset($workingProgramData->approvedBy->involvedRole->role) ? $workingProgramData->approvedBy->involvedRole->role : '',
 		$workingProgramData->approvedBy->positionAndMinutesOfMeeting,
 		$workingProgramData->approvedBy->degree
 	) : null;
@@ -167,9 +167,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->docApprovedBy->id,
 		$workingProgramData->docApprovedBy->personId,
 		$workingProgramData->docApprovedBy->involvedPersonRoleId,
-		$workingProgramData->docApprovedBy->person->t_name,
-		$workingProgramData->docApprovedBy->person->workPositionData->name,
-		$workingProgramData->docApprovedBy->involvedRole->role,
+		isset($workingProgramData->docApprovedBy->person->t_name) ? $workingProgramData->docApprovedBy->person->t_name : '',
+		isset($workingProgramData->docApprovedBy->person->workPositionData->name) ? $workingProgramData->docApprovedBy->person->workPositionData->name : '',
+		isset($workingProgramData->docApprovedBy->involvedRole->role) ? $workingProgramData->docApprovedBy->involvedRole->role : '',
 		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting,
 		$workingProgramData->docApprovedBy->degree
 	) : null;

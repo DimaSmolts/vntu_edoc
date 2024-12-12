@@ -1,15 +1,15 @@
-const selectNewHeadOfCommission = async (wpInvolvedPersonId, personId, wpId) => {
+const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
     const postData = {
         wpInvolvedPersonId,
         wpId,
         personId,
-        roleId: 5,
+        roleId: 1,
     };
 
     const id = await updateWPInvolvedPerson(postData);
 
-    const headOfCommissionSelect = document.getElementById('headOfCommissionSelect');
-    headOfCommissionSelect.setAttribute('data-wpInvolvedPersonId', id);
+    const docApprovedBySelect = document.getElementById('docApprovedBySelect');
+    docApprovedBySelect.setAttribute('data-wpInvolvedPersonId', id);
 
     const degree = createLabelWithInput({
         labelText: 'Cтупінь:',
@@ -23,13 +23,13 @@ const selectNewHeadOfCommission = async (wpInvolvedPersonId, personId, wpId) => 
     });
 
     const positionAndMinutesOfMeetingLabel = createElement({ elementName: "p", innerText: 'Посада. Протокол засідання:' });
-    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: 'headOfCommissionPosition', style: "height: 100px" })
+    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: 'docApprovedByPosition', style: "height: 100px" })
 
-    const headOfCommissionLabel = document.getElementById('headOfCommissionLabel');
+    const docApprovedByLabel = document.getElementById('docApprovedByLabel');
 
-    headOfCommissionLabel.after(degree);
+    docApprovedByLabel.after(degree);
     degree.after(positionAndMinutesOfMeetingLabel);
     positionAndMinutesOfMeetingLabel.after(positionAndMinutesOfMeetingTextEditor);
 
-    headOfCommissionPosition({ headOfCommissionId: id, headOfCommissionPositionName: '', wpId })
+    docApprovedByPosition({ docApprovedById: id, docApprovedByPositionName: '', wpId })
 } 

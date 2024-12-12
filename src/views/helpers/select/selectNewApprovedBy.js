@@ -3,7 +3,7 @@ const selectNewApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
         wpInvolvedPersonId,
         wpId,
         personId,
-        roleId: 4,
+        roleId: 6,
     };
 
     const id = await updateWPInvolvedPerson(postData);

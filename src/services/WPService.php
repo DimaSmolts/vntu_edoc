@@ -85,6 +85,11 @@ class WPService
 					$query->with('workPositionData');
 				}, 'involvedRole']);
 			},
+			'docApprovedBy' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
 			'semesters.educationalForms.educationalForm',
 			'globalData',
 			'literature'
@@ -136,6 +141,11 @@ class WPService
 				}, 'involvedRole']);
 			},
 			'approvedBy' => function ($query) {
+				$query->with(['person' => function ($query) {
+					$query->with('workPositionData');
+				}, 'involvedRole']);
+			},
+			'docApprovedBy' => function ($query) {
 				$query->with(['person' => function ($query) {
 					$query->with('workPositionData');
 				}, 'involvedRole']);

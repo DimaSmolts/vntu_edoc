@@ -356,6 +356,18 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->approvedBy->degree
 	) : null;
 
+	// Додаємо дані про людину, яка затвердила документ
+	$workingProgram->docApprovedBy = isset($workingProgramData->docApprovedBy) ? new WPInvolvedPersonModel(
+		$workingProgramData->docApprovedBy->id,
+		$workingProgramData->docApprovedBy->personId,
+		$workingProgramData->docApprovedBy->involvedPersonRoleId,
+		$workingProgramData->docApprovedBy->person->t_name,
+		$workingProgramData->docApprovedBy->person->workPositionData->name,
+		$workingProgramData->docApprovedBy->involvedRole->role,
+		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting,
+		$workingProgramData->docApprovedBy->degree
+	) : null;
+
 	// Додаємо глобальні дані
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
 

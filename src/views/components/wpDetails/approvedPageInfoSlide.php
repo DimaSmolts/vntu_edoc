@@ -69,7 +69,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="educationalProgramGuarantorPosition" style="height: 100px">
-                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?>
+                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? ''?>
                 </div>
             <?php else: ?>
                 <label id="educationalProgramGuarantorLabel">
@@ -106,7 +106,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="headOfDepartmentPosition" style="height: 100px">
-                    <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?>
+                    <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?? ''?>
                 </div>
             <?php else: ?>
                 <label id="headOfDepartmentLabel">
@@ -143,7 +143,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="headOfCommissionPosition" style="height: 100px">
-                    <?= $details->headOfCommission->positionAndMinutesOfMeeting ?>
+                    <?= $details->headOfCommission->positionAndMinutesOfMeeting ?? ''?>
                 </div>
             <?php else: ?>
                 <label id="headOfCommissionLabel">
@@ -180,7 +180,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="approvedByPosition" style="height: 100px">
-                    <?= $details->approvedBy->positionAndMinutesOfMeeting ?>
+                    <?= $details->approvedBy->positionAndMinutesOfMeeting ?? ''?>
                 </div>
             <?php else: ?>
                 <label id="approvedByLabel">

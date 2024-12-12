@@ -4,9 +4,9 @@
 	<div class="center inserted small-bottom-margin"><?= isset($details->departmentId) ? htmlspecialchars($details->department->name) : '' ?></div>
 	<div class="right ">ЗАТВЕРДЖУЮ</div>
 	<div class="approved-position-container change">
-		<div class="right approved-position">Проректор з науково-педагогічної роботи та організації освітнього процесу</div>
+		<div class="right approved-position inserted"><?= isset($details->docApprovedBy) ? $details->docApprovedBy->positionAndMinutesOfMeeting : '' ?></div>
 	</div>
-	<div class="right">__________ <span class="change">Олександр ПЕТРОВ</span></div>
+	<div class="right">__________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name ?? '') ?></span></div>
 	<div class="right">"___"____________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
 	<div class="center">
 		<img src="src/images/logo.png" style="width: 60mm" alt="logo">

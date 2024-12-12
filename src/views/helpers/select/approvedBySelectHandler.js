@@ -25,9 +25,9 @@ const approvedBySelectHandler = () => {
 		const wpId = select.getAttribute('data-wpId');
 
 		if (wpInvolvedPersonId) {
-			await selectapprovedBy(wpInvolvedPersonId, event.target.value, wpId);
+			await selectApprovedBy(wpInvolvedPersonId, event.target.value, wpId);
 		} else {
-			await selectNewapprovedBy(null, event.target.value, wpId);
+			await selectNewApprovedBy(null, event.target.value, wpId);
 		}
 	});
 };

@@ -55,6 +55,7 @@
         <script src="src/views/helpers/select/headOfDepartmentSelectHandler.js"></script>
         <script src="src/views/helpers/select/headOfCommissionSelectHandler.js"></script>
         <script src="src/views/helpers/select/approvedBySelectHandler.js"></script>
+        <script src="src/views/helpers/select/docApprovedBySelectHandler.js"></script>
         <script src="src/views/helpers/select/personsSelectsHandlers.js"></script>
         <script src="src/views/helpers/select/selectCreatedBy.js"></script>
         <script src="src/views/helpers/select/updateWPInvolvedPerson.js"></script>
@@ -67,6 +68,8 @@
         <script src="src/views/helpers/select/selectNewHeadOfCommission.js"></script>
         <script src="src/views/helpers/select/selectApprovedBy.js"></script>
         <script src="src/views/helpers/select/selectNewApprovedBy.js"></script>
+        <script src="src/views/helpers/select/selectDocApprovedBy.js"></script>
+        <script src="src/views/helpers/select/selectNewDocApprovedBy.js"></script>
         <script src="src/views/helpers/semester/buttonsHandlers.js"></script>
         <script src="src/views/helpers/semester/addNewSemester.js"></script>
         <script src="src/views/helpers/semester/addNewModule.js"></script>
@@ -104,6 +107,7 @@
         <script src="src/views/helpers/textEditor/headOfDepartmentPosition.js"></script>
         <script src="src/views/helpers/textEditor/headOfCommissionPosition.js"></script>
         <script src="src/views/helpers/textEditor/approvedByPosition.js"></script>
+        <script src="src/views/helpers/textEditor/docApprovedByPosition.js"></script>
         <script src="src/views/helpers/textEditor/initializeTextEditorsForApprovedPage.js"></script>
         <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
 
@@ -133,6 +137,8 @@
                 headOfCommissionPositionName: <?= isset($details->headOfCommission) ? json_encode($details->headOfCommission->positionAndMinutesOfMeeting) : json_encode(null) ?>,
                 approvedById: <?= isset($details->approvedBy) ? htmlspecialchars($details->approvedBy->id) : json_encode(null) ?>,
                 approvedByPositionName: <?= isset($details->approvedBy) ? json_encode($details->approvedBy->positionAndMinutesOfMeeting) : json_encode(null) ?>,
+                docApprovedById: <?= isset($details->docApprovedBy) ? htmlspecialchars($details->docApprovedBy->id) : json_encode(null) ?>,
+                docApprovedByPositionName: <?= isset($details->docApprovedBy) ? json_encode($details->docApprovedBy->positionAndMinutesOfMeeting) : json_encode(null) ?>,
                 wpId: <?= htmlspecialchars($details->id) ?>
             })
         </script>

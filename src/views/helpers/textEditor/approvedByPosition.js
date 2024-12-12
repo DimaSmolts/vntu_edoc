@@ -1,14 +1,14 @@
-const approvedByPosition = ({ approvedByPositionId, approvedByPositionPositionName, wpId }) => {
+const approvedByPosition = ({ approvedByPositionId, approvedByPositionName, wpId }) => {
 	// Змінюємо інпут для введення "Посада. Протокол засідання" для гаранта	освітньої програми
-	const approvedByPositionPositionTextEditor = initializeTextEditor('#approvedByPositionPosition');
+	const approvedByPositionTextEditor = initializeTextEditor('#approvedByPosition');
 
 	// Зберігаємо текст на кожне введення символу
-	approvedByPositionPositionTextEditor.on('text-change', function () {
-		if (approvedByPositionPositionTextEditor.root.innerHTML !== approvedByPositionPositionName) {
+	approvedByPositionTextEditor.on('text-change', function () {
+		if (approvedByPositionTextEditor.root.innerHTML !== approvedByPositionName) {
 			const event = {
 				target: {
 					name: 'positionAndMinutesOfMeeting',
-					value: approvedByPositionPositionTextEditor.root.innerHTML
+					value: approvedByPositionTextEditor.root.innerHTML
 				}
 			}
 

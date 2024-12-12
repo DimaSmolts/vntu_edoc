@@ -3,4 +3,5 @@ document.addEventListener('DOMContentLoaded', function () {
 	headOfDepartmentSelectHandler();
 	headOfCommissionSelectHandler();
 	approvedBySelectHandler();
+	docApprovedBySelectHandler();
 });

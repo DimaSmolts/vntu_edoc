@@ -1,9 +1,9 @@
-const selectApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
+const selectDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
     const postData = {
         wpInvolvedPersonId,
         wpId,
         personId,
-        roleId: 6,
+        roleId: 1,
     };
 
     await updateWPInvolvedPerson(postData);

@@ -87,18 +87,18 @@
 		<div class="sub-topic-title">
 			Допоміжна
 		</div>
-		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->supporting) ?></p>
+		<p class="inserted justify" style="width: 100%, font-size: 14pt;"><?= $details->literature->supporting; ?></p>
 	<?php endif; ?>
 	<?php if (isset($details->literature->additional)): ?>
 		<div class="sub-topic-title">
 			Додаткова
 		</div>
-		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->additional) ?></p>
+		<p class="inserted justify" style="width: 100%, font-size: 14pt;"><?= $details->literature->additional; ?></p>
 	<?php endif; ?>
 	<?php if (isset($details->literature->informationResources)): ?>
 		<div class="sub-topic-title">
 			Інформаційні ресурси
 		</div>
-		<p class="indent inserted" style="width: 100%"><?= htmlspecialchars($details->literature->informationResources) ?></p>
+		<p class="inserted justify" style="width: 100%, font-size: 14pt;"><?= $details->literature->informationResources; ?></p>
 	<?php endif; ?>
 </page>
