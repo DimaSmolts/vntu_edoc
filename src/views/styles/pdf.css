@@ -57,6 +57,11 @@ td {
 	padding: 1mm;
 }
 
+.doc-approved-block {
+	width: 45%;
+	margin-left: 55%;
+}
+
 table.approved-table {
 	margin-bottom: 40mm;
 }
@@ -118,15 +123,6 @@ th {
 
 .indent {
 	text-indent: 45px;
-}
-
-div.approved-position-container {
-	width: 100%;
-}
-
-div.approved-position {
-	width: 50%;
-	margin-left: 50%;
 }
 
 div.title-placeholder {

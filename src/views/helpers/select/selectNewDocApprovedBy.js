@@ -11,25 +11,20 @@ const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
     const docApprovedBySelect = document.getElementById('docApprovedBySelect');
     docApprovedBySelect.setAttribute('data-wpInvolvedPersonId', id);
 
-    const degree = createLabelWithInput({
-        labelText: 'Cтупінь:',
+    const positionAndMinutesOfMeetingLabel = createLabelWithInput({
+        labelText: 'Посада:',
         inputType: 'text',
-        inputName: 'degree',
-        placeholder: 'к.т.н.',
+        inputName: 'positionAndMinutesOfMeeting',
+        placeholder: 'Проректор з ...',
         value: '',
         eventListener: (event) => {
             updateWPInvolvedPersonDetails(event, id, wpId)
         }
     });
 
-    const positionAndMinutesOfMeetingLabel = createElement({ elementName: "p", innerText: 'Посада. Протокол засідання:' });
-    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: 'docApprovedByPosition', style: "height: 100px" })
-
     const docApprovedByLabel = document.getElementById('docApprovedByLabel');
 
-    docApprovedByLabel.after(degree);
-    degree.after(positionAndMinutesOfMeetingLabel);
-    positionAndMinutesOfMeetingLabel.after(positionAndMinutesOfMeetingTextEditor);
+    docApprovedByLabel.after(positionAndMinutesOfMeetingLabel);
 
     docApprovedByPosition({ docApprovedById: id, docApprovedByPositionName: '', wpId })
 } 

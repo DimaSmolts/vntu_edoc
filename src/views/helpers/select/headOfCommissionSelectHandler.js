@@ -1,5 +1,5 @@
 const headOfCommissionSelectHandler = () => {
-	const headOfCommissionSelectChoices = createNewSelect('#headOfCommissionSelect');
+	const headOfCommissionSelectChoices = createNewSelectWithSearch('#headOfCommissionSelect');
 
 	const headOfCommissionSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

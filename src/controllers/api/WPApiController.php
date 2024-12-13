@@ -66,17 +66,6 @@ class WPApiController
 		$value = $data['value'];
 
 		$this->wpService->updateWPDetails($id, $field, $value);
-
-		if ($field === 'facultyId') {
-			$rawDepartments = $this->departmentService->getDepartments($value);
-			$departments = getFormattedDepartmentsData($rawDepartments);
-
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/departmentDropdownLabel.php';
-			$departmentDropdownLabel = ob_get_clean();
-
-			echo json_encode((['departmentDropdownLabel' => $departmentDropdownLabel]));
-		}
 	}
 
 	public function duplicateWP()

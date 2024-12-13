@@ -1,5 +1,5 @@
 const educationalProgramGuarantorSelectHandler = () => {
-	const educationalProgramGuarantorSelectChoices = createNewSelect('#educationalProgramGuarantorSelect');
+	const educationalProgramGuarantorSelectChoices = createNewSelectWithSearch('#educationalProgramGuarantorSelect');
 
 	const educationalProgramGuarantorSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

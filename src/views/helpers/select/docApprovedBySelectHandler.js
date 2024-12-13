@@ -1,5 +1,5 @@
 const docApprovedBySelectHandler = () => {
-	const docApprovedBySelectChoices = createNewSelect('#docApprovedBySelect');
+	const docApprovedBySelectChoices = createNewSelectWithSearch('#docApprovedBySelect');
 
 	const docApprovedBySelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {
@@ -14,7 +14,6 @@ const docApprovedBySelectHandler = () => {
 
 	// Додаємо обробник на пошук
 	document.querySelector('#docApprovedBySelect').addEventListener('search', (event) => {
-		// console.log(event.detail.value);
 		docApprovedBySelectSearchDropdown(event.detail.value); // `detail.value` contains user input
 	});
 

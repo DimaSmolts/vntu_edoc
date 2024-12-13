@@ -1,5 +1,5 @@
 const headOfDepartmentSelectHandler = () => {
-	const headOfDepartmentSelectChoices = createNewSelect('#headOfDepartmentSelect');
+	const headOfDepartmentSelectChoices = createNewSelectWithSearch('#headOfDepartmentSelect');
 
 	const headOfDepartmentSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

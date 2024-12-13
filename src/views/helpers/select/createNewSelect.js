@@ -1,8 +1,7 @@
 const createNewSelect = (selectId) => {
 	return new Choices(selectId, {
-		searchEnabled: true,
-		searchResultLimit: 10,
-		shouldSort: false,
+		searchEnabled: false,
 		removeItemButton: true,
+		itemSelectText: 'Обрати',
 	});
 }

@@ -8,65 +8,37 @@ $title = "Загальна інформація";
 	<label id="facultyDropdownLabel">Факультет:
 		<?php if (!empty($details->facultyId)): ?>
 			<select
-				id="facultyDropdown"
-				name="facultyId"
-				onchange="updateFaculty(event, <?= htmlspecialchars($details->id) ?>)">
-				<?php foreach ($faculties as $faculty): ?>
-					<option value="<?= htmlspecialchars($faculty->id) ?>" <?php if ($faculty->id == $details->facultyId): ?>selected<?php endif; ?>>
-						<?= htmlspecialchars($faculty->name) ?>
+				id="facultyIdSelect"
+				data-wpId=<?= htmlspecialchars($details->id) ?>
+				data-facultyId=<?= htmlspecialchars($details->facultyId) ?>></select>
+		<?php else: ?>
+			<select id="facultyIdSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
+		<?php endif; ?>
+	</label>
+	<label id="departmentDropdownLabel">Кафедра:
+		<?php if (!empty($details->departmentId)): ?>
+			<select
+				name="departmentId"
+				onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+				<?php foreach ($departments as $department): ?>
+					<option value="<?= htmlspecialchars($department->id) ?>" <?php if ($department->id == $details->departmentId): ?>selected<?php endif; ?>>
+						<?= htmlspecialchars($department->name) ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
 		<?php else: ?>
 			<select
-				id="facultyDropdown"
-				name="facultyId"
-				onchange="updateFaculty(event, <?= htmlspecialchars($details->id) ?>)">
+				name="departmentId"
+				onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
 				<option></option>
-				<?php foreach ($faculties as $faculty): ?>
-					<option value="<?= htmlspecialchars($faculty->id) ?>">
-						<?= htmlspecialchars($faculty->name) ?>
+				<?php foreach ($departments as $department): ?>
+					<option value="<?= htmlspecialchars($department->id) ?>">
+						<?= htmlspecialchars($department->name) ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
 		<?php endif; ?>
 	</label>
-	<?php if (!empty($details->facultyId)): ?>
-		<div id="departmentDropdownLabelContainer">
-			<label id="departmentDropdownLabel">Кафедра:
-				<?php if (!empty($details->departmentId)): ?>
-					<select
-						name="departmentId"
-						onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-						<?php foreach ($departments as $department): ?>
-							<option value="<?= htmlspecialchars($department->id) ?>" <?php if ($department->id == $details->departmentId): ?>selected<?php endif; ?>>
-								<?= htmlspecialchars($department->name) ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				<?php else: ?>
-					<select
-						name="departmentId"
-						onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-						<option></option>
-						<?php foreach ($departments as $department): ?>
-							<option value="<?= htmlspecialchars($department->id) ?>">
-								<?= htmlspecialchars($department->name) ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				<?php endif; ?>
-			</label>
-		</div>
-	<?php endif; ?>
-	<!-- <label>Кафедра:
-		<input
-			type="text"
-			id="departmentName"
-			name="departmentName"
-			value="<?= htmlspecialchars($details->departmentName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-	</label> -->
 	<label>Дисципліна:
 		<input
 			type="text"
@@ -120,22 +92,18 @@ $title = "Загальна інформація";
 						<option
 							value=<?= htmlspecialchars($details->docApprovedBy->id) ?>
 							selected>
-							<?= htmlspecialchars($details->docApprovedBy->name ?? '') ?>, <?= htmlspecialchars($details->docApprovedBy->workPosition ?? '') ?>
+							<?= htmlspecialchars($details->docApprovedBy->surname ?? '') ?> <?= htmlspecialchars($details->docApprovedBy->name ?? '') ?> <?= htmlspecialchars($details->docApprovedBy->patronymicName ?? '') ?>, <?= htmlspecialchars($details->docApprovedBy->workPosition ?? '') ?>
 						</option>
 					</select>
 				</label>
-				<label>Cтупінь:
+				<label>Посада:
 					<input
-						placeholder="к.т.н."
+						placeholder="Проректор з ..."
 						type="text"
-						name="degree"
-						value="<?= htmlspecialchars($details->docApprovedBy->degree ?? '') ?>"
+						name="positionAndMinutesOfMeeting"
+						value="<?= htmlspecialchars($details->docApprovedBy->positionAndMinutesOfMeeting ?? '') ?>"
 						oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->docApprovedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
 				</label>
-				<label>Посада. Протокол засідання:</label>
-				<div id="docApprovedByPosition" style="height: 100px">
-					<?= $details->docApprovedBy->positionAndMinutesOfMeeting ?? '' ?>
-				</div>
 			<?php else: ?>
 				<label id="docApprovedByLabel">
 					Ім'я та прізвище:

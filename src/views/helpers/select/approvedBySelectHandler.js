@@ -1,5 +1,5 @@
 const approvedBySelectHandler = () => {
-	const approvedBySelectChoices = createNewSelect('#approvedBySelect');
+	const approvedBySelectChoices = createNewSelectWithSearch('#approvedBySelect');
 
 	const approvedBySelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

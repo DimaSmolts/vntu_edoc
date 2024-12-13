@@ -105,11 +105,19 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 	$workingProgram->semesters = $formattedSemesters;
 
 	$formattedCreatedByPersons = $workingProgramData->createdByPersons->map(function ($involvedPerson) {
+		$surname = $name = $patronymicName = '';
+
+		if (isset($involvedPerson->person->t_name)) {
+			list($surname, $name, $patronymicName) = explode(" ", $involvedPerson->person->t_name);
+		}
+
 		return new WPInvolvedPersonModel(
 			$involvedPerson->id,
 			$involvedPerson->personId,
 			$involvedPerson->involvedPersonRoleId,
-			$involvedPerson->person->t_name,
+			$surname,
+			$name,
+			$patronymicName,
 			$involvedPerson->person->workPositionData->name,
 			$involvedPerson->involvedRole->role,
 			$involvedPerson->positionAndMinutesOfMeeting,
@@ -119,55 +127,95 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
+	$educationalProgramGuarantorSurname = $educationalProgramGuarantorName = $educationalProgramGuarantorPatronymicName = '';
+
+	if (isset($workingProgramData->educationalProgramGuarantor->person->t_name)) {
+		list($educationalProgramGuarantorSurname, $educationalProgramGuarantorName, $educationalProgramGuarantorPatronymicName) = explode(" ", $workingProgramData->educationalProgramGuarantor->person->t_name);
+	}
+
 	$workingProgram->educationalProgramGuarantor = isset($workingProgramData->educationalProgramGuarantor) ? new WPInvolvedPersonModel(
 		$workingProgramData->educationalProgramGuarantor->id,
 		$workingProgramData->educationalProgramGuarantor->personId,
 		$workingProgramData->educationalProgramGuarantor->involvedPersonRoleId,
-		isset($workingProgramData->educationalProgramGuarantor->person->t_name) ? $workingProgramData->educationalProgramGuarantor->person->t_name : '',
+		$educationalProgramGuarantorSurname,
+		$educationalProgramGuarantorName,
+		$educationalProgramGuarantorPatronymicName,
 		isset($workingProgramData->educationalProgramGuarantor->person->workPositionData->name) ? $workingProgramData->educationalProgramGuarantor->person->workPositionData->name : '',
 		isset($workingProgramData->educationalProgramGuarantor->involvedRole->role) ? $workingProgramData->educationalProgramGuarantor->involvedRole->role : '',
 		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting,
 		$workingProgramData->educationalProgramGuarantor->degree
 	) : null;
 
+	$headOfDepartmentSurname = $headOfDepartmentName = $headOfDepartmentPatronymicName = '';
+
+	if (isset($workingProgramData->headOfDepartment->person->t_name)) {
+		list($headOfDepartmentSurname, $headOfDepartmentName, $headOfDepartmentPatronymicName) = explode(" ", $workingProgramData->headOfDepartment->person->t_name);
+	}
+
 	$workingProgram->headOfDepartment = isset($workingProgramData->headOfDepartment) ? new WPInvolvedPersonModel(
 		$workingProgramData->headOfDepartment->id,
 		$workingProgramData->headOfDepartment->personId,
 		$workingProgramData->headOfDepartment->involvedPersonRoleId,
-		isset($workingProgramData->headOfDepartment->person->t_name) ? $workingProgramData->headOfDepartment->person->t_name : '',
+		$headOfDepartmentSurname,
+		$headOfDepartmentName,
+		$headOfDepartmentPatronymicName,
 		isset($workingProgramData->headOfDepartment->person->workPositionData->name) ? $workingProgramData->headOfDepartment->person->workPositionData->name : '',
 		isset($workingProgramData->headOfDepartment->involvedRole->role) ? $workingProgramData->headOfDepartment->involvedRole->role : '',
 		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting,
 		$workingProgramData->headOfDepartment->degree
 	) : null;
 
+	$headOfCommissionSurname = $headOfCommissionName = $headOfCommissionPatronymicName = '';
+
+	if (isset($workingProgramData->headOfCommission->person->t_name)) {
+		list($headOfCommissionSurname, $headOfCommissionName, $headOfCommissionPatronymicName) = explode(" ", $workingProgramData->headOfCommission->person->t_name);
+	}
+
 	$workingProgram->headOfCommission = isset($workingProgramData->headOfCommission) ? new WPInvolvedPersonModel(
 		$workingProgramData->headOfCommission->id,
 		$workingProgramData->headOfCommission->personId,
 		$workingProgramData->headOfCommission->involvedPersonRoleId,
-		isset($workingProgramData->headOfCommission->person->t_name) ? $workingProgramData->headOfCommission->person->t_name : '',
+		$headOfCommissionSurname,
+		$headOfCommissionName,
+		$headOfCommissionPatronymicName,
 		isset($workingProgramData->headOfCommission->person->workPositionData->name) ? $workingProgramData->headOfCommission->person->workPositionData->name : '',
 		isset($workingProgramData->headOfCommission->involvedRole->role) ? $workingProgramData->headOfCommission->involvedRole->role : '',
 		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting,
 		$workingProgramData->headOfCommission->degree
 	) : null;
 
+	$approvedBySurname = $approvedByName = $approvedByPatronymicName = '';
+
+	if (isset($workingProgramData->approvedBy->person->t_name)) {
+		list($approvedBySurname, $approvedByName, $approvedByPatronymicName) = explode(" ", $workingProgramData->approvedBy->person->t_name);
+	}
+
 	$workingProgram->approvedBy = isset($workingProgramData->approvedBy) ? new WPInvolvedPersonModel(
 		$workingProgramData->approvedBy->id,
 		$workingProgramData->approvedBy->personId,
 		$workingProgramData->approvedBy->involvedPersonRoleId,
-		isset($workingProgramData->approvedBy->person->t_name) ? $workingProgramData->approvedBy->person->t_name : '',
+		$approvedBySurname,
+		$approvedByName,
+		$approvedByPatronymicName,
 		isset($workingProgramData->approvedBy->person->workPositionData->name) ? $workingProgramData->approvedBy->person->workPositionData->name : '',
 		isset($workingProgramData->approvedBy->involvedRole->role) ? $workingProgramData->approvedBy->involvedRole->role : '',
 		$workingProgramData->approvedBy->positionAndMinutesOfMeeting,
 		$workingProgramData->approvedBy->degree
 	) : null;
 
+	$docApprovedBySurname = $docApprovedByName = $docApprovedByPatronymicName = '';
+
+	if (isset($workingProgramData->docApprovedBy->person->t_name)) {
+		list($docApprovedBySurname, $docApprovedByName, $docApprovedByPatronymicName) = explode(" ", $workingProgramData->docApprovedBy->person->t_name);
+	}
+
 	$workingProgram->docApprovedBy = isset($workingProgramData->docApprovedBy) ? new WPInvolvedPersonModel(
 		$workingProgramData->docApprovedBy->id,
 		$workingProgramData->docApprovedBy->personId,
 		$workingProgramData->docApprovedBy->involvedPersonRoleId,
-		isset($workingProgramData->docApprovedBy->person->t_name) ? $workingProgramData->docApprovedBy->person->t_name : '',
+		$docApprovedBySurname,
+		$docApprovedByName,
+		$docApprovedByPatronymicName,
 		isset($workingProgramData->docApprovedBy->person->workPositionData->name) ? $workingProgramData->docApprovedBy->person->workPositionData->name : '',
 		isset($workingProgramData->docApprovedBy->involvedRole->role) ? $workingProgramData->docApprovedBy->involvedRole->role : '',
 		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting,

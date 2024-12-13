@@ -2,12 +2,13 @@
 	<div class="center global"><?= htmlspecialchars($details->globalData->universityName) ?></div>
 	<div class="center inserted"><?= isset($details->facultyId) ? htmlspecialchars($details->faculty->name) : '' ?></div>
 	<div class="center inserted small-bottom-margin"><?= isset($details->departmentId) ? htmlspecialchars($details->department->name) : '' ?></div>
-	<div class="right ">ЗАТВЕРДЖУЮ</div>
-	<div class="approved-position-container change">
-		<div class="right approved-position inserted"><?= isset($details->docApprovedBy) ? $details->docApprovedBy->positionAndMinutesOfMeeting : '' ?></div>
+	<div class="doc-approved-block">
+		<div class="center bold">ЗАТВЕРДЖУЮ</div>
+		<div class="inserted justify"><?= isset($details->docApprovedBy) ? $details->docApprovedBy->positionAndMinutesOfMeeting : '' ?></div>
+		<div>________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->docApprovedBy->surname, 'UTF-8')) ?></span></div>
+		<div>«___»______________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
 	</div>
-	<div class="right">__________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name ?? '') ?></span></div>
-	<div class="right">"___"____________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
+
 	<div class="center">
 		<img src="src/images/logo.png" style="width: 60mm" alt="logo">
 	</div>

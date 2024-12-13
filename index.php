@@ -21,6 +21,7 @@ require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.
 require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
+require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -39,6 +40,7 @@ use App\Controllers\SemesterEducationFormApiController;
 use App\Controllers\WorkingProgramLiteratureApiController;
 use App\Controllers\EducationalFormCourseworkHoursApiController;
 use App\Controllers\TeacherApiController;
+use App\Controllers\FacultyApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -110,6 +112,11 @@ $router->get('/getPointsDistributionSlideContent', function () {
 $router->get('/searchTeachers', function () {
 	$teacherApiController = new TeacherApiController();
 	$teacherApiController->searchTeachers();
+});
+
+$router->get('/getFaculties', function () {
+	$facultyApiController = new FacultyApiController();
+	$facultyApiController->getFaculties();
 });
 
 $router->post('/duplicateWP', function () {
