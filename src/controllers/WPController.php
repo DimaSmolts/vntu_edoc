@@ -64,12 +64,6 @@ class WPController
 		$rawPersons = $this->personService->getPersons();
 		$persons = getFormattedPersonsData($rawPersons);
 
-		$rawFaculties = $this->facultyService->getFaculties();
-		$faculties = getFormattedFacultiesData($rawFaculties);
-
-		$rawDepartments = $this->departmentService->getDepartments($details->facultyId);
-		$departments = getFormattedDepartmentsData($rawDepartments);
-
 		$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 		$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 

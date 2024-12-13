@@ -52,12 +52,15 @@
         <script src="src/views/helpers/select/createNewSelectWithSearch.js"></script>
         <script src="src/views/helpers/select/fetchSearchTeachersResults.js"></script>
         <script src="src/views/helpers/select/fetchFaculties.js"></script>
+        <script src="src/views/helpers/select/fetchDepartments.js"></script>
+        <script src="src/views/helpers/select/fetchDepartmentsById.js"></script>
         <script src="src/views/helpers/select/educationalProgramGuarantorSelectHandler.js"></script>
         <script src="src/views/helpers/select/headOfDepartmentSelectHandler.js"></script>
         <script src="src/views/helpers/select/headOfCommissionSelectHandler.js"></script>
         <script src="src/views/helpers/select/approvedBySelectHandler.js"></script>
         <script src="src/views/helpers/select/docApprovedBySelectHandler.js"></script>
         <script src="src/views/helpers/select/facultySelectHandler.js"></script>
+        <script src="src/views/helpers/select/departmentSelectHandler.js"></script>
         <script src="src/views/helpers/select/selectsHandlers.js"></script>
         <script src="src/views/helpers/select/selectCreatedBy.js"></script>
         <script src="src/views/helpers/select/updateWPInvolvedPerson.js"></script>

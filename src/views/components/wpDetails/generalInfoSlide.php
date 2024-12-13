@@ -6,38 +6,18 @@ $title = "Загальна інформація";
 
 <form class="wp-form">
 	<label id="facultyDropdownLabel">Факультет:
-		<?php if (!empty($details->facultyId)): ?>
-			<select
-				id="facultyIdSelect"
-				data-wpId=<?= htmlspecialchars($details->id) ?>
-				data-facultyId=<?= htmlspecialchars($details->facultyId) ?>></select>
-		<?php else: ?>
-			<select id="facultyIdSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-		<?php endif; ?>
+		<select
+			id="facultyIdSelect"
+			data-wpId=<?= htmlspecialchars($details->id) ?>
+			<?php if (isset($details->facultyId)): ?> data-facultyId=<?= htmlspecialchars($details->facultyId) ?><?php endif; ?>>
+		</select>
 	</label>
 	<label id="departmentDropdownLabel">Кафедра:
-		<?php if (!empty($details->departmentId)): ?>
-			<select
-				name="departmentId"
-				onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-				<?php foreach ($departments as $department): ?>
-					<option value="<?= htmlspecialchars($department->id) ?>" <?php if ($department->id == $details->departmentId): ?>selected<?php endif; ?>>
-						<?= htmlspecialchars($department->name) ?>
-					</option>
-				<?php endforeach; ?>
-			</select>
-		<?php else: ?>
-			<select
-				name="departmentId"
-				onchange="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-				<option></option>
-				<?php foreach ($departments as $department): ?>
-					<option value="<?= htmlspecialchars($department->id) ?>">
-						<?= htmlspecialchars($department->name) ?>
-					</option>
-				<?php endforeach; ?>
-			</select>
-		<?php endif; ?>
+		<select
+			id="departmentIdSelect"
+			data-wpId=<?= htmlspecialchars($details->id) ?>
+			<?php if (isset($details->departmentId)): ?> data-departmentId=<?= htmlspecialchars($details->departmentId) ?><?php endif; ?>>
+		</select>
 	</label>
 	<label>Дисципліна:
 		<input
