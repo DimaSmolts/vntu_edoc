@@ -30,7 +30,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->facultyId,
 		$workingProgramData->departmentId,
 		$workingProgramData->disciplineName ?? '',
-		$workingProgramData->degreeName ?? '',
+		$workingProgramData->stydingLevelId ?? '',
 		$workingProgramData->fielfOfStudyIdx ?? '',
 		$workingProgramData->fielfOfStudyName ?? '',
 		$workingProgramData->specialtyIdx ?? '',

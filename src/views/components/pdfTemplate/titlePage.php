@@ -18,7 +18,7 @@
 	<div class="center title-placeholder small-bottom-margin">(шифр і назва навчальної дисципліни)</div>
 
 	<div class="basic-info">
-		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
+		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->stydingLevelId) ?></u>
 	</div>
 	<div class="basic-info">
 		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">

@@ -23,6 +23,7 @@ require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiCo
 require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
 require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
 require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
+require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -43,6 +44,7 @@ use App\Controllers\EducationalFormCourseworkHoursApiController;
 use App\Controllers\TeacherApiController;
 use App\Controllers\FacultyApiController;
 use App\Controllers\DepartmentApiController;
+use App\Controllers\StydingLevelTypeApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -129,6 +131,11 @@ $router->get('/searchDepartments', function () {
 $router->get('/searchDepartmentsById', function () {
 	$departmentApiController = new DepartmentApiController();
 	$departmentApiController->searchDepartmentsById();
+});
+
+$router->get('/getStydingLevelTypes', function () {
+	$atydingLevelTypeApiController = new StydingLevelTypeApiController();
+	$atydingLevelTypeApiController->getStydingLevelTypes();
 });
 
 $router->post('/duplicateWP', function () {

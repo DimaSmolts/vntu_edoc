@@ -29,7 +29,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'facultyId',
 		'departmentId',
 		'disciplineName',
-		'degreeName',
+		'stydingLevelId',
 		'fielfOfStudyIdx',
 		'fielfOfStudyName',
 		'specialtyIdx',

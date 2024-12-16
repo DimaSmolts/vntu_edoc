@@ -17,7 +17,7 @@
 	<div class="center title-placeholder small-bottom-margin">(шифр і назва навчальної дисципліни)</div>
 
 	<div class="basic-info">
-		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
+		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeId) ?></u>
 	</div>
 	<div class="basic-info">
 		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
@@ -45,7 +45,7 @@
 		Робоча програма навчальної дисципліни <span class="inserted"><?= htmlspecialchars($details->disciplineName) ?></span>
 	</div>
 	<div class="basic-info">
-		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeName) ?></u>
+		<b class="basic-info-name">рівень вищої освіти</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->degreeId) ?></u>
 	</div>
 	<div class="basic-info">
 		<b class="basic-info-name">галузь знань</b>: <u class="basic-info-value"><span class="inserted">
@@ -323,7 +323,7 @@
 			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">ауд.</td>
 			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">сам. роб.</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="4">
-				<b>Рівень вищої освіти</b><br><span class="inserted"><?= htmlspecialchars($details->degreeName) ?></span>
+				<b>Рівень вищої освіти</b><br><span class="inserted"><?= htmlspecialchars($details->degreeId) ?></span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Самостійна робота</th>
 		</tr>

@@ -24,7 +24,7 @@ class WPDetailsModel
 	public ?int $facultyId;
 	public ?int $departmentId;
 	public ?string $disciplineName;
-	public ?string $degreeName;
+	public ?string $stydingLevelId;
 	public ?string $fielfOfStudyIdx;
 	public ?string $fielfOfStudyName;
 	public ?string $specialtyIdx;
@@ -71,7 +71,7 @@ class WPDetailsModel
 		?int $facultyId = null,
 		?int $departmentId = null,
 		?string $disciplineName = "",
-		?string $degreeName = "",
+		?string $stydingLevelId = "",
 		?string $fielfOfStudyIdx = "",
 		?string $fielfOfStudyName = "",
 		?string $specialtyIdx = "",
@@ -117,7 +117,7 @@ class WPDetailsModel
 		$this->facultyId = $facultyId;
 		$this->departmentId = $departmentId;
 		$this->disciplineName = $disciplineName;
-		$this->degreeName = $degreeName;
+		$this->stydingLevelId = $stydingLevelId;
 		$this->fielfOfStudyIdx = $fielfOfStudyIdx;
 		$this->fielfOfStudyName = $fielfOfStudyName;
 		$this->specialtyIdx = $specialtyIdx;

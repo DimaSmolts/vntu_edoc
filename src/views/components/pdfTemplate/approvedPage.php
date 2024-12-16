@@ -5,7 +5,7 @@
 	<p class="justify">Робоча програма навчальної дисципліни <span class="span inserted">«<?= htmlspecialchars($details->disciplineName) ?>»</span></p>
 	<div>
 		<b>рівень вищої освіти</b> – <span class="inserted">
-			<?= htmlspecialchars($details->degreeName) ?>
+			<?= htmlspecialchars($details->stydingLevelId) ?>
 		</span>
 	</div>
 	<div>

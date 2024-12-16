@@ -3,5 +3,10 @@ const createNewSelect = (selectId) => {
 		searchEnabled: false,
 		removeItemButton: true,
 		itemSelectText: 'Обрати',
+		shouldSort: true,
+		sorter: (a, b) => {
+			return a.value - b.value;
+		},
+		removeItemButton: true,
 	});
 }

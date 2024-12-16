@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 	facultySelectHandler();
-	departmentSelectHandler()
+	departmentSelectHandler();
+	stydingLevelSelectHandler();
 	educationalProgramGuarantorSelectHandler();
 	headOfDepartmentSelectHandler();
 	headOfCommissionSelectHandler();

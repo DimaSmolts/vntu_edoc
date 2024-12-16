@@ -27,13 +27,12 @@ $title = "Загальна інформація";
 			value="<?= htmlspecialchars($details->disciplineName ?? '') ?>"
 			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
 	</label>
-	<label>Рівень вищої освіти:
-		<input
-			type="text"
-			id="degreeName"
-			name="degreeName"
-			value="<?= htmlspecialchars($details->degreeName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+	<label id="degreeDropdownLabel">Рівень вищої освіти:
+		<select
+			id="stydingLevelIdSelect"
+			data-wpId=<?= htmlspecialchars($details->id) ?>
+			<?php if (isset($details->stydingLevelId)): ?> data-stydingLevelId=<?= htmlspecialchars($details->stydingLevelId) ?><?php endif; ?>>
+		</select>
 	</label>
 	<label>Галузь знань:
 		<input
