@@ -2,7 +2,7 @@ const getThemesForEducationalDisciplineStructure = () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
-	fetch(`getThemes/?id=${wpId}`, {
+	fetch(`api/getThemes/?id=${wpId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

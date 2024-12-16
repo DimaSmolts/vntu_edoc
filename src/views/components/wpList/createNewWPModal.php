@@ -6,7 +6,7 @@
 	<div class="educational-program-name-modal-content">
 		<span id="closeModal" class="close-modal">&times;</span>
 		<h2>Назва навчальної дисципліни</h2>
-		<form class="wp-modal-container" action="createNewWP" method="POST">
+		<form class="wp-modal-container" action="api/createNewWP" method="POST">
 			<label class="wp-modal-label">Навчальна дисципліна:
 				<input type="text" id="disciplineName" name="disciplineName" class="wp-modal-input">
 			</label>

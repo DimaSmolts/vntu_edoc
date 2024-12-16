@@ -9,24 +9,24 @@ require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/src/controllers/WPController.php';
 require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
-require_once __DIR__ . '/src/controllers/api/WPApiController.php';
-require_once __DIR__ . '/src/controllers/api/WorkingProgramGlobalDataOverwriteApiController.php';
-require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
-require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
-require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
-require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
-require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
-require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
-require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
-require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
-require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
-require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
-require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
-require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
-require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
-require_once __DIR__ . '/src/controllers/api/SpecialtyApiController.php';
-require_once __DIR__ . '/src/controllers/api/EducationalProgramApiController.php';
-require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
+require_once __DIR__ . '/src/controllers//api/WPApiController.php';
+require_once __DIR__ . '/src/controllers//api/WorkingProgramGlobalDataOverwriteApiController.php';
+require_once __DIR__ . '/src/controllers//api/WPInvolvedPersonApiController.php';
+require_once __DIR__ . '/src/controllers//api/SemesterApiController.php';
+require_once __DIR__ . '/src/controllers//api/ModuleApiController.php';
+require_once __DIR__ . '/src/controllers//api/ThemeApiController.php';
+require_once __DIR__ . '/src/controllers//api/LessonApiController.php';
+require_once __DIR__ . '/src/controllers//api/EducationalFormLessonHoursApiController.php';
+require_once __DIR__ . '/src/controllers//api/SemesterEducationFormApiController.php';
+require_once __DIR__ . '/src/controllers//api/WorkingProgramLiteratureApiController.php';
+require_once __DIR__ . '/src/controllers//api/EducationalFormCourseworkHoursApiController.php';
+require_once __DIR__ . '/src/controllers//api/TeacherApiController.php';
+require_once __DIR__ . '/src/controllers//api/FacultyApiController.php';
+require_once __DIR__ . '/src/controllers//api/DepartmentApiController.php';
+require_once __DIR__ . '/src/controllers//api/StydingLevelTypeApiController.php';
+require_once __DIR__ . '/src/controllers//api/SpecialtyApiController.php';
+require_once __DIR__ . '/src/controllers//api/EducationalProgramApiController.php';
+require_once __DIR__ . '/src/controllers//api/SessionApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -50,26 +50,25 @@ use App\Controllers\StydingLevelTypeApiController;
 use App\Controllers\SpecialtyApiController;
 use App\Controllers\EducationalProgramApiController;
 use App\Controllers\SessionApiController;
-use App\Services\EducationalProgramService;
 
 $router = new Router();
 
 session_start();
 
-$router->get('/teacherLogin', function () {
+$router->get('/api/teacherLogin', function () {
 	$wpController = new SessionApiController();
 	$wpController->teacherLogin();
 });
 
-$router->get('/studentLogin', function () {
+$router->get('/api/studentLogin', function () {
 	$wpController = new SessionApiController();
 	$wpController->studentLogin();
 });
-$router->get('/getInfo', function () {
+$router->get('/api/getInfo', function () {
 	$wpController = new SessionApiController();
 	$wpController->getInfo();
 });
-$router->get('/logOut', function () {
+$router->get('/api/logOut', function () {
 	$wpController = new SessionApiController();
 	$wpController->logOut();
 });
@@ -98,202 +97,202 @@ $router->get('/pdf', function () {
 	$pdfController->getPDFData();
 });
 
-$router->get('/getThemes', function () {
+$router->get('/api/getThemes', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->getThemesWithLessonsByWPId();
 });
 
-$router->get('/getCoursework', function () {
+$router->get('/api/getCoursework', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->getCoursework();
 });
 
-$router->get('/getLessonsAndExamingsStructure', function () {
+$router->get('/api/getLessonsAndExamingsStructure', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->getLessonsAndExamingsStructure();
 });
 
-$router->get('/getPointsDistributionSlideContent', function () {
+$router->get('/api/getPointsDistributionSlideContent', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->getPointsDistributionSlideContent();
 });
 
-$router->get('/searchTeachers', function () {
+$router->get('/api/searchTeachers', function () {
 	$teacherApiController = new TeacherApiController();
 	$teacherApiController->searchTeachers();
 });
 
-$router->get('/getFaculties', function () {
+$router->get('/api/getFaculties', function () {
 	$facultyApiController = new FacultyApiController();
 	$facultyApiController->getFaculties();
 });
 
-$router->get('/searchDepartments', function () {
+$router->get('/api/searchDepartments', function () {
 	$departmentApiController = new DepartmentApiController();
 	$departmentApiController->searchDepartments();
 });
 
-$router->get('/searchDepartmentsById', function () {
+$router->get('/api/searchDepartmentsById', function () {
 	$departmentApiController = new DepartmentApiController();
 	$departmentApiController->searchDepartmentsById();
 });
 
-$router->get('/getStydingLevelTypes', function () {
+$router->get('/api/getStydingLevelTypes', function () {
 	$atydingLevelTypeApiController = new StydingLevelTypeApiController();
 	$atydingLevelTypeApiController->getStydingLevelTypes();
 });
 
-$router->get('/searchSpecialties', function () {
+$router->get('/api/searchSpecialties', function () {
 	$specialtyApiController = new SpecialtyApiController();
 	$specialtyApiController->searchSpecialties();
 });
 
-$router->get('/searchSpecialtiesByIds', function () {
+$router->get('/api/searchSpecialtiesByIds', function () {
 	$specialtyApiController = new SpecialtyApiController();
 	$specialtyApiController->searchSpecialtiesByIds();
 });
 
-$router->get('/searchEducationalPrograms', function () {
+$router->get('/api/searchEducationalPrograms', function () {
 	$educationalProgramApiController = new EducationalProgramApiController();
 	$educationalProgramApiController->searchEducationalPrograms();
 });
 
-$router->get('/searchEducationalProgramsByIds', function () {
+$router->get('/api/searchEducationalProgramsByIds', function () {
 	$educationalProgramApiController = new EducationalProgramApiController();
 	$educationalProgramApiController->searchEducationalProgramsByIds();
 });
 
-$router->post('/duplicateWP', function () {
+$router->post('/api/duplicateWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->duplicateWP();
 });
 
-$router->post('/updateGlobalData', function () {
+$router->post('/api/updateGlobalData', function () {
 	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
 	$workingProgramGlobalDataOverwriteApiController->updateGlobalData();
 });
 
-$router->post('/updateWorkingProgramGlobalDataOverwrite', function () {
+$router->post('/api/updateWorkingProgramGlobalDataOverwrite', function () {
 	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
 	$workingProgramGlobalDataOverwriteApiController->updateWorkingProgramGlobalDataOverwrite();
 });
 
-$router->post('/createNewWP', function () {
+$router->post('/api/createNewWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->createNewWP();
 });
 
-$router->post('/updateWPDetails', function () {
+$router->post('/api/updateWPDetails', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->updateWPDetails();
 });
 
-$router->post('/updateWPInvolvedPerson', function () {
+$router->post('/api/updateWPInvolvedPerson', function () {
 	$involvedPersonApiController = new WPInvolvedPersonApiController();
 	$involvedPersonApiController->updateWorkingProgramInvolvedPerson();
 });
 
-$router->post('/updateWPInvolvedPersonDetails', function () {
+$router->post('/api/updateWPInvolvedPersonDetails', function () {
 	$involvedPersonApiController = new WPInvolvedPersonApiController();
 	$involvedPersonApiController->updateWorkingProgramInvolvedPersonDetails();
 });
 
-$router->post('/createNewSemester', function () {
+$router->post('/api/createNewSemester', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->createNewSemester();
 });
 
-$router->post('/updateSemester', function () {
+$router->post('/api/updateSemester', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->updateSemester();
 });
 
-$router->post('/updateCourseworkAssesmentComponents', function () {
+$router->post('/api/updateCourseworkAssesmentComponents', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->updateCourseworkAssesmentComponents();
 });
 
-$router->post('/createNewModule', function () {
+$router->post('/api/createNewModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->createNewModule();
 });
 
-$router->post('/updateModule', function () {
+$router->post('/api/updateModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->updateModule();
 });
 
-$router->post('/createNewTheme', function () {
+$router->post('/api/createNewTheme', function () {
 	$moduleApiController = new ThemeApiController();
 	$moduleApiController->createNewTheme();
 });
 
-$router->post('/updateTheme', function () {
+$router->post('/api/updateTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->updateTheme();
 });
 
-$router->post('/createNewLesson', function () {
+$router->post('/api/createNewLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->createNewLesson();
 });
 
-$router->post('/updateLesson', function () {
+$router->post('/api/updateLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->updateLesson();
 });
 
-$router->post('/updateHours', function () {
+$router->post('/api/updateHours', function () {
 	$educationalFormLessonHoursApiController = new EducationalFormLessonHoursApiController();
 	$educationalFormLessonHoursApiController->updateEducationalFormLessonHours();
 });
 
-$router->post('/updateCourseworkHours', function () {
+$router->post('/api/updateCourseworkHours', function () {
 	$educationalFormCourseworkHoursApiController = new EducationalFormCourseworkHoursApiController();
 	$educationalFormCourseworkHoursApiController->updateEducationalFormCourseworkHours();
 });
 
-$router->post('/createSemesterEducationForm', function () {
+$router->post('/api/createSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->createSemesterEducationForm();
 });
 
-$router->post('/updateWPLiterature', function () {
+$router->post('/api/updateWPLiterature', function () {
 	$workingProgramLiteratureApiController = new WorkingProgramLiteratureApiController();
 	$workingProgramLiteratureApiController->updateWPLiterature();
 });
 
-$router->delete('/deleteTheme', function () {
+$router->delete('/api/deleteTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->deleteTheme();
 });
 
-$router->delete('/deleteModule', function () {
+$router->delete('/api/deleteModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->deleteModule();
 });
 
-$router->delete('/deleteSemester', function () {
+$router->delete('/api/deleteSemester', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->deleteSemester();
 });
 
-$router->delete('/deleteSemesterEducationForm', function () {
+$router->delete('/api/deleteSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->deleteSemesterEducationForm();
 });
 
-$router->delete('/deleteCoursework', function () {
+$router->delete('/api/deleteCoursework', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->deleteCoursework();
 });
 
-$router->delete('/deleteColloquium', function () {
+$router->delete('/api/deleteColloquium', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->deleteColloquium();
 });
 
-$router->delete('/deleteLesson', function () {
+$router->delete('/api/deleteLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->deleteLesson();
 });

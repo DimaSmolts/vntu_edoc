@@ -5,7 +5,7 @@ const updateModuleInfo = (event, moduleId) => {
         value: event.target.value
     };
 
-    fetch('updateModule', {
+    fetch('api/updateModule', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

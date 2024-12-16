@@ -1,5 +1,5 @@
 const updateWP = (postData) => {
-    fetch('updateWPDetails', {
+    fetch('api/updateWPDetails', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

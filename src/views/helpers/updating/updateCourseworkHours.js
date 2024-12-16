@@ -5,7 +5,7 @@ const updateCourseworkHours = (event, semesterId, educationalFormId) => {
         hours: event.target.value
     };
 
-    fetch('updateCourseworkHours', {
+    fetch('api/updateCourseworkHours', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

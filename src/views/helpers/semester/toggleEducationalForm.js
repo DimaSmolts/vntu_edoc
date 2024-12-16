@@ -5,7 +5,7 @@ const toggleEducationalForm = (event, educationalDisciplineSemesterId, education
 			educationalFormId
 		};
 
-		fetch('createSemesterEducationForm', {
+		fetch('api/createSemesterEducationForm', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ const toggleEducationalForm = (event, educationalDisciplineSemesterId, education
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`, {
+		fetch(`api/deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'

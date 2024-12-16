@@ -1,5 +1,5 @@
 const updateWPInvolvedPerson = async (postData) => {
-    const response = await fetch('updateWPInvolvedPerson', {
+    const response = await fetch('api/updateWPInvolvedPerson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

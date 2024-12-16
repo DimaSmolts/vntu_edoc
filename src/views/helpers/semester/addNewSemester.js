@@ -3,7 +3,7 @@ const addNewSemester = (wpId, educationalForms) => {
 		wpId
 	};
 
-	fetch('createNewSemester', {
+	fetch('api/createNewSemester', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'

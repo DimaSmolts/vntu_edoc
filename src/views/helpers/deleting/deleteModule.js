@@ -1,5 +1,5 @@
 const deleteModule = (event, id) => {
-	fetch(`deleteModule/?id=${id}`, {
+	fetch(`api/deleteModule/?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 const fetchSearchTeachersResults = async (query) => {
-	const response = await fetch(`searchTeachers?query=${encodeURIComponent(query)}`);
+	const response = await fetch(`api/searchTeachers?query=${encodeURIComponent(query)}`);
 	const data = await response.json();
 
 	return data.map(teacher => ({

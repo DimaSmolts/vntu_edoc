@@ -7,7 +7,7 @@ const toggleColloquium = (event, moduleId) => {
 			value: event.target.checked
 		};
 
-		fetch('updateModule', {
+		fetch('api/updateModule', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ const toggleColloquium = (event, moduleId) => {
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`deleteColloquium?moduleId=${moduleId}`, {
+		fetch(`api/deleteColloquium?moduleId=${moduleId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'

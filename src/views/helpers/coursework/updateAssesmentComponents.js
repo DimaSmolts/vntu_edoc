@@ -19,7 +19,7 @@ const updateAssesmentComponents = (event, semesterId) => {
 		courseworkAssessmentComponents
     };
 
-    fetch('updateCourseworkAssesmentComponents', {
+    fetch('api/updateCourseworkAssesmentComponents', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

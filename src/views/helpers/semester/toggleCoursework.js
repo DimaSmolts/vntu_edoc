@@ -6,7 +6,7 @@ const toggleCoursework = (event, semesterId) => {
 			value: event.target.checked
 		};
 
-		fetch('updateSemester', {
+		fetch('api/updateSemester', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ const toggleCoursework = (event, semesterId) => {
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`deleteCoursework?semesterId=${semesterId}`, {
+		fetch(`api/deleteCoursework?semesterId=${semesterId}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'

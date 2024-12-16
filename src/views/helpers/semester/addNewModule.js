@@ -3,7 +3,7 @@ const addNewModule = async (semesterId) => {
 		semesterId
 	};
 
-	const response = await fetch('createNewModule', {
+	const response = await fetch('api/createNewModule', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'

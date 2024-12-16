@@ -2,7 +2,7 @@ const getCourseworkSlide = async () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
-	const response = await fetch(`getCoursework/?id=${wpId}`, {
+	const response = await fetch(`api/getCoursework/?id=${wpId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

@@ -3,7 +3,7 @@ const duplicateWP = async (wpId) => {
         wpId
     };
 
-    const response = await fetch('duplicateWP', {
+    const response = await fetch('api/duplicateWP', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

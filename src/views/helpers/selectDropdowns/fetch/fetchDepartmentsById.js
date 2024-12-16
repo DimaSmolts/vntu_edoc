@@ -1,5 +1,5 @@
 const fetchDepartmentsById = async (id) => {
-	const response = await fetch(`searchDepartmentsById?id=${id}`);
+	const response = await fetch(`api/searchDepartmentsById?id=${id}`);
 	const data = await response.json();
 
 	return data.map(department => ({

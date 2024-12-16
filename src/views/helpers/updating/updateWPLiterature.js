@@ -5,7 +5,7 @@ const updateWPLiterature = (wpId, name, value,) => {
         value: value
     };
 
-    fetch('updateWPLiterature', {
+    fetch('api/updateWPLiterature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

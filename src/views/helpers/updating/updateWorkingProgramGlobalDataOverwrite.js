@@ -5,7 +5,7 @@ const updateWorkingProgramGlobalDataOverwrite = (event, wpId) => {
         value: event.target.value
     };
 
-    fetch('updateWorkingProgramGlobalDataOverwrite', {
+    fetch('api/updateWorkingProgramGlobalDataOverwrite', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

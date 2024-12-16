@@ -1,5 +1,5 @@
 const deleteSemester = (event, id) => {
-	fetch(`deleteSemester/?id=${id}`, {
+	fetch(`api/deleteSemester/?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json'

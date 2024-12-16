@@ -1,5 +1,5 @@
 const deleteTheme = (event, id) => {
-	fetch(`deleteTheme/?id=${id}`, {
+	fetch(`api/deleteTheme/?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json'

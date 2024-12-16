@@ -4,7 +4,7 @@ const updateGlobalData = (event) => {
         value: event.target.value
     };
 
-    fetch('updateGlobalData', {
+    fetch('api/updateGlobalData', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -5,7 +5,7 @@ const updateThemeInfo = (event, themeId) => {
         value: event.target.value
     };
 
-    fetch('updateTheme', {
+    fetch('api/updateTheme', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -5,7 +5,7 @@ const updateLessonInfo = (event, lessonId) => {
         value: event.target.value
     };
 
-    fetch('updateLesson', {
+    fetch('api/updateLesson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

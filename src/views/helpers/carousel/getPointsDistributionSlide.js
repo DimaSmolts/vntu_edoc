@@ -2,7 +2,7 @@ const getPointsDistributionSlide = async () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
-	const response = await fetch(`getPointsDistributionSlideContent/?id=${wpId}`, {
+	const response = await fetch(`api/getPointsDistributionSlideContent/?id=${wpId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'

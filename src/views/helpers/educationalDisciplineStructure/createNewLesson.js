@@ -4,7 +4,7 @@ const createNewLesson = async ({ themeId, lessonTypeName, semesterEducationalFor
         lessonTypeName
     };
 
-    const response = await fetch('createNewLesson', {
+    const response = await fetch('api/createNewLesson', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -2,7 +2,7 @@ const getStructureForAssessmentCriteriasSlides = async () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
-	const response = await fetch(`getLessonsAndExamingsStructure/?id=${wpId}`, {
+	const response = await fetch(`api/getLessonsAndExamingsStructure/?id=${wpId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
