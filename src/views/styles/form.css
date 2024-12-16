@@ -313,9 +313,38 @@ td {
 	padding: 0;
 }
 
+.multiselect-label .choices__inner {
+	padding: 5px !important;
+}
+
 .choices__item {
 	font-weight: normal;
 	font-size: 17px !important;
+}
+
+.choices__list--multiple .choices__item {
+	border-radius: 5px !important;
+	cursor: default;
+}
+
+.choices__list--multiple .choices__item.is-hightlighted {
+	border: 0 !important;
+	background-color: #ddd !important;
+}
+
+.choices__list--multiple .choices__item--selectable {
+	background-color: #ddd !important;
+	color: black !important;
+	border: 0 !important;
+}
+
+.choices__list--multiple .choices__item--selectable .choices__button {
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==) !important;
+}
+
+.choices__input {
+	border-top: 1px solid #999 !important;
+	width: 100% !important;
 }
 
 .ql-editor ol,

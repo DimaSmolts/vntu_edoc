@@ -24,6 +24,7 @@ require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
 require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
 require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
 require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
+require_once __DIR__ . '/src/controllers/api/SpecialtyApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -45,6 +46,7 @@ use App\Controllers\TeacherApiController;
 use App\Controllers\FacultyApiController;
 use App\Controllers\DepartmentApiController;
 use App\Controllers\StydingLevelTypeApiController;
+use App\Controllers\SpecialtyApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -136,6 +138,16 @@ $router->get('/searchDepartmentsById', function () {
 $router->get('/getStydingLevelTypes', function () {
 	$atydingLevelTypeApiController = new StydingLevelTypeApiController();
 	$atydingLevelTypeApiController->getStydingLevelTypes();
+});
+
+$router->get('/searchSpecialties', function () {
+	$specialtyApiController = new SpecialtyApiController();
+	$specialtyApiController->searchSpecialties();
+});
+
+$router->get('/searchSpecialtiesByIds', function () {
+	$specialtyApiController = new SpecialtyApiController();
+	$specialtyApiController->searchSpecialtiesByIds();
 });
 
 $router->post('/duplicateWP', function () {

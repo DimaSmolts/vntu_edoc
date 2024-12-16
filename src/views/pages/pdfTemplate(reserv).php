@@ -27,7 +27,7 @@
 	</div>
 	<div class="basic-info">
 		<b class="basic-info-name">спеціальність</b>: <u class="basic-info-value"><span class="not-inserted">
-				<?= htmlspecialchars($details->specialtyIdx) ?>
+				<?= htmlspecialchars($details->specialtyIds) ?>
 			</span> – <span class="inserted">
 				<?= htmlspecialchars($details->specialtyName) ?>
 			</span>

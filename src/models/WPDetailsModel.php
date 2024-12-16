@@ -27,8 +27,7 @@ class WPDetailsModel
 	public ?string $stydingLevelId;
 	public ?string $fielfOfStudyIdx;
 	public ?string $fielfOfStudyName;
-	public ?string $specialtyIdx;
-	public ?string $specialtyName;
+	public array $specialtyIds;
 	public ?string $educationalProgram;
 	public ?string $notes;
 	public ?string $prerequisites;
@@ -74,8 +73,7 @@ class WPDetailsModel
 		?string $stydingLevelId = "",
 		?string $fielfOfStudyIdx = "",
 		?string $fielfOfStudyName = "",
-		?string $specialtyIdx = "",
-		?string $specialtyName = "",
+		array $specialtyIds = [],
 		?string $educationalProgram = "",
 		?string $notes = "",
 		?string $prerequisites = "",
@@ -120,8 +118,7 @@ class WPDetailsModel
 		$this->stydingLevelId = $stydingLevelId;
 		$this->fielfOfStudyIdx = $fielfOfStudyIdx;
 		$this->fielfOfStudyName = $fielfOfStudyName;
-		$this->specialtyIdx = $specialtyIdx;
-		$this->specialtyName = $specialtyName;
+		$this->specialtyIds = $specialtyIds;
 		$this->educationalProgram = $educationalProgram;
 		$this->notes = $notes;
 		$this->prerequisites = $prerequisites;

@@ -27,14 +27,14 @@ $title = "Загальна інформація";
 			value="<?= htmlspecialchars($details->disciplineName ?? '') ?>"
 			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
 	</label>
-	<label id="degreeDropdownLabel">Рівень вищої освіти:
+	<label id="stydingLevelDropdownLabel">Рівень вищої освіти:
 		<select
 			id="stydingLevelIdSelect"
 			data-wpId=<?= htmlspecialchars($details->id) ?>
 			<?php if (isset($details->stydingLevelId)): ?> data-stydingLevelId=<?= htmlspecialchars($details->stydingLevelId) ?><?php endif; ?>>
 		</select>
 	</label>
-	<label>Галузь знань:
+	<label>Галузь знань (немає відповідної таблиці в БД):
 		<input
 			type="text"
 			id="fielfOfStudyName"
@@ -42,13 +42,19 @@ $title = "Загальна інформація";
 			value="<?= htmlspecialchars($details->fielfOfStudyName ?? '') ?>"
 			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
 	</label>
-	<label>Спеціальність:
-		<input
+	<label id="specialtyDropdownLabel" class="multiselect-label">Спеціальність:
+		<select
+			id="specialtyIdsSelect"
+			data-wpId=<?= htmlspecialchars($details->id) ?>
+			multiple
+			<?php if (isset($details->specialtyIds)): ?> data-specialtyIds=<?= json_encode($details->specialtyIds) ?><?php endif; ?>>
+		</select>
+		<!-- <input
 			type="text"
 			id="specialtyName"
 			name="specialtyName"
 			value="<?= htmlspecialchars($details->specialtyName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"> -->
 	</label>
 	<label>Освітня програма:
 		<input
