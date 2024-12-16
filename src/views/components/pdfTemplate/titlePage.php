@@ -35,7 +35,7 @@
 		</u>
 	</div>
 	<div class="basic-info small-bottom-margin">
-		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgram) ?></u>
+		<b class="basic-info-name">освітня програма</b>: <u class="basic-info-value inserted"><?= htmlspecialchars($details->educationalProgramIds) ?></u>
 	</div>
 	<div class="center inserted large-bottom-margin bold"><?= htmlspecialchars($details->code) ?></div>
 	<div class="center"><span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span></div>

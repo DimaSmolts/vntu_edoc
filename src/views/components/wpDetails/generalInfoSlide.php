@@ -49,21 +49,23 @@ $title = "Загальна інформація";
 			multiple
 			<?php if (isset($details->specialtyIds)): ?> data-specialtyIds=<?= json_encode($details->specialtyIds) ?><?php endif; ?>>
 		</select>
-		<!-- <input
-			type="text"
-			id="specialtyName"
-			name="specialtyName"
-			value="<?= htmlspecialchars($details->specialtyName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"> -->
 	</label>
-	<label>Освітня програма:
+	<label id="educationalProgramDropdownLabel" class="multiselect-label">Освітня програма:
+		<select
+			id="educationalProgramIdsSelect"
+			data-wpId=<?= htmlspecialchars($details->id) ?>
+			multiple
+			<?php if (isset($details->educationalProgramIds)): ?> data-educationalProgramIds=<?= json_encode($details->educationalProgramIds) ?><?php endif; ?>>
+		</select>
+	</label>
+	<!-- <label>Освітня програма:
 		<input
 			type="text"
 			id="educationalProgram"
 			name="educationalProgram"
 			value="<?= htmlspecialchars($details->educationalProgram ?? '') ?>"
 			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-	</label>
+	</label> -->
 	<div class="mini-block">
 		<p class="mini-block-title">Документ затверджено:</p>
 		<div class="micro-block">

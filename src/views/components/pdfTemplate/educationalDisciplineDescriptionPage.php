@@ -133,7 +133,7 @@
 				Загальна кількість годин<br><span class="change">150</span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="7">
-				<b>Освітня програма</b><br><span class="inserted"><?= htmlspecialchars($details->educationalProgram) ?></span>
+				<b>Освітня програма</b><br><span class="inserted"><?= htmlspecialchars($details->educationalProgramIds) ?></span>
 			</td>
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>

@@ -41,7 +41,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->fielfOfStudyIdx ?? '',
 		$workingProgramData->fielfOfStudyName ?? '',
 		$workingProgramData->specialtyIds ?? '',
-		$workingProgramData->educationalProgram ?? '',
+		$workingProgramData->educationalProgramIds ?? '',
 		$workingProgramData->notes ?? '',
 		$workingProgramData->prerequisites ?? '',
 		$workingProgramData->goal ?? '',

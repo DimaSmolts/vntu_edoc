@@ -25,6 +25,7 @@ require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
 require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
 require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
 require_once __DIR__ . '/src/controllers/api/SpecialtyApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalProgramApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -47,7 +48,9 @@ use App\Controllers\FacultyApiController;
 use App\Controllers\DepartmentApiController;
 use App\Controllers\StydingLevelTypeApiController;
 use App\Controllers\SpecialtyApiController;
+use App\Controllers\EducationalProgramApiController;
 use App\Controllers\SessionApiController;
+use App\Services\EducationalProgramService;
 
 $router = new Router();
 
@@ -148,6 +151,16 @@ $router->get('/searchSpecialties', function () {
 $router->get('/searchSpecialtiesByIds', function () {
 	$specialtyApiController = new SpecialtyApiController();
 	$specialtyApiController->searchSpecialtiesByIds();
+});
+
+$router->get('/searchEducationalPrograms', function () {
+	$educationalProgramApiController = new EducationalProgramApiController();
+	$educationalProgramApiController->searchEducationalPrograms();
+});
+
+$router->get('/searchEducationalProgramsByIds', function () {
+	$educationalProgramApiController = new EducationalProgramApiController();
+	$educationalProgramApiController->searchEducationalProgramsByIds();
 });
 
 $router->post('/duplicateWP', function () {

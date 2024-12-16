@@ -23,9 +23,9 @@ class SpecialtyApiController
 			$query = trim($_GET['query']);
 
 			if (strlen($query) >= 3) {
-				$departments = $this->specialtyService->getSpecialtiesByQuery($query);
+				$specialties = $this->specialtyService->getSpecialtiesByQuery($query);
 
-				echo json_encode($departments);
+				echo json_encode($specialties);
 			} else {
 				echo json_encode([]);
 			}
@@ -39,9 +39,9 @@ class SpecialtyApiController
 		if (isset(($_GET['ids']))) {
 			$ids = json_decode($_GET['ids']);
 
-			$departments = $this->specialtyService->getSpecialtiesByIds($ids);
+			$specialties = $this->specialtyService->getSpecialtiesByIds($ids);
 
-			echo json_encode($departments);
+			echo json_encode($specialties);
 		}
 	}
 }

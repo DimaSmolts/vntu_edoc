@@ -34,7 +34,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->fielfOfStudyIdx ?? '',
 		$workingProgramData->fielfOfStudyName ?? '',
 		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
-		$workingProgramData->educationalProgram ?? '',
+		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],
 		$workingProgramData->notes ?? '',
 		$workingProgramData->prerequisites ?? '',
 		$workingProgramData->goal ?? '',

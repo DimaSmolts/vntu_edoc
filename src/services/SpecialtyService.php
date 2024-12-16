@@ -8,9 +8,8 @@ class SpecialtyService
 {
 	public function getSpecialtiesByQuery($query)
 	{
-		$specialties = Capsule::table('special')
-			->select('id', 'spec', 'spec_num_code', 'arc')
-			->where('arc', false)
+		$specialties = Capsule::table('spec_edu_pr')
+			->select('id', 'spec', 'spec_num_code')
 			->where(function ($q) use ($query) {
 				$q->where('spec', 'LIKE', '%' . $query . '%')
 					->orWhere('spec_num_code', 'LIKE', '%' . $query . '%');
@@ -23,8 +22,8 @@ class SpecialtyService
 
 	public function getSpecialtiesByIds($ids)
 	{
-		$specialties = Capsule::table('special')
-			->select('id', 'spec', 'spec_num_code', 'arc')
+		$specialties = Capsule::table('spec_edu_pr')
+			->select('id', 'spec', 'spec_num_code')
 			->whereIn('id', $ids)
 			->get();
 

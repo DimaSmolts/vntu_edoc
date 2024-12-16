@@ -20,7 +20,7 @@
 	</div>
 	<div>
 		<b>освітня програма</b> – <span class="inserted">
-			<?= htmlspecialchars($details->educationalProgram) ?>
+			<?= htmlspecialchars($details->educationalProgramIds) ?>
 		</span>
 	</div>
 	<div>

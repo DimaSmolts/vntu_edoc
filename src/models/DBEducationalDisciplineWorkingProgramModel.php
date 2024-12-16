@@ -33,7 +33,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'fielfOfStudyIdx',
 		'fielfOfStudyName',
 		'specialtyIds',
-		'educationalProgram',
+		'educationalProgramIds',
 		'notes',
 		'prerequisites',
 		'goal',
