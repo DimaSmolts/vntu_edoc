@@ -56,4 +56,13 @@ class WPInvolvedPersonApiController
 			$value
 		);
 	}
+
+	public function deleteWPInvolvedPerson()
+	{
+		header('Content-Type: application/json');
+
+		$id = $_GET['id'];
+
+		$this->wpInvolvedPersonService->deleteWPInvolvedPerson($id);
+	}
 }

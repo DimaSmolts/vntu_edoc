@@ -8,7 +8,7 @@ $title = "Курсовий. Складові оцінювання.";
 	<?php foreach ($semesters as $semester): ?>
 		<?php if ($semester->isCourseworkExists): ?>
 			<div class="coursework-container">
-				<p id="semesterTitle<?= htmlspecialchars($semester->semesterId) ?>" class="mini-block-title">
+				<p id="semesterTitle<?= htmlspecialchars($semester->semesterId) ?>" class="block-title">
 					Курсовий до семестеру <?= $semester->semesterNumber ? htmlspecialchars($semester->semesterNumber) : "" ?>
 				</p>
 				<?php

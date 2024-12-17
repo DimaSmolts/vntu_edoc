@@ -53,9 +53,8 @@ class WPController
 
 	public function getWPDetails()
 	{
-		header('Content-Type: text/html');
-
 		$wpId = $_GET['id'];
+		$isData = isset($_GET['data']) ? $_GET['data'] : false;
 
 		$rawDetails = $this->wpService->getWPDetails($wpId);
 
@@ -70,6 +69,12 @@ class WPController
 		$showReturnBtn = true;
 		$isAbleToEditGlobalData = false;
 
-		require __DIR__ . '/../views/pages/wpDetailsPage.php';
+		if ($isData) {
+			header('Content-Type: text/json; charset=UTF-8');
+			print_r($rawDetails);
+		} else {
+			header('Content-Type: text/html; charset=UTF-8');
+			require __DIR__ . '/../views/pages/wpDetailsPage.php';
+		}
 	}
 }

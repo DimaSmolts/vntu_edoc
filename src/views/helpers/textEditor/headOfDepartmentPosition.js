@@ -1,6 +1,6 @@
 const headOfDepartmentPosition = ({ headOfDepartmentId, headOfDepartmentPositionName, wpId }) => {
 	// Змінюємо інпут для введення "Посада. Протокол засідання" для гаранта	освітньої програми
-	const headOfDepartmentPositionTextEditor = initializeTextEditor('#headOfDepartmentPosition');
+	const headOfDepartmentPositionTextEditor = initializeTextEditorWithoutToolbar('#headOfDepartmentPosition');
 
 	// Зберігаємо текст на кожне введення символу
 	headOfDepartmentPositionTextEditor.on('text-change', function () {

@@ -18,7 +18,7 @@ const createLessonsContainer = (themes) => {
 		const themeTitle = createElement({
 			elementName: "p",
 			innerText: `Тема ${theme.themeNumber ?? ''}. ${theme.name ?? ''}`,
-			classList: ['mini-block-title', 'lesson-theme-title']
+			classList: ['block-title', 'lesson-theme-title']
 		});
 
 		const hoursBlockColumnsClass = theme.semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';

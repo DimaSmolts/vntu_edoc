@@ -7,7 +7,7 @@ const educationalProgramGuarantorSelectHandler = () => {
 			return;
 		}
 
-		const results = await fetchSearchTeachersResults(inputValue);
+		const results = await fetchTeachers(inputValue);
 		educationalProgramGuarantorSelectChoices.clearChoices(); // Очищаємо старі результати
 		educationalProgramGuarantorSelectChoices.setChoices(results, 'value', 'label', true); // Додаємо нові результати
 	};

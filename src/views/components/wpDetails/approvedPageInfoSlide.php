@@ -5,46 +5,70 @@ $title = "Затверження робочої програми навчаль�
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form id="approvedPage" class="wp-form">
-    <!-- <div class="mini-block">
-        <p class="mini-block-title">Розроблено:</p>
-        <div class="micro-block">
-            <?php if ($details->createdBy): ?>
-                <label id="createdByGuarantorLabel">
-                    Ім'я та прізвище:
-                    <select
-                        id="createdBySelect"
-                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->createdBy->id) ?>"
-                        data-wpId=<?= htmlspecialchars($details->id) ?>>
-                        <option
-                            value=<?= htmlspecialchars($details->createdBy->id) ?>
-                            selected>
-                            <?= htmlspecialchars($details->createdBy->name ?? '') ?>, <?= htmlspecialchars($details->createdBy->workPosition ?? '') ?>
-                        </option>
-                    </select>
-                </label>
+    <div class="block">
+        <p class="block-title">Розроблено:</p>
+        <div>
+            <label id="createdByPersonDropdownLabel" class="multiselect-label">Ім'я та прізвище:
+                <select
+                    id="createdByPersonsIdsSelect"
+                    data-wpId=<?= htmlspecialchars($details->id) ?>
+                    multiple
+                    <?php if (!empty($details->createdByInvolvedPersonsIds)): ?> data-createdByInvolvedPersonsIds=<?= json_encode($details->createdByInvolvedPersonsIds) ?><?php endif; ?>>
+                </select>
+            </label>
+            <?php if (!empty($details->createdByPersons)): ?>
+                <?php
+                $createdByPersonsAmount = count($details->createdByPersons);
+                $columnsAmountClass = 'one-column';
+
+                if ($createdByPersonsAmount === 2) {
+                    $columnsAmountClass = 'two-columns';
+                } elseif ($createdByPersonsAmount >= 3) {
+                    $columnsAmountClass = 'three-columns';
+                }
+                ?>
+                <div
+                    id="createdByAdditionalInfoBlock"
+                    class="created-by-info-block <?= htmlspecialchars($columnsAmountClass) ?>">
+                    <?php foreach ($details->createdByPersons as $person): ?>
+                        <div id="createdBy<?= htmlspecialchars($person->id) ?>AdditionalInfoBlock">
+                            <p class="mini-block-title"><?= htmlspecialchars($person->surname) ?> <?= htmlspecialchars($person->name) ?> <?= htmlspecialchars($person->patronymicName) ?></p>
+                            <label>Cтупінь:
+                                <input
+                                    placeholder="к.т.н."
+                                    type="text"
+                                    name="degree"
+                                    value="<?= htmlspecialchars($person->degree ?? '') ?>"
+                                    oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($person->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                            </label>
+                            <label>Посада. Протокол засідання:</label>
+                            <div id="createdByPerson<?= htmlspecialchars($person->id) ?>Position" style="height: 100px">
+                                <?= $person->positionAndMinutesOfMeeting ?? '' ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- <?php if (!empty($details->createdBy)): ?>
                 <label>Cтупінь:
                     <input
                         placeholder="к.т.н."
                         type="text"
                         name="degree"
-                        value="<?= htmlspecialchars($details->createdBy->degree ?? '') ?>"
-                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->createdBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                        value="<?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                 </label>
                 <label>Посада. Протокол засідання:</label>
-                <div id="createdByPosition" style="height: 100px">
-                    <?= $details->createdBy->positionAndMinutesOfMeeting ?>
+                <div id="educationalProgramGuarantorPosition" style="height: 100px">
+                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
-            <?php else: ?>
-                <label id="createdByLabel">
-                    Ім'я та прізвище:
-                    <select id="createdBySelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-                </label>
-            <?php endif; ?>
+            <?php endif; ?> -->
         </div>
-    </div> -->
-    <div class="mini-block">
-        <p class="mini-block-title">Схвалено (Гарант освітньої програми):</p>
-        <div class="micro-block">
+    </div>
+    <div class="block">
+        <p class="block-title">Схвалено (Гарант освітньої програми):</p>
+        <div>
             <?php if ($details->educationalProgramGuarantor): ?>
                 <label id="educationalProgramGuarantorLabel">
                     Ім'я та прізвище:
@@ -69,7 +93,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="educationalProgramGuarantorPosition" style="height: 100px">
-                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? ''?>
+                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
             <?php else: ?>
                 <label id="educationalProgramGuarantorLabel">
@@ -79,9 +103,9 @@ $title = "Затверження робочої програми навчаль�
             <?php endif; ?>
         </div>
     </div>
-    <div class="mini-block">
-        <p class="mini-block-title">Схвалено (Зав. кафедри):</p>
-        <div class="micro-block">
+    <div class="block">
+        <p class="block-title">Схвалено (Зав. кафедри):</p>
+        <div>
             <?php if ($details->headOfDepartment): ?>
                 <label id="headOfDepartmentLabel">
                     Ім'я та прізвище:
@@ -106,7 +130,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="headOfDepartmentPosition" style="height: 100px">
-                    <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?? ''?>
+                    <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
             <?php else: ?>
                 <label id="headOfDepartmentLabel">
@@ -116,9 +140,9 @@ $title = "Затверження робочої програми навчаль�
             <?php endif; ?>
         </div>
     </div>
-    <div class="mini-block">
-        <p class="mini-block-title">Схвалено (Голова ради/комісії):</p>
-        <div class="micro-block">
+    <div class="block">
+        <p class="block-title">Схвалено (Голова ради/комісії):</p>
+        <div>
             <?php if ($details->headOfCommission): ?>
                 <label id="headOfCommissionLabel">
                     Ім'я та прізвище:
@@ -143,7 +167,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="headOfCommissionPosition" style="height: 100px">
-                    <?= $details->headOfCommission->positionAndMinutesOfMeeting ?? ''?>
+                    <?= $details->headOfCommission->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
             <?php else: ?>
                 <label id="headOfCommissionLabel">
@@ -153,9 +177,9 @@ $title = "Затверження робочої програми навчаль�
             <?php endif; ?>
         </div>
     </div>
-    <div class="mini-block">
-        <p class="mini-block-title">Затверджено:</p>
-        <div class="micro-block">
+    <div class="block">
+        <p class="block-title">Затверджено:</p>
+        <div>
             <?php if ($details->approvedBy): ?>
                 <label id="approvedByLabel">
                     Ім'я та прізвище:
@@ -180,7 +204,7 @@ $title = "Затверження робочої програми навчаль�
                 </label>
                 <label>Посада. Протокол засідання:</label>
                 <div id="approvedByPosition" style="height: 100px">
-                    <?= $details->approvedBy->positionAndMinutesOfMeeting ?? ''?>
+                    <?= $details->approvedBy->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
             <?php else: ?>
                 <label id="approvedByLabel">

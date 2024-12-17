@@ -32,15 +32,39 @@
 	resize: vertical;
 }
 
-.mini-block {
+.block {
 	padding-bottom: 0;
 }
 
-.mini-block-title {
+.block-title {
 	font-size: 20px !important;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 5px;
+}
+
+.mini-block-title {
+	font-weight: bold;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 3px;
+}
+
+.created-by-info-block {
+	display: grid;
+	gap: 15px;
+}
+
+.one-column {
+	grid-template-columns: 1fr;
+}
+
+.two-columns {
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.three-columns {
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .weekly-hours-block {

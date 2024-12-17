@@ -1,6 +1,6 @@
 const approvedByPosition = ({ approvedByPositionId, approvedByPositionName, wpId }) => {
 	// Змінюємо інпут для введення "Посада. Протокол засідання" для гаранта	освітньої програми
-	const approvedByPositionTextEditor = initializeTextEditor('#approvedByPosition');
+	const approvedByPositionTextEditor = initializeTextEditorWithoutToolbar('#approvedByPosition');
 
 	// Зберігаємо текст на кожне введення символу
 	approvedByPositionTextEditor.on('text-change', function () {

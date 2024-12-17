@@ -7,7 +7,7 @@ const headOfCommissionSelectHandler = () => {
 			return;
 		}
 
-		const results = await fetchSearchTeachersResults(inputValue);
+		const results = await fetchTeachers(inputValue);
 		headOfCommissionSelectChoices.clearChoices(); // Очищаємо старі результати
 		headOfCommissionSelectChoices.setChoices(results, 'value', 'label', true); // Додаємо нові результати
 	};

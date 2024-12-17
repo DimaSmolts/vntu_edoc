@@ -19,7 +19,7 @@ const specialtySelectHandler = async () => {
 		specialtyIdsSelectChoices.clearChoices(); // Очищаємо старі результати
 
 		const options = results.map(specialty => {
-			return new Option(specialty.label, specialty.value, specialty.value === selectedSpecialtyIds, specialty.value === selectedSpecialtyIds);
+			return new Option(specialty.label, specialty.value, selectedSpecialtyIds.includes(specialty.value), selectedSpecialtyIds.includes(specialty.value));
 		});
 
 		specialtyIdsSelectChoices.setChoices(options, 'value', 'label', true); // Додаємо нові результати

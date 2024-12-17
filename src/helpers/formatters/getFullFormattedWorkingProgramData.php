@@ -103,13 +103,16 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 
 	$workingProgram->semesters = $formattedSemesters;
 
-	$formattedCreatedByPersons = $workingProgramData->createdByPersons->map(function ($involvedPerson) {
+	$createdByInvolvedPersonsIds = [];
+	$formattedCreatedByPersons = $workingProgramData->createdByPersons->map(function ($involvedPerson) use (&$createdByInvolvedPersonsIds) {
 		$surname = $name = $patronymicName = '';
 
 		if (isset($involvedPerson->person->t_name)) {
 			list($surname, $name, $patronymicName) = explode(" ", $involvedPerson->person->t_name);
 		}
 
+		$createdByInvolvedPersonsIds[$involvedPerson->id] = $involvedPerson->personId;
+		
 		return new WPInvolvedPersonModel(
 			$involvedPerson->id,
 			$involvedPerson->personId,
@@ -124,6 +127,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		);
 	})->toArray();
 
+	$workingProgram->createdByInvolvedPersonsIds = $createdByInvolvedPersonsIds;
 	$workingProgram->createdByPersons = $formattedCreatedByPersons;
 
 	$educationalProgramGuarantorSurname = $educationalProgramGuarantorName = $educationalProgramGuarantorPatronymicName = '';

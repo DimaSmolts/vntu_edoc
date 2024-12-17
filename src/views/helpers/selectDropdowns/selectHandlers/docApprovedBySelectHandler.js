@@ -7,7 +7,7 @@ const docApprovedBySelectHandler = () => {
 			return;
 		}
 
-		const results = await fetchSearchTeachersResults(inputValue);
+		const results = await fetchTeachers(inputValue);
 		docApprovedBySelectChoices.clearChoices(); // Очищаємо старі результати
 		docApprovedBySelectChoices.setChoices(results, 'value', 'label', true); // Додаємо нові результати
 	};

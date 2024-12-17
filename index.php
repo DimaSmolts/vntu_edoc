@@ -122,6 +122,11 @@ $router->get('/api/searchTeachers', function () {
 	$teacherApiController->searchTeachers();
 });
 
+$router->get('/api/searchTeachersByIds', function () {
+	$teacherApiController = new TeacherApiController();
+	$teacherApiController->searchTeachersByIds();
+});
+
 $router->get('/api/getFaculties', function () {
 	$facultyApiController = new FacultyApiController();
 	$facultyApiController->getFaculties();
@@ -295,6 +300,11 @@ $router->delete('/api/deleteColloquium', function () {
 $router->delete('/api/deleteLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->deleteLesson();
+});
+
+$router->delete('/api/deleteWPInvolvedPerson', function () {
+	$involvedPersonApiController = new WPInvolvedPersonApiController();
+	$involvedPersonApiController->deleteWPInvolvedPerson();
 });
 
 $router->run();

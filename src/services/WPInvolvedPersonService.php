@@ -46,4 +46,17 @@ class WPInvolvedPersonService
 				]
 			);
 	}
+
+	public function deleteWPInvolvedPerson($id)
+	{
+		// Use Capsule to delete the theme by ID
+		$deleted = Capsule::table('workingProgramInvolvedPersons')->where('id', $id)->delete();
+
+		// Check if any row was deleted
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Involved person deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Involved person not found or delete failed']);
+		}
+	}
 }

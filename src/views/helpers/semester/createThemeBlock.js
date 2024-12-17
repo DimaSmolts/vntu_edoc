@@ -1,5 +1,5 @@
 const createThemeBlock = (themeId) => {
-	const themeBlock = createElement({ elementName: "div", id: `themeBlock${themeId}`, classList: ["mini-block", "theme-block"] });
+	const themeBlock = createElement({ elementName: "div", id: `themeBlock${themeId}`, classList: ["block", "theme-block"] });
 
 	const titleContainer = createElement({ elementName: "div", classList: ["theme-title-container"] });
 
@@ -7,7 +7,7 @@ const createThemeBlock = (themeId) => {
 		elementName: "p",
 		id: `themeTitle${themeId}`,
 		innerText: 'Тема',
-		classList: ["mini-block-title", "theme-title"]
+		classList: ["block-title", "theme-title"]
 	});
 
 	const deleteThemeBtn = createElement({

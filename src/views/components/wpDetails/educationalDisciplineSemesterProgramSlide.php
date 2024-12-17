@@ -9,9 +9,9 @@ $title = "Програма навчальної дисципліни";
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
 				<!-- Створення контейнера з інформацією про існуючий семестр -->
-				<div id="semesterBlock<?= htmlspecialchars($semesterData->id) ?>" class="mini-block">
+				<div id="semesterBlock<?= htmlspecialchars($semesterData->id) ?>" class="block">
 					<div class="semester-title-container">
-						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class="mini-block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
+						<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class="block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 						<button
 							class="btn"
 							onclick="openApproveDeletingModal('семестр', (event)=>deleteSemester(event, <?= htmlspecialchars($semesterData->id) ?>))">
@@ -74,9 +74,9 @@ $title = "Програма навчальної дисципліни";
 					<div id="modulesContainer<?= htmlspecialchars($semesterData->id) ?>" class="modules-container">
 						<?php if (!empty($semesterData->modules)): ?>
 							<?php foreach ($semesterData->modules as $moduleData): ?>
-								<div id="moduleBlock<?= htmlspecialchars($moduleData->moduleId) ?>" class="mini-block">
+								<div id="moduleBlock<?= htmlspecialchars($moduleData->moduleId) ?>" class="block">
 									<div class="module-title-container">
-										<p class="mini-block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>">Mодуль <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?></p>
+										<p class="block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>">Mодуль <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?></p>
 										<button
 											class="btn"
 											onclick="openApproveDeletingModal('модуль', (event)=>deleteModule(event, <?= htmlspecialchars($moduleData->moduleId) ?>))">
@@ -113,9 +113,9 @@ $title = "Програма навчальної дисципліни";
 									<div id="themesContainer<?= htmlspecialchars($moduleData->moduleId) ?>" class="themes-container">
 										<?php if (!empty($moduleData->themes)): ?>
 											<?php foreach ($moduleData->themes as $themeData): ?>
-												<div id="themeBlock<?= htmlspecialchars($themeData->themeId) ?>" class="mini-block theme-block">
+												<div id="themeBlock<?= htmlspecialchars($themeData->themeId) ?>" class="block theme-block">
 													<div class="theme-title-container">
-														<p class="mini-block-title theme-title" id="themeTitle<?= htmlspecialchars($themeData->themeId) ?>">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : "" ?></p>
+														<p class="block-title theme-title" id="themeTitle<?= htmlspecialchars($themeData->themeId) ?>">Тема <?= $themeData->themeNumber ? htmlspecialchars($themeData->themeNumber) : "" ?></p>
 														<button
 															class="btn theme-btn"
 															onclick="openApproveDeletingModal('тему', (event)=>deleteTheme(event, <?= htmlspecialchars($themeData->themeId) ?>))">

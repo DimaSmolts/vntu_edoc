@@ -42,4 +42,17 @@ class TeacherApiController
 			}
 		}
 	}
+
+	public function searchTeachersByIds()
+	{
+		header('Content-Type: application/json');
+
+		if (isset(($_GET['ids']))) {
+			$ids = json_decode($_GET['ids']);
+
+			$teachers = $this->teacherService->getTeachersByIds($ids);
+
+			echo json_encode($teachers);
+		}
+	}
 }

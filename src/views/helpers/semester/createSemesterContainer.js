@@ -2,7 +2,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 	// Створення контейнера для новододаного семестру
 	const semestersContainer = document.getElementById('semestersContainer');
 
-	const semesterBlock = createElement({ elementName: "div", id: `semesterBlock${semesterId}`, classList: ["mini-block"] });
+	const semesterBlock = createElement({ elementName: "div", id: `semesterBlock${semesterId}`, classList: ["block"] });
 
 	const titleContainer = createElement({ elementName: "div", classList: ["semester-title-container"] });
 
@@ -10,7 +10,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 		elementName: "p",
 		id: `semesterTitle${semesterId}`,
 		innerText: 'Семестер',
-		classList: ['mini-block-title', 'semester-title']
+		classList: ['block-title', 'semester-title']
 	});
 
 	const removeSemesterBtn = createElement({

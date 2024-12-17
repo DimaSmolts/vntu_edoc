@@ -1,5 +1,5 @@
 const fetchDepartments = async (query) => {
-	const response = await fetch(`searchDepartments?query=${encodeURIComponent(query)}`);
+	const response = await fetch(`api/searchDepartments?query=${encodeURIComponent(query)}`);
 	const data = await response.json();
 
 	return data.map(department => ({

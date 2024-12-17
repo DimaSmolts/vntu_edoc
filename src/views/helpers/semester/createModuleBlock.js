@@ -1,5 +1,5 @@
 const createModuleBlock = (moduleId) => {
-	const moduleContainer = createElement({ elementName: "div", id: `moduleBlock${moduleId}`, classList: ["mini-block"] });
+	const moduleContainer = createElement({ elementName: "div", id: `moduleBlock${moduleId}`, classList: ["block"] });
 
 	const titleContainer = createElement({ elementName: "div", classList: ["module-title-container"] });
 
@@ -7,7 +7,7 @@ const createModuleBlock = (moduleId) => {
 		elementName: "p",
 		id: `moduleTitle${moduleId}`,
 		innerText: "Модуль",
-		classList: ["mini-block-title", "module-title"]
+		classList: ["block-title", "module-title"]
 	});
 
 	const removeModuleBtn = createElement({

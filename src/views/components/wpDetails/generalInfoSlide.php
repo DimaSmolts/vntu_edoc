@@ -58,17 +58,9 @@ $title = "Загальна інформація";
 			<?php if (isset($details->educationalProgramIds)): ?> data-educationalProgramIds=<?= json_encode($details->educationalProgramIds) ?><?php endif; ?>>
 		</select>
 	</label>
-	<!-- <label>Освітня програма:
-		<input
-			type="text"
-			id="educationalProgram"
-			name="educationalProgram"
-			value="<?= htmlspecialchars($details->educationalProgram ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-	</label> -->
-	<div class="mini-block">
-		<p class="mini-block-title">Документ затверджено:</p>
-		<div class="micro-block">
+	<div class="block">
+		<p class="block-title">Документ затверджено:</p>
+		<div>
 			<?php if ($details->docApprovedBy): ?>
 				<label id="docApprovedByLabel">
 					Ім'я та прізвище:
@@ -99,8 +91,8 @@ $title = "Загальна інформація";
 			<?php endif; ?>
 		</div>
 	</div>
-	<div class="mini-block">
-		<p class="mini-block-title">Деталі робочої програми:</p>
+	<div class="block">
+		<p class="block-title">Деталі робочої програми:</p>
 		<label>Рік підготовки:
 			<input
 				type="number"

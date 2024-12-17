@@ -7,7 +7,7 @@ const headOfDepartmentSelectHandler = () => {
 			return;
 		}
 
-		const results = await fetchSearchTeachersResults(inputValue);
+		const results = await fetchTeachers(inputValue);
 		headOfDepartmentSelectChoices.clearChoices(); // Очищаємо старі результати
 		headOfDepartmentSelectChoices.setChoices(results, 'value', 'label', true); // Додаємо нові результати
 	};

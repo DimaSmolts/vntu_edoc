@@ -1,4 +1,4 @@
-const fetchSearchTeachersResults = async (query) => {
+const fetchTeachers = async (query) => {
 	const response = await fetch(`api/searchTeachers?query=${encodeURIComponent(query)}`);
 	const data = await response.json();
 
