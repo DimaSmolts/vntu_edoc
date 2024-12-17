@@ -125,6 +125,7 @@
     <script src="src/views/helpers/textEditor/approvedByPosition.js"></script>
     <script src="src/views/helpers/textEditor/createdByPersonPosition.js"></script>
     <script src="src/views/helpers/textEditor/createdByPersonsPositions.js"></script>
+    <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbarWithListAndLink.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbar.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorsForApprovedPage.js"></script>
@@ -137,15 +138,6 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
-        // Змінюємо інпути для введення літератури
-        initializeTextEditorForLiterature({
-            mainLiterature: <?php echo json_encode($details->literature->main); ?>,
-            supportingLiterature: <?php echo json_encode($details->literature->supporting); ?>,
-            additionalLiterature: <?php echo json_encode($details->literature->additional); ?>,
-            informationResources: <?php echo json_encode($details->literature->informationResources); ?>,
-            wpId: <?= htmlspecialchars($details->id) ?>
-        });
-
         initializeTextEditorsForApprovedPage({
             createdByPersons: <?php echo isset($details->createdByPersons) ? json_encode($details->createdByPersons) : json_encode(null) ?>,
             educationalProgramGuarantorId: <?php echo isset($details->educationalProgramGuarantor) ? json_encode($details->educationalProgramGuarantor->id) : json_encode(null) ?>,
@@ -158,5 +150,14 @@
             approvedByPositionName: <?php echo isset($details->approvedBy) ? json_encode($details->approvedBy->positionAndMinutesOfMeeting) : json_encode(null) ?>,
             wpId: <?php echo json_encode($details->id) ?>
         })
+
+        // Змінюємо інпути для введення літератури
+        initializeTextEditorForLiterature({
+            mainLiterature: <?php echo json_encode($details->literature->main); ?>,
+            supportingLiterature: <?php echo json_encode($details->literature->supporting); ?>,
+            additionalLiterature: <?php echo json_encode($details->literature->additional); ?>,
+            informationResources: <?php echo json_encode($details->literature->informationResources); ?>,
+            wpId: <?= htmlspecialchars($details->id) ?>
+        });
     </script>
 </body>
