@@ -5,15 +5,36 @@ namespace App\Services;
 require_once __DIR__ . '/../models/DBEducationalDisciplineWorkingProgramModel.php';
 
 use App\Models\DBEducationalDisciplineWorkingProgramModel;
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class WPService
 {
 	public function getWPList()
 	{
-		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'academicYear', 'specialtyName', 'createdAt'])
+		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'academicYear', 'specialtyIds', 'createdAt'])
 			->orderBy('createdAt')
 			->get();
+
+		foreach ($workingPrograms as $workingProgram) {
+			$specialtyIds = json_decode($workingProgram->specialtyIds ?? '[]', true);
+
+
+			if (!empty($specialtyIds)) {
+				$specialties = Capsule::table('spec_edu_pr')
+					->select('id', 'spec', 'spec_num_code')
+					->whereIn('id', $specialtyIds)
+					->get();
+
+				$specialtiesNames = $specialties->map(function ($specialty) {
+					return $specialty->spec;
+				})->toArray();
+
+				$workingProgram->specialtiesNames = $specialtiesNames;
+			} else {
+				$workingProgram->specialtiesNames = [];
+			}
+		}
 
 		return $workingPrograms;
 	}

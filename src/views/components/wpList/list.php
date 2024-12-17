@@ -12,7 +12,13 @@
 			<li class="wp-list-item">
 				<div class="wp-list-item-content">
 					<span><?= htmlspecialchars($item->disciplineName) ?></span>
-					<span><?= isset($item->specialtyName) ? htmlspecialchars($item->specialtyName) : "" ?></span>
+					<div class="specialties-names">
+						<?php if (!empty($item->specialtiesNames)): ?>
+							<?php foreach ($item->specialtiesNames as $specialtyName): ?>
+								<span><?= htmlspecialchars($specialtyName) ?></span>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</div>
 					<span class="academic-year"><?= isset($item->academicYear) ? htmlspecialchars($item->academicYear) : "" ?></span>
 					<span><?= htmlspecialchars($item->createdAt) ?></span>
 					<a class="btn" type="button" href="wpdetails?id=<?= htmlspecialchars($item->id) ?>">Відредагувати</a>

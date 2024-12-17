@@ -88,3 +88,12 @@
     color: black;
     text-decoration: none;
 }
+
+.specialties-names span {
+    display: block;
+    border-radius: 10px;
+    text-align: center;
+    width: max-content;
+    max-width: 100%;
+    margin: 3px auto;
+}

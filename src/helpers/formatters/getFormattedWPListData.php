@@ -11,7 +11,7 @@ function getFormattedWPListData($wps)
 			$wp->id,
 			$wp->disciplineName,
 			$wp->createdAt,
-			$wp->specialtyName,
+			$wp->specialtiesNames,
 			$wp->academicYear
 		);
 	});
