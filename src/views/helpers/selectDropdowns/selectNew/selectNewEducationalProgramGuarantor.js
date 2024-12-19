@@ -6,30 +6,40 @@ const selectNewEducationalProgramGuarantor = async (wpInvolvedPersonId, personId
         roleId: 3,
     };
 
-    const id = await updateWPInvolvedPerson(postData);
+    const newInvolvedPerson = await updateWPInvolvedPerson(postData);
 
     const educationalProgramGuarantorSelect = document.getElementById('educationalProgramGuarantorSelect');
-    educationalProgramGuarantorSelect.setAttribute('data-wpInvolvedPersonId', id);
+    educationalProgramGuarantorSelect.setAttribute('data-wpInvolvedPersonId', newInvolvedPerson.id);
+    educationalProgramGuarantorSelect.setAttribute('data-educationalProgramGuarantorId', newInvolvedPerson.personId);
 
     const degree = createLabelWithInput({
         labelText: 'Cтупінь:',
         inputType: 'text',
         inputName: 'degree',
         placeholder: 'к.т.н.',
+        labelId: 'educationalProgramGuarantorDegree',
         value: '',
         eventListener: (event) => {
             updateWPInvolvedPersonDetails(event, id, wpId)
         }
     });
 
-    const positionAndMinutesOfMeetingLabel = createElement({ elementName: "p", innerText: 'Посада. Протокол засідання:' });
-    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: 'educationalProgramGuarantorPosition', style: "height: 100px" })
+    const position = createLabelWithInput({
+        labelText: 'Посада:',
+        inputType: 'text',
+        inputName: 'position',
+        placeholder: 'Гарант освітньої програми, завідувач кафедри ТАМ',
+        labelId: 'educationalProgramGuarantorPosition',
+        value: '',
+        eventListener: (event) => {
+            updateWPInvolvedPersonDetails(event, id, wpId)
+        }
+    });
 
-    const educationalProgramGuarantorLabel = document.getElementById('educationalProgramGuarantorLabel');
+    const educationalProgramGuarantorBlock = document.getElementById('educationalProgramGuarantorBlock');
+    educationalProgramGuarantorBlock.classList.remove('involved-person-info-block');
+    educationalProgramGuarantorBlock.classList.add('guarantor-info-block', 'involved-person-additional-info-block')
 
-    educationalProgramGuarantorLabel.after(degree);
-    degree.after(positionAndMinutesOfMeetingLabel);
-    positionAndMinutesOfMeetingLabel.after(positionAndMinutesOfMeetingTextEditor);
-
-    educationalProgramGuarantorPosition({ educationalProgramGuarantorId: id, educationalProgramGuarantorPositionName: '', wpId })
+    educationalProgramGuarantorBlock.appendChild(degree);
+    educationalProgramGuarantorBlock.appendChild(position);
 } 

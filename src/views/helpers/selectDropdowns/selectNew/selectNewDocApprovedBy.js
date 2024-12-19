@@ -6,17 +6,18 @@ const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
         roleId: 1,
     };
 
-    const id = await updateWPInvolvedPerson(postData);
+    const newInvolvedPerson = await updateWPInvolvedPerson(postData);
 
     const docApprovedBySelect = document.getElementById('docApprovedBySelect');
-    docApprovedBySelect.setAttribute('data-wpInvolvedPersonId', id);
+    docApprovedBySelect.setAttribute('data-wpInvolvedPersonId', newInvolvedPerson.id);
 
-    const positionAndMinutesOfMeetingLabel = createLabelWithInput({
+    const positionLabel = createLabelWithInput({
         labelText: 'Посада:',
         inputType: 'text',
-        inputName: 'positionAndMinutesOfMeeting',
+        inputName: 'position',
         placeholder: 'Проректор з ...',
         value: '',
+        labelId: "docApprovedByPosition",
         eventListener: (event) => {
             updateWPInvolvedPersonDetails(event, id, wpId)
         }
@@ -24,7 +25,5 @@ const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
 
     const docApprovedByLabel = document.getElementById('docApprovedByLabel');
 
-    docApprovedByLabel.after(positionAndMinutesOfMeetingLabel);
-
-    docApprovedByPosition({ docApprovedById: id, docApprovedByPositionName: '', wpId })
+    docApprovedByLabel.after(positionLabel);
 } 

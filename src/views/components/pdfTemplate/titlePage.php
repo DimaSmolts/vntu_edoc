@@ -5,7 +5,7 @@
 		<div class="center inserted small-bottom-margin"><?= isset($details->departmentId) ? htmlspecialchars($details->department->name) : '' ?></div>
 		<div class="doc-approved-block">
 			<div class="center bold">ЗАТВЕРДЖУЮ</div>
-			<div class="inserted justify"><?= isset($details->docApprovedBy) ? $details->docApprovedBy->positionAndMinutesOfMeeting : '' ?></div>
+			<div class="inserted justify"><?= htmlspecialchars($details->docApprovedBy->position ?? '') ?></div>
 			<div>________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->docApprovedBy->surname, 'UTF-8')) ?></span></div>
 			<div>«___»______________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
 		</div>

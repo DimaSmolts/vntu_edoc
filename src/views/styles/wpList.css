@@ -73,6 +73,8 @@
 
 .wp-modal-input {
     width: 65%;
+    font-size: 17px;
+    padding: 5px;
 }
 
 .close-modal {

@@ -335,8 +335,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$patronymicName,
 			$involvedPerson->person->workPositionData->name,
 			$involvedPerson->involvedRole->role,
-			$involvedPerson->positionAndMinutesOfMeeting,
+			$involvedPerson->position,
 			$involvedPerson->degree,
+			$involvedPerson->minutesOfMeeting,
 		);
 	})->toArray();
 
@@ -359,8 +360,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$educationalProgramGuarantorPatronymicName,
 		isset($workingProgramData->educationalProgramGuarantor->person->workPositionData->name) ? $workingProgramData->educationalProgramGuarantor->person->workPositionData->name : '',
 		isset($workingProgramData->educationalProgramGuarantor->involvedRole->role) ? $workingProgramData->educationalProgramGuarantor->involvedRole->role : '',
-		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting,
-		$workingProgramData->educationalProgramGuarantor->degree
+		$workingProgramData->educationalProgramGuarantor->position,
+		$workingProgramData->educationalProgramGuarantor->degree,
+		$workingProgramData->educationalProgramGuarantor->minutesOfMeeting,
 	) : null;
 
 	// Додаємо дані про людину, яка є зав. кафедри
@@ -379,8 +381,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$headOfDepartmentPatronymicName,
 		isset($workingProgramData->headOfDepartment->person->workPositionData->name) ? $workingProgramData->headOfDepartment->person->workPositionData->name : '',
 		isset($workingProgramData->headOfDepartment->involvedRole->role) ? $workingProgramData->headOfDepartment->involvedRole->role : '',
-		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting,
-		$workingProgramData->headOfDepartment->degree
+		$workingProgramData->headOfDepartment->position,
+		$workingProgramData->headOfDepartment->degree,
+		$workingProgramData->headOfDepartment->minutesOfMeeting,
 	) : null;
 
 	// Додаємо дані про людину, яка є головою комісії/ради
@@ -399,8 +402,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$headOfCommissionPatronymicName,
 		isset($workingProgramData->headOfCommission->person->workPositionData->name) ? $workingProgramData->headOfCommission->person->workPositionData->name : '',
 		isset($workingProgramData->headOfCommission->involvedRole->role) ? $workingProgramData->headOfCommission->involvedRole->role : '',
-		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting,
-		$workingProgramData->headOfCommission->degree
+		$workingProgramData->headOfCommission->position,
+		$workingProgramData->headOfCommission->degree,
+		$workingProgramData->headOfCommission->minutesOfMeeting,
 	) : null;
 
 	// Додаємо дані про людину, яка затвердила робочу програму
@@ -419,8 +423,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$approvedByPatronymicName,
 		isset($workingProgramData->approvedBy->person->workPositionData->name) ? $workingProgramData->approvedBy->person->workPositionData->name : '',
 		isset($workingProgramData->approvedBy->involvedRole->role) ? $workingProgramData->approvedBy->involvedRole->role : '',
-		$workingProgramData->approvedBy->positionAndMinutesOfMeeting,
-		$workingProgramData->approvedBy->degree
+		$workingProgramData->approvedBy->position,
+		$workingProgramData->approvedBy->degree,
+		$workingProgramData->approvedBy->minutesOfMeeting,
 	) : null;
 
 	// Додаємо дані про людину, яка затвердила документ
@@ -439,8 +444,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$docApprovedByPatronymicName,
 		isset($workingProgramData->docApprovedBy->person->workPositionData->name) ? $workingProgramData->docApprovedBy->person->workPositionData->name : '',
 		isset($workingProgramData->docApprovedBy->involvedRole->role) ? $workingProgramData->docApprovedBy->involvedRole->role : '',
-		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting,
-		$workingProgramData->docApprovedBy->degree
+		$workingProgramData->docApprovedBy->position,
+		$workingProgramData->docApprovedBy->degree,
+		$workingProgramData->docApprovedBy->minutesOfMeeting,
 	) : null;
 
 	// Додаємо глобальні дані

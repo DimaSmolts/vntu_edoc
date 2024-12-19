@@ -83,13 +83,13 @@
 				<?php if ($idx === 0): ?>
 					<tr>
 						<th class="approved-first-col" rowspan="<?= htmlspecialchars(count($details->createdByPersons)) ?>">Розроблено</th>
-						<td class="approved-second-col none-border-left inserted"><?= $createdByPerson->positionAndMinutesOfMeeting; ?></td>
+						<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?><br><?= htmlspecialchars($createdByPerson->minutesOfMeeting ?? '') ?></td>
 						<td class="approved-third-col inserted center"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($createdByPerson->degree) ?>, <?= htmlspecialchars($createdByPerson->workPosition) ?></td>
 						<td class="approved-forth-col"></td>
 					</tr>
 				<?php else: ?>
 					<tr>
-						<td class="approved-second-col none-border-left inserted"><?= $createdByPerson->positionAndMinutesOfMeeting; ?></td>
+						<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?><br><?= htmlspecialchars($createdByPerson->minutesOfMeeting ?? '') ?></td>
 						<td class="approved-third-col inserted center"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($createdByPerson->degree ?? '') ?>, <?= htmlspecialchars($createdByPerson->workPosition ?? '') ?></td>
 						<td class="approved-forth-col"></td>
 					</tr>
@@ -99,7 +99,7 @@
 		<tr>
 			<th rowspan="3" class="approved-first-col">Схвалено</th>
 			<?php if (isset($details->educationalProgramGuarantor)): ?>
-				<td class="approved-second-col inserted"><?= isset($details->educationalProgramGuarantor) ? $details->educationalProgramGuarantor->positionAndMinutesOfMeeting : '' ?></td>
+				<td class="approved-second-col inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->position ?? '') ?><br><?= htmlspecialchars($details->educationalProgramGuarantor->minutesOfMeeting ?? '') ?></td>
 				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->educationalProgramGuarantor->name) ?> <?= htmlspecialchars(mb_strtoupper($details->educationalProgramGuarantor->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>, <?= htmlspecialchars($details->educationalProgramGuarantor->workPosition ?? '') ?></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>
@@ -109,7 +109,7 @@
 		</tr>
 		<tr>
 			<?php if (isset($details->headOfDepartment)): ?>
-				<td class="approved-second-col none-border-left inserted"><?= isset($details->headOfDepartment) ? $details->headOfDepartment->positionAndMinutesOfMeeting : '' ?></td>
+				<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($details->headOfDepartment->position ?? '') ?><br><?= htmlspecialchars($details->headOfDepartment->minutesOfMeeting ?? '') ?></td>
 				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->headOfDepartment->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfDepartment->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->headOfDepartment->degree ?? '') ?>, <?= htmlspecialchars($details->headOfDepartment->workPosition ?? '') ?></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>
@@ -119,7 +119,7 @@
 		</tr>
 		<tr>
 			<?php if (isset($details->headOfCommission)): ?>
-				<td class="approved-second-col none-border-left inserted"><?= isset($details->headOfCommission) ? $details->headOfCommission->positionAndMinutesOfMeeting : '' ?></td>
+				<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($details->headOfCommission->position ?? '')  ?><br><?= htmlspecialchars($details->headOfCommission->minutesOfMeeting ?? '')  ?></td>
 				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->headOfCommission->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfCommission->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->headOfCommission->degree ?? '') ?>, <?= htmlspecialchars($details->headOfCommission->workPosition ?? '') ?></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>
@@ -130,7 +130,7 @@
 		<tr>
 			<th class="approved-first-col">Затверджено</th>
 			<?php if (isset($details->approvedBy)): ?>
-				<td class="approved-second-col inserted"><?= isset($details->approvedBy) ? $details->approvedBy->positionAndMinutesOfMeeting : '' ?></td>
+				<td class="approved-second-col inserted"><?= htmlspecialchars($details->approvedBy->position ?? '') ?><br><?= htmlspecialchars($details->approvedBy->minutesOfMeeting ?? '') ?></td>
 				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->approvedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->approvedBy->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->approvedBy->degree ?? '') ?>, <?= htmlspecialchars($details->approvedBy->workPosition ?? '') ?></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>

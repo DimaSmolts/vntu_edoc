@@ -62,6 +62,7 @@
     <script src="src/views/helpers/selectDropdowns/fetch/fetchSpecialtiesByIds.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalPrograms.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalProgramsByIds.js"></script>
+    <script src="src/views/helpers/selectDropdowns/selectHandlers/involvedPersonSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/createdByPersonsSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramGuarantorSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/headOfDepartmentSelectHandler.js"></script>
@@ -121,16 +122,9 @@
     <script src="src/views/helpers/pointsDistribution/updateColloquiumPoints.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
-    <script src="src/views/helpers/textEditor/educationalProgramGuarantorPosition.js"></script>
-    <script src="src/views/helpers/textEditor/headOfDepartmentPosition.js"></script>
-    <script src="src/views/helpers/textEditor/headOfCommissionPosition.js"></script>
-    <script src="src/views/helpers/textEditor/approvedByPosition.js"></script>
-    <script src="src/views/helpers/textEditor/createdByPersonPosition.js"></script>
-    <script src="src/views/helpers/textEditor/createdByPersonsPositions.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbarWithListAndLink.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbar.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
-    <script src="src/views/helpers/textEditor/initializeTextEditorsForApprovedPage.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
@@ -140,19 +134,6 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
-        initializeTextEditorsForApprovedPage({
-            createdByPersons: <?php echo isset($details->createdByPersons) ? json_encode($details->createdByPersons) : json_encode(null) ?>,
-            educationalProgramGuarantorId: <?php echo isset($details->educationalProgramGuarantor) ? json_encode($details->educationalProgramGuarantor->id) : json_encode(null) ?>,
-            educationalProgramGuarantorPosition: <?php echo isset($details->educationalProgramGuarantor) ? json_encode($details->educationalProgramGuarantor->positionAndMinutesOfMeeting) : json_encode(null) ?>,
-            headOfDepartmentId: <?php echo isset($details->headOfDepartment) ? json_encode($details->headOfDepartment->id) : json_encode(null) ?>,
-            headOfDepartmentPositionName: <?php echo isset($details->headOfDepartment) ? json_encode($details->headOfDepartment->positionAndMinutesOfMeeting) : json_encode(null) ?>,
-            headOfCommissionId: <?php echo isset($details->headOfCommission) ? json_encode($details->headOfCommission->id) : json_encode(null) ?>,
-            headOfCommissionPositionName: <?php echo isset($details->headOfCommission) ? json_encode($details->headOfCommission->positionAndMinutesOfMeeting) : json_encode(null) ?>,
-            approvedById: <?php echo isset($details->approvedBy) ? json_encode($details->approvedBy->id) : json_encode(null) ?>,
-            approvedByPositionName: <?php echo isset($details->approvedBy) ? json_encode($details->approvedBy->positionAndMinutesOfMeeting) : json_encode(null) ?>,
-            wpId: <?php echo json_encode($details->id) ?>
-        })
-
         // Змінюємо інпути для введення літератури
         initializeTextEditorForLiterature({
             mainLiterature: <?php echo json_encode($details->literature->main); ?>,

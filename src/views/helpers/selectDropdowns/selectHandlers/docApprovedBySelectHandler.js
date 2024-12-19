@@ -23,8 +23,10 @@ const docApprovedBySelectHandler = () => {
 		const wpInvolvedPersonId = select.getAttribute('data-wpInvolvedPersonId');
 		const wpId = select.getAttribute('data-wpId');
 
-		if (wpInvolvedPersonId) {
+		if (wpInvolvedPersonId && event.target.value) {
 			await selectDocApprovedBy(wpInvolvedPersonId, event.target.value, wpId);
+		} else if (!event.target.value) {
+			await removeWPInvolvedPerson({ id: wpInvolvedPersonId, isDocAprovedBy: true });
 		} else {
 			await selectNewDocApprovedBy(null, event.target.value, wpId);
 		}

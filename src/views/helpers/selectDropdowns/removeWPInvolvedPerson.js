@@ -1,4 +1,4 @@
-const removeWPInvolvedPerson = ({ id, isCreatedBy = false, newSelectedCreatedByInvolvedPersonsIds = null }) => {
+const removeWPInvolvedPerson = ({ id, isCreatedBy = false, newSelectedCreatedByInvolvedPersonsIds = null, isDocAprovedBy = false, personPositionName = null }) => {
 	fetch(`api/deleteWPInvolvedPerson/?id=${id}`, {
 		method: 'DELETE',
 		headers: {
@@ -15,27 +15,41 @@ const removeWPInvolvedPerson = ({ id, isCreatedBy = false, newSelectedCreatedByI
 
 					const updatedCreatedByInvolvedPersonsIds = JSON.stringify(newSelectedCreatedByInvolvedPersonsIds);
 					createdByPersonsSelect.setAttribute('data-createdByInvolvedPersonsIds', updatedCreatedByInvolvedPersonsIds);
+				} else if (isDocAprovedBy) {
+					document.getElementById('docApprovedByPosition').remove();
+					const select = document.getElementById('docApprovedBySelect');
+					select.removeAttribute('data-wpInvolvedPersonId');
+				} else {
+					const degree = document.getElementById(`${personPositionName}Degree`);
+					const position = document.getElementById(`${personPositionName}Position`);
+					const minutesOfMeeting = document.getElementById(`${personPositionName}MinutesOfMeeting`);
 
-					const createdByAdditionalInfoBlock = document.getElementById('createdByAdditionalInfoBlock');
-					createdByAdditionalInfoBlock.classList.remove('one-column', 'two-columns', 'three-columns');
-
-					let columnClass = 'three-columns';
-
-					switch (createdByAdditionalInfoBlock.children.length) {
-						case 1:
-							columnClass = 'one-column';
-							break;
-						case 2:
-							columnClass = 'two-columns';
-							break;
-						default:
-							break;
+					if (degree) {
+						degree.remove();
 					}
 
-					createdByAdditionalInfoBlock.classList.add(columnClass);
-				} else {
-					console.log('Failed to delete the theme.');
+					if (position) {
+						position.remove();
+					}
+
+					if (minutesOfMeeting) {
+						minutesOfMeeting.remove();
+					}
+
+					const block = document.getElementById(`${personPositionName}Block`);
+					if (personPositionName === 'educationalProgramGuarantor') {
+						block.classList.add('involved-person-info-block', 'guarantor-info-block');
+					} else {
+						block.classList.add('involved-person-info-block')
+					}
+					block.classList.remove('involved-person-additional-info-block')
+
+					const select = document.getElementById(`${personPositionName}Select`);
+					select.removeAttribute('data-wpInvolvedPersonId');
+					select.removeAttribute(`data-${personPositionName}Id`);
 				}
+			} else {
+				console.log('Failed to delete the theme.');
 			}
 		})
 		.catch(error => {

@@ -27,14 +27,14 @@ class WPInvolvedPersonApiController
 		$personId = intval($data['personId']);
 		$involvedPersonRoleId = intval($data['roleId']);
 
-		$id = $this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson(
+		$involvedPerson = $this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson(
 			$wpInvolvedPersonId,
 			$wpId,
 			$personId,
 			$involvedPersonRoleId
 		);
 
-		echo json_encode((['id' => $id]));
+		echo json_encode((['id' => $involvedPerson->id, 'personId' => $involvedPerson->personId]));
 	}
 
 	public function updateWorkingProgramInvolvedPersonDetails()

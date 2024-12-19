@@ -28,7 +28,7 @@ class WPInvolvedPersonService
 			->where('involvedPersonRoleId', $involvedPersonRoleId)
 			->first();
 
-		return $involvedPerson->id;
+		return $involvedPerson;
 	}
 
 	public function updateWorkingProgramInvolvedPersonDetails(

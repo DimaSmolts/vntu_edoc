@@ -1,5 +1,5 @@
 <div class="create-new-wp-btn-container">
-	<button id="openModalBtn" type="button" class="btn new-wp-btn" onclick="openCreateNewWPModal()">Створити нову робочу програму</button>
+	<button id="openModalBtn" type="button" class="btn new-wp-btn">Створити нову робочу програму</button>
 </div>
 
 <div id="educationalProgramNameModal" class="educational-program-name-modal">

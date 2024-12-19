@@ -7,7 +7,7 @@ const createdByPersonsSelectHandler = async () => {
 	const createdByPersonsIdsSelectChoices = createNewSelectWithSearch('#createdByPersonsIdsSelect'); // Перезапускаємо Choices.js
 
 	const createdByPersonsIdsSelectSearchDropdown = async (inputValue) => {
-		const personsIds = Object.values(selectedCreatedByInvolvedPersonsIds);
+		const personsIds = selectedCreatedByInvolvedPersonsIds ? Object.values(selectedCreatedByInvolvedPersonsIds) : [];
 		if (inputValue.length < 3) {
 			createdByPersonsIdsSelectChoices.clearChoices(); // Очищаємо результати, якщо введено менше 3 символів
 			return;

@@ -6,30 +6,51 @@ const selectNewHeadOfCommission = async (wpInvolvedPersonId, personId, wpId) => 
         roleId: 5,
     };
 
-    const id = await updateWPInvolvedPerson(postData);
+    const newInvolvedPerson = await updateWPInvolvedPerson(postData);
 
     const headOfCommissionSelect = document.getElementById('headOfCommissionSelect');
-    headOfCommissionSelect.setAttribute('data-wpInvolvedPersonId', id);
+    headOfCommissionSelect.setAttribute('data-wpInvolvedPersonId', newInvolvedPerson.id);
+    headOfCommissionSelect.setAttribute('data-headOfCommissionId', newInvolvedPerson.personId);
 
     const degree = createLabelWithInput({
         labelText: 'Cтупінь:',
         inputType: 'text',
         inputName: 'degree',
         placeholder: 'к.т.н.',
+        labelId: 'headOfCommissionDegree',
         value: '',
         eventListener: (event) => {
             updateWPInvolvedPersonDetails(event, id, wpId)
         }
     });
 
-    const positionAndMinutesOfMeetingLabel = createElement({ elementName: "p", innerText: 'Посада. Протокол засідання:' });
-    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: 'headOfCommissionPosition', style: "height: 100px" })
+    const position = createLabelWithInput({
+        labelText: 'Посада:',
+        inputType: 'text',
+        inputName: 'position',
+        labelId: 'headOfCommissionPosition',
+        value: '',
+        eventListener: (event) => {
+            updateWPInvolvedPersonDetails(event, id, wpId)
+        }
+    });
 
-    const headOfCommissionLabel = document.getElementById('headOfCommissionLabel');
+    const minutesOfMeeting = createLabelWithInput({
+        labelText: 'Протокол засідання:',
+        inputType: 'text',
+        inputName: 'minutesOfMeeting',
+        labelId: 'headOfCommissionMinutesOfMeeting',
+        value: '',
+        eventListener: (event) => {
+            updateWPInvolvedPersonDetails(event, id, wpId)
+        }
+    });
 
-    headOfCommissionLabel.after(degree);
-    degree.after(positionAndMinutesOfMeetingLabel);
-    positionAndMinutesOfMeetingLabel.after(positionAndMinutesOfMeetingTextEditor);
+    const headOfCommissionBlock = document.getElementById('headOfCommissionBlock');
+    headOfCommissionBlock.classList.remove('involved-person-info-block');
+    headOfCommissionBlock.classList.add('involved-person-additional-info-block')
 
-    headOfCommissionPosition({ headOfCommissionId: id, headOfCommissionPositionName: '', wpId })
+    headOfCommissionBlock.appendChild(degree);
+    headOfCommissionBlock.appendChild(position);
+    headOfCommissionBlock.appendChild(minutesOfMeeting);
 } 

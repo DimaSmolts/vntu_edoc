@@ -1,6 +1,7 @@
 .wp-form {
 	padding: 25px 50px;
-	height: calc(100vh - var(--page-title-height) - 81px); /* Replace `var(--page-title-height)` with a rough estimate if necessary */
+	height: calc(100vh - var(--page-title-height) - 81px);
+	/* Replace `var(--page-title-height)` with a rough estimate if necessary */
 	overflow: auto;
 }
 
@@ -55,16 +56,23 @@
 	gap: 15px;
 }
 
-.one-column {
-	grid-template-columns: 1fr;
+.created-by-additional-info-block {
+	display: grid;
+	grid-template-columns: max-content 1fr 1fr;
+	column-gap: 15px;
+	align-items: center;
 }
 
-.two-columns {
-	grid-template-columns: repeat(2, 1fr);
+.guarantor-info-block.involved-person-additional-info-block {
+	display: grid;
+	grid-template-columns: 2fr 1fr 2fr;
+	column-gap: 15px;
 }
 
-.three-columns {
-	grid-template-columns: repeat(3, 1fr);
+.involved-person-additional-info-block {
+	display: grid;
+	grid-template-columns: 3fr 80px 2fr 2fr;
+	column-gap: 15px;
 }
 
 .weekly-hours-block {
@@ -316,7 +324,7 @@ td {
 	background-color: white !important;
 	border-color: #777 !important;
 	padding: 0 !important;
-	min-height: 30px !important;
+	min-height: 34px !important;
 }
 
 .choices__list--single {

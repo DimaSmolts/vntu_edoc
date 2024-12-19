@@ -17,21 +17,11 @@ $title = "Затверження робочої програми навчаль�
                 </select>
             </label>
             <?php if (!empty($details->createdByPersons)): ?>
-                <?php
-                $createdByPersonsAmount = count($details->createdByPersons);
-                $columnsAmountClass = 'one-column';
-
-                if ($createdByPersonsAmount === 2) {
-                    $columnsAmountClass = 'two-columns';
-                } elseif ($createdByPersonsAmount >= 3) {
-                    $columnsAmountClass = 'three-columns';
-                }
-                ?>
                 <div
                     id="createdByAdditionalInfoBlock"
-                    class="created-by-info-block <?= htmlspecialchars($columnsAmountClass) ?>">
+                    class="created-by-info-block">
                     <?php foreach ($details->createdByPersons as $person): ?>
-                        <div id="createdBy<?= htmlspecialchars($person->id) ?>AdditionalInfoBlock">
+                        <div id="createdBy<?= htmlspecialchars($person->id) ?>AdditionalInfoBlock" class="created-by-additional-info-block">
                             <p class="mini-block-title"><?= htmlspecialchars($person->surname) ?> <?= htmlspecialchars($person->name) ?> <?= htmlspecialchars($person->patronymicName) ?></p>
                             <label>Cтупінь:
                                 <input
@@ -41,10 +31,14 @@ $title = "Затверження робочої програми навчаль�
                                     value="<?= htmlspecialchars($person->degree ?? '') ?>"
                                     oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($person->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                             </label>
-                            <label>Посада. Протокол засідання:</label>
-                            <div id="createdByPerson<?= htmlspecialchars($person->id) ?>Position" style="height: 100px">
-                                <?= $person->positionAndMinutesOfMeeting ?? '' ?>
-                            </div>
+                            <label>Посада:
+                                <input
+                                    placeholder="Доцент кафедри ТАM"
+                                    type="text"
+                                    name="position"
+                                    value="<?= htmlspecialchars($person->position ?? '') ?>"
+                                    oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($person->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                            </label>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -53,8 +47,10 @@ $title = "Затверження робочої програми навчаль�
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Гарант освітньої програми):</p>
-        <div>
-            <label id="educationalProgramGuarantorLabel">
+        <div
+            id="educationalProgramGuarantorBlock"
+            class="guarantor-info-block <?= $details->educationalProgramGuarantor ? 'involved-person-additional-info-block' : 'involved-person-info-block' ?>">
+            <label>
                 Ім'я та прізвище:
                 <select
                     id="educationalProgramGuarantorSelect"
@@ -66,7 +62,7 @@ $title = "Затверження робочої програми навчаль�
                 </select>
             </label>
             <?php if ($details->educationalProgramGuarantor): ?>
-                <label>Cтупінь:
+                <label id="educationalProgramGuarantorDegree">Cтупінь:
                     <input
                         placeholder="к.т.н."
                         type="text"
@@ -74,17 +70,23 @@ $title = "Затверження робочої програми навчаль�
                         value="<?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>"
                         oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                 </label>
-                <label>Посада. Протокол засідання:</label>
-                <div id="educationalProgramGuarantorPosition" style="height: 100px">
-                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '' ?>
-                </div>
+                <label id="educationalProgramGuarantorPosition">Посада:
+                    <input
+                        placeholder="Гарант освітньої програми, завідувач кафедри ТАМ"
+                        type="text"
+                        name="position"
+                        value="<?= htmlspecialchars($details->educationalProgramGuarantor->position ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Зав. кафедри):</p>
-        <div>
-            <label id="headOfDepartmentLabel">
+        <div
+            id="headOfDepartmentBlock"
+            class="<?= $details->headOfDepartment ? 'involved-person-additional-info-block' : 'involved-person-info-block' ?>">
+            <label>
                 Ім'я та прізвище:
                 <select
                     id="headOfDepartmentSelect"
@@ -96,7 +98,7 @@ $title = "Затверження робочої програми навчаль�
                 </select>
             </label>
             <?php if ($details->headOfDepartment): ?>
-                <label>Cтупінь:
+                <label id="headOfDepartmentDegree">Cтупінь:
                     <input
                         placeholder="к.т.н."
                         type="text"
@@ -104,17 +106,31 @@ $title = "Затверження робочої програми навчаль�
                         value="<?= htmlspecialchars($details->headOfDepartment->degree ?? '') ?>"
                         oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfDepartment->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                 </label>
-                <label>Посада. Протокол засідання:</label>
-                <div id="headOfDepartmentPosition" style="height: 100px">
-                    <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?? '' ?>
-                </div>
+                <label id="headOfDepartmentPosition">Посада:
+                    <input
+                        placeholder="Завідувач кафедри ТАМ"
+                        type="text"
+                        name="position"
+                        value="<?= htmlspecialchars($details->headOfDepartment->position ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfDepartment->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
+                <label id="headOfDepartmentMinutesOfMeeting">Протокол засідання:
+                    <input
+                        placeholder="Засідання кафедри ТАМ"
+                        type="text"
+                        name="minutesOfMeeting"
+                        value="<?= htmlspecialchars($details->headOfDepartment->minutesOfMeeting ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfDepartment->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Голова ради/комісії):</p>
-        <div>
-            <label id="headOfCommissionLabel">
+        <div
+            id="headOfCommissionBlock"
+            class="<?= isset($details->headOfCommission) ? 'involved-person-additional-info-block' : 'involved-person-info-block' ?>">
+            <label>
                 Ім'я та прізвище:
                 <select
                     id="headOfCommissionSelect"
@@ -126,7 +142,7 @@ $title = "Затверження робочої програми навчаль�
                 </select>
             </label>
             <?php if ($details->headOfCommission): ?>
-                <label>Cтупінь:
+                <label id="headOfCommissionDegree">Cтупінь:
                     <input
                         placeholder="к.т.н."
                         type="text"
@@ -134,17 +150,31 @@ $title = "Затверження робочої програми навчаль�
                         value="<?= htmlspecialchars($details->headOfCommission->degree ?? '') ?>"
                         oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfCommission->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                 </label>
-                <label>Посада. Протокол засідання:</label>
-                <div id="headOfCommissionPosition" style="height: 100px">
-                    <?= $details->headOfCommission->positionAndMinutesOfMeeting ?? '' ?>
-                </div>
+                <label id="headOfCommissionPosition">Посада:
+                    <input
+                        placeholder="Голова Вченої ради ФМТ"
+                        type="text"
+                        name="position"
+                        value="<?= htmlspecialchars($details->headOfCommission->position ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfCommission->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
+                <label id="headOfCommissionMinutesOfMeeting">Протокол засідання:
+                    <input
+                        placeholder="Вчена рада ФМТ"
+                        type="text"
+                        name="minutesOfMeeting"
+                        value="<?= htmlspecialchars($details->headOfCommission->minutesOfMeeting ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->headOfCommission->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Затверджено:</p>
-        <div>
-            <label id="approvedByLabel">
+        <div
+            id="approvedByBlock"
+            class="<?= isset($details->approvedBy) ? 'involved-person-additional-info-block' : 'involved-person-info-block' ?>">
+            <label>
                 Ім'я та прізвище:
                 <select
                     id="approvedBySelect"
@@ -156,7 +186,7 @@ $title = "Затверження робочої програми навчаль�
                 </select>
             </label>
             <?php if ($details->approvedBy): ?>
-                <label>Cтупінь:
+                <label id="approvedByDegree">Cтупінь:
                     <input
                         placeholder="к.т.н."
                         type="text"
@@ -164,10 +194,22 @@ $title = "Затверження робочої програми навчаль�
                         value="<?= htmlspecialchars($details->approvedBy->degree ?? '') ?>"
                         oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->approvedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
                 </label>
-                <label>Посада. Протокол засідання:</label>
-                <div id="approvedByPosition" style="height: 100px">
-                    <?= $details->approvedBy->positionAndMinutesOfMeeting ?? '' ?>
-                </div>
+                <label id="approvedByPosition">Посада:
+                    <input
+                        placeholder="Голова Ради з якості освіти"
+                        type="text"
+                        name="position"
+                        value="<?= htmlspecialchars($details->approvedBy->position ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->approvedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
+                <label id="approvedByMinutesOfMeeting">Протокол засідання:
+                    <input
+                        placeholder="Рада з якості освіти ВНТУ"
+                        type="text"
+                        name="minutesOfMeeting"
+                        value="<?= htmlspecialchars($details->approvedBy->minutesOfMeeting ?? '') ?>"
+                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->approvedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
+                </label>
             <?php endif; ?>
         </div>
     </div>

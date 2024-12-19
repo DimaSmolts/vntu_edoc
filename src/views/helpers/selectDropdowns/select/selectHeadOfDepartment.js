@@ -6,5 +6,9 @@ const selectHeadOfDepartment = async (wpInvolvedPersonId, personId, wpId) => {
         roleId: 4,
     };
 
-    await updateWPInvolvedPerson(postData);
+    const newInvolvedPerson = await updateWPInvolvedPerson(postData);
+
+    const headOfDepartmentSelect = document.getElementById('headOfDepartmentSelect');
+    headOfDepartmentSelect.setAttribute('data-wpInvolvedPersonId', newInvolvedPerson.id);
+    headOfDepartmentSelect.setAttribute('data-headOfDepartmentId', newInvolvedPerson.personId);
 } 

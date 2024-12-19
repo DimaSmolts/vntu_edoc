@@ -122,8 +122,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			$patronymicName,
 			$involvedPerson->person->workPositionData->name,
 			$involvedPerson->involvedRole->role,
-			$involvedPerson->positionAndMinutesOfMeeting,
+			$involvedPerson->position,
 			$involvedPerson->degree,
+			$involvedPerson->minutesOfMeeting,
 		);
 	})->toArray();
 
@@ -145,8 +146,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$educationalProgramGuarantorPatronymicName,
 		isset($workingProgramData->educationalProgramGuarantor->person->workPositionData->name) ? $workingProgramData->educationalProgramGuarantor->person->workPositionData->name : '',
 		isset($workingProgramData->educationalProgramGuarantor->involvedRole->role) ? $workingProgramData->educationalProgramGuarantor->involvedRole->role : '',
-		$workingProgramData->educationalProgramGuarantor->positionAndMinutesOfMeeting,
-		$workingProgramData->educationalProgramGuarantor->degree
+		$workingProgramData->educationalProgramGuarantor->position,
+		$workingProgramData->educationalProgramGuarantor->degree,
+		$workingProgramData->educationalProgramGuarantor->minutesOfMeeting,
 	) : null;
 
 	$headOfDepartmentSurname = $headOfDepartmentName = $headOfDepartmentPatronymicName = '';
@@ -164,8 +166,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$headOfDepartmentPatronymicName,
 		isset($workingProgramData->headOfDepartment->person->workPositionData->name) ? $workingProgramData->headOfDepartment->person->workPositionData->name : '',
 		isset($workingProgramData->headOfDepartment->involvedRole->role) ? $workingProgramData->headOfDepartment->involvedRole->role : '',
-		$workingProgramData->headOfDepartment->positionAndMinutesOfMeeting,
-		$workingProgramData->headOfDepartment->degree
+		$workingProgramData->headOfDepartment->position,
+		$workingProgramData->headOfDepartment->degree,
+		$workingProgramData->headOfDepartment->minutesOfMeeting,
 	) : null;
 
 	$headOfCommissionSurname = $headOfCommissionName = $headOfCommissionPatronymicName = '';
@@ -183,8 +186,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$headOfCommissionPatronymicName,
 		isset($workingProgramData->headOfCommission->person->workPositionData->name) ? $workingProgramData->headOfCommission->person->workPositionData->name : '',
 		isset($workingProgramData->headOfCommission->involvedRole->role) ? $workingProgramData->headOfCommission->involvedRole->role : '',
-		$workingProgramData->headOfCommission->positionAndMinutesOfMeeting,
-		$workingProgramData->headOfCommission->degree
+		$workingProgramData->headOfCommission->position,
+		$workingProgramData->headOfCommission->degree,
+		$workingProgramData->headOfCommission->minutesOfMeeting,
 	) : null;
 
 	$approvedBySurname = $approvedByName = $approvedByPatronymicName = '';
@@ -202,8 +206,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$approvedByPatronymicName,
 		isset($workingProgramData->approvedBy->person->workPositionData->name) ? $workingProgramData->approvedBy->person->workPositionData->name : '',
 		isset($workingProgramData->approvedBy->involvedRole->role) ? $workingProgramData->approvedBy->involvedRole->role : '',
-		$workingProgramData->approvedBy->positionAndMinutesOfMeeting,
-		$workingProgramData->approvedBy->degree
+		$workingProgramData->approvedBy->position,
+		$workingProgramData->approvedBy->degree,
+		$workingProgramData->approvedBy->minutesOfMeeting,
 	) : null;
 
 	$docApprovedBySurname = $docApprovedByName = $docApprovedByPatronymicName = '';
@@ -221,8 +226,9 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$docApprovedByPatronymicName,
 		isset($workingProgramData->docApprovedBy->person->workPositionData->name) ? $workingProgramData->docApprovedBy->person->workPositionData->name : '',
 		isset($workingProgramData->docApprovedBy->involvedRole->role) ? $workingProgramData->docApprovedBy->involvedRole->role : '',
-		$workingProgramData->docApprovedBy->positionAndMinutesOfMeeting,
-		$workingProgramData->docApprovedBy->degree
+		$workingProgramData->docApprovedBy->position,
+		$workingProgramData->docApprovedBy->degree,
+		$workingProgramData->docApprovedBy->minutesOfMeeting,
 	) : null;
 
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);

@@ -75,12 +75,12 @@ $title = "Загальна інформація";
 						</option>
 					</select>
 				</label>
-				<label>Посада:
+				<label id="docApprovedByPosition">Посада:
 					<input
 						placeholder="Проректор з ..."
 						type="text"
-						name="positionAndMinutesOfMeeting"
-						value="<?= htmlspecialchars($details->docApprovedBy->positionAndMinutesOfMeeting ?? '') ?>"
+						name="position"
+						value="<?= htmlspecialchars($details->docApprovedBy->position ?? '') ?>"
 						oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->docApprovedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
 				</label>
 			<?php else: ?>

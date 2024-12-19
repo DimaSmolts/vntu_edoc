@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class DBWorkingProgramInvolvedPersonModel extends Model
 {
 	protected $table = 'workingProgramInvolvedPersons';
-	protected $fillable = ['educationalDisciplineWPId', 'personId', 'involvedPersonRoleId', 'positionAndMinutesOfMeeting'];
+	protected $fillable = ['educationalDisciplineWPId', 'personId', 'involvedPersonRoleId', 'position', 'degree', 'minutesOfMeeting'];
 
 	public $timestamps = false;
 

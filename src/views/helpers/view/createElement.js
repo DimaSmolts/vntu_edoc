@@ -13,7 +13,7 @@ const createElement = ({
 	href,
 	checked,
 	style,
-	placeholder
+	placeholder,
 }) => {
 	const element = document.createElement(elementName);
 

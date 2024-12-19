@@ -6,17 +6,17 @@ const selectNewCreatedBy = async ({ wpInvolvedPersonId, personId, wpId, oldCreat
         roleId: 2,
     };
 
-    const id = await updateWPInvolvedPerson(postData);
+    const newInvolvedPerson = await updateWPInvolvedPerson(postData);
 
     const createdByPersonsSelect = document.getElementById('createdByPersonsIdsSelect');
-    oldCreatedByInvolvedPersonsIds[id] = personId;
+    oldCreatedByInvolvedPersonsIds[newInvolvedPerson.id] = newInvolvedPerson.personId;
 
     const updatedCreatedByInvolvedPersonsIds = JSON.stringify(oldCreatedByInvolvedPersonsIds);
     createdByPersonsSelect.setAttribute('data-createdByInvolvedPersonsIds', updatedCreatedByInvolvedPersonsIds);
 
     const personName = label.split(",")[0];
 
-    const personBlock = createElement({ elementName: 'div', id: `createdBy${id}AdditionalInfoBlock` });
+    const personBlock = createElement({ elementName: 'div', id: `createdBy${newInvolvedPerson.id}AdditionalInfoBlock`, classList: ["created-by-additional-info-block"] });
     const personNameTitle = createElement({ elementName: "p", innerText: personName, classList: ['mini-block-title'] });
 
     const degree = createLabelWithInput({
@@ -26,37 +26,26 @@ const selectNewCreatedBy = async ({ wpInvolvedPersonId, personId, wpId, oldCreat
         placeholder: 'к.т.н.',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
-    const positionAndMinutesOfMeetingLabel = createElement({ elementName: "label", innerText: 'Посада. Протокол засідання:' });
-    const positionAndMinutesOfMeetingTextEditor = createElement({ elementName: 'div', id: `createdByPerson${id}Position`, style: "height: 100px" })
+    const position = createLabelWithInput({
+        labelText: 'Посада:',
+        inputType: 'text',
+        inputName: 'position',
+        placeholder: 'Доцент кафедри ТАM',
+        value: '',
+        eventListener: (event) => {
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
+        }
+    });
 
     personBlock.appendChild(personNameTitle);
     personBlock.appendChild(degree);
-    personBlock.appendChild(positionAndMinutesOfMeetingLabel);
-    personBlock.appendChild(positionAndMinutesOfMeetingTextEditor);
+    personBlock.appendChild(position);
 
     const createdByAdditionalInfoBlock = document.getElementById('createdByAdditionalInfoBlock');
-    createdByAdditionalInfoBlock.classList.remove('one-column', 'two-columns', 'three-columns');
-
-    let columnClass = 'three-columns';
-
-    switch (Object.entries(oldCreatedByInvolvedPersonsIds).length) {
-        case 1:
-            columnClass = 'one-column';
-            break;
-        case 2:
-            columnClass = 'two-columns';
-            break;
-        default:
-            break;
-    }
-
-    createdByAdditionalInfoBlock.classList.add(columnClass);
 
     createdByAdditionalInfoBlock.appendChild(personBlock);
-
-    createdByPersonPosition({ createdByPersonId: id, createdByPersonPositionName: '', wpId })
 } 
