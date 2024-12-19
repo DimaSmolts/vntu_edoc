@@ -8,6 +8,7 @@ require_once __DIR__ . '/DBWorkingProgramGlobalDataOverwriteModel.php';
 require_once __DIR__ . '/DBWorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/DBFacultyModel.php';
 require_once __DIR__ . '/DBDepartmentModel.php';
+require_once __DIR__ . '/DBStydingLevelTypeModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
@@ -15,6 +16,7 @@ use App\Models\DBWorkingProgramGlobalDataOverwriteModel;
 use App\Models\DBWorkingProgramLiteratureModel;
 use App\Models\DBFacultyModel;
 use App\Models\DBDepartmentModel;
+use App\Models\DBStydingLevelTypeModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -128,5 +130,10 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 	public function department()
 	{
 		return $this->belongsTo(DBDepartmentModel::class, 'departmentId');
+	}
+	
+	public function stydingLevel()
+	{
+		return $this->belongsTo(DBStydingLevelTypeModel::class, 'stydingLevelId');
 	}
 }

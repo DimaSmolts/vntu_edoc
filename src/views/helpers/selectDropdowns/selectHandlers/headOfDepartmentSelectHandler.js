@@ -1,4 +1,9 @@
-const headOfDepartmentSelectHandler = () => {
+const headOfDepartmentSelectHandler = async () => {
+	const headOfDepartmentSelect = document.getElementById('headOfDepartmentSelect');
+	const wpInvolvedPersonId = headOfDepartmentSelect.getAttribute('data-wpInvolvedPersonId');
+	const headOfDepartmentId = headOfDepartmentSelect.getAttribute('data-headOfDepartmentId');
+	const wpId = headOfDepartmentSelect.getAttribute('data-wpId');
+
 	const headOfDepartmentSelectChoices = createNewSelectWithSearch('#headOfDepartmentSelect');
 
 	const headOfDepartmentSelectSearchDropdown = async (inputValue) => {
@@ -14,20 +19,26 @@ const headOfDepartmentSelectHandler = () => {
 
 	// Додаємо обробник на пошук
 	document.querySelector('#headOfDepartmentSelect').addEventListener('search', (event) => {
-		// console.log(event.detail.value);
-		headOfDepartmentSelectSearchDropdown(event.detail.value); // `detail.value` contains user input
+		headOfDepartmentSelectSearchDropdown(event.detail.value);
 	});
 
 	// Додаємо обробник на вибір персони
 	document.querySelector('#headOfDepartmentSelect').addEventListener('change', async (event) => {
-		const select = document.getElementById('headOfDepartmentSelect');
-		const wpInvolvedPersonId = select.getAttribute('data-wpInvolvedPersonId');
-		const wpId = select.getAttribute('data-wpId');
-
 		if (wpInvolvedPersonId) {
 			await selectHeadOfDepartment(wpInvolvedPersonId, event.target.value, wpId);
 		} else {
 			await selectNewHeadOfDepartment(null, event.target.value, wpId);
 		}
 	});
+
+	if (headOfDepartmentId) {
+		const result = await fetchTeacherById(Number(headOfDepartmentId));
+
+		const options = [result].map(option => {
+			return new Option(option.label, option.value, Number(headOfDepartmentId) === option.value, Number(headOfDepartmentId) === option.value);
+
+		});
+
+		headOfDepartmentSelectChoices.setChoices(options, 'value', 'label', true);
+	}
 };

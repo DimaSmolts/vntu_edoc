@@ -29,6 +29,7 @@
     <script src="src/views/helpers/view/createCheckboxWithLabelAtTheEnd.js"></script>
     <script src="src/views/helpers/view/createCheckboxWithLabelAtTheBeginning.js"></script>
     <script src="src/views/helpers/view/createSlide.js"></script>
+    <script src="src/views/helpers/view/updateWPFormHeight.js"></script>
     <script src="src/views/helpers/updating/updateWP.js"></script>
     <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
     <script src="src/views/helpers/carousel/arrowsHandler.js"></script>
@@ -51,6 +52,7 @@
     <script src="src/views/helpers/selectDropdowns/createNewSelect.js"></script>
     <script src="src/views/helpers/selectDropdowns/createNewSelectWithSearch.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchTeachers.js"></script>
+    <script src="src/views/helpers/selectDropdowns/fetch/fetchTeacherById.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchTeachersByIds.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchFaculties.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchDepartments.js"></script>

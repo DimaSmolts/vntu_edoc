@@ -49,40 +49,23 @@ $title = "Затверження робочої програми навчаль�
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
-            <!-- <?php if (!empty($details->createdBy)): ?>
-                <label>Cтупінь:
-                    <input
-                        placeholder="к.т.н."
-                        type="text"
-                        name="degree"
-                        value="<?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>"
-                        oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>, <?= htmlspecialchars($details->id) ?>)">
-                </label>
-                <label>Посада. Протокол засідання:</label>
-                <div id="educationalProgramGuarantorPosition" style="height: 100px">
-                    <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '' ?>
-                </div>
-            <?php endif; ?> -->
         </div>
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Гарант освітньої програми):</p>
         <div>
+            <label id="educationalProgramGuarantorLabel">
+                Ім'я та прізвище:
+                <select
+                    id="educationalProgramGuarantorSelect"
+                    data-wpId=<?= htmlspecialchars($details->id) ?>
+                    <?php if (isset($details->educationalProgramGuarantor)): ?>
+                    data-educationalProgramGuarantorId=<?= json_encode($details->educationalProgramGuarantor->involvedPersonId) ?>
+                    data-wpInvolvedPersonId=<?= json_encode($details->educationalProgramGuarantor->id) ?>
+                    <?php endif; ?>>
+                </select>
+            </label>
             <?php if ($details->educationalProgramGuarantor): ?>
-                <label id="educationalProgramGuarantorLabel">
-                    Ім'я та прізвище:
-                    <select
-                        id="educationalProgramGuarantorSelect"
-                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>"
-                        data-wpId=<?= htmlspecialchars($details->id) ?>>
-                        <option
-                            value=<?= htmlspecialchars($details->educationalProgramGuarantor->id) ?>
-                            selected>
-                            <?= htmlspecialchars($details->educationalProgramGuarantor->name ?? '') ?>, <?= htmlspecialchars($details->educationalProgramGuarantor->workPosition ?? '') ?>
-                        </option>
-                    </select>
-                </label>
                 <label>Cтупінь:
                     <input
                         placeholder="к.т.н."
@@ -95,31 +78,24 @@ $title = "Затверження робочої програми навчаль�
                 <div id="educationalProgramGuarantorPosition" style="height: 100px">
                     <?= $details->educationalProgramGuarantor->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
-            <?php else: ?>
-                <label id="educationalProgramGuarantorLabel">
-                    Ім'я та прізвище:
-                    <select id="educationalProgramGuarantorSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Зав. кафедри):</p>
         <div>
+            <label id="headOfDepartmentLabel">
+                Ім'я та прізвище:
+                <select
+                    id="headOfDepartmentSelect"
+                    data-wpId=<?= htmlspecialchars($details->id) ?>
+                    <?php if (isset($details->headOfDepartment)): ?>
+                    data-headOfDepartmentId=<?= json_encode($details->headOfDepartment->involvedPersonId) ?>
+                    data-wpInvolvedPersonId=<?= json_encode($details->headOfDepartment->id) ?>
+                    <?php endif; ?>>
+                </select>
+            </label>
             <?php if ($details->headOfDepartment): ?>
-                <label id="headOfDepartmentLabel">
-                    Ім'я та прізвище:
-                    <select
-                        id="headOfDepartmentSelect"
-                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->headOfDepartment->id) ?>"
-                        data-wpId=<?= htmlspecialchars($details->id) ?>>
-                        <option
-                            value=<?= htmlspecialchars($details->headOfDepartment->id) ?>
-                            selected>
-                            <?= htmlspecialchars($details->headOfDepartment->name ?? '') ?>, <?= htmlspecialchars($details->headOfDepartment->workPosition ?? '') ?>
-                        </option>
-                    </select>
-                </label>
                 <label>Cтупінь:
                     <input
                         placeholder="к.т.н."
@@ -132,31 +108,24 @@ $title = "Затверження робочої програми навчаль�
                 <div id="headOfDepartmentPosition" style="height: 100px">
                     <?= $details->headOfDepartment->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
-            <?php else: ?>
-                <label id="headOfDepartmentLabel">
-                    Ім'я та прізвище:
-                    <select id="headOfDepartmentSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Схвалено (Голова ради/комісії):</p>
         <div>
+            <label id="headOfCommissionLabel">
+                Ім'я та прізвище:
+                <select
+                    id="headOfCommissionSelect"
+                    data-wpId=<?= htmlspecialchars($details->id) ?>
+                    <?php if (isset($details->headOfCommission)): ?>
+                    data-headOfCommissionId=<?= json_encode($details->headOfCommission->involvedPersonId) ?>
+                    data-wpInvolvedPersonId=<?= json_encode($details->headOfCommission->id) ?>
+                    <?php endif; ?>>
+                </select>
+            </label>
             <?php if ($details->headOfCommission): ?>
-                <label id="headOfCommissionLabel">
-                    Ім'я та прізвище:
-                    <select
-                        id="headOfCommissionSelect"
-                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->headOfCommission->id) ?>"
-                        data-wpId=<?= htmlspecialchars($details->id) ?>>
-                        <option
-                            value=<?= htmlspecialchars($details->headOfCommission->id) ?>
-                            selected>
-                            <?= htmlspecialchars($details->headOfCommission->name ?? '') ?>, <?= htmlspecialchars($details->headOfCommission->workPosition ?? '') ?>
-                        </option>
-                    </select>
-                </label>
                 <label>Cтупінь:
                     <input
                         placeholder="к.т.н."
@@ -169,31 +138,24 @@ $title = "Затверження робочої програми навчаль�
                 <div id="headOfCommissionPosition" style="height: 100px">
                     <?= $details->headOfCommission->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
-            <?php else: ?>
-                <label id="headOfCommissionLabel">
-                    Ім'я та прізвище:
-                    <select id="headOfCommissionSelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-                </label>
             <?php endif; ?>
         </div>
     </div>
     <div class="block">
         <p class="block-title">Затверджено:</p>
         <div>
+            <label id="approvedByLabel">
+                Ім'я та прізвище:
+                <select
+                    id="approvedBySelect"
+                    data-wpId=<?= htmlspecialchars($details->id) ?>
+                    <?php if (isset($details->approvedBy)): ?>
+                    data-approvedById=<?= json_encode($details->approvedBy->involvedPersonId) ?>
+                    data-wpInvolvedPersonId=<?= json_encode($details->approvedBy->id) ?>
+                    <?php endif; ?>>
+                </select>
+            </label>
             <?php if ($details->approvedBy): ?>
-                <label id="approvedByLabel">
-                    Ім'я та прізвище:
-                    <select
-                        id="approvedBySelect"
-                        data-wpInvolvedPersonId="<?= htmlspecialchars($details->approvedBy->id) ?>"
-                        data-wpId=<?= htmlspecialchars($details->id) ?>>
-                        <option
-                            value=<?= htmlspecialchars($details->approvedBy->id) ?>
-                            selected>
-                            <?= htmlspecialchars($details->approvedBy->name ?? '') ?>, <?= htmlspecialchars($details->approvedBy->workPosition ?? '') ?>
-                        </option>
-                    </select>
-                </label>
                 <label>Cтупінь:
                     <input
                         placeholder="к.т.н."
@@ -206,11 +168,6 @@ $title = "Затверження робочої програми навчаль�
                 <div id="approvedByPosition" style="height: 100px">
                     <?= $details->approvedBy->positionAndMinutesOfMeeting ?? '' ?>
                 </div>
-            <?php else: ?>
-                <label id="approvedByLabel">
-                    Ім'я та прізвище:
-                    <select id="approvedBySelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
-                </label>
             <?php endif; ?>
         </div>
     </div>

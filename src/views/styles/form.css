@@ -1,6 +1,6 @@
 .wp-form {
 	padding: 25px 50px;
-	height: 100%;
+	height: calc(100vh - var(--page-title-height) - 81px); /* Replace `var(--page-title-height)` with a rough estimate if necessary */
 	overflow: auto;
 }
 

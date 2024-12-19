@@ -123,7 +123,7 @@ class WPService
 
 	public function getWPDetailsForPDF($id)
 	{
-		$wps = DBEducationalDisciplineWorkingProgramModel::with([
+		$wp = DBEducationalDisciplineWorkingProgramModel::with([
 			'semesters' => function ($query) {
 				$query->orderBy('semesterNumber');
 			},
@@ -175,12 +175,40 @@ class WPService
 			'globalData',
 			'literature',
 			'faculty',
-			'department'
+			'department',
+			'stydingLevel'
 		])
 			->where('id', $id)
-			->get();
+			->get()
+			->first();
 
-		return $wps->first();
+		$specialtyIds = json_decode($wp->specialtyIds ?? '[]', true);
+
+		if (!empty($specialtyIds)) {
+			$specialties = Capsule::table('spec_edu_pr')
+				->select('id', 'spec', 'spec_num_code')
+				->whereIn('id', $specialtyIds)
+				->get();
+
+			$wp->specialties = $specialties;
+		} else {
+			$wp->specialties = collect();
+		}
+
+		$educationalProgramIds = json_decode($wp->educationalProgramIds ?? '[]', true);
+
+		if (!empty($educationalProgramIds)) {
+			$educationalPrograms = Capsule::table('special')
+				->select('id', 'spec')
+				->whereIn('id', $educationalProgramIds)
+				->get();
+
+			$wp->educationalPrograms = $educationalPrograms;
+		} else {
+			$wp->educationalPrograms = collect();
+		}
+
+		return $wp;
 	}
 
 	// Функція для дублювання робочої програми

@@ -44,7 +44,6 @@ const createdByPersonsSelectHandler = async () => {
 
 	// Event listener for when an item is removed
 	createdByPersonsIdsSelect.addEventListener('removeItem', function (event) {
-		console.log('Item removed:', event.detail);
 		const updatedSelectedCreatedByInvolvedPersonsIds = JSON.parse(createdByPersonsIdsSelect.getAttribute('data-createdByInvolvedPersonsIds'));
 
 		const involvedPersonId = Number(Object.entries(updatedSelectedCreatedByInvolvedPersonsIds).find(([invPersonId, personId]) => Number(personId) === Number(event.detail.value))?.[0]);
@@ -52,33 +51,9 @@ const createdByPersonsSelectHandler = async () => {
 		const newSelectedCreatedByInvolvedPersonsIds = Object.fromEntries(
 			Object.entries(updatedSelectedCreatedByInvolvedPersonsIds).filter(([invPersonId]) => Number(invPersonId) !== Number(involvedPersonId))
 		);
-		console.log(newSelectedCreatedByInvolvedPersonsIds)
 
 		removeWPInvolvedPerson({ id: involvedPersonId, isCreatedBy: true, newSelectedCreatedByInvolvedPersonsIds });
 	});
-
-	// // Додаємо обробник події для вибору факультету
-	// createdByPersonsIdsSelect.addEventListener('change', async () => {
-	// 	const personsInSelect = createdByPersonsIdsSelectChoices.getValue(true);
-	// 	const oldPersonsIds = Object.values(selectedCreatedByInvolvedPersonsIds);
-
-	// 	let newPersonId, removedInvolvedPersonId;
-
-	// 	console.log({
-	// 		personsInSelect,
-	// 		oldPersonsIds
-	// 	})
-	// 	personsInSelect.forEach(personId => {
-	// 		if (!oldPersonsIds.includes(Number(personId))) {
-	// 			newPersonId = Number(personId);
-	// 		}
-	// 	})
-
-	// 	Object.entries(selectedCreatedByInvolvedPersonsIds).forEach(([involvedPersonId, personId]) => {
-	// 		if (!personsInSelect.includes(personId)) {
-	// 			removedInvolvedPersonId = involvedPersonId;
-	// 		}
-	// 	});
 
 	if (selectedCreatedByInvolvedPersonsIds) {
 		const personsIds = Object.values(selectedCreatedByInvolvedPersonsIds);

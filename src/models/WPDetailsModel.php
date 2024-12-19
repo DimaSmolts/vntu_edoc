@@ -8,6 +8,7 @@ require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
 require_once __DIR__ . '/FacultyModel.php';
 require_once __DIR__ . '/DepartmentModel.php';
+require_once __DIR__ . '/StydingLevelTypeModel.php';
 
 use App\Models\WPInvolvedPersonModel;
 use App\Models\WorkingProgramGlobalDataOverwriteModel;
@@ -15,6 +16,7 @@ use App\Models\WorkingProgramLiteratureModel;
 use App\Models\LessonsAndExamingsStructureModel;
 use App\Models\FacultyModel;
 use App\Models\DepartmentModel;
+use App\Models\StydingLevelTypeModel;
 
 class WPDetailsModel
 {
@@ -63,6 +65,9 @@ class WPDetailsModel
 	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
 	public ?FacultyModel $faculty;
 	public ?DepartmentModel $department;
+	public array $specialties;
+	public array $educationalPrograms;
+	public ?StydingLevelTypeModel $stydingLevel;
 
 	public function __construct(
 		int $id,
@@ -109,7 +114,10 @@ class WPDetailsModel
 		?WorkingProgramLiteratureModel $literature = null,
 		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
 		?FacultyModel $faculty = null,
-		?DepartmentModel $department = null
+		?DepartmentModel $department = null,
+		?array $specialties = [],
+		?array $educationalPrograms = [],
+		?StydingLevelTypeModel $stydingLevel = null,
 	) {
 		$this->id = $id;
 		$this->regularYear = $regularYear;
@@ -156,5 +164,8 @@ class WPDetailsModel
 		$this->lessonsAndExamingsStructure = $lessonsAndExamingsStructure;
 		$this->faculty = $faculty;
 		$this->department = $department;
+		$this->specialties = $specialties;
+		$this->educationalPrograms = $educationalPrograms;
+		$this->stydingLevel = $stydingLevel;
 	}
 }

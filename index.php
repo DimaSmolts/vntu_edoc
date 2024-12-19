@@ -122,6 +122,11 @@ $router->get('/api/searchTeachers', function () {
 	$teacherApiController->searchTeachers();
 });
 
+$router->get('/api/searchTeacherById', function () {
+	$teacherApiController = new TeacherApiController();
+	$teacherApiController->searchTeacherById();
+});
+
 $router->get('/api/searchTeachersByIds', function () {
 	$teacherApiController = new TeacherApiController();
 	$teacherApiController->searchTeachersByIds();

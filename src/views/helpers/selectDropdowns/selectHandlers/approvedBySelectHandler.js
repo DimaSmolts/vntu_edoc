@@ -1,4 +1,9 @@
-const approvedBySelectHandler = () => {
+const approvedBySelectHandler = async () => {
+	const approvedBySelect = document.getElementById('approvedBySelect');
+	const wpInvolvedPersonId = approvedBySelect.getAttribute('data-wpInvolvedPersonId');
+	const approvedById = approvedBySelect.getAttribute('data-approvedById');
+	const wpId = approvedBySelect.getAttribute('data-wpId');
+
 	const approvedBySelectChoices = createNewSelectWithSearch('#approvedBySelect');
 
 	const approvedBySelectSearchDropdown = async (inputValue) => {
@@ -14,20 +19,26 @@ const approvedBySelectHandler = () => {
 
 	// Додаємо обробник на пошук
 	document.querySelector('#approvedBySelect').addEventListener('search', (event) => {
-		// console.log(event.detail.value);
 		approvedBySelectSearchDropdown(event.detail.value); // `detail.value` contains user input
 	});
 
 	// Додаємо обробник на вибір персони
 	document.querySelector('#approvedBySelect').addEventListener('change', async (event) => {
-		const select = document.getElementById('approvedBySelect');
-		const wpInvolvedPersonId = select.getAttribute('data-wpInvolvedPersonId');
-		const wpId = select.getAttribute('data-wpId');
-
 		if (wpInvolvedPersonId) {
 			await selectApprovedBy(wpInvolvedPersonId, event.target.value, wpId);
 		} else {
 			await selectNewApprovedBy(null, event.target.value, wpId);
 		}
 	});
+
+	if (approvedById) {
+		const result = await fetchTeacherById(Number(approvedById));
+
+		const options = [result].map(option => {
+			return new Option(option.label, option.value, Number(approvedById) === option.value, Number(approvedById) === option.value);
+
+		});
+
+		approvedBySelectChoices.setChoices(options, 'value', 'label', true);
+	}
 };

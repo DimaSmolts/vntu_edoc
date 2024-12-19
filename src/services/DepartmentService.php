@@ -10,6 +10,7 @@ class DepartmentService
 	{
 		$departments = Capsule::table('departments')
 			->select('id', 'd_name')
+			->whereIn('d_type', [3, 10])
 			->where('d_name', 'LIKE', '%' . $query . '%')
 			->limit(10)
 			->get();

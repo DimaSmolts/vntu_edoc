@@ -49,7 +49,7 @@ class WPApiController
 		$this->workingProgramGlobalDataOverwriteService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
 		$this->workingProgramLiteratureService->createNewWPLiterature($newWPId);
 
-		header("Location: wpdetails?id=" . $newWPId);
+		header("Location: /workingPrograms/wpdetails?id=" . $newWPId);
 
 		exit();
 	}

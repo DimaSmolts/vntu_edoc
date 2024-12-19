@@ -57,6 +57,20 @@ td {
 	padding: 1mm;
 }
 
+.table-without-borders,
+.table-without-borders th,
+.table-without-borders td,
+.table-without-borders tr {
+	border-collapse: collapse;
+	border: 0;
+}
+
+.table-without-borders th {
+	padding-left: 0;
+	text-align: left;
+	vertical-align: top;
+}
+
 .doc-approved-block {
 	width: 45%;
 	margin-left: 55%;

@@ -24,6 +24,24 @@ class TeacherService
 		return $teachers;
 	}
 
+	public function getTeacherById($id)
+	{
+		$teacher = Capsule::table('teachers')
+			->select('id', 't_name', 'position')
+			->where('id', $id)
+			->get()
+			->map(function ($t) {
+				$t->position = Capsule::table('position')
+					->select('id', 'name', 'brief')
+					->where('id', $t->position)
+					->first();
+				return $t;
+			})
+			->first();
+
+		return $teacher;
+	}
+
 	public function getTeachersByIds($ids)
 	{
 		$teachers = Capsule::table('teachers')

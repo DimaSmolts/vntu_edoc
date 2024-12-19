@@ -11,9 +11,23 @@ const initializeTextEditorsForApprovedPage = ({
 	wpId
 }) => {
 	// Змінюємо інпут для введення "Посада. Протокол засідання" для залучних персон
-	createdByPersonsPositions({ createdByPersons, wpId })
-	educationalProgramGuarantorPosition({ educationalProgramGuarantorId, educationalProgramGuarantorPositionName, wpId });
-	headOfDepartmentPosition({ headOfDepartmentId, headOfDepartmentPositionName, wpId });
-	headOfCommissionPosition({ headOfCommissionId, headOfCommissionPositionName, wpId });
-	approvedByPosition({ approvedById, approvedByPositionName, wpId });
+	if (createdByPersons.length > 0) {
+		createdByPersonsPositions({ createdByPersons, wpId })
+	}
+
+	if (educationalProgramGuarantorId) {
+		educationalProgramGuarantorPosition({ educationalProgramGuarantorId, educationalProgramGuarantorPositionName, wpId });
+	}
+
+	if (headOfDepartmentId) {
+		headOfDepartmentPosition({ headOfDepartmentId, headOfDepartmentPositionName, wpId });
+	}
+
+	if (headOfCommissionId) {
+		headOfCommissionPosition({ headOfCommissionId, headOfCommissionPositionName, wpId });
+	}
+
+	if (approvedById) {
+		approvedByPosition({ approvedById, approvedByPositionName, wpId });
+	}
 } 

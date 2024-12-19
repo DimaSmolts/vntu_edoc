@@ -1,4 +1,9 @@
-const educationalProgramGuarantorSelectHandler = () => {
+const educationalProgramGuarantorSelectHandler = async () => {
+	const educationalProgramGuarantorSelect = document.getElementById('educationalProgramGuarantorSelect');
+	const wpInvolvedPersonId = educationalProgramGuarantorSelect.getAttribute('data-wpInvolvedPersonId');
+	const educationalProgramGuarantorId = educationalProgramGuarantorSelect.getAttribute('data-educationalProgramGuarantorId');
+	const wpId = educationalProgramGuarantorSelect.getAttribute('data-wpId');
+
 	const educationalProgramGuarantorSelectChoices = createNewSelectWithSearch('#educationalProgramGuarantorSelect');
 
 	const educationalProgramGuarantorSelectSearchDropdown = async (inputValue) => {
@@ -19,14 +24,21 @@ const educationalProgramGuarantorSelectHandler = () => {
 
 	// Додаємо обробник на вибір персони
 	document.querySelector('#educationalProgramGuarantorSelect').addEventListener('change', async (event) => {
-		const select = document.getElementById('educationalProgramGuarantorSelect');
-		const wpInvolvedPersonId = select.getAttribute('data-wpInvolvedPersonId');
-		const wpId = select.getAttribute('data-wpId');
-
 		if (wpInvolvedPersonId) {
 			await selectEducationalProgramGuarantor(wpInvolvedPersonId, event.target.value, wpId);
 		} else {
 			await selectNewEducationalProgramGuarantor(null, event.target.value, wpId);
 		}
 	});
+
+	if (educationalProgramGuarantorId) {
+		const result = await fetchTeacherById(Number(educationalProgramGuarantorId));
+
+		const options = [result].map(option => {
+			return new Option(option.label, option.value, Number(educationalProgramGuarantorId) === option.value, Number(educationalProgramGuarantorId) === option.value);
+
+		});
+
+		educationalProgramGuarantorSelectChoices.setChoices(options, 'value', 'label', true);
+	}
 };
