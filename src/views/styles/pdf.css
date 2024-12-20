@@ -77,7 +77,7 @@ td {
 }
 
 table.approved-table {
-	margin-bottom: 40mm;
+	margin-bottom: 35mm;
 }
 
 div.topic-title-page-start {
@@ -117,12 +117,12 @@ td.approved-first-col {
 
 th.approved-second-col,
 td.approved-second-col {
-	width: 40%;
+	width: 45%;
 }
 
 th.approved-third-col,
 td.approved-third-col {
-	width: 30%;
+	width: 25%;
 }
 
 th.approved-forth-col,

@@ -42,7 +42,8 @@ class WPService
 	public function createNewWP($disciplineName)
 	{
 		$wpId = Capsule::table('educationalDisciplineWorkingProgram')->insertGetId([
-			'disciplineName' => $disciplineName
+			'disciplineName' => $disciplineName,
+			'regularYear' => date("Y")
 		]);
 
 		return $wpId;

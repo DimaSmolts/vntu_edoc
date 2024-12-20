@@ -20,7 +20,7 @@ const selectNewApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
         labelId: 'approvedByDegree',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
@@ -31,18 +31,18 @@ const selectNewApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
         labelId: 'approvedByPosition',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
     const minutesOfMeeting = createLabelWithInput({
-        labelText: 'Протокол засідання:',
+        labelText: 'Засідання:',
         inputType: 'text',
         inputName: 'minutesOfMeeting',
         labelId: 'approvedByMinutesOfMeeting',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 

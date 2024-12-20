@@ -33,7 +33,7 @@
 				<tr>
 					<th style="width: 18%">спеціальність:</th>
 					<td style="width: 82%">
-						<span class="inserted"><?= htmlspecialchars($firstSpecialty->code) ?> <?= htmlspecialchars($firstSpecialty->name) ?></span>
+						<span class="inserted"><?= htmlspecialchars($firstSpecialty->code ?? '') ?> <?= htmlspecialchars($firstSpecialty->name ?? '') ?></span>
 					</td>
 				</tr>
 				<?php if (!empty($specialties)): ?>
@@ -57,7 +57,7 @@
 				<tr>
 					<th style="width: 23%">освітня програма:</th>
 					<td style="width: 78%">
-						<span class="inserted"><?= htmlspecialchars($firstEducationalProgram->name) ?></span>
+						<span class="inserted"><?= htmlspecialchars($firstEducationalProgram->name ?? '') ?></span>
 					</td>
 				</tr>
 				<?php if (!empty($educationalPrograms)): ?>

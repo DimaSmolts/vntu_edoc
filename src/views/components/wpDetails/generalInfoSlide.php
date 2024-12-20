@@ -60,21 +60,21 @@ $title = "Загальна інформація";
 	</label>
 	<div class="block">
 		<p class="block-title">Документ затверджено:</p>
-		<div>
+		<div
+			id="docApprovedByBlock"
+			class="<?= $details->docApprovedBy ? 'doc-approved-by-additional-info-block' : 'doc-approved-by-info-block' ?>">
+			<label id="docApprovedByLabel">
+				Ім'я та прізвище:
+				<select
+					id="docApprovedBySelect"
+					data-wpId=<?= htmlspecialchars($details->id) ?>
+					<?php if (isset($details->docApprovedBy)): ?>
+					data-docApprovedById=<?= json_encode($details->docApprovedBy->involvedPersonId) ?>
+					data-wpInvolvedPersonId=<?= json_encode($details->docApprovedBy->id) ?>
+					<?php endif; ?>>
+				</select>
+			</label>
 			<?php if ($details->docApprovedBy): ?>
-				<label id="docApprovedByLabel">
-					Ім'я та прізвище:
-					<select
-						id="docApprovedBySelect"
-						data-wpInvolvedPersonId="<?= htmlspecialchars($details->docApprovedBy->id) ?>"
-						data-wpId=<?= htmlspecialchars($details->id) ?>>
-						<option
-							value=<?= htmlspecialchars($details->docApprovedBy->id) ?>
-							selected>
-							<?= htmlspecialchars($details->docApprovedBy->surname ?? '') ?> <?= htmlspecialchars($details->docApprovedBy->name ?? '') ?> <?= htmlspecialchars($details->docApprovedBy->patronymicName ?? '') ?>, <?= htmlspecialchars($details->docApprovedBy->workPosition ?? '') ?>
-						</option>
-					</select>
-				</label>
 				<label id="docApprovedByPosition">Посада:
 					<input
 						placeholder="Проректор з ..."
@@ -82,11 +82,6 @@ $title = "Загальна інформація";
 						name="position"
 						value="<?= htmlspecialchars($details->docApprovedBy->position ?? '') ?>"
 						oninput="updateWPInvolvedPersonDetails(event, <?= htmlspecialchars($details->docApprovedBy->id) ?>, <?= htmlspecialchars($details->id) ?>)">
-				</label>
-			<?php else: ?>
-				<label id="docApprovedByLabel">
-					Ім'я та прізвище:
-					<select id="docApprovedBySelect" data-wpId=<?= htmlspecialchars($details->id) ?>></select>
 				</label>
 			<?php endif; ?>
 		</div>

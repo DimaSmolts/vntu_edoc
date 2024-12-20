@@ -20,7 +20,7 @@ const selectNewHeadOfCommission = async (wpInvolvedPersonId, personId, wpId) => 
         labelId: 'headOfCommissionDegree',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
@@ -31,18 +31,18 @@ const selectNewHeadOfCommission = async (wpInvolvedPersonId, personId, wpId) => 
         labelId: 'headOfCommissionPosition',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
     const minutesOfMeeting = createLabelWithInput({
-        labelText: 'Протокол засідання:',
+        labelText: 'Засідання:',
         inputType: 'text',
         inputName: 'minutesOfMeeting',
         labelId: 'headOfCommissionMinutesOfMeeting',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 

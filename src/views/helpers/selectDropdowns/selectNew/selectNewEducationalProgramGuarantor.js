@@ -20,7 +20,7 @@ const selectNewEducationalProgramGuarantor = async (wpInvolvedPersonId, personId
         labelId: 'educationalProgramGuarantorDegree',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
@@ -32,7 +32,7 @@ const selectNewEducationalProgramGuarantor = async (wpInvolvedPersonId, personId
         labelId: 'educationalProgramGuarantorPosition',
         value: '',
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 

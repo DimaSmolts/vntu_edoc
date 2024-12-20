@@ -28,7 +28,7 @@
 			<tr>
 				<th style="width: 21%">спеціальність –</th>
 				<td style="width: 79%">
-					<span class="inserted"><?= htmlspecialchars($firstSpecialty->code) ?> <?= htmlspecialchars($firstSpecialty->name) ?></span>
+					<span class="inserted"><?= htmlspecialchars($firstSpecialty->code ?? '') ?> <?= htmlspecialchars($firstSpecialty->name ?? '') ?></span>
 				</td>
 			</tr>
 			<?php if (!empty($specialties)): ?>
@@ -52,7 +52,7 @@
 			<tr>
 				<th style="width: 25%">освітня програма –</th>
 				<td style="width: 75%">
-					<span class="inserted"><?= htmlspecialchars($firstEducationalProgram->name) ?></span>
+					<span class="inserted"><?= htmlspecialchars($firstEducationalProgram->name ?? '') ?></span>
 				</td>
 			</tr>
 			<?php if (!empty($educationalPrograms)): ?>
@@ -83,14 +83,14 @@
 				<?php if ($idx === 0): ?>
 					<tr>
 						<th class="approved-first-col" rowspan="<?= htmlspecialchars(count($details->createdByPersons)) ?>">Розроблено</th>
-						<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?><br><?= htmlspecialchars($createdByPerson->minutesOfMeeting ?? '') ?></td>
-						<td class="approved-third-col inserted center"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($createdByPerson->degree) ?>, <?= htmlspecialchars($createdByPerson->workPosition) ?></td>
+						<td class="approved-second-col none-border-left"><span class="inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?></span></td>
+						<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($createdByPerson->degree) ?></span>, <span class="inserted"><?= htmlspecialchars($createdByPerson->workPosition) ?></span></td>
 						<td class="approved-forth-col"></td>
 					</tr>
 				<?php else: ?>
 					<tr>
-						<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?><br><?= htmlspecialchars($createdByPerson->minutesOfMeeting ?? '') ?></td>
-						<td class="approved-third-col inserted center"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($createdByPerson->degree ?? '') ?>, <?= htmlspecialchars($createdByPerson->workPosition ?? '') ?></td>
+						<td class="approved-second-col none-border-left"><span class="inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?></span></td>
+						<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($createdByPerson->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($createdByPerson->workPosition ?? '') ?></span></td>
 						<td class="approved-forth-col"></td>
 					</tr>
 				<?php endif; ?>
@@ -99,8 +99,8 @@
 		<tr>
 			<th rowspan="3" class="approved-first-col">Схвалено</th>
 			<?php if (isset($details->educationalProgramGuarantor)): ?>
-				<td class="approved-second-col inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->position ?? '') ?><br><?= htmlspecialchars($details->educationalProgramGuarantor->minutesOfMeeting ?? '') ?></td>
-				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->educationalProgramGuarantor->name) ?> <?= htmlspecialchars(mb_strtoupper($details->educationalProgramGuarantor->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?>, <?= htmlspecialchars($details->educationalProgramGuarantor->workPosition ?? '') ?></td>
+				<td class="approved-second-col"><span class="inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->position ?? '') ?></span></td>
+				<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->name) ?> <?= htmlspecialchars(mb_strtoupper($details->educationalProgramGuarantor->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($details->educationalProgramGuarantor->workPosition ?? '') ?></span></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>
 				<td class="approved-third-col"></td>
@@ -109,20 +109,20 @@
 		</tr>
 		<tr>
 			<?php if (isset($details->headOfDepartment)): ?>
-				<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($details->headOfDepartment->position ?? '') ?><br><?= htmlspecialchars($details->headOfDepartment->minutesOfMeeting ?? '') ?></td>
-				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->headOfDepartment->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfDepartment->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->headOfDepartment->degree ?? '') ?>, <?= htmlspecialchars($details->headOfDepartment->workPosition ?? '') ?></td>
+				<td class="approved-second-col none-border-left"><span class="inserted"><?= htmlspecialchars($details->headOfDepartment->position ?? '') ?></span><br><br><span class="inserted"><?= htmlspecialchars($details->headOfDepartment->minutesOfMeeting ?? '') ?></span><br>(протокол №___ від ____ 20__ р.)</td>
+				<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($details->headOfDepartment->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfDepartment->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($details->headOfDepartment->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($details->headOfDepartment->workPosition ?? '') ?></span></td>
 			<?php else: ?>
-				<td class="approved-second-col"></td>
+				<td class="approved-second-col none-border-left"></td>
 				<td class="approved-third-col"></td>
 			<?php endif; ?>
 			<td class="approved-forth-col"></td>
 		</tr>
 		<tr>
 			<?php if (isset($details->headOfCommission)): ?>
-				<td class="approved-second-col none-border-left inserted"><?= htmlspecialchars($details->headOfCommission->position ?? '')  ?><br><?= htmlspecialchars($details->headOfCommission->minutesOfMeeting ?? '')  ?></td>
-				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->headOfCommission->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfCommission->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->headOfCommission->degree ?? '') ?>, <?= htmlspecialchars($details->headOfCommission->workPosition ?? '') ?></td>
+				<td class="approved-second-col none-border-left"><span class="inserted"><?= htmlspecialchars($details->headOfCommission->position ?? '')  ?></span><br><br><span class="inserted"><?= htmlspecialchars($details->headOfCommission->minutesOfMeeting ?? '')  ?></span><br>(протокол №___ від ____ 20__ р.)</td>
+				<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($details->headOfCommission->name) ?> <?= htmlspecialchars(mb_strtoupper($details->headOfCommission->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($details->headOfCommission->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($details->headOfCommission->workPosition ?? '') ?></span></td>
 			<?php else: ?>
-				<td class="approved-second-col"></td>
+				<td class="approved-second-col none-border-left"></td>
 				<td class="approved-third-col"></td>
 			<?php endif; ?>
 			<td class="approved-forth-col"></td>
@@ -130,8 +130,8 @@
 		<tr>
 			<th class="approved-first-col">Затверджено</th>
 			<?php if (isset($details->approvedBy)): ?>
-				<td class="approved-second-col inserted"><?= htmlspecialchars($details->approvedBy->position ?? '') ?><br><?= htmlspecialchars($details->approvedBy->minutesOfMeeting ?? '') ?></td>
-				<td class="approved-third-col inserted center"><?= htmlspecialchars($details->approvedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->approvedBy->surname, 'UTF-8')) ?>,<br><?= htmlspecialchars($details->approvedBy->degree ?? '') ?>, <?= htmlspecialchars($details->approvedBy->workPosition ?? '') ?></td>
+				<td class="approved-second-col"><span class="inserted"><?= htmlspecialchars($details->approvedBy->position ?? '') ?></span><br><br><span class="inserted"><?= htmlspecialchars($details->approvedBy->minutesOfMeeting ?? '') ?></span><br>(протокол №___ від ____ 20__ р.)</td>
+				<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($details->approvedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->approvedBy->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($details->approvedBy->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($details->approvedBy->workPosition ?? '') ?></span></td>
 			<?php else: ?>
 				<td class="approved-second-col"></td>
 				<td class="approved-third-col"></td>
@@ -139,4 +139,25 @@
 			<td class="approved-forth-col"></td>
 		</tr>
 	</table>
+	<?php if (!empty($details->createdByPersons)): ?>
+		<?php foreach ($details->createdByPersons as $createdByPerson): ?>
+			<?php
+			$copyrightPersonNameLetter = "";
+			$copyrightPersonPatronymicNameLetter = "";
+
+			if (isset($createdByPerson)) {
+				$copyrightPersonNameLetter = mb_substr($createdByPerson->name, 0, 1);
+				$copyrightPersonPatronymicNameLetter = mb_substr($createdByPerson->patronymicName, 0, 1);
+			}
+			?>
+			<?php if (isset($createdByPerson)): ?>
+				<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($createdByPerson->surname) ?></span>, <span
+						class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
+			<?php else: ?>
+				<div class="copyright copyright-name">© <span class="inserted">. .</span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<div class="copyright">© <span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> рік</div>
 </page>

@@ -1,4 +1,4 @@
-const involvedPersonSelectHandler = async ({ involvedPersonName, selectInvolvedPerson, selectNewInvolvedPerson }) => {
+const involvedPersonSelectHandler = async ({ involvedPersonName, selectInvolvedPerson, selectNewInvolvedPerson, isDocAprovedBy }) => {
 	const involvedPersonSelect = document.getElementById(`${involvedPersonName}Select`);
 	const involvedPersonId = involvedPersonSelect.getAttribute(`data-${involvedPersonName}Id`);
 	const wpId = involvedPersonSelect.getAttribute('data-wpId');
@@ -28,7 +28,7 @@ const involvedPersonSelectHandler = async ({ involvedPersonName, selectInvolvedP
 		if (wpInvolvedPersonId && event.target.value) {
 			await selectInvolvedPerson(wpInvolvedPersonId, event.target.value, wpId);
 		} else if (!event.target.value) {
-			await removeWPInvolvedPerson({ id: wpInvolvedPersonId, personPositionName: involvedPersonName });
+			await removeWPInvolvedPerson({ id: wpInvolvedPersonId, personPositionName: involvedPersonName, isDocAprovedBy });
 		} else {
 			await selectNewInvolvedPerson(null, event.target.value, wpId);
 		}

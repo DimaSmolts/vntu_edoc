@@ -75,6 +75,12 @@
 	column-gap: 15px;
 }
 
+.doc-approved-by-additional-info-block {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 15px;
+}
+
 .weekly-hours-block {
 	display: grid;
 	grid-template-columns: 1fr 1fr;

@@ -9,9 +9,10 @@ const selectNewCreatedBy = async ({ wpInvolvedPersonId, personId, wpId, oldCreat
     const newInvolvedPerson = await updateWPInvolvedPerson(postData);
 
     const createdByPersonsSelect = document.getElementById('createdByPersonsIdsSelect');
-    oldCreatedByInvolvedPersonsIds[newInvolvedPerson.id] = newInvolvedPerson.personId;
+    const oldSelectedCreatedByInvolvedPersonsIds = oldCreatedByInvolvedPersonsIds ?? []
+    oldSelectedCreatedByInvolvedPersonsIds[newInvolvedPerson.id] = newInvolvedPerson.personId;
 
-    const updatedCreatedByInvolvedPersonsIds = JSON.stringify(oldCreatedByInvolvedPersonsIds);
+    const updatedCreatedByInvolvedPersonsIds = JSON.stringify(oldSelectedCreatedByInvolvedPersonsIds);
     createdByPersonsSelect.setAttribute('data-createdByInvolvedPersonsIds', updatedCreatedByInvolvedPersonsIds);
 
     const personName = label.split(",")[0];

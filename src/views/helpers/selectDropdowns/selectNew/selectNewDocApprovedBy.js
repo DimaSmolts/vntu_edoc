@@ -11,7 +11,7 @@ const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
     const docApprovedBySelect = document.getElementById('docApprovedBySelect');
     docApprovedBySelect.setAttribute('data-wpInvolvedPersonId', newInvolvedPerson.id);
 
-    const positionLabel = createLabelWithInput({
+    const position = createLabelWithInput({
         labelText: 'Посада:',
         inputType: 'text',
         inputName: 'position',
@@ -19,11 +19,13 @@ const selectNewDocApprovedBy = async (wpInvolvedPersonId, personId, wpId) => {
         value: '',
         labelId: "docApprovedByPosition",
         eventListener: (event) => {
-            updateWPInvolvedPersonDetails(event, id, wpId)
+            updateWPInvolvedPersonDetails(event, newInvolvedPerson.id, wpId)
         }
     });
 
-    const docApprovedByLabel = document.getElementById('docApprovedByLabel');
+    const docApprovedByBlock = document.getElementById('docApprovedByBlock');
+    docApprovedByBlock.classList.remove('doc-approved-by-info-block');
+    docApprovedByBlock.classList.add('doc-approved-by-additional-info-block')
 
-    docApprovedByLabel.after(positionLabel);
+    docApprovedByBlock.appendChild(position);
 } 

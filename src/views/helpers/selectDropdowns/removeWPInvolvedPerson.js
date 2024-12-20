@@ -19,6 +19,10 @@ const removeWPInvolvedPerson = ({ id, isCreatedBy = false, newSelectedCreatedByI
 					document.getElementById('docApprovedByPosition').remove();
 					const select = document.getElementById('docApprovedBySelect');
 					select.removeAttribute('data-wpInvolvedPersonId');
+
+					const docApprovedByBlock = document.getElementById('docApprovedByBlock');
+					docApprovedByBlock.classList.remove('doc-approved-by-additional-info-block');
+					docApprovedByBlock.classList.add('doc-approved-by-info-block')
 				} else {
 					const degree = document.getElementById(`${personPositionName}Degree`);
 					const position = document.getElementById(`${personPositionName}Position`);
