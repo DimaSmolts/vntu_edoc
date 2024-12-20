@@ -146,7 +146,7 @@ if ($structure->isSeminarsExist) {
 }
 
 $freeWidth = $fullTableWidth - $competenceLevelColumnWidth - $ECTSColumnWidth - $minColloquiumColumnWidth;
-$lessonTypeColumnWidth = $freeWidth / $lessonsTypesAmount;
+$lessonTypeColumnWidth = $lessonsTypesAmount > 0 ? $freeWidth / $lessonsTypesAmount : $freeWidth;
 ?>
 <table class="assessment-criteria-table small-bottom-margin">
 	<tr>

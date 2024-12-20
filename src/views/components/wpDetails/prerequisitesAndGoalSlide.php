@@ -5,46 +5,27 @@ $title = "Передумови, мета та завдання";
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form id="prerequisitesAndGoal" class="wp-form">
-    <label>Передумови для вивчення дисципліни:
-        <textarea
-            id="prerequisites"
-            name="prerequisites"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->prerequisites ?? '') ?></textarea>
-    </label>
-    <label>Мета вивчення дисципліни:
-        <textarea
-            id="goal"
-            name="goal"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->goal ?? '') ?></textarea>
-    </label>
-    <label>Завдання дисципліни:
-        <textarea
-            id="tasks"
-            name="tasks"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->tasks ?? '') ?></textarea>
-    </label>
-    <label>Компетентності, якими повинен оволодіти здобувач в результаті вивчення дисципліни:
-        <textarea
-            id="competences"
-            name="competences"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->competences ?? '') ?></textarea>
-    </label>
-    <label>Програмні результати:
-        <textarea
-            id="programResults"
-            name="programResults"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->programResults ?? '') ?></textarea>
-    </label>
-    <label>Контрольні заходи:
-        <textarea
-            id="controlMeasures"
-            name="controlMeasures"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->controlMeasures ?? '') ?></textarea>
-    </label>
+    <label>Передумови для вивчення дисципліни:</label>
+    <!-- Створюємо контейнер для редагування передумов для вивчення дисципліни -->
+    <div id="prerequisites" style="height: 130px; margin-bottom: 15px;"></div>
+
+    <!-- Створюємо контейнер для редагування мети для вивчення дисципліни -->
+    <label>Мета вивчення дисципліни:</label>
+    <div id="goal" style="height: 100px; margin-bottom: 15px;"></div>
+
+    <!-- Створюємо контейнер для редагування завдання дисципліни -->
+    <label>Завдання дисципліни:</label>
+    <div id="tasks" style="height: 100px; margin-bottom: 15px;"></div>
+
+    <!-- Створюємо контейнер для редагування компетентностей -->
+    <label>Компетентності, якими повинен оволодіти здобувач в результаті вивчення дисципліни:</label>
+    <div id="competences" style="height: 200px; margin-bottom: 15px;"></div>
+
+    <!-- Створюємо контейнер для редагування програмних результатів -->
+    <label>Програмні результати:</label>
+    <div id="programResults" style="height: 200px; margin-bottom: 15px;"></div>
+
+    <!-- Створюємо контейнер для редагування контрольних заходів -->
+    <label>Контрольні заходи:</label>
+    <div id="controlMeasures" style="height: 100px; margin-bottom: 15px;"></div>
 </form>

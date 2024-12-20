@@ -1,8 +1,14 @@
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
+	<page_footer>
+		<div class="center" style="position: absolute; bottom: 15mm; width: 100%;">
+			[[page_cu]]
+		</div>
+	</page_footer>
+
 	<div class="topic-title-page-start">1. Опис навчальної дисципліни</div>
 	<?php
 	$wpDescriptionColumnWidth = 100; // Початкову ширину колонкок "Найменування показників" та "Галузь знань, спец..." (у відсотках)
-	$wpCharacteristicsPartColumnWidth = 12; // Ширина для однієї форми навчання одного семестру
+	$wpCharacteristicsPartColumnWidth = 13; // Ширина для однієї форми навчання одного семестру
 	$wpCharacteristicsColumnWidth = 0; // Початкова ширина колонки "Характеристика навчальної дисципліни"
 
 	// Зберігаємо всі значення ширини для кожної форми навчання в залежності від кількості семестрів для форми навчання
@@ -43,7 +49,7 @@
 	$indicatorsColumnWidth = 20; // ширина колонки "Найменування показників"
 	$descColumnWidth = $wpDescriptionColumnWidth - 20; // ширина колонки "Галузь знань, спец..."
 	?>
-	<table class="large-bottom-margin">
+	<table class="small-bottom-margin">
 		<tr>
 			<th style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" rowspan="2" colspan="2">
 				Найменування показників
@@ -52,7 +58,11 @@
 				Галузь знань, спеціальність, освітні програми, рівень вищої освіти
 			</th>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
-				Характеристика навчальної дисципліни
+				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
+					Характе-<br>ристика навчаль-<br>ної дис-<br>ципліни
+				<?php else: ?>
+					Характеристика навчальної дисципліни
+				<?php endif; ?>
 			</th>
 		</tr>
 		<tr>
@@ -79,10 +89,14 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
-				Модулів<br><span class="change">1</span>
+				Модулів<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
-				Рік підготовки (курс)
+				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
+					Рік підготов-<br>ки (курс)
+				<?php else: ?>
+					Рік підготовки (курс)
+				<?php endif; ?>
 			</th>
 		</tr>
 		<tr>
@@ -96,7 +110,13 @@
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="5">
 				<b>Cпеціальність</b><br>
-				<?= htmlspecialchars($details->specialtyName) ?>
+				<?php if (!empty($details->specialties)): ?>
+					<?php foreach ($details->specialties as $specialty): ?>
+						<?= htmlspecialchars($specialty->code) ?> <?= htmlspecialchars($specialty->name) ?><br>
+					<?php endforeach; ?>
+				<?php else: ?>
+					-
+				<?php endif; ?>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<p>Семестр</p>
@@ -106,7 +126,7 @@
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
 					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
-						<?= htmlspecialchars($semesterByEducationalForm->semesterNumber) ?>
+						<?= htmlspecialchars($semesterByEducationalForm->semesterNumber ?? '-') ?><br>
 					</td>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
@@ -126,14 +146,27 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Практичні</th>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
+				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
+					Практи-<br>чні
+				<?php else: ?>
+					Практичні
+				<?php endif; ?>
+			</th>
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
 				Загальна кількість годин<br><span class="change">150</span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="7">
-				<b>Освітня програма</b><br><span class="inserted"><?= htmlspecialchars($details->educationalProgramIds) ?></span>
+				<b>Освітня програма</b><br>
+				<?php if (!empty($details->educationalPrograms)): ?>
+					<?php foreach ($details->educationalPrograms as $educationalProgram): ?>
+						<span class="inserted"><?= htmlspecialchars($educationalProgram->name) ?></span>
+					<?php endforeach; ?>
+				<?php else: ?>
+					-
+				<?php endif; ?>
 			</td>
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
@@ -144,7 +177,13 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Семінарські</th>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
+				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
+					Семінар-<br>ські
+				<?php else: ?>
+					Семінарські
+				<?php endif; ?>
+			</th>
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="5">
@@ -159,7 +198,13 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Лабораторні</th>
+			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
+				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
+					Лабора-<br>торні
+				<?php else: ?>
+					Лабораторні
+				<?php endif; ?>
+			</th>
 		</tr>
 		<tr>
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
@@ -208,7 +253,7 @@
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
 					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
-						<?= htmlspecialchars($semesterByEducationalForm->examType) ?>
+						<?= htmlspecialchars($semesterByEducationalForm->examType ?? '') ?>
 					</td>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
@@ -216,5 +261,5 @@
 	</table>
 
 	<div class="bold">Примітка:</div>
-	<p class="inserted indent justify"><?= htmlspecialchars($details->notes) ?></p>
+	<?= $details->notes ?>
 </page>

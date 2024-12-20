@@ -113,12 +113,8 @@ $title = "Загальна інформація";
 				value="<?= htmlspecialchars($details->code ?? '') ?>"
 				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
 		</label>
-		<label>Примітка:
-			<textarea
-				id="notes"
-				name="notes"
-				rows="5"
-				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->notes ?? '') ?></textarea>
-		</label>
+		<!-- Створюємо контейнер для редагування примітки -->
+		<label>Примітка:</label>
+		<div id="notes" style="height: 100px; margin-bottom: 15px;"></div>
 	</div>
 </form>

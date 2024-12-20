@@ -446,7 +446,7 @@
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
 				<tr>
-					<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>" class="inserted">Семестр <?= htmlspecialchars($semesterData->semesterNumber) ?></th>
+					<th colspan="<?= htmlspecialchars($hoursColSpan + 1) ?>" class="inserted">Семестр <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?></th>
 				</tr>
 
 				<?php if (!empty($semesterData->modules)): ?>

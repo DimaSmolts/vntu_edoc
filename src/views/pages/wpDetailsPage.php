@@ -126,6 +126,7 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbar.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
+    <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -136,11 +137,22 @@
     <script>
         // Змінюємо інпути для введення літератури
         initializeTextEditorForLiterature({
-            mainLiterature: <?php echo json_encode($details->literature->main); ?>,
-            supportingLiterature: <?php echo json_encode($details->literature->supporting); ?>,
-            additionalLiterature: <?php echo json_encode($details->literature->additional); ?>,
-            informationResources: <?php echo json_encode($details->literature->informationResources); ?>,
+            mainLiterature: <?php echo json_encode($details->literature->main ?? ''); ?>,
+            supportingLiterature: <?php echo json_encode($details->literature->supporting ?? ''); ?>,
+            additionalLiterature: <?php echo json_encode($details->literature->additional ?? ''); ?>,
+            informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
             wpId: <?= htmlspecialchars($details->id) ?>
         });
+
+        initializeTextEditorForPrerequisitesAndGoal({
+            notes: <?php echo json_encode($details->notes ?? ''); ?>,
+            prerequisites: <?php echo json_encode($details->prerequisites ?? ''); ?>,
+            goal: <?php echo json_encode($details->goal ?? ''); ?>,
+            tasks: <?php echo json_encode($details->tasks ?? ''); ?>,
+            competences: <?php echo json_encode($details->competences ?? ''); ?>,
+            programResults: <?php echo json_encode($details->programResults ?? ''); ?>,
+            controlMeasures: <?php echo json_encode($details->controlMeasures ?? ''); ?>,
+            wpId: <?= htmlspecialchars($details->id) ?>
+        })
     </script>
 </body>

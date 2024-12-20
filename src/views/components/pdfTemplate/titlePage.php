@@ -6,8 +6,8 @@
 		<div class="doc-approved-block">
 			<div class="center bold">ЗАТВЕРДЖУЮ</div>
 			<div class="inserted justify"><?= htmlspecialchars($details->docApprovedBy->position ?? '') ?></div>
-			<div>________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name) ?> <?= htmlspecialchars(mb_strtoupper($details->docApprovedBy->surname, 'UTF-8')) ?></span></div>
-			<div>«___»______________ <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> року</div>
+			<div>________ <span class="inserted"><?= htmlspecialchars($details->docApprovedBy->name ?? '') ?> <?= htmlspecialchars(mb_strtoupper($details->docApprovedBy->surname  ?? '', 'UTF-8')) ?></span></div>
+			<div>«___»______________ <span class="inserted"><?= htmlspecialchars($details->regularYear ?? '') ?></span> року</div>
 		</div>
 
 		<div class="center">
