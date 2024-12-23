@@ -23,14 +23,11 @@ const createLessonsContainer = (themes) => {
 
 		const hoursBlockColumnsClass = theme.semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
 
-		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
-		const selfworkHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
+		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass, 'lection-hours-block'] });
 
 		const lectionHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин лекцій:' });
-		const selfworkHoursBlockTitle = createElement({ elementName: "p", classList: ['hours-block-title'], innerText: 'Кількість годин самостійної роботи:' });
 
 		lectionHoursBlock.appendChild(lectionHoursBlockTitle);
-		selfworkHoursBlock.appendChild(selfworkHoursBlockTitle);
 
 		theme.semesterEducationalForms.forEach(form => {
 			const lectionHoursLabel = createLabelWithInput({
@@ -43,17 +40,6 @@ const createLessonsContainer = (themes) => {
 				}
 			});
 			lectionHoursBlock.appendChild(lectionHoursLabel);
-
-			const selfWorkHoursLabel = createLabelWithInput({
-				labelText: `${form.name}:`,
-				inputType: 'number',
-				inputName: 'hours',
-				value: getHours(theme.selfworks, form.colName),
-				eventListener: (event) => {
-					updateHours(event, theme.selfworks[0].lessonId, form.id)
-				}
-			});
-			selfworkHoursBlock.appendChild(selfWorkHoursLabel);
 		})
 
 		const lessonsButtonsBlock = createElement({ elementName: "div", classList: ['lesson-themes-btn-block'] });
@@ -111,7 +97,6 @@ const createLessonsContainer = (themes) => {
 
 		themeBlock.appendChild(themeTitle);
 		themeBlock.appendChild(lectionHoursBlock);
-		themeBlock.appendChild(selfworkHoursBlock);
 		themeBlock.appendChild(lessonsButtonsBlock);
 		themeBlock.appendChild(additionalLessonsBlock);
 

@@ -12,7 +12,6 @@ class PDFThemeWithLessonsModel
 	public array $practicals = [];
 	public array $seminars = [];
 	public array $labs = [];
-	public array $selfworks = [];
 	public array $semesterEducationalForms = [];
 	public array $educationalFormHoursStructure = [];
 
@@ -25,7 +24,6 @@ class PDFThemeWithLessonsModel
 		array $practicals = [],
 		array $seminars = [],
 		array $labs = [],
-		array $selfworks = [],
 		array $semesterEducationalForms = [],
 		array $educationalFormHoursStructure = [],
 	) {
@@ -37,7 +35,6 @@ class PDFThemeWithLessonsModel
 		$this->practicals = $practicals;
 		$this->seminars = $seminars;
 		$this->labs = $labs;
-		$this->selfworks = $selfworks;
 		$this->semesterEducationalForms = $semesterEducationalForms;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
 	}

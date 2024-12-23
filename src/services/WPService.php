@@ -156,8 +156,7 @@ class WPService
 						'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 						'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 						'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
 					]);
 			},
 			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',

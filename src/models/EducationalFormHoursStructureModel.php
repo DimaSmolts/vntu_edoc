@@ -9,7 +9,6 @@ class EducationalFormHoursStructureModel
 	public ?int $practicalHours;
 	public ?int $seminarHours;
 	public ?int $labHours;
-	public ?int $selfworkHours;
 	public ?int $totalHours;
 
 	public function __construct(
@@ -18,7 +17,6 @@ class EducationalFormHoursStructureModel
 		?int $practicalHours = null,
 		?int $seminarHours = null,
 		?int $labHours = null,
-		?int $selfworkHours = null,
 		?int $totalHours = null
 	) {
 		$this->educationalFormName = $educationalFormName;
@@ -26,7 +24,6 @@ class EducationalFormHoursStructureModel
 		$this->practicalHours = $practicalHours;
 		$this->seminarHours = $seminarHours;
 		$this->labHours = $labHours;
-		$this->selfworkHours = $selfworkHours;
 		$this->totalHours = $totalHours;
 	}
 }

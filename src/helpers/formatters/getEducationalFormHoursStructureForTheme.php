@@ -5,15 +5,14 @@ require_once __DIR__ . '/../getHoursSumByEducationalForm.php';
 
 use App\Models\EducationalFormHoursStructureModel;
 
-function getEducationalFormHoursStructureForTheme($educationalFormName, $lections, $practicals, $seminars, $labs, $selfworks)
+function getEducationalFormHoursStructureForTheme($educationalFormName, $lections, $practicals, $seminars, $labs, )
 {
 	$lectionsHoursTotal = getHoursSumByEducationalForm($lections, $educationalFormName);
 	$practicalsHoursTotal = getHoursSumByEducationalForm($practicals, $educationalFormName);
 	$seminarsHoursTotal = getHoursSumByEducationalForm($seminars, $educationalFormName);
 	$labsHoursTotal = getHoursSumByEducationalForm($labs, $educationalFormName);
-	$selfworksHoursTotal = getHoursSumByEducationalForm($selfworks, $educationalFormName);
 
-	$hoursTotal = $lectionsHoursTotal + $practicalsHoursTotal + $seminarsHoursTotal + $labsHoursTotal + $selfworksHoursTotal;
+	$hoursTotal = $lectionsHoursTotal + $practicalsHoursTotal + $seminarsHoursTotal + $labsHoursTotal;
 
 	return new EducationalFormHoursStructureModel(
 		$educationalFormName,
@@ -21,7 +20,6 @@ function getEducationalFormHoursStructureForTheme($educationalFormName, $lection
 		$practicalsHoursTotal,
 		$seminarsHoursTotal,
 		$labsHoursTotal,
-		$selfworksHoursTotal,
 		$hoursTotal
 	);
 };

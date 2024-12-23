@@ -160,6 +160,10 @@
 	column-gap: 15px;
 }
 
+.lection-hours-block {
+	grid-column: 1/3;
+}
+
 .hours-block-one-column {
 	grid-template-columns: 1fr;
 }

@@ -77,10 +77,8 @@ class ThemeApiController extends BaseController
 			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
 			$this->lessonService->createNewLesson($newThemeId, $lectionLessonTypeId);
-			$this->lessonService->createNewLesson($newThemeId, $selfworkLessonTypeId);
 
 			echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
 		}
@@ -106,18 +104,16 @@ class ThemeApiController extends BaseController
 			// Оновлюємо власне тему
 			$this->themeService->updateTheme($id, $field, $value);
 
-			// Оновлюємо лекції та самостійні (назва та порядковий номер лекцій та самостійних має збігатись з назвою та порядковим номером теми) 
+			// Оновлюємо лекції (назва та порядковий номер лекцій та самостійних має збігатись з назвою та порядковим номером теми) 
 			if ($field == 'name') {
 				$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
 				$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 				$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-				$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
 				$themeId = $id;
 
 				$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, $field, $value);
-				$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, $field, $value);
 			}
 
 			if ($field == 'themeNumber') {
@@ -125,12 +121,10 @@ class ThemeApiController extends BaseController
 				$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 				$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-				$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
 				$themeId = $id;
 
 				$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, 'lessonNumber', $value);
-				$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, 'lessonNumber', $value);
 			}
 		}
 	}

@@ -104,25 +104,6 @@ function getFullFormattedThemeData($themes)
 					$educationalFormHours
 				);
 			})->toArray(),
-			$theme->selfworks->map(function ($lesson) {
-				$educationalFormHours = $lesson->educationalFormLessonHours->map(function ($lessonHours) {
-					return new EducationalFormLessonHourModel(
-						$lessonHours->id,
-						$lessonHours->educationalFormId,
-						$lessonHours->lessonId,
-						$lessonHours->semesterEducationalForm->educationalForm->name,
-						$lessonHours->hours
-					);
-				})->toArray();
-
-				return new LessonModel(
-					$lesson->id,
-					$lesson->lessonTypeId,
-					$lesson->name,
-					$lesson->lessonNumber,
-					$educationalFormHours
-				);
-			})->toArray(),
 			$educationalForms
 		);
 	})->toArray();

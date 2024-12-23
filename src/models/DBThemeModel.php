@@ -58,12 +58,4 @@ class DBThemeModel extends Model
 				$query->where('name', 'laboratory');
 			});
 	}
-
-	public function selfworks()
-	{
-		return $this->hasMany(DBLessonModel::class, 'themeId')
-			->whereHas('lessonType', function ($query) {
-				$query->where('name', 'selfwork');
-			});
-	}
 }

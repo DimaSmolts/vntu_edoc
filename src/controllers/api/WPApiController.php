@@ -129,6 +129,7 @@ class WPApiController extends BaseController
 
 			$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
+			$isLoggedIn = true;
 			$showReturnBtn = true;
 			$showEditGlobalDataBtn = false;
 

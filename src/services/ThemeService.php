@@ -16,7 +16,6 @@ class ThemeService
 			'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
 			'module.semester.educationalForms.educationalForm',
 			'module.semester'
 		])
