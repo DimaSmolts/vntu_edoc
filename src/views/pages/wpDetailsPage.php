@@ -20,6 +20,7 @@
         <?php include __DIR__ . '/../components/wpDetails/carousel.php'; ?>
         <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
     </main>
+    <script src="src/views/helpers/wplist/logins.js"></script>
     <script src="src/views/constants/EducationalFormName.js"></script>
     <script src="src/views/constants/LessonTypesName.js"></script>
     <script src="src/views/helpers/modal/openApproveDeletingModal.js"></script>

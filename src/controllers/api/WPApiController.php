@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/WPService.php';
-require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
+require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../services/DepartmentService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
@@ -15,22 +16,23 @@ require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
 require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
 require_once __DIR__ . '/../../helpers/getSemestersIdsByControlType.php';
 
+use App\Controllers\BaseController;
 use App\Services\WPService;
-use App\Services\WorkingProgramGlobalDataOverwriteService;
+use App\Services\WorkingProgramGlobalDataService;
 use App\Services\WorkingProgramLiteratureService;
 use App\Services\DepartmentService;
 
-class WPApiController
+class WPApiController extends BaseController
 {
 	protected WPService $wpService;
-	protected WorkingProgramGlobalDataOverwriteService $workingProgramGlobalDataOverwriteService;
+	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 	protected DepartmentService $departmentService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
-		$this->workingProgramGlobalDataOverwriteService = new WorkingProgramGlobalDataOverwriteService();
+		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 		$this->departmentService = new DepartmentService();
 	}
@@ -39,18 +41,35 @@ class WPApiController
 	{
 		header('Content-Type: application/json');
 
+		$isLoggedIn = $this->checkIfUserLoggedIn();
+
+		if (!$isLoggedIn) {
+			$this->showDoNotHaveAccessPage($isLoggedIn);
+
+			exit();
+		}
+
+		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+
+		if (!$isTeacher) {
+			$this->showDoNotHaveAccessPage($isLoggedIn);
+
+			exit();
+		}
+
+		$sessionInfo = $this->getSessionInfo();
+
 		$disciplineName = $_POST['disciplineName'] ?? null;
 
-		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getWorkingProgramGlobalData();
+		$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
 
 		$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
-		$newWPId = $this->wpService->createNewWP($disciplineName);
-		$this->workingProgramGlobalDataOverwriteService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
+		$newWPId = $this->wpService->createNewWP($disciplineName, $sessionInfo->id);
+		$this->workingProgramGlobalDataService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
 		$this->workingProgramLiteratureService->createNewWPLiterature($newWPId);
 
 		header("Location: /workingPrograms/wpdetails?id=" . $newWPId);
-
 		exit();
 	}
 
@@ -65,7 +84,12 @@ class WPApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->wpService->updateWPDetails($id, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->wpService->updateWPDetails($id, $field, $value);
+		}
 	}
 
 	public function duplicateWP()
@@ -77,9 +101,14 @@ class WPApiController
 
 		$wpId = intval($data['wpId']);
 
-		$newWPData = $this->wpService->duplicateWP($wpId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		echo json_encode($newWPData);
+		if ($ifCurrentUserHasAccessToWP) {
+			$newWPData = $this->wpService->duplicateWP($wpId);
+
+			echo json_encode($newWPData);
+		}
 	}
 
 	public function getLessonsAndExamingsStructure()
@@ -88,45 +117,50 @@ class WPApiController
 
 		$wpId = $_GET['id'];
 
-		$rawStructure = $this->wpService->getLessonsAndExamingsStructure($wpId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		$structure = getFormattedLessonsAndExamingsStructure($rawStructure);
+		if ($ifCurrentUserHasAccessToWP) {
+			$rawStructure = $this->wpService->getLessonsAndExamingsStructure($wpId);
 
-		$rawGlobalWPData = $this->workingProgramGlobalDataOverwriteService->getGlobalDataByWPId($wpId);
+			$structure = getFormattedLessonsAndExamingsStructure($rawStructure);
 
-		$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
+			$rawGlobalWPData = $this->workingProgramGlobalDataService->getGlobalDataByWPId($wpId);
 
-		$showReturnBtn = true;
-		$isAbleToEditGlobalData = false;
+			$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/practicalAssessmentCriteriaSlide.php';
-		$practicalSlideContent = ob_get_clean();
+			$showReturnBtn = true;
+			$showEditGlobalDataBtn = false;
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/labAssessmentCriteriaSlide.php';
-		$labSlideContent = ob_get_clean();
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/practicalAssessmentCriteriaSlide.php';
+			$practicalSlideContent = ob_get_clean();
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
-		$seminarSlideContent = ob_get_clean();
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/labAssessmentCriteriaSlide.php';
+			$labSlideContent = ob_get_clean();
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
-		$courseworkSlideContent = ob_get_clean();
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
+			$seminarSlideContent = ob_get_clean();
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
-		$colloquiumSlideContent = ob_get_clean();
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
+			$courseworkSlideContent = ob_get_clean();
 
-		echo json_encode([
-			'structure' => $structure,
-			'practicalSlideContent' => $practicalSlideContent,
-			'labSlideContent' => $labSlideContent,
-			'seminarSlideContent' => $seminarSlideContent,
-			'courseworkSlideContent' => $courseworkSlideContent,
-			'colloquiumSlideContent' => $colloquiumSlideContent
-		]);
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
+			$colloquiumSlideContent = ob_get_clean();
+
+			echo json_encode([
+				'structure' => $structure,
+				'practicalSlideContent' => $practicalSlideContent,
+				'labSlideContent' => $labSlideContent,
+				'seminarSlideContent' => $seminarSlideContent,
+				'courseworkSlideContent' => $courseworkSlideContent,
+				'colloquiumSlideContent' => $colloquiumSlideContent
+			]);
+		}
 	}
 
 	public function getPointsDistributionSlideContent()
@@ -135,19 +169,24 @@ class WPApiController
 
 		$wpId = $_GET['id'];
 
-		$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
-		$structure = getFormattedLessonsAndExamingsStructure($wpData);
-		$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
-		$semestersWithModulesWithLessons = getSemestersWithModulesWithLessons($pointsDistributionRelatedData);
-		$semestersAndModulesIds = getSemestersAndModulesIds($pointsDistributionRelatedData);
-		$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
+		if ($ifCurrentUserHasAccessToWP) {
+			$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
 
-		ob_start();
-		include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
-		$pointsDistributionSlideContent = ob_get_clean();
+			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
+			$structure = getFormattedLessonsAndExamingsStructure($wpData);
+			$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
+			$semestersWithModulesWithLessons = getSemestersWithModulesWithLessons($pointsDistributionRelatedData);
+			$semestersAndModulesIds = getSemestersAndModulesIds($pointsDistributionRelatedData);
+			$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
 
-		echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent]));
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
+			$pointsDistributionSlideContent = ob_get_clean();
+
+			echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent]));
+		}
 	}
 }

@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/EducationalFormCourseworkHoursService.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\EducationalFormCourseworkHoursService;
 
-class EducationalFormCourseworkHoursApiController
+class EducationalFormCourseworkHoursApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected EducationalFormCourseworkHoursService $educationalFormCourseworkHoursService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->educationalFormCourseworkHoursService = new EducationalFormCourseworkHoursService();
 	}
 
@@ -26,6 +32,11 @@ class EducationalFormCourseworkHoursApiController
 		$educationalFormId = intval($data['educationalFormId']);
 		$hours = intval($data['hours']);
 
-		$this->educationalFormCourseworkHoursService->updateEducationalFormCourseworkHours($semesterId, $educationalFormId, $hours);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->educationalFormCourseworkHoursService->updateEducationalFormCourseworkHours($semesterId, $educationalFormId, $hours);
+		}
 	}
 }

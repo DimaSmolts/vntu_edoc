@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\WorkingProgramLiteratureService;
 
-class WorkingProgramLiteratureApiController
+class WorkingProgramLiteratureApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 	}
 
@@ -26,6 +32,11 @@ class WorkingProgramLiteratureApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->workingProgramLiteratureService->updateWPLiterature($wpId, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->workingProgramLiteratureService->updateWPLiterature($wpId, $field, $value);
+		}
 	}
 }

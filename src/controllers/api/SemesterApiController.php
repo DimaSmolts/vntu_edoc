@@ -2,18 +2,24 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/SemesterService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworkData.php';
 require_once __DIR__ . '/../../helpers/getIsCourseworkExistsInWP.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\SemesterService;
 
-class SemesterApiController
+class SemesterApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected SemesterService $semesterService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->semesterService = new SemesterService();
 	}
 
@@ -26,9 +32,14 @@ class SemesterApiController
 
 		$wpId = intval($data['wpId']);
 
-		$newSemesterId = $this->semesterService->createNewSemester($wpId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		echo json_encode(['status' => 'success', 'semesterId' => $newSemesterId]);
+		if ($ifCurrentUserHasAccessToWP) {
+			$newSemesterId = $this->semesterService->createNewSemester($wpId);
+
+			echo json_encode(['status' => 'success', 'semesterId' => $newSemesterId]);
+		}
 	}
 
 	public function updateSemester()
@@ -42,7 +53,12 @@ class SemesterApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->semesterService->updateSemester($id, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->semesterService->updateSemester($id, $field, $value);
+		}
 	}
 
 	public function deleteSemester()
@@ -51,7 +67,12 @@ class SemesterApiController
 
 		$id = $_GET['id'];
 
-		$this->semesterService->deleteSemester($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->semesterService->deleteSemester($id);
+		}
 	}
 
 	public function getCoursework()
@@ -60,26 +81,31 @@ class SemesterApiController
 
 		$wpId = $_GET['id'];
 
-		$rawSemestersCourseworkInfo = $this->semesterService->getCourseworkHoursByWPId($wpId);
-		$semesters = getFullFormattedCourseworkData($rawSemestersCourseworkInfo);
-		$isCourseworkExists = getIsCourseworkExistsInWP($semesters);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		if ($isCourseworkExists) {
-			$showReturnBtn = true;
-			$isAbleToEditGlobalData = false;
+		if ($ifCurrentUserHasAccessToWP) {
+			$rawSemestersCourseworkInfo = $this->semesterService->getCourseworkHoursByWPId($wpId);
+			$semesters = getFullFormattedCourseworkData($rawSemestersCourseworkInfo);
+			$isCourseworkExists = getIsCourseworkExistsInWP($semesters);
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/courseworkInfoSlide.php';
-			$courseworkInfoSlideContent = ob_get_clean();
+			if ($isCourseworkExists) {
+				$showReturnBtn = true;
+				$showEditGlobalDataBtn = false;
 
-			echo json_encode([
-				'isCourseworkExists' => $isCourseworkExists,
-				'courseworkInfoSlideContent' => $courseworkInfoSlideContent
-			]);
-		} else {
-			echo json_encode([
-				'isCourseworkExists' => $isCourseworkExists
-			]);
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/courseworkInfoSlide.php';
+				$courseworkInfoSlideContent = ob_get_clean();
+
+				echo json_encode([
+					'isCourseworkExists' => $isCourseworkExists,
+					'courseworkInfoSlideContent' => $courseworkInfoSlideContent
+				]);
+			} else {
+				echo json_encode([
+					'isCourseworkExists' => $isCourseworkExists
+				]);
+			}
 		}
 	}
 
@@ -91,9 +117,15 @@ class SemesterApiController
 		$data = json_decode($input, true);
 
 		$id = intval($data['semesterId']);
-		$courseworkAssessmentComponents = json_encode($data['courseworkAssessmentComponents']);
 
-		$this->semesterService->updateCourseworkAssesmentComponents($id, $courseworkAssessmentComponents);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$courseworkAssessmentComponents = json_encode($data['courseworkAssessmentComponents']);
+
+			$this->semesterService->updateCourseworkAssesmentComponents($id, $courseworkAssessmentComponents);
+		}
 	}
 
 	public function deleteCoursework()
@@ -102,6 +134,11 @@ class SemesterApiController
 
 		$semesterId = $_GET['semesterId'];
 
-		$this->semesterService->deleteCoursework($semesterId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->semesterService->deleteCoursework($semesterId);
+		}
 	}
 }

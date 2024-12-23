@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WPInvolvedPersonService.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\WPInvolvedPersonService;
 
-class WPInvolvedPersonApiController
+class WPInvolvedPersonApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected WPInvolvedPersonService $wpInvolvedPersonService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->wpInvolvedPersonService = new WPInvolvedPersonService();
 	}
 
@@ -27,14 +33,19 @@ class WPInvolvedPersonApiController
 		$personId = intval($data['personId']);
 		$involvedPersonRoleId = intval($data['roleId']);
 
-		$involvedPerson = $this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson(
-			$wpInvolvedPersonId,
-			$wpId,
-			$personId,
-			$involvedPersonRoleId
-		);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		echo json_encode((['id' => $involvedPerson->id, 'personId' => $involvedPerson->personId]));
+		if ($ifCurrentUserHasAccessToWP) {
+			$involvedPerson = $this->wpInvolvedPersonService->updateWorkingProgramInvolvedPerson(
+				$wpInvolvedPersonId,
+				$wpId,
+				$personId,
+				$involvedPersonRoleId
+			);
+
+			echo json_encode((['id' => $involvedPerson->id, 'personId' => $involvedPerson->personId]));
+		}
 	}
 
 	public function updateWorkingProgramInvolvedPersonDetails()
@@ -49,12 +60,17 @@ class WPInvolvedPersonApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->wpInvolvedPersonService->updateWorkingProgramInvolvedPersonDetails(
-			$wpInvolvedPersonId,
-			$wpId,
-			$field,
-			$value
-		);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->wpInvolvedPersonService->updateWorkingProgramInvolvedPersonDetails(
+				$wpInvolvedPersonId,
+				$wpId,
+				$field,
+				$value
+			);
+		}
 	}
 
 	public function deleteWPInvolvedPerson()
@@ -63,6 +79,11 @@ class WPInvolvedPersonApiController
 
 		$id = $_GET['id'];
 
-		$this->wpInvolvedPersonService->deleteWPInvolvedPerson($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->wpInvolvedPersonService->deleteWPInvolvedPerson($id);
+		}
 	}
 }

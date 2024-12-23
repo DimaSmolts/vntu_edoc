@@ -2,16 +2,22 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/ModuleService.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\ModuleService;
 
-class ModuleApiController
+class ModuleApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected ModuleService $moduleService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->moduleService = new ModuleService();
 	}
 
@@ -24,9 +30,14 @@ class ModuleApiController
 
 		$semesterId = intval($data['semesterId']);
 
-		$newModuleId = $this->moduleService->createNewModule($semesterId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		echo json_encode(['status' => 'success', 'moduleId' => $newModuleId]);
+		if ($ifCurrentUserHasAccessToWP) {
+			$newModuleId = $this->moduleService->createNewModule($semesterId);
+
+			echo json_encode(['status' => 'success', 'moduleId' => $newModuleId]);
+		}
 	}
 
 	public function updateModule()
@@ -40,7 +51,12 @@ class ModuleApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->moduleService->updateModule($id, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->moduleService->updateModule($id, $field, $value);
+		}
 	}
 
 	public function deleteModule()
@@ -49,7 +65,12 @@ class ModuleApiController
 
 		$id = $_GET['id'];
 
-		$this->moduleService->deleteModule($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->moduleService->deleteModule($id);
+		}
 	}
 
 	public function deleteColloquium()
@@ -58,6 +79,11 @@ class ModuleApiController
 
 		$moduleId = $_GET['moduleId'];
 
-		$this->moduleService->deleteColloquium($moduleId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($moduleId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->moduleService->deleteColloquium($moduleId);
+		}
 	}
 }

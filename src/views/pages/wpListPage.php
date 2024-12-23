@@ -17,6 +17,8 @@ $title = "Робочі програми";
     <main class="container">
         <?php include __DIR__ . '/../components/header.php'; ?>
 
+        <?php include __DIR__ . '/../components/wpList/greeting.php'; ?>
+
         <?php include __DIR__ . '/../components/wpList/list.php'; ?>
 
         <?php include __DIR__ . '/../components/wpList/createNewWPModal.php'; ?>
@@ -26,6 +28,7 @@ $title = "Робочі програми";
     <script src="src/views/helpers/view/createElement.js"></script>
     <script src="src/views/helpers/wplist/createNewListItem.js"></script>
     <script src="src/views/helpers/wplist/duplicateWP.js"></script>
+    <script src="src/views/helpers/wplist/logins.js"></script>
 </body>
 
 </html>

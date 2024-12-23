@@ -1,3 +1,16 @@
+.greeting-container {
+    display: grid;
+    padding: 20px;
+    grid-template-columns: 220px 1fr 220px;
+    font-size: 23px;
+    text-align: center;
+    align-items: center;
+}
+
+.greeting-container p {
+    grid-column: 2;
+}
+
 .wp-list-container {
     padding: 10px 20px 10px 0;
 }
@@ -98,4 +111,19 @@
     width: max-content;
     max-width: 100%;
     margin: 3px auto;
+}
+
+.sessions-btns-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.sessions-btns-container .btn {
+    margin: 15px 0;
+}
+
+.no-access-text {
+    text-align: center;
+    font-size: 18px;
+    padding: 15px;
 }

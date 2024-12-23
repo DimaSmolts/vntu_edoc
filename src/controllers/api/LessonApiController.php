@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonService.php';
@@ -10,18 +12,22 @@ require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\LessonTypeService;
 use App\Services\LessonService;
 use App\Services\EducationalFormLessonHoursService;
 
-class LessonApiController
+class LessonApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected LessonTypeService $lessonTypeService;
 	protected LessonService $lessonService;
 	protected EducationalFormLessonHoursService $educationalFormLessonHoursService;
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->lessonTypeService = new LessonTypeService();
 		$this->lessonService = new LessonService();
 		$this->educationalFormLessonHoursService = new EducationalFormLessonHoursService();
@@ -37,14 +43,19 @@ class LessonApiController
 		$themeId = intval($data['themeId']);
 		$lessonTypeName = $data['lessonTypeName'];
 
-		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-		$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByThemeId($themeId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
+		if ($ifCurrentUserHasAccessToWP) {
+			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
-		$newLessonId = $this->lessonService->createNewLesson($themeId, $lessonTypeId);
+			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
-		echo json_encode(['status' => 'success', 'lessonId' => $newLessonId]);
+			$newLessonId = $this->lessonService->createNewLesson($themeId, $lessonTypeId);
+
+			echo json_encode(['status' => 'success', 'lessonId' => $newLessonId]);
+		}
 	}
 
 	public function updateLesson()
@@ -58,7 +69,12 @@ class LessonApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		$this->lessonService->updateLessonById($id, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByLessonId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->lessonService->updateLessonById($id, $field, $value);
+		}
 	}
 
 	public function deleteLesson()
@@ -67,6 +83,11 @@ class LessonApiController
 
 		$id = $_GET['id'];
 
-		$this->lessonService->deleteLesson($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByLessonId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->lessonService->deleteLesson($id);
+		}
 	}
 }

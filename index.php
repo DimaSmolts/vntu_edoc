@@ -10,7 +10,7 @@ require_once __DIR__ . '/src/controllers/WPController.php';
 require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
 require_once __DIR__ . '/src/controllers//api/WPApiController.php';
-require_once __DIR__ . '/src/controllers//api/WorkingProgramGlobalDataOverwriteApiController.php';
+require_once __DIR__ . '/src/controllers//api/WorkingProgramGlobalDataApiController.php';
 require_once __DIR__ . '/src/controllers//api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers//api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers//api/ModuleApiController.php';
@@ -33,7 +33,7 @@ use App\Controllers\WPController;
 use App\Controllers\GlobalDataController;
 use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
-use App\Controllers\WorkingProgramGlobalDataOverwriteApiController;
+use App\Controllers\WorkingProgramGlobalDataApiController;
 use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
@@ -56,21 +56,23 @@ $router = new Router();
 session_start();
 
 $router->get('/api/teacherLogin', function () {
-	$wpController = new SessionApiController();
-	$wpController->teacherLogin();
+	$sessionApiController = new SessionApiController();
+	$sessionApiController->teacherLogin();
 });
 
 $router->get('/api/studentLogin', function () {
-	$wpController = new SessionApiController();
-	$wpController->studentLogin();
+	$sessionApiController = new SessionApiController();
+	$sessionApiController->studentLogin();
 });
+
 $router->get('/api/getInfo', function () {
-	$wpController = new SessionApiController();
-	$wpController->getInfo();
+	$sessionApiController = new SessionApiController();
+	$sessionApiController->getInfo();
 });
+
 $router->get('/api/logOut', function () {
-	$wpController = new SessionApiController();
-	$wpController->logOut();
+	$sessionApiController = new SessionApiController();
+	$sessionApiController->logOut();
 });
 
 
@@ -178,13 +180,13 @@ $router->post('/api/duplicateWP', function () {
 });
 
 $router->post('/api/updateGlobalData', function () {
-	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
-	$workingProgramGlobalDataOverwriteApiController->updateGlobalData();
+	$workingProgramGlobalDataApiController = new WorkingProgramGlobalDataApiController();
+	$workingProgramGlobalDataApiController->updateGlobalData();
 });
 
 $router->post('/api/updateWorkingProgramGlobalDataOverwrite', function () {
-	$workingProgramGlobalDataOverwriteApiController = new WorkingProgramGlobalDataOverwriteApiController();
-	$workingProgramGlobalDataOverwriteApiController->updateWorkingProgramGlobalDataOverwrite();
+	$workingProgramGlobalDataApiController = new WorkingProgramGlobalDataApiController();
+	$workingProgramGlobalDataApiController->updateWorkingProgramGlobalDataOverwrite();
 });
 
 $router->post('/api/createNewWP', function () {

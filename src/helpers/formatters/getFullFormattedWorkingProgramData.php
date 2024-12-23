@@ -25,6 +25,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 {
 	$workingProgram = new WPDetailsModel(
 		$workingProgramData->id,
+		$workingProgramData->wpCreatorId,
 		$workingProgramData->regularYear,
 		$workingProgramData->academicYear,
 		$workingProgramData->facultyId,

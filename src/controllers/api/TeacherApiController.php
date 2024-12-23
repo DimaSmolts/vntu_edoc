@@ -2,22 +2,13 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/TeacherService.php';
-require_once __DIR__ . '/../../services/WorkingProgramGlobalDataOverwriteService.php';
-require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
-require_once __DIR__ . '/../../services/DepartmentService.php';
-require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
-require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
-require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
-require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
-require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
-require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
-require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
-require_once __DIR__ . '/../../helpers/getSemestersIdsByControlType.php';
 
+use App\Controllers\BaseController;
 use App\Services\TeacherService;
 
-class TeacherApiController
+class TeacherApiController extends BaseController
 {
 	protected TeacherService $teacherService;
 
@@ -29,6 +20,13 @@ class TeacherApiController
 	public function searchTeachers()
 	{
 		header('Content-Type: application/json');
+
+		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+
+		if (!$isTeacher) {
+			echo json_encode([]);
+			exit();
+		}
 
 		if (isset($_GET['query'])) {
 			$query = trim($_GET['query']);
@@ -47,6 +45,13 @@ class TeacherApiController
 	{
 		header('Content-Type: application/json');
 
+		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+
+		if (!$isTeacher) {
+			echo json_encode([]);
+			exit();
+		}
+
 		if (isset(($_GET['id']))) {
 			$id = json_decode($_GET['id']);
 
@@ -59,6 +64,13 @@ class TeacherApiController
 	public function searchTeachersByIds()
 	{
 		header('Content-Type: application/json');
+
+		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+
+		if (!$isTeacher) {
+			echo json_encode([]);
+			exit();
+		}
 
 		if (isset(($_GET['ids']))) {
 			$ids = json_decode($_GET['ids']);

@@ -21,6 +21,7 @@ use App\Models\StydingLevelTypeModel;
 class WPDetailsModel
 {
 	public int $id;
+	public int $wpCreatorId;
 	public ?int $regularYear;
 	public ?int $academicYear;
 	public ?int $facultyId;
@@ -71,6 +72,7 @@ class WPDetailsModel
 
 	public function __construct(
 		int $id,
+		int $wpCreatorId,
 		?int $regularYear = null,
 		?int $academicYear = null,
 		?int $facultyId = null,
@@ -120,6 +122,7 @@ class WPDetailsModel
 		?StydingLevelTypeModel $stydingLevel = null,
 	) {
 		$this->id = $id;
+		$this->wpCreatorId = $wpCreatorId;
 		$this->regularYear = $regularYear;
 		$this->academicYear = $academicYear;
 		$this->facultyId = $facultyId;

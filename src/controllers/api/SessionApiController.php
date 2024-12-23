@@ -6,15 +6,23 @@ class SessionApiController
 {
 	function __construct() {}
 
+	public function adminLogin()
+	{
+		$_SESSION['u_uid'] = 2;
+		$_SESSION['isteacher'] = 1;
+	}
+
 	public function teacherLogin()
 	{
-		$_SESSION['u_uid'] = "123";
+		$id = $_GET['id'];
+
+		$_SESSION['u_uid'] = $id;
 		$_SESSION['isteacher'] = 1;
 	}
 
 	public function studentLogin()
 	{
-		$_SESSION['u_uid'] = "456";
+		$_SESSION['u_uid'] = 3;
 		$_SESSION['isteacher'] = 0;
 	}
 

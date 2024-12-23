@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../BaseController.php';
+require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonService.php';
@@ -11,13 +13,16 @@ require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedThemeData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
+use App\Controllers\BaseController;
+use App\Services\WPService;
 use App\Services\ThemeService;
 use App\Services\LessonTypeService;
 use App\Services\LessonService;
 use App\Services\EducationalFormCourseworkHoursService;
 
-class ThemeApiController
+class ThemeApiController extends BaseController
 {
+	protected WPService $wpService;
 	protected ThemeService $themeService;
 	protected LessonTypeService $lessonTypeService;
 	protected LessonService $lessonService;
@@ -25,6 +30,7 @@ class ThemeApiController
 
 	function __construct()
 	{
+		$this->wpService = new WPService();
 		$this->themeService = new ThemeService();
 		$this->lessonTypeService = new LessonTypeService();
 		$this->lessonService = new LessonService();
@@ -38,10 +44,15 @@ class ThemeApiController
 
 		$wpId = $_GET['id'];
 
-		$rawThemes = $this->themeService->getThemesWithLessonsByWPId($wpId);
-		$themes = getFullFormattedThemeData($rawThemes);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);
+		if ($ifCurrentUserHasAccessToWP) {
+			$rawThemes = $this->themeService->getThemesWithLessonsByWPId($wpId);
+			$themes = getFullFormattedThemeData($rawThemes);
+
+			echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);
+		}
 	}
 
 	// Метод контролера для створення нової теми
@@ -55,19 +66,24 @@ class ThemeApiController
 		// Отримуємо дані з запиту (id модуля, щоб створити тему прив'язаною до модуля)
 		$moduleId = intval($data['moduleId']);
 
-		$newThemeId = $this->themeService->createNewTheme($moduleId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($moduleId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		// Оновлюємо лекції та самостійні (їх кількість збігається з кількістю тем)
-		$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-		$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+		if ($ifCurrentUserHasAccessToWP) {
+			$newThemeId = $this->themeService->createNewTheme($moduleId);
 
-		$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-		$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
+			// Оновлюємо лекції та самостійні (їх кількість збігається з кількістю тем)
+			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
-		$this->lessonService->createNewLesson($newThemeId, $lectionLessonTypeId);
-		$this->lessonService->createNewLesson($newThemeId, $selfworkLessonTypeId);
+			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
+			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
-		echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
+			$this->lessonService->createNewLesson($newThemeId, $lectionLessonTypeId);
+			$this->lessonService->createNewLesson($newThemeId, $selfworkLessonTypeId);
+
+			echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
+		}
 	}
 
 	// Метод контролера для оновлення тем
@@ -83,34 +99,39 @@ class ThemeApiController
 		$field = $data['field'];
 		$value = $data['value'];
 
-		// Оновлюємо власне тему
-		$this->themeService->updateTheme($id, $field, $value);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByThemeId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
-		// Оновлюємо лекції та самостійні (назва та порядковий номер лекцій та самостійних має збігатись з назвою та порядковим номером теми) 
-		if ($field == 'name') {
-			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+		if ($ifCurrentUserHasAccessToWP) {
+			// Оновлюємо власне тему
+			$this->themeService->updateTheme($id, $field, $value);
 
-			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
+			// Оновлюємо лекції та самостійні (назва та порядковий номер лекцій та самостійних має збігатись з назвою та порядковим номером теми) 
+			if ($field == 'name') {
+				$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+				$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
-			$themeId = $id;
+				$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
+				$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
-			$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, $field, $value);
-			$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, $field, $value);
-		}
+				$themeId = $id;
 
-		if ($field == 'themeNumber') {
-			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
-			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+				$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, $field, $value);
+				$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, $field, $value);
+			}
 
-			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
-			$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
+			if ($field == 'themeNumber') {
+				$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+				$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
-			$themeId = $id;
+				$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
+				$selfworkLessonTypeId = getLessonTypeId($lessonTypes, 'selfwork');
 
-			$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, 'lessonNumber', $value);
-			$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, 'lessonNumber', $value);
+				$themeId = $id;
+
+				$this->lessonService->updateLesson($themeId, $lectionLessonTypeId, 'lessonNumber', $value);
+				$this->lessonService->updateLesson($themeId, $selfworkLessonTypeId, 'lessonNumber', $value);
+			}
 		}
 	}
 
@@ -121,6 +142,11 @@ class ThemeApiController
 
 		$id = $_GET['id'];
 
-		$this->themeService->deleteTheme($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByThemeId($id);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->themeService->deleteTheme($id);
+		}
 	}
 }

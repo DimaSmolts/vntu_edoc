@@ -36,6 +36,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	// Створюємо модель загальних даних для робочої програми
 	$workingProgram = new WPDetailsModel(
 		$workingProgramData->id,
+		$workingProgramData->wpCreatorId,
 		$workingProgramData->regularYear,
 		$workingProgramData->academicYear,
 		$workingProgramData->facultyId,
@@ -83,7 +84,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	$workingProgram->educationalPrograms = $educationalPrograms;
 
 	// Відформатовуємо рівень вищої освіти
-	$workingProgram->stydingLevel = getFormattedStydingLevelType($workingProgramData->stydingLevel);
+	$workingProgram->stydingLevel = isset($workingProgramData->stydingLevel) ? getFormattedStydingLevelType($workingProgramData->stydingLevel) : null;
 
 	// Збираємо всі модулі
 	$modulesInWorkingProgram = [];

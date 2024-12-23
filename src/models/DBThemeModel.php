@@ -22,6 +22,11 @@ class DBThemeModel extends Model
 		return $this->belongsTo(DBModuleModel::class, 'moduleId');
 	}
 
+	public function lessons()
+	{
+		return $this->hasMany(DBLessonModel::class, 'themeId');
+	}
+
 	public function lections()
 	{
 		return $this->hasMany(DBLessonModel::class, 'themeId')

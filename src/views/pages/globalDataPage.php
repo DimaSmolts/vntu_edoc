@@ -16,5 +16,6 @@
 
         <script src="src/views/helpers/updating/updateGlobalData.js"></script>
         <script src="src/views/helpers/carousel/globalDataArrowsHandler.js"></script>
+        <script src="src/views/helpers/wplist/logins.js"></script>
     </main>
 </body>

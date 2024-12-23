@@ -10,39 +10,57 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class WPService
 {
-	public function getWPList()
+	public function getWPList($wpCreatorId)
 	{
-		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::select(['id', 'disciplineName', 'academicYear', 'specialtyIds', 'createdAt'])
+		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::with(['creator'])
+			->select(['id', 'disciplineName', 'academicYear', 'specialtyIds', 'createdAt', 'wpCreatorId'])
+			->where('wpCreatorId', $wpCreatorId)
 			->orderBy('createdAt')
 			->get();
 
-		foreach ($workingPrograms as $workingProgram) {
-			$specialtyIds = json_decode($workingProgram->specialtyIds ?? '[]', true);
+		if (!empty($workingPrograms)) {
+			foreach ($workingPrograms as $workingProgram) {
+				$specialtyIds = json_decode($workingProgram->specialtyIds ?? '[]', true);
 
+				if (!empty($specialtyIds)) {
+					$specialties = Capsule::table('spec_edu_pr')
+						->select('id', 'spec', 'spec_num_code')
+						->whereIn('id', $specialtyIds)
+						->get();
 
-			if (!empty($specialtyIds)) {
-				$specialties = Capsule::table('spec_edu_pr')
-					->select('id', 'spec', 'spec_num_code')
-					->whereIn('id', $specialtyIds)
-					->get();
+					$specialtiesNames = $specialties->map(function ($specialty) {
+						return $specialty->spec;
+					})->toArray();
 
-				$specialtiesNames = $specialties->map(function ($specialty) {
-					return $specialty->spec;
-				})->toArray();
-
-				$workingProgram->specialtiesNames = $specialtiesNames;
-			} else {
-				$workingProgram->specialtiesNames = [];
+					$workingProgram->specialtiesNames = $specialtiesNames;
+				} else {
+					$workingProgram->specialtiesNames = [];
+				}
 			}
-		}
 
-		return $workingPrograms;
+			return (object) [
+				"items" => $workingPrograms,
+				"creator" => $workingPrograms[0]->creator
+			];
+		} else {
+			$creator = Capsule::table('teachers')
+				->select(['id', 't_name'])
+				->where('id', $wpCreatorId)
+				->get()
+				->first();
+
+			return (object) [
+				"items" => collect(),
+				"creator" => $creator
+			];
+		}
 	}
 
-	public function createNewWP($disciplineName)
+	public function createNewWP($disciplineName, $wpCreatorId)
 	{
 		$wpId = Capsule::table('educationalDisciplineWorkingProgram')->insertGetId([
 			'disciplineName' => $disciplineName,
+			'wpCreatorId' =>  $wpCreatorId,
 			'regularYear' => date("Y")
 		]);
 
@@ -114,7 +132,8 @@ class WPService
 			},
 			'semesters.educationalForms.educationalForm',
 			'globalData',
-			'literature'
+			'literature',
+			'creator'
 		])
 			->where('id', $id)
 			->get();
@@ -418,5 +437,70 @@ class WPService
 			->get();
 
 		return $wps->first();
+	}
+
+	public function getWPCreatorIdByWpId($wpId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::select(['wpCreatorId'])
+			->where('id', $wpId)
+			->get()
+			->first()
+			->wpCreatorId;
+	}
+
+	public function getWPCreatorIdBySemesterId($semesterId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters',
+		])
+			->select(['wpCreatorId'])
+			->whereHas('semesters', function ($query) use (&$semesterId) {
+				$query->where('id', $semesterId);
+			})
+			->get()
+			->first()
+			->wpCreatorId;
+	}
+
+	public function getWPCreatorIdByModuleId($moduleId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters.modules'
+		])
+			->select(['wpCreatorId'])
+			->whereHas('semesters.modules', function ($query) use ($moduleId) {
+				$query->where('id', $moduleId);
+			})
+			->get()
+			->first()
+			->wpCreatorId;
+	}
+
+	public function getWPCreatorIdByThemeId($themeId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters.modules.themes'
+		])
+			->select(['wpCreatorId'])
+			->whereHas('semesters.modules.themes', function ($query) use ($themeId) {
+				$query->where('id', $themeId);
+			})
+			->get()
+			->first()
+			->wpCreatorId;
+	}
+
+	public function getWPCreatorIdByLessonId($lessonId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters.modules.themes.lessons'
+		])
+			->select(['wpCreatorId'])
+			->whereHas('semesters.modules.themes.lessons', function ($query) use ($lessonId) {
+				$query->where('id', $lessonId);
+			})
+			->get()
+			->first()
+			->wpCreatorId;
 	}
 }

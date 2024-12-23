@@ -49,7 +49,8 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'methodologicalSupport',
 		'individualTaskNotes',
 		'creditsAmount',
-		'pointsDistribution'
+		'pointsDistribution',
+		'wpCreatorId'
 	];
 
 	public $timestamps = false;
@@ -105,7 +106,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 				$query->where('role', 'headOfCommission');
 			});
 	}
-	
+
 	public function approvedBy()
 	{
 		return $this->hasOne(DBWorkingProgramInvolvedPersonModel::class, 'educationalDisciplineWPId')
@@ -131,9 +132,14 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 	{
 		return $this->belongsTo(DBDepartmentModel::class, 'departmentId');
 	}
-	
+
 	public function stydingLevel()
 	{
 		return $this->belongsTo(DBStydingLevelTypeModel::class, 'stydingLevelId');
+	}
+
+	public function creator()
+	{
+		return $this->belongsTo(DBTeacherModel::class, 'wpCreatorId');
 	}
 }

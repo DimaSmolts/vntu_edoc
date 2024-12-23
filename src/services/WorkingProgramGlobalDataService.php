@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class WorkingProgramGlobalDataOverwriteService
+class WorkingProgramGlobalDataService
 {
 	// Функція для отримання дефолтних глобальних даних
 	public function getWorkingProgramGlobalData()
