@@ -33,7 +33,7 @@
 	<p class="indent bold">Контрольні заходи:</p>
 	<?= $details->controlMeasures ?>
 
-	
+
 	<!-- Додаємо розділ 4. Програма навчальної дисципліни -->
 	<?php include __DIR__ . '/../components/pdfTemplate/educationalDisciplineProgramTopic.php'; ?>
 
@@ -47,19 +47,19 @@
 	<div class="topic-title">
 		10. Індивідуальні завдання
 	</div>
-	<p class="indent inserted justify"><?= isset($details->individualTaskNotes) ? htmlspecialchars($details->individualTaskNotes) : "" ?></p>
+	<?= $details->individualTaskNotes ?? '' ?>
 
 	<div class="empty"></div>
 	<div class="topic-title">
 		11. Методи навчання
 	</div>
-	<p class="indent inserted justify"><?= isset($details->studingMethods) ? htmlspecialchars($details->studingMethods) : '' ?></p>
+	<?= $details->studingMethods ?? '' ?>
 
 	<div class="empty"></div>
 	<div class="topic-title">
 		12. Методи контролю
 	</div>
-	<p class="indent inserted justify"><?= isset($details->examingMethods) ? htmlspecialchars($details->examingMethods) : '' ?></p>
+	<?= $details->examingMethods ?? '' ?>
 
 	<!-- Додаємо розділ 13. Розподіл балів, які отримують студенти -->
 	<?php include __DIR__ . '/../components/pdfTemplate/pointsDistributionTopic.php'; ?>
@@ -68,7 +68,7 @@
 	<div class="topic-title">
 		14. Методичне забезпечення
 	</div>
-	<p class="indent inserted justify"><?= isset($details->methodologicalSupport) ? htmlspecialchars($details->methodologicalSupport) : '' ?></p>
+	<?= $details->methodologicalSupport ?? '' ?>
 
 	<!-- Додаємо розділ 15. Критерії оцінювання знань, умінь та навичок здобувачів вищої освіти -->
 	<?php include __DIR__ . '/../components/pdfTemplate/assessmentCriteriaTopic.php'; ?>

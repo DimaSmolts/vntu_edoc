@@ -5,32 +5,19 @@ $title = "Методи навчання, контролю та розподіл 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form id="studingAndExamingMethods" class="wp-form">
-    <label>Нотатки до індивідуального завдання (Розділ 10):
-        <textarea
-            id="individualTaskNotes"
-            name="individualTaskNotes"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->individualTaskNotes ?? '') ?></textarea>
-    </label>
-    <label>Методи навчання:
-        <textarea
-            id="studingMethods"
-            name="studingMethods"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->studingMethods ?? '') ?></textarea>
-    </label>
-    <label>Методи контролю:
-        <textarea
-            id="controlMeasures"
-            name="controlMeasures"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->examingMethods ?? '') ?></textarea>
-    </label>
-    <label>Методичне забезпечення:
-        <textarea
-            id="methodologicalSupport"
-            name="methodologicalSupport"
-            rows="10"
-            oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->methodologicalSupport ?? '') ?></textarea>
-    </label>
+    <label>Нотатки до індивідуального завдання (Розділ 10):</label>
+    <!-- Створюємо контейнер для нотаток до індивідуального завдання -->
+    <div id="individualTaskNotes" style="height: 100px; margin-bottom: 15px;"></div>
+
+    <label>Методи навчання:</label>
+    <!-- Створюємо контейнер для редагування методів навчання -->
+    <div id="studingMethods" style="height: 100px; margin-bottom: 15px;"></div>
+
+    <label>Методи контролю:</label>
+    <!-- Створюємо контейнер для редагування методів контролю -->
+    <div id="examingMethods" style="height: 100px; margin-bottom: 15px;"></div>
+
+    <label>Методичне забезпечення:</label>
+    <!-- Створюємо контейнер для редагування методичного забезпечення -->
+    <div id="methodologicalSupport" style="height: 100px; margin-bottom: 15px;"></div>
 </form>

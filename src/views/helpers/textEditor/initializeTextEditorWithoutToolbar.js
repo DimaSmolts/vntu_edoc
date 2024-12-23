@@ -1,4 +1,4 @@
-const initializeTextEditorWithoutToolbar = (inputElementId, isStylesAvailable = true) => {
+const initializeTextEditorWithoutToolbar = (inputElementId, isStylesAvailable = true, isListAvailable = false) => {
 	const Block = Quill.import('blots/block');
 
 	class CustomParagraph extends Block {
@@ -20,20 +20,22 @@ const initializeTextEditorWithoutToolbar = (inputElementId, isStylesAvailable = 
 	Quill.register(CustomParagraph, true);
 
 	// Initialize the text editor
+	
+
 	const editor = isStylesAvailable
 		? new Quill(inputElementId, {
 			theme: 'snow',
 			modules: {
 				toolbar: false, // Disable the toolbar
 			},
-			formats: ['bold', 'italic', 'customParagraph'],
+			formats: ['bold', 'italic', 'customParagraph', isListAvailable && 'list'],
 		})
 		: new Quill(inputElementId, {
 			theme: 'snow',
 			modules: {
 				toolbar: false, // Disable the toolbar
 			},
-			formats: ['customParagraph'],
+			formats: ['customParagraph', isListAvailable && 'list'],
 		});
 
 	// Function to format all lines

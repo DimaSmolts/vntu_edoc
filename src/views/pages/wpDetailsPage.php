@@ -127,6 +127,7 @@
     <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
+    <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -135,15 +136,6 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
-        // Змінюємо інпути для введення літератури
-        initializeTextEditorForLiterature({
-            mainLiterature: <?php echo json_encode($details->literature->main ?? ''); ?>,
-            supportingLiterature: <?php echo json_encode($details->literature->supporting ?? ''); ?>,
-            additionalLiterature: <?php echo json_encode($details->literature->additional ?? ''); ?>,
-            informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
-            wpId: <?= htmlspecialchars($details->id) ?>
-        });
-
         initializeTextEditorForPrerequisitesAndGoal({
             notes: <?php echo json_encode($details->notes ?? ''); ?>,
             prerequisites: <?php echo json_encode($details->prerequisites ?? ''); ?>,
@@ -154,5 +146,22 @@
             controlMeasures: <?php echo json_encode($details->controlMeasures ?? ''); ?>,
             wpId: <?= htmlspecialchars($details->id) ?>
         })
+
+        initializeTextEditorForStudingAndExamingMethods({
+            individualTaskNotes: <?php echo json_encode($details->individualTaskNotes ?? ''); ?>,
+            studingMethods: <?php echo json_encode($details->studingMethods ?? ''); ?>,
+            examingMethods: <?php echo json_encode($details->examingMethods ?? ''); ?>,
+            methodologicalSupport: <?php echo json_encode($details->methodologicalSupport ?? ''); ?>,
+            wpId: <?= htmlspecialchars($details->id) ?>
+        })
+
+        // Змінюємо інпути для введення літератури
+        initializeTextEditorForLiterature({
+            mainLiterature: <?php echo json_encode($details->literature->main ?? ''); ?>,
+            supportingLiterature: <?php echo json_encode($details->literature->supporting ?? ''); ?>,
+            additionalLiterature: <?php echo json_encode($details->literature->additional ?? ''); ?>,
+            informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
+            wpId: <?= htmlspecialchars($details->id) ?>
+        });
     </script>
 </body>
