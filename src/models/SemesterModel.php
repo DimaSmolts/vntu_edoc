@@ -7,7 +7,7 @@ class SemesterModel
 	public int $id;
 	public bool $isCourseworkExists;
 	public ?int $semesterNumber;
-	public ?string $examType;
+	public ?int $examTypeId;
 	public array $modules;
 	public array $educationalForms;
 	public array $courseworkHours;
@@ -16,7 +16,7 @@ class SemesterModel
 		$id,
 		$isCourseworkExists,
 		?int $semesterNumber = null,
-		?string $examType = '',
+		?int $examTypeId = null,
 		$modules = [],
 		$educationalForms = [],
 		$courseworkHours = [],
@@ -24,7 +24,7 @@ class SemesterModel
 		$this->id = $id;
 		$this->isCourseworkExists = $isCourseworkExists;
 		$this->semesterNumber = $semesterNumber;
-		$this->examType = $examType;
+		$this->examTypeId = $examTypeId;
 		$this->modules = $modules;
 		$this->educationalForms = $educationalForms;
 		$this->courseworkHours = $courseworkHours;

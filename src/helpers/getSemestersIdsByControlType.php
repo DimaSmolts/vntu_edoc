@@ -9,10 +9,10 @@ function getSemestersIdsByControlType($pointsDistributionRelatedData)
 
 	if (!empty($pointsDistributionRelatedData->semesters)) {
 		foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
-			if ($semesterData->examType === "диф. залік") {
+			if ($semesterData->examTypeId === 2) {
 				$semesterWithDifferentialCreditId[] = $semesterData->id;
 			}
-			if ($semesterData->examType === "іспит") {
+			if ($semesterData->examTypeId === 0) {
 				$semesterWithExamId[] = $semesterData->id;
 			}
 		}

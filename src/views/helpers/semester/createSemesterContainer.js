@@ -57,7 +57,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 	const examTypeLabel = createLabelWithInput({
 		labelText: 'Вид контролю:',
 		inputType: 'text',
-		inputName: 'examType',
+		inputName: 'examTypeId',
 		eventListener: (event) => {
 			updateSemesterInfo(event, semesterId);
 		}

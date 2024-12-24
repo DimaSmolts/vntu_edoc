@@ -9,24 +9,25 @@ require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/src/controllers/WPController.php';
 require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
-require_once __DIR__ . '/src/controllers//api/WPApiController.php';
-require_once __DIR__ . '/src/controllers//api/WorkingProgramGlobalDataApiController.php';
-require_once __DIR__ . '/src/controllers//api/WPInvolvedPersonApiController.php';
-require_once __DIR__ . '/src/controllers//api/SemesterApiController.php';
-require_once __DIR__ . '/src/controllers//api/ModuleApiController.php';
-require_once __DIR__ . '/src/controllers//api/ThemeApiController.php';
-require_once __DIR__ . '/src/controllers//api/LessonApiController.php';
-require_once __DIR__ . '/src/controllers//api/EducationalFormLessonHoursApiController.php';
-require_once __DIR__ . '/src/controllers//api/SemesterEducationFormApiController.php';
-require_once __DIR__ . '/src/controllers//api/WorkingProgramLiteratureApiController.php';
-require_once __DIR__ . '/src/controllers//api/EducationalFormCourseworkHoursApiController.php';
-require_once __DIR__ . '/src/controllers//api/TeacherApiController.php';
-require_once __DIR__ . '/src/controllers//api/FacultyApiController.php';
-require_once __DIR__ . '/src/controllers//api/DepartmentApiController.php';
-require_once __DIR__ . '/src/controllers//api/StydingLevelTypeApiController.php';
-require_once __DIR__ . '/src/controllers//api/SpecialtyApiController.php';
-require_once __DIR__ . '/src/controllers//api/EducationalProgramApiController.php';
-require_once __DIR__ . '/src/controllers//api/SessionApiController.php';
+require_once __DIR__ . '/src/controllers/api/WPApiController.php';
+require_once __DIR__ . '/src/controllers/api/WorkingProgramGlobalDataApiController.php';
+require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
+require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
+require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
+require_once __DIR__ . '/src/controllers/api/ThemeApiController.php';
+require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
+require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
+require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
+require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
+require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
+require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
+require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
+require_once __DIR__ . '/src/controllers/api/SpecialtyApiController.php';
+require_once __DIR__ . '/src/controllers/api/EducationalProgramApiController.php';
+require_once __DIR__ . '/src/controllers/api/ExamTypeApiController.php';
+require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
 use App\Controllers\WPController;
@@ -49,6 +50,7 @@ use App\Controllers\DepartmentApiController;
 use App\Controllers\StydingLevelTypeApiController;
 use App\Controllers\SpecialtyApiController;
 use App\Controllers\EducationalProgramApiController;
+use App\Controllers\ExamTypeApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -172,6 +174,11 @@ $router->get('/api/searchEducationalPrograms', function () {
 $router->get('/api/searchEducationalProgramsByIds', function () {
 	$educationalProgramApiController = new EducationalProgramApiController();
 	$educationalProgramApiController->searchEducationalProgramsByIds();
+});
+
+$router->get('/api/getExamTypes', function () {
+	$examTypeApiController = new ExamTypeApiController();
+	$examTypeApiController->getExamTypes();
 });
 
 $router->post('/api/duplicateWP', function () {

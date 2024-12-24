@@ -90,7 +90,7 @@ function getPointsDistributionForPDF($pointsDistributionRelatedData)
 				$semesterData->id,
 				$semesterTotal,
 				$semesterData->semesterNumber,
-				$semesterData->examType,
+				$semesterData->examTypeId,
 				$modules,
 				$modulesTotal
 			);

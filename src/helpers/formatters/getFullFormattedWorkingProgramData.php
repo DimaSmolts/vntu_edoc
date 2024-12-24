@@ -95,7 +95,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			$semester->id,
 			$semester->isCourseworkExists,
 			$semester->semesterNumber,
-			$semester->examType,
+			$semester->examTypeId,
 			$modules,
 			$educationalForms,
 			$courseworkHours

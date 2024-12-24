@@ -253,7 +253,7 @@
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
 					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
-						<?= htmlspecialchars($semesterByEducationalForm->examType ?? '') ?>
+						<?= htmlspecialchars($semesterByEducationalForm->examTypeId ?? '') ?>
 					</td>
 				<?php endforeach; ?>
 			<?php endforeach; ?>

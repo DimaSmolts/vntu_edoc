@@ -252,7 +252,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$semester->isCourseworkExists,
 			$semester->courseworkAssessmentComponents,
 			$semester->semesterNumber,
-			$semester->examType,
+			$semester->examTypeId,
 			$modules,
 			$educationalForms,
 			$lectionsForSemester,

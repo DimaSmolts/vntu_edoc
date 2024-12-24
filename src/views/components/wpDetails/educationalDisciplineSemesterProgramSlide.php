@@ -53,13 +53,12 @@ $title = "Програма навчальної дисципліни";
 								value="<?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?>"
 								oninput="updateNumberInput(event, <?= htmlspecialchars($semesterData->id) ?>, `semesterTitle<?= htmlspecialchars($semesterData->id) ?>`, 'Семестер', updateSemesterInfo)">
 						</label>
-						<label>
-							<p>Вид контролю:</p>
-							<input
-								type="text"
-								name="examType"
-								value="<?= $semesterData->examType ? htmlspecialchars($semesterData->examType) : "" ?>"
-								oninput="updateSemesterInfo(event, <?= htmlspecialchars($semesterData->id) ?>)">
+						<label id="examTypeDropdownLabel">Вид контролю:
+							<select
+								id="examTypeIdSelect"
+								data-semesterId=<?= htmlspecialchars($semesterData->id) ?>
+								<?php if (isset($semesterData->examTypeId)): ?> data-examTypeId=<?= htmlspecialchars($semesterData->examTypeId) ?><?php endif; ?>>
+							</select>
 						</label>
 						<label class="label-with-checkbox">
 							<p>Є курсовий</p>

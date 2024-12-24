@@ -2,10 +2,10 @@ const updateSemesterInfo = (event, semesterId) => {
     const postData = {
         id: semesterId,
         field: event.target.name,
-        value: event.target.value
+        value: event.target.value == "" ? null : event.target.value
     };
 
-    fetch('updateSemester', {
+    fetch('api/updateSemester', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

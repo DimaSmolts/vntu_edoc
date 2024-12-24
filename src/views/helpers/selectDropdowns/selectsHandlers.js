@@ -10,4 +10,5 @@ document.addEventListener('DOMContentLoaded', function () {
 	headOfCommissionSelectHandler();
 	approvedBySelectHandler();
 	docApprovedBySelectHandler();
+	examTypeSelectHandler();
 });

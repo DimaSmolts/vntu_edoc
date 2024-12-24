@@ -8,7 +8,7 @@ class PDFSemesterModel
 	public bool $isCourseworkExists;
 	public ?string $courseworkAssessmentComponents;
 	public ?int $semesterNumber;
-	public ?string $examType;
+	public ?int $examTypeId;
 	public array $modules;
 	public array $educationalForms;
 	public array $lections;
@@ -27,7 +27,7 @@ class PDFSemesterModel
 		$isCourseworkExists,
 		?string $courseworkAssessmentComponents = '',
 		?int $semesterNumber = null,
-		?string $examType = '',
+		?int $examTypeId = null,
 		$modules = [],
 		$educationalForms = [],
 		array $lections = [],
@@ -45,7 +45,7 @@ class PDFSemesterModel
 		$this->isCourseworkExists = $isCourseworkExists;
 		$this->courseworkAssessmentComponents = $courseworkAssessmentComponents;
 		$this->semesterNumber = $semesterNumber;
-		$this->examType = $examType;
+		$this->examTypeId = $examTypeId;
 		$this->modules = $modules;
 		$this->educationalForms = $educationalForms;
 		$this->lections = $lections;

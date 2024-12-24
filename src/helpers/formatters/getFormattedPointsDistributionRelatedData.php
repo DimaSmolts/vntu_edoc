@@ -48,7 +48,7 @@ function getFormattedPointsDistributionRelatedData($workingProgramData)
 			$semester->id,
 			$semester->isCourseworkExists,
 			$semester->semesterNumber,
-			$semester->examType,
+			$semester->examTypeId,
 			$modules
 		);
 	})->toArray();

@@ -11,7 +11,7 @@ class PDFPointsDistributionSemesterModel
 	public int $id;
 	public int $semesterTotal;
 	public ?int $semesterNumber;
-	public ?string $examType;
+	public ?int $examTypeId;
 	public array $modules;
 	public ?PDFPointsDistributionModulesTotalModel $modulesTotal;
 
@@ -19,14 +19,14 @@ class PDFPointsDistributionSemesterModel
 		int $id,
 		int $semesterTotal,
 		?int $semesterNumber = null,
-		?string $examType = null,
+		?int $examTypeId = null,
 		array $modules = [],
 		?PDFPointsDistributionModulesTotalModel $modulesTotal = null,
 	) {
 		$this->id = $id;
 		$this->semesterTotal = $semesterTotal;
 		$this->semesterNumber = $semesterNumber;
-		$this->examType = $examType;
+		$this->examTypeId = $examTypeId;
 		$this->modules = $modules;
 		$this->modulesTotal = $modulesTotal;
 	}

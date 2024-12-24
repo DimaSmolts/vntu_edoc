@@ -132,7 +132,7 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 
 	if (!empty($pointsDistributionRelatedData->semesters)) {
 		foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
-			if ($semesterData->examType === 'іспит') {
+			if ($semesterData->examTypeId === 0) {
 				$examPoints = $pointsDistribution['examPoints'] ?? 0;
 				$totalBySemesters['semester' . $semesterData->id . 'Sum'] = $pointsByTypeOfWork['totalByModules']['semester' . $semesterData->id . 'Sum'] + $examPoints;
 			} else {
