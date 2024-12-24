@@ -18,7 +18,6 @@ const updateSlidePosition = () => {
 // Enable/Disable navigation buttons based on the current index
 const updateButtonState = () => {
 	const updatedSlides = document.querySelectorAll(".slide");
-	console.log(updatedSlides.length);
 	prevButton.disabled = currentIndex === 0;
 	nextButton.disabled = currentIndex === updatedSlides.length - 1;
 };

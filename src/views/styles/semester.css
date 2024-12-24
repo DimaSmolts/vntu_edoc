@@ -68,7 +68,7 @@
 .educational-forms-container {
 	grid-column: 1 / 4;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	justify-items: center;
 	padding: 0 30%;
 }

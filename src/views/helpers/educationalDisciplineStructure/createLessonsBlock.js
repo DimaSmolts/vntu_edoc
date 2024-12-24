@@ -27,7 +27,18 @@ const createLessonsBlock = ({ lesson, lessonId, semesterEducationalForms, contai
 		}
 	});
 
-	const hoursBlockColumnsClass = semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
+	let hoursBlockColumnsClass = 'hours-block-one-column';
+
+	switch (semesterEducationalForms.length) {
+		case 2:
+			hoursBlockColumnsClass = 'hours-block-two-columns';
+			break;
+		case 3:
+			hoursBlockColumnsClass = 'hours-block-three-columns';
+			break;
+		default:
+			break;
+	}
 
 	const lessonHoursBlockForInputs = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass] });
 
@@ -81,7 +92,18 @@ const createLessonsBlockLabels = ({ titleName, lessonTypeName, semesterEducation
 	const lessonNumberLabel = createElement({ elementName: "p", innerText: `Номер заняття:`, classList: ['lesson-name-label'] });
 	const lessonNameLabel = createElement({ elementName: "p", innerText: `Назва теми:` });
 
-	const hoursBlockColumnsClass = semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
+	let hoursBlockColumnsClass = 'hours-block-one-column';
+
+	switch (semesterEducationalForms.length) {
+		case 2:
+			hoursBlockColumnsClass = 'hours-block-two-columns';
+			break;
+		case 3:
+			hoursBlockColumnsClass = 'hours-block-three-columns';
+			break;
+		default:
+			break;
+	}
 
 	const lessonHoursBlockForHeader = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass, 'additional-hours-block-for-header'] });
 

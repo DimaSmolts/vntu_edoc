@@ -20,23 +20,13 @@ const initializeTextEditorWithoutToolbar = (inputElementId, isStylesAvailable = 
 	Quill.register(CustomParagraph, true);
 
 	// Initialize the text editor
-	
-
-	const editor = isStylesAvailable
-		? new Quill(inputElementId, {
-			theme: 'snow',
-			modules: {
-				toolbar: false, // Disable the toolbar
-			},
-			formats: ['bold', 'italic', 'customParagraph', isListAvailable && 'list'],
-		})
-		: new Quill(inputElementId, {
-			theme: 'snow',
-			modules: {
-				toolbar: false, // Disable the toolbar
-			},
-			formats: ['customParagraph', isListAvailable && 'list'],
-		});
+	const editor = new Quill(inputElementId, {
+		theme: 'snow',
+		modules: {
+			toolbar: false, // Disable the toolbar
+		},
+		formats: getFormats({ isStylesAvailable, isListAvailable })
+	})
 
 	// Function to format all lines
 	const formatAllLines = () => {
@@ -96,3 +86,20 @@ const initializeTextEditorWithoutToolbar = (inputElementId, isStylesAvailable = 
 
 	return editor;
 };
+
+
+const getFormats = ({ isStylesAvailable, isListAvailable }) => {
+	if (isStylesAvailable && isListAvailable) {
+		return ['bold', 'italic', 'customParagraph', 'list'];
+	}
+
+	if (isStylesAvailable && !isListAvailable) {
+		return ['bold', 'italic', 'customParagraph'];
+	}
+
+	if (!isStylesAvailable && isListAvailable) {
+		return ['customParagraph', 'list'];
+	}
+
+	return ['customParagraph']
+}

@@ -6,6 +6,14 @@ $lectionNameColumnWidth = 95; // 5% для колонки з номером за
 foreach ($details->availableEducationalForms as $availableEducationalForm) {
 	$lectionNameColumnWidth -= 15;
 }
+
+$educationalFormsInSemesters = [];
+
+foreach ($details->semesters as $semester) {
+	foreach ($semester->educationalForms as $educationalForm) {
+		$educationalFormsInSemesters[$educationalForm->colName] = $educationalForm->name;
+	}
+}
 ?>
 
 <div class="empty"></div>
@@ -16,8 +24,8 @@ foreach ($details->availableEducationalForms as $availableEducationalForm) {
 	<tr>
 		<th style="width: 5%;">№ з/п</th>
 		<th style="width: <?= htmlspecialchars($lectionNameColumnWidth) ?>%;">Назва теми</th>
-		<?php foreach ($semester->educationalForms as $educationalForm): ?>
-			<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($educationalForm->name) ?> форма)</th>
+		<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
+			<th class="inserted" style="width: 15%;">К-ть годин (<?= htmlspecialchars($name) ?> форма)</th>
 		<?php endforeach; ?>
 	</tr>
 
@@ -25,8 +33,8 @@ foreach ($details->availableEducationalForms as $availableEducationalForm) {
 		<?php if (!empty($semester->lections)): ?>
 			<tr>
 				<th style="width: 5%;"></th>
-				<th class="inserted" style="width: 65%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
-				<?php foreach ($semester->educationalForms as $educationalForm): ?>
+				<th class="inserted" style="width: <?= htmlspecialchars($lectionNameColumnWidth) ?>%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
+				<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
 					<th style="width: 15%;"></th>
 				<?php endforeach; ?>
 			</tr>
@@ -41,17 +49,17 @@ foreach ($details->availableEducationalForms as $availableEducationalForm) {
 				?>
 				<tr>
 					<td class="center inserted" style="width: 5%;"><?= htmlspecialchars($lection->lessonNumber ?? '') ?></td>
-					<td class="inserted" style="width: 65%;">Тема <?= htmlspecialchars($lection->lessonNumber ?? '') ?>. <?= htmlspecialchars($lection->lessonName ?? '') ?></td>
-					<?php foreach ($semester->educationalForms as $educationalForm): ?>
-						<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$educationalForm->colName]) ? htmlspecialchars($educationalFormHours[$educationalForm->colName]) : "" ?></td>
+					<td class="inserted" style="width: <?= htmlspecialchars($lectionNameColumnWidth) ?>%;">Тема <?= htmlspecialchars($lection->lessonNumber ?? '') ?>. <?= htmlspecialchars($lection->lessonName ?? '') ?></td>
+					<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
+						<td class="center inserted" style="width: 15%;"><?= isset($educationalFormHours[$colName]) ? htmlspecialchars($educationalFormHours[$colName]) : "" ?></td>
 					<?php endforeach; ?>
 				</tr>
 			<?php endforeach; ?>
 			<tr>
 				<th style="width: 5%;"></th>
-				<td class="bold" style="width: 65%;">Всього за <?= htmlspecialchars($semester->semesterNumber) ?> семестр:</td>
-				<?php foreach ($semester->educationalForms as $educationalForm): ?>
-					<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSeminars[$educationalForm->colName]) ? htmlspecialchars($semester->totalHoursForSeminars[$educationalForm->colName]) : 0 ?></th>
+				<td class="bold" style="width: <?= htmlspecialchars($lectionNameColumnWidth) ?>%;">Всього за <?= htmlspecialchars($semester->semesterNumber) ?> семестр:</td>
+				<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
+					<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForLections[$colName]) ? htmlspecialchars($semester->totalHoursForLections[$colName]) : 0 ?></th>
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>

@@ -21,7 +21,18 @@ const createLessonsContainer = (themes) => {
 			classList: ['block-title', 'lesson-theme-title']
 		});
 
-		const hoursBlockColumnsClass = theme.semesterEducationalForms.length === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
+		let hoursBlockColumnsClass = 'hours-block-one-column';
+
+		switch (theme.semesterEducationalForms.length) {
+			case 2:
+				hoursBlockColumnsClass = 'hours-block-two-columns';
+				break;
+			case 3:
+				hoursBlockColumnsClass = 'hours-block-three-columns';
+				break;
+			default:
+				break;
+		}
 
 		const lectionHoursBlock = createElement({ elementName: "div", classList: ['hours-block', hoursBlockColumnsClass, 'lection-hours-block'] });
 

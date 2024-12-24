@@ -12,9 +12,19 @@ $title = "Курсовий. Складові оцінювання.";
 					Курсовий до семестеру <?= $semester->semesterNumber ? htmlspecialchars($semester->semesterNumber) : "" ?>
 				</p>
 				<?php
-				$hoursBlockColumnsClass = count($semester->educationalForms) === 1 ? 'hours-block-one-column' : 'hours-block-two-columns';
-				$hours = [];
+				$hoursBlockColumnsClass = 'hours-block-one-column';
+				switch (count($semester->educationalForms)) {
+					case 2:
+						$hoursBlockColumnsClass = 'hours-block-two-columns';
+						break;
+					case 3:
+						$hoursBlockColumnsClass = 'hours-block-three-columns';
+						break;
+					default:
+						break;
+				}
 
+				$hours = [];
 				foreach ($semester->courseworkHours as $courseworkHour) {
 					$hours[$courseworkHour->courseworkFormName] = $courseworkHour->hours;
 				}
