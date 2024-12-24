@@ -54,14 +54,18 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 		}
 	});
 
-	const examTypeLabel = createLabelWithInput({
-		labelText: 'Вид контролю:',
-		inputType: 'text',
-		inputName: 'examTypeId',
-		eventListener: (event) => {
-			updateSemesterInfo(event, semesterId);
+	const examTypeLabel = createElement({ elementName: 'label', id: 'examTypeDropdownLabel' });
+
+	const examTypeSelect = createElement({
+		elementName: 'select',
+		id: `examType${semesterId}IdSelect`,
+		data: {
+			'semesterid': semesterId,
+			'examtypeid': null
 		}
 	});
+
+	examTypeLabel.appendChild(examTypeSelect);
 
 	const colloquiumCheckbox = createCheckboxWithLabelAtTheBeginning({
 		labelText: 'Є курсовий',
@@ -99,4 +103,6 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 	semesterBlock.appendChild(modulesContainer);
 
 	semestersContainer.appendChild(semesterBlock);
+
+	examTypeSelectHandler(semesterId);
 }

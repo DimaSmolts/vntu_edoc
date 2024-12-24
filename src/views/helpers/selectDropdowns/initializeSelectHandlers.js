@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+const initializeSelectHandlers = ({ semestersIds }) => {
 	facultySelectHandler();
 	departmentSelectHandler();
 	stydingLevelSelectHandler();
@@ -10,5 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	headOfCommissionSelectHandler();
 	approvedBySelectHandler();
 	docApprovedBySelectHandler();
-	examTypeSelectHandler();
-});
+	semestersIds.forEach(semesterId => {
+		examTypeSelectHandler(semesterId);
+	});
+};

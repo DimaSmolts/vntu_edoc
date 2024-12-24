@@ -55,9 +55,10 @@ $title = "Програма навчальної дисципліни";
 						</label>
 						<label id="examTypeDropdownLabel">Вид контролю:
 							<select
-								id="examTypeIdSelect"
-								data-semesterId=<?= htmlspecialchars($semesterData->id) ?>
-								<?php if (isset($semesterData->examTypeId)): ?> data-examTypeId=<?= htmlspecialchars($semesterData->examTypeId) ?><?php endif; ?>>
+								id="examType<?= htmlspecialchars($semesterData->id) ?>IdSelect"
+								<?php if (isset($semesterData->examTypeId)): ?> data-examTypeId=<?= htmlspecialchars($semesterData->examTypeId) ?>
+								<?php else: ?> data-examTypeId=<?= json_encode(null) ?>
+								<?php endif; ?>>
 							</select>
 						</label>
 						<label class="label-with-checkbox">

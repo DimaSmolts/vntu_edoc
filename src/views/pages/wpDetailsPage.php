@@ -77,7 +77,7 @@
     <script src="src/views/helpers/selectDropdowns/selectHandlers/specialtySelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/examTypeSelectHandler.js"></script>
-    <script src="src/views/helpers/selectDropdowns/selectsHandlers.js"></script>
+    <script src="src/views/helpers/selectDropdowns/initializeSelectHandlers.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPerson.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPersonDetails.js"></script>
     <script src="src/views/helpers/selectDropdowns/removeWPInvolvedPerson.js"></script>
@@ -139,6 +139,18 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
+        <?php
+        $semestersIds = [];
+
+        foreach ($details->semesters as $semester) {
+            $semestersIds[] = $semester->id;
+        }
+        ?>
+
+        initializeSelectHandlers({
+            semestersIds: <?php echo json_encode(!empty($semestersIds) ? $semestersIds : null); ?>,
+        })
+
         initializeTextEditorForPrerequisitesAndGoal({
             notes: <?php echo json_encode($details->notes ?? ''); ?>,
             prerequisites: <?php echo json_encode($details->prerequisites ?? ''); ?>,

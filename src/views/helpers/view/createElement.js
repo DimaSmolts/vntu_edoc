@@ -14,6 +14,7 @@ const createElement = ({
 	checked,
 	style,
 	placeholder,
+	data
 }) => {
 	const element = document.createElement(elementName);
 
@@ -69,6 +70,12 @@ const createElement = ({
 
 	if (placeholder) {
 		element.placeholder = placeholder;
+	}
+
+	if (data) {
+		Object.entries(data).forEach(([key, value]) => {
+			element.dataset[key] = value;
+		})
 	}
 
 	return element;
