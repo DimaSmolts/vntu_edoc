@@ -41,7 +41,7 @@
 
 .semester-data-block {
 	display: grid;
-	grid-template-columns: 2fr 4fr 1fr;
+	grid-template-columns: 2fr 4fr;
 	gap: 15px;
 	margin-top: 10px;
 }
@@ -54,7 +54,7 @@
 
 .module-data-block {
 	display: grid;
-	grid-template-columns: 1fr 4fr 1fr;
+	grid-template-columns: 1fr 4fr;
 	gap: 15px;
 	margin-top: 10px;
 }
@@ -66,18 +66,73 @@
 }
 
 .educational-forms-container {
-	grid-column: 1 / 4;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(4, max-content);
 	justify-items: center;
-	padding: 0 30%;
+	column-gap: 15px;
+	margin-top: 15px;
+	margin-bottom: 10px;
 }
 
-.educational-forms-container label {
+.individual-tasks-container {
+	display: grid;
+	grid-template-columns: repeat(2, max-content);
+	justify-items: center;
+	column-gap: 15px;
+	margin-bottom: 10px;
+}
+
+.custom-tasks-container {
+	display: grid;
+	grid-template-columns: max-content 2fr;
+	column-gap: 15px;
+}
+
+.module-controls-container {
+	display: grid;
+	grid-template-columns: max-content 3fr;
+	column-gap: 15px;
+}
+
+.educational-forms-label,
+.individual-tasks-label,
+.custom-tasks-label,
+.module-controls-label {
+	font-weight: bold;
+}
+
+.educational-forms-container label,
+.individual-tasks-container label,
+.module-controls-container label {
 	display: grid;
 	grid-template-columns: max-content 1fr;
 	gap: 10px;
 	align-items: center;
+	font-weight: normal;
+}
+
+.individual-tasks-block {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 15px;
+}
+
+.custom-tasks-block {
+	display: grid;
+	gap: 15px;
+	margin-bottom: 15px;
+}
+
+.module-controls-block {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	column-gap: 15px;
+}
+
+.additional-task-components-inputs {
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	column-gap: 15px;
 }
 
 .wp-form input.checkbox {

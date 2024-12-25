@@ -7,10 +7,13 @@ require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../services/DepartmentService.php';
+require_once __DIR__ . '/../../services/EducationalFormService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalFormData.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
 require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
@@ -21,6 +24,7 @@ use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataService;
 use App\Services\WorkingProgramLiteratureService;
 use App\Services\DepartmentService;
+use App\Services\EducationalFormService;
 
 class WPApiController extends BaseController
 {
@@ -28,6 +32,7 @@ class WPApiController extends BaseController
 	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 	protected DepartmentService $departmentService;
+	protected EducationalFormService $educationalFormService;
 
 	function __construct()
 	{
@@ -35,6 +40,7 @@ class WPApiController extends BaseController
 		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 		$this->departmentService = new DepartmentService();
+		$this->educationalFormService = new EducationalFormService();
 	}
 
 	public function createNewWP()
@@ -188,6 +194,31 @@ class WPApiController extends BaseController
 			$pointsDistributionSlideContent = ob_get_clean();
 
 			echo json_encode((['pointsDistributionSlideContent' => $pointsDistributionSlideContent]));
+		}
+	}
+
+	public function getEducationalDisciplineSemesterControlMethodsContent()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$wpData = $this->wpService->getSemestersAndModules($wpId);
+
+			$rawEducationalForms = $this->educationalFormService->getEducationalForms();
+			$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
+
+			$details = getFullFormattedWorkingProgramData($wpData);
+
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/educationalDisciplineSemesterControlMethodsSlideContent.php';
+			$educationalDisciplineSemesterControlMethodsContent = ob_get_clean();
+
+			echo json_encode((['educationalDisciplineSemesterControlMethodsContent' => $educationalDisciplineSemesterControlMethodsContent]));
 		}
 	}
 }

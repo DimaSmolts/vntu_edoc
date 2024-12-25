@@ -1,25 +1,23 @@
-const updateAssesmentComponents = (event, semesterId) => {
-	const container = document.getElementById(`assesmentComponents${semesterId}`);
+const updateAssesmentComponents = (event, semesterId, container, componentsName, typeName) => {
+    const componentsInputs = container.querySelectorAll('.assesment-components-inputs');
 
-	const componentsInputs = container.querySelectorAll('.coursework-assesment-components-inputs');
+    const componentsInputsMap = new Map;
 
-	const componentsInputsMap = new Map;
+    componentsInputs.forEach(inputs => {
+        const name = inputs.querySelector('input[name=assesmentComponentName]');
+        const points = inputs.querySelector('input[name=assesmentComponentPoints]');
 
-	componentsInputs.forEach(inputs => {
-		const name = inputs.querySelector('input[name=assesmentComponentName]');
-		const points = inputs.querySelector('input[name=assesmentComponentPoints]');
+        componentsInputsMap.set(name.value, points.value);
+    })
 
-		componentsInputsMap.set(name.value, points.value);
-	})
+    const courseworkAssessmentComponents = Object.fromEntries(componentsInputsMap);
 
-	const courseworkAssessmentComponents = Object.fromEntries(componentsInputsMap);
-
-	const postData = {
+    const postData = {
         semesterId,
-		courseworkAssessmentComponents
+        [componentsName]: courseworkAssessmentComponents
     };
 
-    fetch('api/updateCourseworkAssesmentComponents', {
+    fetch(`api/update${typeName}AssesmentComponents`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

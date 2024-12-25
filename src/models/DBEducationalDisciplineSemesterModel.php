@@ -19,7 +19,18 @@ use Illuminate\Database\Eloquent\Model;
 class DBEducationalDisciplineSemesterModel extends Model
 {
     protected $table = 'educationalDisciplineSemester';
-    protected $fillable = ['educationalDisciplineWPId', 'semesterNumber', 'examTypeId', 'isCourseworkExists', 'courseworkAssessmentComponents'];
+    protected $fillable = [
+        'educationalDisciplineWPId',
+        'semesterNumber',
+        'examTypeId',
+        'isCourseworkExists',
+        'isCourseProjectExists',
+        'isCalculationAndGraphicWorkExists',
+        'isCalculationAndGraphicTaskExists',
+        'additionalTasks',
+        'courseworkAssessmentComponents',
+        'courseProjectAssessmentComponents',
+    ];
 
     public $timestamps = false;
 
@@ -32,11 +43,6 @@ class DBEducationalDisciplineSemesterModel extends Model
     {
         return $this->hasMany(DBEducationalDisciplineSemesterEducationFormModel::class, 'educationalDisciplineSemesterId');
     }
-    
-	public function educationalFormCourseworkHours()
-	{
-		return $this->hasMany(DBEducationalFormCourseworkHoursModel::class, 'semesterId');
-	}
 
     public function workingProgram()
     {

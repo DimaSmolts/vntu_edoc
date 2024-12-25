@@ -1,4 +1,4 @@
-const toggleCoursework = (event, semesterId) => {
+const toggleIndividualTask = (event, semesterId) => {
 	if (event.target.checked) {
 		const postData = {
 			id: semesterId,
@@ -20,7 +20,7 @@ const toggleCoursework = (event, semesterId) => {
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`api/deleteCoursework?semesterId=${semesterId}`, {
+		fetch(`api/deleteIndividualTask?semesterId=${semesterId}&type=${event.target.name}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'

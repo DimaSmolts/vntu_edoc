@@ -43,15 +43,6 @@ const createModuleBlock = (moduleId) => {
 		}
 	});
 
-	const colloquiumCheckbox = createCheckboxWithLabelAtTheBeginning({
-		labelText: 'Є колоквіум',
-		inputName: 'isColloquiumExists',
-		checked: false,
-		eventListener: (event) => {
-			checkTogglingColloquium(event, moduleId)
-		}
-	})
-
 	const themesContainer = createElement({ elementName: "div", id: `themesContainer${moduleId}`, classList: ["themes-container"] });
 
 	const addThemeBtn = createElement({
@@ -69,7 +60,6 @@ const createModuleBlock = (moduleId) => {
 
 	moduleDataBlock.appendChild(moduleNumberLabel);
 	moduleDataBlock.appendChild(moduleLabel);
-	moduleDataBlock.appendChild(colloquiumCheckbox);
 
 	moduleContainer.appendChild(titleContainer);
 	moduleContainer.appendChild(moduleDataBlock);

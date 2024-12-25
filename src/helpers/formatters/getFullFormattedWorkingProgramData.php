@@ -65,6 +65,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			return new ModuleModel(
 				$module->id,
 				$module->isColloquiumExists,
+				$module->isControlWorkExists,
 				$module->name ?? "",
 				$module->moduleNumber,
 				$module->colloquiumPoints,
@@ -82,23 +83,17 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 			);
 		})->toArray();
 
-		$courseworkHours = $semester->educationalFormCourseworkHours->map(function ($hours) {
-			return new EducationalFormCourseworkHourModel(
-				$hours->id,
-				$hours->educationalFormId,
-				$hours->semesterEducationalForm->educationalForm->name,
-				$hours->hours
-			);
-		})->toArray();
-
 		return new SemesterModel(
 			$semester->id,
 			$semester->isCourseworkExists,
+			$semester->isCourseProjectExists,
+			$semester->isCalculationAndGraphicWorkExists,
+			$semester->isCalculationAndGraphicTaskExists,
+			$semester->additionalTasks,
 			$semester->semesterNumber,
 			$semester->examTypeId,
 			$modules,
-			$educationalForms,
-			$courseworkHours
+			$educationalForms
 		);
 	})->toArray();
 
@@ -113,7 +108,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		}
 
 		$createdByInvolvedPersonsIds[$involvedPerson->id] = $involvedPerson->personId;
-		
+
 		return new WPInvolvedPersonModel(
 			$involvedPerson->id,
 			$involvedPerson->personId,

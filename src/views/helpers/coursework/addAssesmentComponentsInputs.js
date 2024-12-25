@@ -1,6 +1,12 @@
-const addAssesmentComponentsInputs = (event, semesterId) => {
-	event.preventDefault();
-	const courseworkAssesmentComponentsInputs = createElement({ elementName: 'div', classList: ['coursework-assesment-components-inputs'] });
+const addAssesmentComponentsInputs = (
+	event,
+	semesterId,
+	container,
+	addAssesmentComponent,
+	updateCourseworkAssesmentComponents,
+	removeCourseworkAssesmentComponentInputs
+) => {
+	const courseworkAssesmentComponentsInputs = createElement({ elementName: 'div', classList: ['assesment-components-inputs'] });
 
 	const assesmentComponentName = createElement({
 		elementName: 'input',
@@ -8,7 +14,7 @@ const addAssesmentComponentsInputs = (event, semesterId) => {
 		name: 'assesmentComponentName',
 		eventListenerType: 'input',
 		eventListener: (e) => {
-			updateAssesmentComponents(e, semesterId);
+			updateCourseworkAssesmentComponents(e, semesterId);
 		}
 	});
 	const assesmentComponentPoints = createElement({
@@ -17,7 +23,7 @@ const addAssesmentComponentsInputs = (event, semesterId) => {
 		name: 'assesmentComponentPoints',
 		eventListenerType: 'input',
 		eventListener: (e) => {
-			updateAssesmentComponents(e, semesterId);
+			updateCourseworkAssesmentComponents(e, semesterId);
 		}
 	});
 
@@ -27,17 +33,13 @@ const addAssesmentComponentsInputs = (event, semesterId) => {
 		innerText: 'Видалити',
 		eventListenerType: 'click',
 		eventListener: (e) => {
-			removeAssesmentComponentInputs(e, semesterId);
+			removeCourseworkAssesmentComponentInputs(e, semesterId);
 		}
 	})
 
 	courseworkAssesmentComponentsInputs.appendChild(assesmentComponentName);
 	courseworkAssesmentComponentsInputs.appendChild(assesmentComponentPoints);
 	courseworkAssesmentComponentsInputs.appendChild(removeAssesmentComponentBtn);
-
-	const container = document.getElementById(`assesmentComponents${semesterId}`);
-
-	const addAssesmentComponent = document.getElementById(`addAssesmentComponent${semesterId}`);
 
 	container.insertBefore(courseworkAssesmentComponentsInputs, addAssesmentComponent);
 }

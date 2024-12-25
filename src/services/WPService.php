@@ -99,7 +99,6 @@ class WPService
 			'semesters.modules.themes' => function ($query) {
 				$query->orderBy('themeNumber');
 			},
-			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
 					$query->with('workPositionData');
@@ -159,7 +158,6 @@ class WPService
 						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
 					]);
 			},
-			'semesters.educationalFormCourseworkHours.semesterEducationalForm.educationalForm',
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
 					$query->with('workPositionData');
@@ -436,6 +434,16 @@ class WPService
 			->get();
 
 		return $wps->first();
+	}
+
+	public function getSemestersAndModules($wpId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters.modules'
+		])
+			->where('id', $wpId)
+			->get()
+			->first();
 	}
 
 	public function getWPCreatorIdByWpId($wpId)

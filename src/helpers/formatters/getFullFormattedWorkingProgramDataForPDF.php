@@ -201,6 +201,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			return new PDFModuleModel(
 				$module->id,
 				$module->isColloquiumExists,
+				$module->isControlWorkExists,
 				$module->name ?? "",
 				$module->moduleNumber,
 				$module->colloquiumPoints,
@@ -237,20 +238,15 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			);
 		};
 
-		// Додаємо години для курсової роботи
-		$courseworkHours = $semester->educationalFormCourseworkHours->map(function ($hours) {
-			return new EducationalFormCourseworkHourModel(
-				$hours->id,
-				$hours->educationalFormId,
-				$hours->semesterEducationalForm->educationalForm->name,
-				$hours->hours
-			);
-		})->toArray();
-
 		return new PDFSemesterModel(
 			$semester->id,
 			$semester->isCourseworkExists,
+			$semester->isCourseProjectExists,
+			$semester->isCalculationAndGraphicWorkExists,
+			$semester->isCalculationAndGraphicTaskExists,
+			$semester->additionalTasks,
 			$semester->courseworkAssessmentComponents,
+			$semester->courseProjectAssessmentComponents,
 			$semester->semesterNumber,
 			$semester->examTypeId,
 			$modules,
@@ -263,8 +259,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 			$totalHoursForPracticals,
 			$totalHoursForSeminars,
 			$totalHoursForLabs,
-			$totalEducationalFormHoursStructureForSemester,
-			$courseworkHours
+			$totalEducationalFormHoursStructureForSemester
 		);
 	})->toArray();
 

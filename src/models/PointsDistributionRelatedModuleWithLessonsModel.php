@@ -9,6 +9,7 @@ class PointsDistributionRelatedModuleWithLessonsModel
 	public int $seminars;
 	public int $labs;
 	public bool $isColloquiumExists;
+	public bool $isControlWorkExists;
 	public ?int $moduleNumber;
 	public ?int $colloquiumPoints;
 
@@ -18,6 +19,7 @@ class PointsDistributionRelatedModuleWithLessonsModel
 		int $seminars,
 		int $labs,
 		bool $isColloquiumExists,
+		bool $isControlWorkExists,
 		?int $moduleNumber = null,
 		?int $colloquiumPoints = null
 	) {
@@ -26,6 +28,7 @@ class PointsDistributionRelatedModuleWithLessonsModel
 		$this->seminars = $seminars;
 		$this->labs = $labs;
 		$this->isColloquiumExists = $isColloquiumExists;
+		$this->isControlWorkExists = $isControlWorkExists;
 		$this->moduleNumber = $moduleNumber;
 		$this->colloquiumPoints = $colloquiumPoints;
 	}

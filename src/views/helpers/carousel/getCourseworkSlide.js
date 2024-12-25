@@ -2,7 +2,7 @@ const getCourseworkSlide = async () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
-	const response = await fetch(`api/getCoursework/?id=${wpId}`, {
+	const response = await fetch(`api/getCourseworkAndProject/?id=${wpId}`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
@@ -11,17 +11,17 @@ const getCourseworkSlide = async () => {
 
 	const data = await response.json();
 
-	const courseworkInfoSlide = document.getElementById('courseworkInfoSlide');
+	const courseworksAndProjectsInfoSlide = document.getElementById('courseworksAndProjectsInfoSlide');
 
-	if (courseworkInfoSlide) {
-		courseworkInfoSlide.remove();
+	if (courseworksAndProjectsInfoSlide) {
+		courseworksAndProjectsInfoSlide.remove();
 	}
 
 	if (data?.isCourseworkExists) {
-		const courseworkInfoSlide = createSlide(data?.courseworkInfoSlideContent, 'courseworkInfoSlide');
+		const courseworksAndProjectsInfoSlide = createSlide(data?.courseworksAndProjectsInfoSlideContent, 'courseworksAndProjectsInfoSlide');
 
 		const prevSlide = document.getElementById('pointsDistributionSlide');
 
-		prevSlide.after(courseworkInfoSlide);
+		prevSlide.after(courseworksAndProjectsInfoSlide);
 	}
 }

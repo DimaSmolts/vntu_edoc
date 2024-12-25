@@ -38,6 +38,7 @@
     <script src="src/views/helpers/carousel/addAssessmentCriteriasSlides.js"></script>
     <script src="src/views/helpers/carousel/getCourseworkSlide.js"></script>
     <script src="src/views/helpers/carousel/getPointsDistributionSlide.js"></script>
+    <script src="src/views/helpers/carousel/getEducationalDisciplineSemesterControlMethodsSlide.js"></script>
     <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
     <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
     <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
@@ -98,15 +99,17 @@
     <script src="src/views/helpers/semester/addNewModule.js"></script>
     <script src="src/views/helpers/semester/addNewTheme.js"></script>
     <script src="src/views/helpers/semester/checkTogglingEducationalForm.js"></script>
-    <script src="src/views/helpers/semester/checkTogglingCoursework.js"></script>
+    <script src="src/views/helpers/semester/checkTogglingIndividualTask.js"></script>
     <script src="src/views/helpers/semester/checkTogglingColloquium.js"></script>
+    <script src="src/views/helpers/semester/checkTogglingControlWork.js"></script>
     <script src="src/views/helpers/semester/createSemesterContainer.js"></script>
     <script src="src/views/helpers/semester/createModuleBlock.js"></script>
     <script src="src/views/helpers/semester/createThemeBlock.js"></script>
     <script src="src/views/helpers/semester/updateNumberInput.js"></script>
     <script src="src/views/helpers/semester/toggleEducationalForm.js"></script>
-    <script src="src/views/helpers/semester/toggleCoursework.js"></script>
+    <script src="src/views/helpers/semester/toggleIndividualTask.js"></script>
     <script src="src/views/helpers/semester/toggleColloquium.js"></script>
+    <script src="src/views/helpers/semester/toggleControlWork.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getLessonId.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
@@ -116,8 +119,13 @@
     <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonBlock.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createNewLesson.js"></script>
     <script src="src/views/helpers/coursework/updateAssesmentComponents.js"></script>
-    <script src="src/views/helpers/coursework/removeAssesmentComponentInputs.js"></script>
+    <script src="src/views/helpers/coursework/removeCourseworkAssesmentComponentInputs.js"></script>
+    <script src="src/views/helpers/coursework/removeCourseProjectAssesmentComponentInputs.js"></script>
     <script src="src/views/helpers/coursework/addAssesmentComponentsInputs.js"></script>
+    <script src="src/views/helpers/coursework/addCourseProjectAssesmentComponentsInputs.js"></script>
+    <script src="src/views/helpers/coursework/addCourseworkAssesmentComponentsInputs.js"></script>
+    <script src="src/views/helpers/coursework/updateCourseProjectAssesmentComponents.js"></script>
+    <script src="src/views/helpers/coursework/updateCourseworkAssesmentComponents.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateExamPoints.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateFullTotalBySemesterCell.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateTotalBySemesterCell.js"></script>
@@ -131,6 +139,9 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
+    <script src="src/views/helpers/semesterControlMethods/updateAdditionalTasks.js"></script>
+    <script src="src/views/helpers/semesterControlMethods/addAdditionalTaskInputs.js"></script>
+    <script src="src/views/helpers/semesterControlMethods/removeAdditionalTaskInputs.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

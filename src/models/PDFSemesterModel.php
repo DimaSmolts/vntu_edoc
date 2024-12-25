@@ -6,7 +6,12 @@ class PDFSemesterModel
 {
 	public int $id;
 	public bool $isCourseworkExists;
+	public bool $isCourseProjectExists;
+	public bool $isCalculationAndGraphicWorkExists;
+	public bool $isCalculationAndGraphicTaskExists;
+	public ?string $additionalTasks;
 	public ?string $courseworkAssessmentComponents;
+	public ?string $courseProjectAssessmentComponents;
 	public ?int $semesterNumber;
 	public ?int $examTypeId;
 	public array $modules;
@@ -20,12 +25,16 @@ class PDFSemesterModel
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
 	public array $educationalFormHoursStructure;
-	public array $courseworkHours;
 
 	public function __construct(
 		$id,
 		$isCourseworkExists,
+		$isCourseProjectExists,
+		$isCalculationAndGraphicWorkExists,
+		$isCalculationAndGraphicTaskExists,
+		?string $additionalTasks,
 		?string $courseworkAssessmentComponents = '',
+		?string $courseProjectAssessmentComponents = '',
 		?int $semesterNumber = null,
 		?int $examTypeId = null,
 		$modules = [],
@@ -38,12 +47,16 @@ class PDFSemesterModel
 		array $totalHoursForPracticals = [],
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
-		array $educationalFormHoursStructure = [],
-		$courseworkHours = [],
+		array $educationalFormHoursStructure = []
 	) {
 		$this->id = $id;
 		$this->isCourseworkExists = $isCourseworkExists;
+		$this->isCourseProjectExists = $isCourseProjectExists;
+		$this->isCalculationAndGraphicWorkExists = $isCalculationAndGraphicWorkExists;
+		$this->isCalculationAndGraphicTaskExists = $isCalculationAndGraphicTaskExists;
+		$this->additionalTasks = $additionalTasks;
 		$this->courseworkAssessmentComponents = $courseworkAssessmentComponents;
+		$this->courseProjectAssessmentComponents = $courseProjectAssessmentComponents;
 		$this->semesterNumber = $semesterNumber;
 		$this->examTypeId = $examTypeId;
 		$this->modules = $modules;
@@ -57,6 +70,5 @@ class PDFSemesterModel
 		$this->totalHoursForSeminars = $totalHoursForSeminars;
 		$this->totalHoursForLabs = $totalHoursForLabs;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
-		$this->courseworkHours = $courseworkHours;
 	}
 }

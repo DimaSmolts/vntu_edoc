@@ -20,31 +20,6 @@ $title = "Програма навчальної дисципліни";
 					</div>
 					<!-- Створення блоку з даними про існуючий семестр -->
 					<div class="semester-data-block">
-						<!-- Додавання контейнеру для чекбоксів форм навчання -->
-						<div id="educationalFormsContainer" class="educational-forms-container">
-							<!-- Додавання чекбоксів для усіх існуючих форм навчання -->
-							<?php foreach ($educationalForms as $educationalForm): ?>
-								<?php
-								$isChecked = false;
-								foreach ($semesterData->educationalForms as $form) {
-									if ($form->educationalFormId == $educationalForm->id) {
-										$isChecked = true;
-										break;
-									}
-								}
-								?>
-								<label>
-									<input
-										id="semester<?= htmlspecialchars($semesterData->id) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
-										class="checkbox"
-										type="checkbox"
-										name="<?= htmlspecialchars($educationalForm->colName) ?>"
-										<?= $isChecked ? 'checked' : '' ?>
-										onclick="checkTogglingEducationalForm(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($educationalForm->id) ?>)">
-									<p><?= htmlspecialchars($educationalForm->name) ?></p>
-								</label>
-							<?php endforeach; ?>
-						</div>
 						<label>
 							<p>Номер семестру:</p>
 							<input
@@ -60,15 +35,6 @@ $title = "Програма навчальної дисципліни";
 								<?php else: ?> data-examTypeId=<?= json_encode(null) ?>
 								<?php endif; ?>>
 							</select>
-						</label>
-						<label class="label-with-checkbox">
-							<p>Є курсовий</p>
-							<input
-								class="checkbox"
-								type="checkbox"
-								name="isCourseworkExists"
-								<?= $semesterData->isCourseworkExists ? 'checked' : '' ?>
-								onclick="checkTogglingCoursework(event, <?= htmlspecialchars($semesterData->id) ?>)">
 						</label>
 					</div>
 					<div id="modulesContainer<?= htmlspecialchars($semesterData->id) ?>" class="modules-container">
@@ -99,15 +65,6 @@ $title = "Програма навчальної дисципліни";
 												name="name"
 												value="<?= htmlspecialchars($moduleData->moduleName) ?>"
 												oninput="updateModuleInfo(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
-										</label>
-										<label class="label-with-checkbox">
-											<p>Є колоквіум</p>
-											<input
-												class="checkbox"
-												type="checkbox"
-												name="isColloquiumExists"
-												<?= $moduleData->isColloquiumExists ? 'checked' : '' ?>
-												onclick="checkTogglingColloquium(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
 										</label>
 									</div>
 									<div id="themesContainer<?= htmlspecialchars($moduleData->moduleId) ?>" class="themes-container">

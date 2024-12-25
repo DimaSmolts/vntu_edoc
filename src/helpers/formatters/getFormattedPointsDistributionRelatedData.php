@@ -39,6 +39,7 @@ function getFormattedPointsDistributionRelatedData($workingProgramData)
 				count($seminars),
 				count($labs),
 				$module->isColloquiumExists,
+				$module->isControlWorkExists,
 				$module->moduleNumber,
 				$module->colloquiumPoints
 			);
@@ -47,6 +48,10 @@ function getFormattedPointsDistributionRelatedData($workingProgramData)
 		return new SemesterModel(
 			$semester->id,
 			$semester->isCourseworkExists,
+			$semester->isCourseProjectExists,
+			$semester->isCalculationAndGraphicWorkExists,
+			$semester->isCalculationAndGraphicTaskExists,
+			$semester->additionalTasks,
 			$semester->semesterNumber,
 			$semester->examTypeId,
 			$modules

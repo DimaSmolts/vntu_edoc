@@ -48,6 +48,21 @@ const observerOptions = {
 	threshold: 0.5,
 };
 
+const educationalDisciplineSemesterControlMethodsSlide = document.getElementById("educationalDisciplineSemesterControlMethodsSlide");
+
+const educationalDisciplineSemesterControlMethodsSlideObserverCallback = (entries) => {
+	entries.forEach((entry) => {
+		if (entry.isIntersecting) {
+			// отримуємо всі семестри з модулями
+			getEducationalDisciplineSemesterControlMethodsSlide();
+		}
+	});
+};
+
+const educationalDisciplineSemesterControlMethodsSlideObserver = new IntersectionObserver(educationalDisciplineSemesterControlMethodsSlideObserverCallback, observerOptions);
+educationalDisciplineSemesterControlMethodsSlideObserver.observe(educationalDisciplineSemesterControlMethodsSlide);
+
+
 const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
 
 const educationalDisciplineStructureSlideObserverCallback = (entries) => {
@@ -65,8 +80,8 @@ const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 	});
 };
 
-const educationalDisciplineStructureSlideObserverObserverbserver = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
-educationalDisciplineStructureSlideObserverObserverbserver.observe(educationalDisciplineStructureSlide);
+const educationalDisciplineStructureSlideObserver = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
+educationalDisciplineStructureSlideObserver.observe(educationalDisciplineStructureSlide);
 
 const generalAssessmentCriteriaSlide = document.getElementById("generalAssessmentCriteriaSlide");
 
@@ -80,5 +95,5 @@ const generalAssessmentCriteriaSlideObserverCallback = (entries) => {
 	});
 };
 
-const generalAssessmentCriteriaSlideObserverObserverbserver = new IntersectionObserver(generalAssessmentCriteriaSlideObserverCallback, observerOptions);
-generalAssessmentCriteriaSlideObserverObserverbserver.observe(generalAssessmentCriteriaSlide);
+const generalAssessmentCriteriaSlideObserver = new IntersectionObserver(generalAssessmentCriteriaSlideObserverCallback, observerOptions);
+generalAssessmentCriteriaSlideObserver.observe(generalAssessmentCriteriaSlide);

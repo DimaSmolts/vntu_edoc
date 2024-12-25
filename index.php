@@ -106,9 +106,9 @@ $router->get('/api/getThemes', function () {
 	$themeApiController->getThemesWithLessonsByWPId();
 });
 
-$router->get('/api/getCoursework', function () {
+$router->get('/api/getCourseworkAndProject', function () {
 	$semesterApiController = new SemesterApiController();
-	$semesterApiController->getCoursework();
+	$semesterApiController->getCourseworkAndProject();
 });
 
 $router->get('/api/getLessonsAndExamingsStructure', function () {
@@ -119,6 +119,11 @@ $router->get('/api/getLessonsAndExamingsStructure', function () {
 $router->get('/api/getPointsDistributionSlideContent', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->getPointsDistributionSlideContent();
+});
+
+$router->get('/api/getEducationalDisciplineSemesterControlMethodsContent', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->getEducationalDisciplineSemesterControlMethodsContent();
 });
 
 $router->get('/api/searchTeachers', function () {
@@ -231,6 +236,16 @@ $router->post('/api/updateCourseworkAssesmentComponents', function () {
 	$semesterApiController->updateCourseworkAssesmentComponents();
 });
 
+$router->post('/api/updateCourseProjectAssesmentComponents', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->updateCourseProjectAssesmentComponents();
+});
+
+$router->post('/api/updateAdditionalTasks', function () {
+	$semesterApiController = new SemesterApiController();
+	$semesterApiController->updateAdditionalTasks();
+});
+
 $router->post('/api/createNewModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->createNewModule();
@@ -301,14 +316,19 @@ $router->delete('/api/deleteSemesterEducationForm', function () {
 	$semesterEducationFormApiController->deleteSemesterEducationForm();
 });
 
-$router->delete('/api/deleteCoursework', function () {
+$router->delete('/api/deleteIndividualTask', function () {
 	$semesterApiController = new SemesterApiController();
-	$semesterApiController->deleteCoursework();
+	$semesterApiController->deleteIndividualTask();
 });
 
 $router->delete('/api/deleteColloquium', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->deleteColloquium();
+});
+
+$router->delete('/api/deleteControlWork', function () {
+	$moduleApiController = new ModuleApiController();
+	$moduleApiController->deleteControlWork();
 });
 
 $router->delete('/api/deleteLesson', function () {

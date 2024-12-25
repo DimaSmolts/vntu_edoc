@@ -61,4 +61,20 @@ class ModuleService
 			echo json_encode(['status' => 'error', 'message' => 'Colloquium not found or delete failed']);
 		}
 	}
+
+	public function deleteControlWork($moduleId)
+	{
+		$deletedColloquium = Capsule::table('modules')
+			->where('id', $moduleId)
+			->update([
+				'isControlWorkExists' => false
+				// 'colloquiumPoints' => null
+			]);
+
+		if ($deletedColloquium) {
+			echo json_encode(['status' => 'success', 'message' => 'Colloquium deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Colloquium not found or delete failed']);
+		}
+	}
 }

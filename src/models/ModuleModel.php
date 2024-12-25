@@ -6,6 +6,7 @@ class ModuleModel
 {
 	public int $moduleId;
 	public bool $isColloquiumExists;
+	public bool $isControlWorkExists;
 	public ?string $moduleName;
 	public ?int $moduleNumber;
 	public ?int $colloquiumPoints;
@@ -14,6 +15,7 @@ class ModuleModel
 	public function __construct(
 		int $moduleId,
 		bool $isColloquiumExists,
+		bool $isControlWorkExists,
 		?string $moduleName = '',
 		?int $moduleNumber = null,
 		?int $colloquiumPoints = null,
@@ -21,6 +23,7 @@ class ModuleModel
 	) {
 		$this->moduleId = $moduleId;
 		$this->isColloquiumExists = $isColloquiumExists;
+		$this->isControlWorkExists = $isControlWorkExists;
 		$this->moduleName = $moduleName;
 		$this->moduleNumber = $moduleNumber;
 		$this->colloquiumPoints = $colloquiumPoints;
