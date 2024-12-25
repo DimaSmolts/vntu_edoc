@@ -204,7 +204,7 @@
 						<?php
 						$totalCourseworkPoints = 0;
 						foreach ($courseworkAssessmentComponents as $assesmentComponentName => $points) {
-							$totalCourseworkPoints += $points;
+							$totalCourseworkPoints += intval($points);
 						}
 						?>
 						<?php foreach ($courseworkAssessmentComponents as $assesmentComponentName => $points): ?>

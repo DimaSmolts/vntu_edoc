@@ -75,7 +75,7 @@
 		<div class="center inserted bold"><?= htmlspecialchars($details->code) ?></div>
 
 		<page_footer>
-			<div class="center" style="position: absolute; bottom: 15mm; width: 100%;">
+			<div class="center" style="position: absolute; bottom: 10mm; width: 100%;">
 				<span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span>
 			</div>
 		</page_footer>

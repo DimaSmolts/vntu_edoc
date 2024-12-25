@@ -10,7 +10,7 @@
 <!-- Всі наступні розділи будуть переноситись на наступну сторінку за потреби -->
 <page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
 	<page_footer>
-		<div class="center" style="position: absolute; bottom: 15mm; width: 100%;">
+		<div class="center" style="position: absolute; bottom: 10mm; width: 100%;">
 			[[page_cu]]
 		</div>
 	</page_footer>
