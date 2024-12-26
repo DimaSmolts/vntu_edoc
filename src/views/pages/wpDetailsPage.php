@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
+    <title>Деталі</title>
     <link rel="stylesheet" href="src/views/styles/common.css">
     <link rel="stylesheet" href="src/views/styles/carousel.css">
     <link rel="stylesheet" href="src/views/styles/form.css">
@@ -39,6 +39,7 @@
     <script src="src/views/helpers/carousel/getCourseworkSlide.js"></script>
     <script src="src/views/helpers/carousel/getPointsDistributionSlide.js"></script>
     <script src="src/views/helpers/carousel/getEducationalDisciplineSemesterControlMethodsSlide.js"></script>
+    <script src="src/views/helpers/carousel/getSelfworkSlide.js"></script>
     <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
     <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
     <script src="src/views/helpers/updating/updateThemeInfo.js"></script>

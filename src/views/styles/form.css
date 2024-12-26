@@ -409,3 +409,21 @@ td {
 .margin-top {
 	margin-top: 15px;
 }
+
+.selfwork-table {
+	width: 100%;
+	font-size: 17px;
+	margin-bottom: 20px;
+}
+
+.selfwork-table th {
+	text-align: center;
+}
+
+.selfwork-number-column {
+	width: 5%;
+}
+
+.selfwork-educational-forms-column {
+	width: 10%;
+}

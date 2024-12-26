@@ -446,6 +446,44 @@ class WPService
 			->first();
 	}
 
+	public function getDataForSelfwork($wpId)
+	{
+		return DBEducationalDisciplineWorkingProgramModel::select(['id', 'creditsAmount'])
+			->with([
+				'semesters' => function ($query) {
+					$query->select([
+						'id',
+						'educationalDisciplineWPId',
+						'isCourseworkExists',
+						'isCourseProjectExists',
+						'isCalculationAndGraphicWorkExists',
+						'isCalculationAndGraphicTaskExists',
+						'additionalTasks',
+						'semesterNumber',
+						'examTypeId'
+					])
+						->orderBy('semesterNumber');
+				},
+				'semesters.modules' => function ($query) {
+					$query->select(['id', 'educationalDisciplineSemesterId', 'isColloquiumExists', 'isControlWorkExists'])
+						->orderBy('moduleNumber');
+				},
+				'semesters.modules.themes' => function ($query) {
+					$query->with([
+						'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+						'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+						'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+					]);
+				},
+				'semesters.educationalForms.educationalForm',
+				'semesters.examType'
+			])
+			->where('id', $wpId)
+			->get()
+			->first();
+	}
+
 	public function getWPCreatorIdByWpId($wpId)
 	{
 		return DBEducationalDisciplineWorkingProgramModel::select(['wpCreatorId'])

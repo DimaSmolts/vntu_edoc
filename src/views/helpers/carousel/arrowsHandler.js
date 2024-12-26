@@ -62,6 +62,19 @@ const educationalDisciplineSemesterControlMethodsSlideObserverCallback = (entrie
 const educationalDisciplineSemesterControlMethodsSlideObserver = new IntersectionObserver(educationalDisciplineSemesterControlMethodsSlideObserverCallback, observerOptions);
 educationalDisciplineSemesterControlMethodsSlideObserver.observe(educationalDisciplineSemesterControlMethodsSlide);
 
+const selfworkSlide = document.getElementById("selfworkSlide");
+
+const selfworkSlideObserverCallback = (entries) => {
+	entries.forEach((entry) => {
+		if (entry.isIntersecting) {
+			// отримуємо необхідну інформацію для самостійної роботи
+			getSelfworkSlide();
+		}
+	});
+};
+
+const selfworkSlideObserver = new IntersectionObserver(selfworkSlideObserverCallback, observerOptions);
+selfworkSlideObserver.observe(selfworkSlide);
 
 const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
 

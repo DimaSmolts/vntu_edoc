@@ -13,6 +13,10 @@ p {
     margin: 0;
 }
 
+.italic {
+	font-style: italic;
+}
+
 .container {
     width: 61%;
     margin: 0 auto;

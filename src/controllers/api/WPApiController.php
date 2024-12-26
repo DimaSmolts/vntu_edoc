@@ -14,6 +14,7 @@ require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistribution
 require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalFormData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSelfworkData.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
 require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
@@ -219,6 +220,32 @@ class WPApiController extends BaseController
 			$educationalDisciplineSemesterControlMethodsContent = ob_get_clean();
 
 			echo json_encode((['educationalDisciplineSemesterControlMethodsContent' => $educationalDisciplineSemesterControlMethodsContent]));
+		}
+	}
+
+	public function getSelfworkContent()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+		$data = isset($_GET['data']) ? $_GET['data'] : null;
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$wpData = $this->wpService->getDataForSelfwork($wpId);
+			$selfworkData = getFullFormattedSelfworkData($wpData);
+
+			if ($data) {
+				print_r($selfworkData);
+			} else {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/selfworkSlideContent.php';
+				$selfworkContent = ob_get_clean();
+
+				echo json_encode((['selfworkContent' => $selfworkContent]));
+			}
 		}
 	}
 }

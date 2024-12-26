@@ -126,6 +126,11 @@ $router->get('/api/getEducationalDisciplineSemesterControlMethodsContent', funct
 	$wpApiController->getEducationalDisciplineSemesterControlMethodsContent();
 });
 
+$router->get('/api/getSelfworkContent', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->getSelfworkContent();
+});
+
 $router->get('/api/searchTeachers', function () {
 	$teacherApiController = new TeacherApiController();
 	$teacherApiController->searchTeachers();
