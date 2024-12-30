@@ -81,7 +81,6 @@ function getFullFormattedSelfworkData($workingProgramData)
 		// Рахуємо всі години лекцій для різних форм навчання
 		$totalHoursForLections = getHoursSumForEducationalForms($lectionsWithEducationalFormLessonHour, $uniqueSemesterEducationalForms);
 
-		// print_r($semester);
 		return new SelfworkModel(
 			$semester->id,
 			$totalHoursForLections,

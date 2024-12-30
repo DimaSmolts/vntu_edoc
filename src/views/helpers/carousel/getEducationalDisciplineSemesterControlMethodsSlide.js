@@ -13,4 +13,10 @@ const getEducationalDisciplineSemesterControlMethodsSlide = async () => {
 
 	const educationalDisciplineSemesterControlMethodsContent = document.getElementById('educationalDisciplineSemesterControlMethodsContent');
 	educationalDisciplineSemesterControlMethodsContent.innerHTML = data.educationalDisciplineSemesterControlMethodsContent;
+
+	const semestersIds = JSON.parse(educationalDisciplineSemesterControlMethodsContent.getAttribute('data-semestersIds'));
+
+	semestersIds.forEach(semesterId => {
+		additionalTaskSelectHandler(semesterId);
+	});
 }

@@ -9,6 +9,7 @@ class SemesterAndModulesTasksModel
     public bool $isCourseProjectExists;
     public bool $isCalculationAndGraphicWorkExists;
     public bool $isCalculationAndGraphicTaskExists;
+    public array $additionalTaskIds;
     public ?int $semesterNumber;
     public array $modules;
     public array $educationalForms;
@@ -19,6 +20,7 @@ class SemesterAndModulesTasksModel
         bool $isCourseProjectExists,
         bool $isCalculationAndGraphicWorkExists,
         bool $isCalculationAndGraphicTaskExists,
+        array $additionalTaskIds = [],
         ?int $semesterNumber = null,
         array $modules = [],
         array $educationalForms = [],
@@ -28,6 +30,7 @@ class SemesterAndModulesTasksModel
         $this->isCourseProjectExists = $isCourseProjectExists;
         $this->isCalculationAndGraphicWorkExists = $isCalculationAndGraphicWorkExists;
         $this->isCalculationAndGraphicTaskExists = $isCalculationAndGraphicTaskExists;
+        $this->additionalTaskIds = $additionalTaskIds;
         $this->semesterNumber = $semesterNumber;
         $this->modules = $modules;
         $this->educationalForms = $educationalForms;

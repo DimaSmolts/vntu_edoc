@@ -82,43 +82,24 @@
 				<div class="custom-tasks-container">
 					<p class='custom-tasks-label'>Інші завдання:</p>
 					<div class='custom-tasks-block' id="additionalTaskComponents<?= htmlspecialchars($semesterData->semesterId) ?>">
-						<?php if (isset($semesterData->additionalTasks)): ?>
-							<?php
-							$additionalTasksComponents = json_decode($semesterData->additionalTasks, true)
-							?>
-							<?php foreach ($additionalTasksComponents as $name): ?>
-								<div class="additional-task-components-inputs">
-									<input
-										type="text"
-										name="additionalTaskName"
-										value="<?= htmlspecialchars($name ?? '') ?>"
-										oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
-									<button
-										class="btn"
-										onclick="removeAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
-										Видалити
-									</button>
-								</div>
-							<?php endforeach; ?>
-						<?php else: ?>
-							<div class="additional-task-components-inputs">
-								<input
-									type="text"
-									name="additionalTaskName"
-									oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
-								<button
-									class="btn"
-									onclick="removeAdditionalTaskInputs(event)">
-									Видалити
-								</button>
-							</div>
-						<?php endif; ?>
-						<button
-							class="btn"
-							id="addAdditionalTask<?= htmlspecialchars($semesterData->semesterId) ?>"
-							onclick="addAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
-							Додати завдання
-						</button>
+						<select
+							id="additionalTaskIdsSelect<?= htmlspecialchars($semesterData->semesterId) ?>"
+							multiple
+							<?php if (isset($semesterData->additionalTaskIds)): ?> data-additionalTaskIds=<?= json_encode($semesterData->additionalTaskIds) ?><?php endif; ?>>
+						</select>
+						<div class="new-task-container">
+							<label>Додати власне завдання, якщо його немає в випадаючому списку:</label>
+							<input
+								type="text"
+								name="name"
+								id="taskName<?= htmlspecialchars($semesterData->semesterId) ?>">
+							<button
+								class="btn"
+								type="button"
+								onclick="createNewAdditionalTasks(<?= htmlspecialchars($semesterData->semesterId) ?>)">
+								Додати
+							</button>
+						</div>
 					</div>
 				</div>
 				<div>

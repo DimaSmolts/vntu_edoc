@@ -91,10 +91,7 @@ class SemesterApiController extends BaseController
 
 			$isCourseworkExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->coursework);
 			$isCourseProjectExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->courseProject);
-			print_r($rawSemestersInfo);
 			$semesters = getFullFormattedCourseworksAndProjectsData($rawSemestersInfo);
-
-			// print_r($semesters);
   
 			if ($isCourseworkExists || $isCourseProjectExists) {
 				$isLoggedIn = true;
@@ -116,24 +113,4 @@ class SemesterApiController extends BaseController
 			}
 		}
 	}
-
-	public function updateAdditionalTasks()
-	{
-		header('Content-Type: application/json');
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$id = intval($data['semesterId']);
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$additionalTasksComponents = json_encode($data['additionalTasksComponents']);
-
-			// $this->semesterService->updateAdditionalTasks($id, $additionalTasksComponents);
-		}
-	}
-
 }

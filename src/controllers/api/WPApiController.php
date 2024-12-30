@@ -215,7 +215,6 @@ class WPApiController extends BaseController
 			$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 
 			$semesters = getFullFormattedSemestersAndModulesTasks($wpData->semesters);
-			// print_r($educationalForms);
 
 			ob_start();
 			include __DIR__ . '/../../views/components/wpDetails/educationalDisciplineSemesterControlMethodsSlideContent.php';

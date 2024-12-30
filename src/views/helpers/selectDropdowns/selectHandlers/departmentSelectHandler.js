@@ -18,7 +18,6 @@ const departmentSelectHandler = async () => {
 		departmentIdSelectChoices.clearChoices(); // Очищаємо старі результати
 
 		const options = results.map(department => {
-			console.log({ selectedDepartmentId, 'department.value': department.value })
 			return new Option(department.label, department.value, department.value === selectedDepartmentId, department.value === selectedDepartmentId);
 		});
 

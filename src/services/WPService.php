@@ -443,6 +443,7 @@ class WPService
 				$query
 					->with([
 						'tasks.taskType',
+						'additionalTasks.taskType',
 						'modules' => function ($subquery) {
 							$subquery
 								->with([

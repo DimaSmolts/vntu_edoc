@@ -35,6 +35,13 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			if (isset($data['typeId'])) {
+				$typeId = $data['typeId'];
+
+				$this->taskService->createAdditionalTask($typeId, $semesterId);
+				exit();
+			}
+
 			$typeName = $data['typeName'];
 			$tasksIds = getTaskId();
 
@@ -43,7 +50,6 @@ class TaskApiController extends BaseController
 			}
 
 			if ($typeName === 'courseProject') {
-				print_r('here');
 				$this->taskService->createCourseProject($tasksIds->courseProject, $semesterId, $tasksIds->coursework);
 			}
 
@@ -53,6 +59,29 @@ class TaskApiController extends BaseController
 
 			if ($typeName === 'calculationAndGraphicTask') {
 				$this->taskService->createCalculationAndGraphicTask($tasksIds->calculationAndGraphicTask, $semesterId, $tasksIds->calculationAndGraphicWork);
+			}
+		}
+	}
+
+	public function createNewAdditionalTasks()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$taskName = trim($data['taskName']);
+
+			if (!empty($taskName)) {
+				$taskTypeId = $this->taskService->createNewAdditionalTasks($taskName, $semesterId);
+
+				echo json_encode(['status' => 'success', 'taskTypeId' => $taskTypeId]);
 			}
 		}
 	}
@@ -93,8 +122,6 @@ class TaskApiController extends BaseController
 			$taskTypeId = intval($data['taskTypeId']);
 			$assessmentComponents = json_encode($data['assessmentComponents']);
 
-			print_r($taskTypeId);
-
 			$this->taskService->updateAssesmentComponents($semesterId, $taskTypeId, $assessmentComponents);
 		}
 	}
@@ -110,10 +137,11 @@ class TaskApiController extends BaseController
 
 		if ($ifCurrentUserHasAccessToWP) {
 			$typeName = $_GET['type'];
+			$typeId = isset($_GET['typeId']) ? $_GET['typeId'] : null;
 
 			$tasksIds = getTaskId();
 
-			$this->taskService->deleteIndividualTask($semesterId, $tasksIds->{$typeName});
+			$this->taskService->deleteIndividualTask($semesterId, $typeId ?? $tasksIds->{$typeName});
 		}
 	}
 
@@ -133,5 +161,21 @@ class TaskApiController extends BaseController
 
 			$this->taskService->deleteModuleTask($moduleId, $tasksIds->{$typeName});
 		}
+	}
+
+	public function searchAdditionalTasks()
+	{
+		header('Content-Type: application/json');
+
+		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+
+		if (!$isTeacher) {
+			echo json_encode([]);
+			exit();
+		}
+
+		$additionalTasks = $this->taskService->getAdditionalTasks();
+
+		echo json_encode($additionalTasks);
 	}
 }

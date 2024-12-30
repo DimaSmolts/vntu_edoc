@@ -102,7 +102,7 @@ const generalAssessmentCriteriaSlideObserverCallback = (entries) => {
 	entries.forEach(async (entry) => {
 		if (entry.isIntersecting) {
 			await getStructureForAssessmentCriteriasSlides();
-			console.log('here')
+
 			updateButtonState();
 		}
 	});

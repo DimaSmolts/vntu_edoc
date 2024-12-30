@@ -6,6 +6,44 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class TaskService
 {
+	public function createAdditionalTask($typeId, $semesterId)
+	{
+		// Перевіряємо чи такого завдання, щоб не створити дублікат
+		$task = Capsule::table('taskDetails')
+			->where('taskTypeId', $typeId)
+			->where('semesterId', $semesterId)
+			->first();
+
+		if ($task) {
+			echo json_encode(['status' => 'error', 'message' => 'This task exists']);
+			return;
+		}
+
+		// Створюємо завдання
+		$taskId = Capsule::table('taskDetails')->insertGetId([
+			'taskTypeId' => $typeId,
+			'semesterId' => $semesterId
+		]);
+
+		return $taskId;
+	}
+
+	public function createNewAdditionalTasks($typeName, $semesterId)
+	{
+		// Створюємо тип для цього завдання
+		$taskTypeId = Capsule::table('taskTypes')->insertGetId([
+			'name' => $typeName
+		]);
+
+		// Створюємо завдання
+		Capsule::table('taskDetails')->insertGetId([
+			'taskTypeId' => $taskTypeId,
+			'semesterId' => $semesterId
+		]);
+
+		return $taskTypeId;
+	}
+
 	public function createCoursework($courseworkTypeId, $semesterId, $courseProjectTypeId)
 	{
 		// Перевіряємо чи такої курсової немає, щоб не створити дублікат
@@ -72,15 +110,12 @@ class TaskService
 			return;
 		}
 
-		print_r($courseProject);
-
 		// Перевіряємо чи є курсова робота
 		$coursework = Capsule::table('taskDetails')
 			->where('taskTypeId', $courseworkTypeId)
 			->where('semesterId', $semesterId)
 			->first();
 
-		print_r($coursework);
 		// Видаляємо якщо є
 		if ($coursework) {
 			Capsule::table('taskDetails')->where('id', $coursework->id)->delete();
@@ -134,7 +169,6 @@ class TaskService
 			->where('taskTypeId', $calculationAndGraphicTaskTypeId)
 			->where('semesterId', $semesterId)
 			->first();
-		print_r($calculationAndGraphicTask);
 		// Видаляємо якщо є 
 		if ($calculationAndGraphicTask) {
 			Capsule::table('taskDetails')->where('id', $calculationAndGraphicTask->id)->delete();
@@ -167,7 +201,6 @@ class TaskService
 			->where('taskTypeId', $calculationAndGraphicWorkTypeId)
 			->where('semesterId', $semesterId)
 			->first();
-		print_r($calculationAndGraphicWork);
 		// Видаляємо якщо є
 		if ($calculationAndGraphicWork) {
 			Capsule::table('taskDetails')->where('id', $calculationAndGraphicWork->id)->delete();
@@ -258,5 +291,14 @@ class TaskService
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'Module task not found or delete failed']);
 		}
+	}
+
+	public function getAdditionalTasks()
+	{
+		$additionalTasks = Capsule::table('taskTypes')
+			->where('id', '>', 6)
+			->get();
+
+		return $additionalTasks;
 	}
 }

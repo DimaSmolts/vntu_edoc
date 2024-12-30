@@ -56,6 +56,17 @@ class DBEducationalDisciplineSemesterModel extends Model
 
     public function tasks()
     {
-        return $this->hasMany(DBTaskDetailsModel::class, 'semesterId');
+        return $this->hasMany(DBTaskDetailsModel::class, 'semesterId')
+            ->whereHas('taskType', function ($query) {
+                $query->where('id', '<=', 6);
+            });
+    }
+
+    public function additionalTasks()
+    {
+        return $this->hasMany(DBTaskDetailsModel::class, 'semesterId')
+            ->whereHas('taskType', function ($query) {
+                $query->where('id', '>', 6);
+            });
     }
 }

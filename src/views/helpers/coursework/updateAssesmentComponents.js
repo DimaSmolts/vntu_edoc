@@ -19,7 +19,6 @@ const updateAssesmentComponents = (event, semesterId, taskTypeId) => {
         taskTypeId,
         assessmentComponents,
     };
-    console.log(postData);
 
     fetch(`api/updateAssesmentComponents`, {
         method: 'POST',

@@ -65,6 +65,7 @@
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalPrograms.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalProgramsByIds.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchExamTypes.js"></script>
+    <script src="src/views/helpers/selectDropdowns/fetch/fetchAdditionalTasks.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/involvedPersonSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/createdByPersonsSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramGuarantorSelectHandler.js"></script>
@@ -78,6 +79,7 @@
     <script src="src/views/helpers/selectDropdowns/selectHandlers/specialtySelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/examTypeSelectHandler.js"></script>
+    <script src="src/views/helpers/selectDropdowns/selectHandlers/additionalTaskSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/initializeSelectHandlers.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPerson.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPersonDetails.js"></script>
@@ -108,6 +110,8 @@
     <script src="src/views/helpers/semester/toggleEducationalForm.js"></script>
     <script src="src/views/helpers/semester/toggleIndividualTask.js"></script>
     <script src="src/views/helpers/semester/toggleModuleTask.js"></script>
+    <script src="src/views/helpers/semester/createAdditionalTask.js"></script>
+    <script src="src/views/helpers/semester/deleteAdditionalTask.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getLessonId.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
@@ -132,9 +136,7 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorForLiterature.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
-    <script src="src/views/helpers/semesterControlMethods/updateAdditionalTasks.js"></script>
-    <script src="src/views/helpers/semesterControlMethods/addAdditionalTaskInputs.js"></script>
-    <script src="src/views/helpers/semesterControlMethods/removeAdditionalTaskInputs.js"></script>
+    <script src="src/views/helpers/semesterControlMethods/createNewAdditionalTasks.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

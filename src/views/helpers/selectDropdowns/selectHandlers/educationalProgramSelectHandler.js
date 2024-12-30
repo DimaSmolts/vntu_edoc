@@ -39,8 +39,6 @@ const educationalProgramSelectHandler = async () => {
 			}
 		};
 
-		console.log(updatedEvent);
-
 		await updateGeneralInfo(updatedEvent, wpId);
 	});
 

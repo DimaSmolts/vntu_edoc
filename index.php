@@ -161,6 +161,11 @@ $router->get('/api/searchDepartmentsById', function () {
 	$departmentApiController->searchDepartmentsById();
 });
 
+$router->get('/api/searchAdditionalTasks', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->searchAdditionalTasks();
+});
+
 $router->get('/api/getStydingLevelTypes', function () {
 	$atydingLevelTypeApiController = new StydingLevelTypeApiController();
 	$atydingLevelTypeApiController->getStydingLevelTypes();
@@ -241,6 +246,11 @@ $router->post('/api/createIndividualTask', function () {
 	$taskApiController->createIndividualTask();
 });
 
+$router->post('/api/createNewAdditionalTasks', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->createNewAdditionalTasks();
+});
+
 $router->post('/api/createModuleTask', function () {
 	$taskApiController = new TaskApiController();
 	$taskApiController->createModuleTask();
@@ -249,11 +259,6 @@ $router->post('/api/createModuleTask', function () {
 $router->post('/api/updateAssesmentComponents', function () {
 	$taskApiController = new TaskApiController();
 	$taskApiController->updateAssesmentComponents();
-});
-
-$router->post('/api/updateAdditionalTasks', function () {
-	$semesterApiController = new SemesterApiController();
-	$semesterApiController->updateAdditionalTasks();
 });
 
 $router->post('/api/createNewModule', function () {

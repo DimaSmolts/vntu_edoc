@@ -17,7 +17,5 @@ const addModule = async (event, semesterId, btnId, moduleId) => {
 	const modulesContainer = document.getElementById(moduleId);
 	const addModuleBtn = document.getElementById(btnId);
 
-	console.log({ event, newModuleBlock, modulesContainer, addModuleBtn })
-
 	modulesContainer.insertBefore(newModuleBlock, addModuleBtn);
 }

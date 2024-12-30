@@ -427,3 +427,20 @@ td {
 .selfwork-educational-forms-column {
 	width: 10%;
 }
+
+.custom-tasks-block .choices {
+	margin-bottom: 0;
+}
+
+.new-task-container {
+	display: grid;
+	grid-template-columns: 2fr 2fr 1fr;
+	align-items: center;
+	column-gap: 15px;
+}
+
+.new-task-container label {
+	font-weight: normal;
+    font-size: 16px;	
+    text-align: end;
+}

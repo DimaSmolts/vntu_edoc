@@ -7,6 +7,7 @@ require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
 require_once __DIR__ . '/../getCourseTask.php';
 require_once __DIR__ . '/../getTaskId.php';
+require_once __DIR__ . '/../getAdditionalTasksTypeIds.php';
 
 use App\Models\SemesterEducationalFormModel;
 use App\Models\ModuleTasksModel;
@@ -44,12 +45,15 @@ function getFullFormattedSemestersAndModulesTasks($semesterCourseworkData)
 			);
 		})->toArray();
 
+		$additionalTaskIds = getAdditionalTasksTypeIds($semester);
+
 		return new SemesterAndModulesTasksModel(
 			$semester->id,
 			$isCourseworkExists,
 			$isCourseProjectExists,
 			$isCalculationAndGraphicWorkExists,
 			$isCalculationAndGraphicTaskExists,
+			$additionalTaskIds,
 			$semester->semesterNumber,
 			$modulesTasks,
 			$educationalForms
