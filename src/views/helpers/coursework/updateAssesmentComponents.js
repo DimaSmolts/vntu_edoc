@@ -1,4 +1,6 @@
-const updateAssesmentComponents = (event, semesterId, container, componentsName, typeName) => {
+const updateAssesmentComponents = (event, semesterId, taskTypeId) => {
+    const container = document.getElementById(`assesmentComponents${semesterId}`);
+
     const componentsInputs = container.querySelectorAll('.assesment-components-inputs');
 
     const componentsInputsMap = new Map;
@@ -10,14 +12,16 @@ const updateAssesmentComponents = (event, semesterId, container, componentsName,
         componentsInputsMap.set(name.value, points.value);
     })
 
-    const courseworkAssessmentComponents = Object.fromEntries(componentsInputsMap);
+    const assessmentComponents = Object.fromEntries(componentsInputsMap);
 
     const postData = {
         semesterId,
-        [componentsName]: courseworkAssessmentComponents
+        taskTypeId,
+        assessmentComponents,
     };
+    console.log(postData);
 
-    fetch(`api/update${typeName}AssesmentComponents`, {
+    fetch(`api/updateAssesmentComponents`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -1,12 +1,15 @@
-const toggleIndividualTask = (event, semesterId) => {
+const toggleIndividualTask = (event, semesterId, linkedCheckbox = null) => {
 	if (event.target.checked) {
 		const postData = {
-			id: semesterId,
-			field: event.target.name,
-			value: event.target.checked
+			semesterId,
+			typeName: event.target.name,
 		};
 
-		fetch('api/updateSemester', {
+		if (linkedCheckbox) {
+			linkedCheckbox.checked = false;
+		}
+
+		fetch('api/createIndividualTask', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

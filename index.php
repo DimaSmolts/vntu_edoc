@@ -19,7 +19,6 @@ require_once __DIR__ . '/src/controllers/api/LessonApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalFormLessonHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterEducationFormApiController.php';
 require_once __DIR__ . '/src/controllers/api/WorkingProgramLiteratureApiController.php';
-require_once __DIR__ . '/src/controllers/api/EducationalFormCourseworkHoursApiController.php';
 require_once __DIR__ . '/src/controllers/api/TeacherApiController.php';
 require_once __DIR__ . '/src/controllers/api/FacultyApiController.php';
 require_once __DIR__ . '/src/controllers/api/DepartmentApiController.php';
@@ -27,6 +26,7 @@ require_once __DIR__ . '/src/controllers/api/StydingLevelTypeApiController.php';
 require_once __DIR__ . '/src/controllers/api/SpecialtyApiController.php';
 require_once __DIR__ . '/src/controllers/api/EducationalProgramApiController.php';
 require_once __DIR__ . '/src/controllers/api/ExamTypeApiController.php';
+require_once __DIR__ . '/src/controllers/api/TaskApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -43,7 +43,6 @@ use App\Controllers\LessonApiController;
 use App\Controllers\EducationalFormLessonHoursApiController;
 use App\Controllers\SemesterEducationFormApiController;
 use App\Controllers\WorkingProgramLiteratureApiController;
-use App\Controllers\EducationalFormCourseworkHoursApiController;
 use App\Controllers\TeacherApiController;
 use App\Controllers\FacultyApiController;
 use App\Controllers\DepartmentApiController;
@@ -51,6 +50,7 @@ use App\Controllers\StydingLevelTypeApiController;
 use App\Controllers\SpecialtyApiController;
 use App\Controllers\EducationalProgramApiController;
 use App\Controllers\ExamTypeApiController;
+use App\Controllers\TaskApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -236,14 +236,19 @@ $router->post('/api/updateSemester', function () {
 	$semesterApiController->updateSemester();
 });
 
-$router->post('/api/updateCourseworkAssesmentComponents', function () {
-	$semesterApiController = new SemesterApiController();
-	$semesterApiController->updateCourseworkAssesmentComponents();
+$router->post('/api/createIndividualTask', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->createIndividualTask();
 });
 
-$router->post('/api/updateCourseProjectAssesmentComponents', function () {
-	$semesterApiController = new SemesterApiController();
-	$semesterApiController->updateCourseProjectAssesmentComponents();
+$router->post('/api/createModuleTask', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->createModuleTask();
+});
+
+$router->post('/api/updateAssesmentComponents', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->updateAssesmentComponents();
 });
 
 $router->post('/api/updateAdditionalTasks', function () {
@@ -286,11 +291,6 @@ $router->post('/api/updateHours', function () {
 	$educationalFormLessonHoursApiController->updateEducationalFormLessonHours();
 });
 
-$router->post('/api/updateCourseworkHours', function () {
-	$educationalFormCourseworkHoursApiController = new EducationalFormCourseworkHoursApiController();
-	$educationalFormCourseworkHoursApiController->updateEducationalFormCourseworkHours();
-});
-
 $router->post('/api/createSemesterEducationForm', function () {
 	$semesterEducationFormApiController = new SemesterEducationFormApiController();
 	$semesterEducationFormApiController->createSemesterEducationForm();
@@ -322,18 +322,13 @@ $router->delete('/api/deleteSemesterEducationForm', function () {
 });
 
 $router->delete('/api/deleteIndividualTask', function () {
-	$semesterApiController = new SemesterApiController();
-	$semesterApiController->deleteIndividualTask();
+	$taskApiController = new TaskApiController();
+	$taskApiController->deleteIndividualTask();
 });
 
-$router->delete('/api/deleteColloquium', function () {
-	$moduleApiController = new ModuleApiController();
-	$moduleApiController->deleteColloquium();
-});
-
-$router->delete('/api/deleteControlWork', function () {
-	$moduleApiController = new ModuleApiController();
-	$moduleApiController->deleteControlWork();
+$router->delete('/api/deleteModuleTask', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->deleteModuleTask();
 });
 
 $router->delete('/api/deleteLesson', function () {

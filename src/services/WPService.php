@@ -439,7 +439,18 @@ class WPService
 	public function getSemestersAndModules($wpId)
 	{
 		return DBEducationalDisciplineWorkingProgramModel::with([
-			'semesters.modules'
+			'semesters' => function ($query) {
+				$query
+					->with([
+						'tasks.taskType',
+						'modules' => function ($subquery) {
+							$subquery
+								->with([
+									'tasks.taskType',
+								]);
+						}
+					]);
+			}
 		])
 			->where('id', $wpId)
 			->get()
@@ -454,18 +465,13 @@ class WPService
 					$query->select([
 						'id',
 						'educationalDisciplineWPId',
-						'isCourseworkExists',
-						'isCourseProjectExists',
-						'isCalculationAndGraphicWorkExists',
-						'isCalculationAndGraphicTaskExists',
-						'additionalTasks',
 						'semesterNumber',
 						'examTypeId'
 					])
 						->orderBy('semesterNumber');
 				},
 				'semesters.modules' => function ($query) {
-					$query->select(['id', 'educationalDisciplineSemesterId', 'isColloquiumExists', 'isControlWorkExists'])
+					$query->select(['id', 'educationalDisciplineSemesterId'])
 						->orderBy('moduleNumber');
 				},
 				'semesters.modules.themes' => function ($query) {

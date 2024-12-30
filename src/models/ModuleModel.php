@@ -5,28 +5,19 @@ namespace App\Models;
 class ModuleModel
 {
 	public int $moduleId;
-	public bool $isColloquiumExists;
-	public bool $isControlWorkExists;
 	public ?string $moduleName;
 	public ?int $moduleNumber;
-	public ?int $colloquiumPoints;
     public array $themes;
 
 	public function __construct(
 		int $moduleId,
-		bool $isColloquiumExists,
-		bool $isControlWorkExists,
 		?string $moduleName = '',
 		?int $moduleNumber = null,
-		?int $colloquiumPoints = null,
 		array $themes = []
 	) {
 		$this->moduleId = $moduleId;
-		$this->isColloquiumExists = $isColloquiumExists;
-		$this->isControlWorkExists = $isControlWorkExists;
 		$this->moduleName = $moduleName;
 		$this->moduleNumber = $moduleNumber;
-		$this->colloquiumPoints = $colloquiumPoints;
 		$this->themes = $themes;
 	}
 }

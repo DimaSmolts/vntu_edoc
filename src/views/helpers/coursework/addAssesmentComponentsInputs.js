@@ -1,12 +1,11 @@
-const addAssesmentComponentsInputs = (
-	event,
-	semesterId,
-	container,
-	addAssesmentComponent,
-	updateCourseworkAssesmentComponents,
-	removeCourseworkAssesmentComponentInputs
-) => {
-	const courseworkAssesmentComponentsInputs = createElement({ elementName: 'div', classList: ['assesment-components-inputs'] });
+const addAssesmentComponentsInputs = (event, semesterId, taskTypeId) => {
+	event.preventDefault();
+
+	const container = document.getElementById(`assesmentComponents${semesterId}`);
+
+	const addAssesmentComponent = document.getElementById(`addAssesmentComponent${semesterId}`);
+
+	const assesmentComponentsInputs = createElement({ elementName: 'div', classList: ['assesment-components-inputs'] });
 
 	const assesmentComponentName = createElement({
 		elementName: 'input',
@@ -14,7 +13,7 @@ const addAssesmentComponentsInputs = (
 		name: 'assesmentComponentName',
 		eventListenerType: 'input',
 		eventListener: (e) => {
-			updateCourseworkAssesmentComponents(e, semesterId);
+			updateAssesmentComponents(e, semesterId, taskTypeId);
 		}
 	});
 	const assesmentComponentPoints = createElement({
@@ -23,7 +22,7 @@ const addAssesmentComponentsInputs = (
 		name: 'assesmentComponentPoints',
 		eventListenerType: 'input',
 		eventListener: (e) => {
-			updateCourseworkAssesmentComponents(e, semesterId);
+			updateAssesmentComponents(e, semesterId, taskTypeId);
 		}
 	});
 
@@ -33,13 +32,13 @@ const addAssesmentComponentsInputs = (
 		innerText: 'Видалити',
 		eventListenerType: 'click',
 		eventListener: (e) => {
-			removeCourseworkAssesmentComponentInputs(e, semesterId);
+			removeAssesmentComponentInputs(e, semesterId, taskTypeId);
 		}
 	})
 
-	courseworkAssesmentComponentsInputs.appendChild(assesmentComponentName);
-	courseworkAssesmentComponentsInputs.appendChild(assesmentComponentPoints);
-	courseworkAssesmentComponentsInputs.appendChild(removeAssesmentComponentBtn);
+	assesmentComponentsInputs.appendChild(assesmentComponentName);
+	assesmentComponentsInputs.appendChild(assesmentComponentPoints);
+	assesmentComponentsInputs.appendChild(removeAssesmentComponentBtn);
 
-	container.insertBefore(courseworkAssesmentComponentsInputs, addAssesmentComponent);
+	container.insertBefore(assesmentComponentsInputs, addAssesmentComponent);
 }

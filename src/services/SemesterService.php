@@ -39,6 +39,30 @@ class SemesterService
 		}
 	}
 
+	public function updateCourseworkAndProjectTasks($id, $fieldToSet, $valueToSet, $fieldToFalse, $fieldToNull)
+	{
+		$semester = Capsule::table('educationalDisciplineSemester')->where('id', $id)->first();
+
+		if (!$semester) {
+			echo json_encode(['status' => 'error', 'message' => 'Semester not found']);
+			return;
+		}
+
+		$updated = Capsule::table('educationalDisciplineSemester')
+			->where('id', $id)
+			->update([
+				$fieldToSet => $valueToSet,
+				$fieldToFalse => false,
+				$fieldToNull => null
+			]);
+
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Semester updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
+		}
+	}
+
 	public function deleteSemester($id)
 	{
 		$deleted = Capsule::table('educationalDisciplineSemester')->where('id', $id)->delete();
@@ -50,106 +74,24 @@ class SemesterService
 		}
 	}
 
-	public function getCourseworksAndProjectsByWPId($wpId)
+	public function getCourseworksAndProjectsByWPId($wpId, $courseworksAndProjectsIds)
 	{
-		$coursework = DBEducationalDisciplineSemesterModel::with([
-			'educationalForms.educationalForm'
-		])
+		$coursework = DBEducationalDisciplineSemesterModel::select(['id'])
+			->with([
+				'educationalForms.educationalForm',
+				'tasks' => function ($query) use (&$courseworksAndProjectsIds) {
+					$query
+						->with([
+							'taskType',
+							'educationalFormTaskHours',
+						])
+						->whereIn('taskTypeId', $courseworksAndProjectsIds);
+				}
+			])
 			->where('educationalDisciplineWPId', $wpId)
 			->get();
 
 		return $coursework;
 	}
 
-	public function updateCourseworkAssesmentComponents($id, $courseworkAssessmentComponents)
-	{
-		$semester = Capsule::table('educationalDisciplineSemester')->where('id', $id)->first();
-
-		if (!$semester) {
-			echo json_encode(['status' => 'error', 'message' => 'Semester not found']);
-			return;
-		}
-
-		$updated = Capsule::table('educationalDisciplineSemester')
-			->where('id', $id)
-			->update(['courseworkAssessmentComponents' => $courseworkAssessmentComponents]);
-
-		if ($updated) {
-			echo json_encode(['status' => 'success', 'message' => 'Assesment components updated successfully']);
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
-		}
-	}
-
-	public function updateCourseProjectAssesmentComponents($id, $courseProjectAssessmentComponents)
-	{
-		$semester = Capsule::table('educationalDisciplineSemester')->where('id', $id)->first();
-
-		if (!$semester) {
-			echo json_encode(['status' => 'error', 'message' => 'Semester not found']);
-			return;
-		}
-
-		$updated = Capsule::table('educationalDisciplineSemester')
-			->where('id', $id)
-			->update(['courseProjectAssessmentComponents' => $courseProjectAssessmentComponents]);
-
-		if ($updated) {
-			echo json_encode(['status' => 'success', 'message' => 'Assesment components updated successfully']);
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
-		}
-	}
-
-	public function deleteCoursework($semesterId)
-	{
-		$deletedCoursework = Capsule::table('educationalDisciplineSemester')
-			->where('id', $semesterId)
-			->update([
-				'isCourseworkExists' => false,
-				'courseworkAssessmentComponents' => null
-			]);
-
-		if ($deletedCoursework) {
-			echo json_encode(['status' => 'success', 'message' => 'Coursework deleted successfully']);
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'Coursework not found or delete failed']);
-		}
-	}
-
-	public function updateAdditionalTasks($id, $additionalTasksComponents)
-	{
-		$semester = Capsule::table('educationalDisciplineSemester')->where('id', $id)->first();
-
-		if (!$semester) {
-			echo json_encode(['status' => 'error', 'message' => 'Semester not found']);
-			return;
-		}
-
-		$updated = Capsule::table('educationalDisciplineSemester')
-			->where('id', $id)
-			->update(['additionalTasks' => $additionalTasksComponents]);
-
-		if ($updated) {
-			echo json_encode(['status' => 'success', 'message' => 'Additional tasks updated successfully']);
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
-		}
-	}
-
-	public function deleteCourseProject($semesterId)
-	{
-		$deletedCoursework = Capsule::table('educationalDisciplineSemester')
-			->where('id', $semesterId)
-			->update([
-				'isCourseProjectExists' => false,
-				'courseProjectAssessmentComponents' => null
-			]);
-
-		if ($deletedCoursework) {
-			echo json_encode(['status' => 'success', 'message' => 'Coursework deleted successfully']);
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'Coursework not found or delete failed']);
-		}
-	}
 }

@@ -5,28 +5,31 @@ namespace App\Models;
 class SemesterCourseworkAndProjectModel
 {
     public int $semesterId;
-    public bool $isCourseworkExists;
-    public bool $isCourseProjectExists;
+    public bool $isExists;
     public ?int $semesterNumber;
-    public ?string $courseworkAssessmentComponents;
-    public ?string $courseProjectAssessmentComponents;
+    public ?int $taskTypeId;
+    public ?string $taskTypeName;
+    public ?string $assessmentComponents;
+    public ?int $hours;
     public array $educationalForms;
 
     public function __construct(
         int $semesterId,
-        bool $isCourseworkExists,
-        bool $isCourseProjectExists,
+        bool $isExists,
         ?int $semesterNumber = null,
-        ?string $courseworkAssessmentComponents = '',
-        ?string $courseProjectAssessmentComponents = '',
+        ?int $taskTypeId = null,
+        ?string $taskTypeName = '',
+        ?string $assessmentComponents = '',
+        ?int $hours = null,
         array $educationalForms = [],
     ) {
         $this->semesterId = $semesterId;
-        $this->isCourseworkExists = $isCourseworkExists;
-        $this->isCourseProjectExists = $isCourseProjectExists;
+        $this->isExists = $isExists;
         $this->semesterNumber = $semesterNumber;
-        $this->courseworkAssessmentComponents = $courseworkAssessmentComponents;
-        $this->courseProjectAssessmentComponents = $courseProjectAssessmentComponents;
+        $this->taskTypeId = $taskTypeId;
+        $this->taskTypeName = $taskTypeName;
+        $this->assessmentComponents = $assessmentComponents;
+        $this->hours = $hours;
         $this->educationalForms = $educationalForms;
     }
 }

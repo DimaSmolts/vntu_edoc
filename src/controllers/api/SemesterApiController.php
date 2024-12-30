@@ -6,7 +6,8 @@ require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/SemesterService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworksAndProjectsData.php';
-require_once __DIR__ . '/../../helpers/getIsCourseworkExistsInWP.php';
+require_once __DIR__ . '/../../helpers/getTaskId.php';
+require_once __DIR__ . '/../../helpers/getIsTypeOfWorkExists.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
@@ -85,13 +86,17 @@ class SemesterApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$rawSemestersInfo = $this->semesterService->getCourseworksAndProjectsByWPId($wpId);
+			$tasksIds = getTaskId();
+			$rawSemestersInfo = $this->semesterService->getCourseworksAndProjectsByWPId($wpId, [$tasksIds->coursework, $tasksIds->courseProject]);
+
+			$isCourseworkExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->coursework);
+			$isCourseProjectExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->courseProject);
+			print_r($rawSemestersInfo);
 			$semesters = getFullFormattedCourseworksAndProjectsData($rawSemestersInfo);
-			$isCourseworkExists = getIsTypeOfWorkExistsInWP($semesters, 'isCourseworkExists');
-			$isCourseProjectExists = getIsTypeOfWorkExistsInWP($semesters, 'isCourseProjectExists');
 
+			// print_r($semesters);
+  
 			if ($isCourseworkExists || $isCourseProjectExists) {
-
 				$isLoggedIn = true;
 				$showReturnBtn = true;
 				$showEditGlobalDataBtn = false;
@@ -101,53 +106,14 @@ class SemesterApiController extends BaseController
 				$courseworksAndProjectsInfoSlideContent = ob_get_clean();
 
 				echo json_encode([
-					'isCourseworkExists' => $isCourseworkExists,
-					'isCourseProjectExists' => $isCourseProjectExists,
+					'isCourseTaskExists' => $isCourseworkExists || $isCourseProjectExists,
 					'courseworksAndProjectsInfoSlideContent' => $courseworksAndProjectsInfoSlideContent
 				]);
 			} else {
 				echo json_encode([
-					'isCourseworkExists' => $isCourseworkExists
+					'isCourseTaskExists' => $isCourseworkExists || $isCourseProjectExists,
 				]);
 			}
-		}
-	}
-
-	public function updateCourseworkAssesmentComponents()
-	{
-		header('Content-Type: application/json');
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$id = intval($data['semesterId']);
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$courseworkAssessmentComponents = json_encode($data['courseworkAssessmentComponents']);
-
-			$this->semesterService->updateCourseworkAssesmentComponents($id, $courseworkAssessmentComponents);
-		}
-	}
-
-	public function updateCourseProjectAssesmentComponents()
-	{
-		header('Content-Type: application/json');
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$id = intval($data['semesterId']);
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($id);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$courseProjectAssessmentComponents = json_encode($data['courseProjectAssessmentComponents']);
-
-			$this->semesterService->updateCourseProjectAssesmentComponents($id, $courseProjectAssessmentComponents);
 		}
 	}
 
@@ -166,28 +132,8 @@ class SemesterApiController extends BaseController
 		if ($ifCurrentUserHasAccessToWP) {
 			$additionalTasksComponents = json_encode($data['additionalTasksComponents']);
 
-			$this->semesterService->updateAdditionalTasks($id, $additionalTasksComponents);
+			// $this->semesterService->updateAdditionalTasks($id, $additionalTasksComponents);
 		}
 	}
 
-	public function deleteIndividualTask()
-	{
-		header('Content-Type: application/json');
-
-		$semesterId = $_GET['semesterId'];
-		$type = $_GET['type'];
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			if ($type === 'isCourseworkExists') {
-				$this->semesterService->deleteCoursework($semesterId);
-			} else if ($type === 'isCourseProjectExists') {
-				$this->semesterService->deleteCourseProject($semesterId);
-			} else {
-				$this->semesterService->updateSemester($semesterId, $type, false);
-			}
-		}
-	}
 }

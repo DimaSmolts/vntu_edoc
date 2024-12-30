@@ -1,10 +1,10 @@
 <div id="semestersContainer">
-	<?php if (!empty($details->semesters)): ?>
-		<?php foreach ($details->semesters as $semesterData): ?>
+	<?php if (!empty($semesters)): ?>
+		<?php foreach ($semesters as $semesterData): ?>
 			<!-- Створення контейнера з інформацією про існуючий семестр -->
 			<div class="block">
 				<div class="semester-title-container">
-					<p id="semesterTitle<?= htmlspecialchars($semesterData->id) ?>" class="block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
+					<p id="semesterTitle<?= htmlspecialchars($semesterData->semesterId) ?>" class="block-title semester-title">Семестер <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : "" ?></p>
 				</div>
 				<!-- Додавання контейнеру для чекбоксів форм навчання -->
 				<div class="educational-forms-container">
@@ -22,12 +22,12 @@
 						?>
 						<label>
 							<input
-								id="semester<?= htmlspecialchars($semesterData->id) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
+								id="semester<?= htmlspecialchars($semesterData->semesterId) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
 								class="checkbox"
 								type="checkbox"
 								name="<?= htmlspecialchars($educationalForm->colName) ?>"
 								<?= $isChecked ? 'checked' : '' ?>
-								onclick="checkTogglingEducationalForm(event, <?= htmlspecialchars($semesterData->id) ?>, <?= htmlspecialchars($educationalForm->id) ?>)">
+								onclick="checkTogglingEducationalForm(event, <?= htmlspecialchars($semesterData->semesterId) ?>, <?= htmlspecialchars($educationalForm->id) ?>)">
 							<p><?= htmlspecialchars($educationalForm->name) ?></p>
 						</label>
 					<?php endforeach; ?>
@@ -40,36 +40,40 @@
 							<input
 								class="checkbox"
 								type="checkbox"
-								name="isCourseworkExists"
+								name="coursework"
+								id="coursework<?= htmlspecialchars($semesterData->semesterId) ?>"
 								<?= $semesterData->isCourseworkExists ? 'checked' : '' ?>
-								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->id) ?>, 'курсову роботу')">
+								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->semesterId) ?>, 'курсову роботу')">
 							<p>Курсова робота</p>
 						</label>
 						<label class="checkbox">
 							<input
 								class="checkbox"
 								type="checkbox"
-								name="isCourseProjectExists"
+								name="courseProject"
+								id="courseProject<?= htmlspecialchars($semesterData->semesterId) ?>"
 								<?= $semesterData->isCourseProjectExists ? 'checked' : '' ?>
-								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->id) ?>, 'курсовий проєкт')">
+								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->semesterId) ?>, 'курсовий проєкт')">
 							<p>Курсовий проєкт</p>
 						</label>
 						<label class="checkbox">
 							<input
 								class="checkbox"
 								type="checkbox"
-								name="isCalculationAndGraphicWorkExists"
+								name="calculationAndGraphicWork"
+								id="calculationAndGraphicWork<?= htmlspecialchars($semesterData->semesterId) ?>"
 								<?= $semesterData->isCalculationAndGraphicWorkExists ? 'checked' : '' ?>
-								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->id) ?>, 'розрахунково-графічну роботу')">
+								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->semesterId) ?>, 'розрахунково-графічну роботу')">
 							<p>Розрахунково-графічна робота (РГР)</p>
 						</label>
 						<label class="checkbox">
 							<input
 								class="checkbox"
 								type="checkbox"
-								name="isCalculationAndGraphicTaskExists"
+								name="calculationAndGraphicTask"
+								id="calculationAndGraphicTask<?= htmlspecialchars($semesterData->semesterId) ?>"
 								<?= $semesterData->isCalculationAndGraphicTaskExists ? 'checked' : '' ?>
-								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->id) ?>, 'розрахунково-графічне завдання')">
+								onclick="checkTogglingIndividualTask(event, <?= htmlspecialchars($semesterData->semesterId) ?>, 'розрахунково-графічне завдання')">
 							<p>Розрахунково-графічне завдання (РГЗ)</p>
 						</label>
 					</div>
@@ -77,7 +81,7 @@
 				<!-- Додавання контейнеру для інших завдань -->
 				<div class="custom-tasks-container">
 					<p class='custom-tasks-label'>Інші завдання:</p>
-					<div class='custom-tasks-block' id="additionalTaskComponents<?= htmlspecialchars($semesterData->id) ?>">
+					<div class='custom-tasks-block' id="additionalTaskComponents<?= htmlspecialchars($semesterData->semesterId) ?>">
 						<?php if (isset($semesterData->additionalTasks)): ?>
 							<?php
 							$additionalTasksComponents = json_decode($semesterData->additionalTasks, true)
@@ -88,10 +92,10 @@
 										type="text"
 										name="additionalTaskName"
 										value="<?= htmlspecialchars($name ?? '') ?>"
-										oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->id) ?>)">
+										oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
 									<button
 										class="btn"
-										onclick="removeAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->id) ?>)">
+										onclick="removeAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
 										Видалити
 									</button>
 								</div>
@@ -101,7 +105,7 @@
 								<input
 									type="text"
 									name="additionalTaskName"
-									oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->id) ?>)">
+									oninput="updateAdditionalTasks(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
 								<button
 									class="btn"
 									onclick="removeAdditionalTaskInputs(event)">
@@ -111,8 +115,8 @@
 						<?php endif; ?>
 						<button
 							class="btn"
-							id="addAdditionalTask<?= htmlspecialchars($semesterData->id) ?>"
-							onclick="addAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->id) ?>)">
+							id="addAdditionalTask<?= htmlspecialchars($semesterData->semesterId) ?>"
+							onclick="addAdditionalTaskInputs(event, <?= htmlspecialchars($semesterData->semesterId) ?>)">
 							Додати завдання
 						</button>
 					</div>
@@ -128,18 +132,18 @@
 										<input
 											class="checkbox"
 											type="checkbox"
-											name="isColloquiumExists"
+											name="colloquium"
 											<?= $moduleData->isColloquiumExists ? 'checked' : '' ?>
-											onclick="checkTogglingColloquium(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
+											onclick="checkTogglingModuleTasks(event, <?= htmlspecialchars($moduleData->moduleId) ?>), 'колоквіум'">
 										<p>Колоквіум</p>
 									</label>
 									<label class="checkbox">
 										<input
 											class="checkbox"
 											type="checkbox"
-											name="isControlWorkExists"
+											name="controlWork"
 											<?= $moduleData->isControlWorkExists ? 'checked' : '' ?>
-											onclick="checkTogglingControlWork(event, <?= htmlspecialchars($moduleData->moduleId) ?>)">
+											onclick="checkTogglingModuleTasks(event, <?= htmlspecialchars($moduleData->moduleId) ?>), 'контрольну роботу'">
 										<p>Контрольна робота</p>
 									</label>
 								</div>

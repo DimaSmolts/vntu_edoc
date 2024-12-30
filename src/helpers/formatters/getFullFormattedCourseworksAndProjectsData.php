@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/SemesterCourseworkAndProjectModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
+require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
+require_once __DIR__ . '/../getCourseTask.php';
 
 use App\Models\SemesterEducationalFormModel;
 use App\Models\SemesterCourseworkAndProjectModel;
@@ -20,13 +22,16 @@ function getFullFormattedCourseworksAndProjectsData($semesterCourseworkData)
 			);
 		})->toArray();
 
+		$courseTask = getCourseTask($semester);
+
 		return new SemesterCourseworkAndProjectModel(
 			$semester->id,
-			$semester->isCourseworkExists,
-			$semester->isCourseProjectExists,
+			isset($courseTask),
 			$semester->semesterNumber,
-			$semester->courseworkAssessmentComponents,
-			$semester->courseProjectAssessmentComponents,
+			isset($courseTask) ? $courseTask->taskType->id : null,
+			isset($courseTask) ? $courseTask->taskType->name : '',
+			isset($courseTask) ? $courseTask->assessmentComponents : '',
+			isset($courseTask->educationalFormTaskHours) ? $courseTask->educationalFormTaskHours->hours : null,
 			$educationalForms
 		);
 	})->toArray();

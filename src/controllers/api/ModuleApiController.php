@@ -72,32 +72,4 @@ class ModuleApiController extends BaseController
 			$this->moduleService->deleteModule($id);
 		}
 	}
-
-	public function deleteColloquium()
-	{
-		header('Content-Type: application/json');
-
-		$moduleId = $_GET['moduleId'];
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($moduleId);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$this->moduleService->deleteColloquium($moduleId);
-		}
-	}
-
-	public function deleteControlWork()
-	{
-		header('Content-Type: application/json');
-
-		$moduleId = $_GET['moduleId'];
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($moduleId);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$this->moduleService->deleteControlWork($moduleId);
-		}
-	}
 }

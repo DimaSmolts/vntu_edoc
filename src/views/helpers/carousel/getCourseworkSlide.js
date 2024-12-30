@@ -17,7 +17,7 @@ const getCourseworkSlide = async () => {
 		courseworksAndProjectsInfoSlide.remove();
 	}
 
-	if (data?.isCourseworkExists) {
+	if (data?.isCourseTaskExists) {
 		const courseworksAndProjectsInfoSlide = createSlide(data?.courseworksAndProjectsInfoSlideContent, 'courseworksAndProjectsInfoSlide');
 
 		const prevSlide = document.getElementById('pointsDistributionSlide');

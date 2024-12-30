@@ -5,14 +5,14 @@ namespace App\Models;
 require_once __DIR__ . '/DBModuleModel.php';
 require_once __DIR__ . '/DBEducationalDisciplineSemesterEducationFormModel.php';
 require_once __DIR__ . '/DBEducationalDisciplineWorkingProgramModel.php';
-require_once __DIR__ . '/DBEducationalFormCourseworkHoursModel.php';
 require_once __DIR__ . '/DBExamTypeModel.php';
+require_once __DIR__ . '/DBTaskDetailsModel.php';
 
 use App\Models\DBModuleModel;
 use App\Models\DBEducationalDisciplineSemesterEducationFormModel;
 use App\Models\DBEducationalDisciplineWorkingProgramModel;
-use App\Models\DBEducationalFormCourseworkHoursModel;
 use App\Models\DBExamTypeModel;
+use App\Models\DBTaskDetailsModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,5 +52,10 @@ class DBEducationalDisciplineSemesterModel extends Model
     public function examType()
     {
         return $this->belongsTo(DBExamTypeModel::class, 'examTypeId');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(DBTaskDetailsModel::class, 'semesterId');
     }
 }

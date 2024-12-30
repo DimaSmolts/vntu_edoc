@@ -15,6 +15,7 @@ require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.ph
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalFormData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSelfworkData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSemestersAndModulesTasks.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
 require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
@@ -213,7 +214,8 @@ class WPApiController extends BaseController
 			$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 			$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
 
-			$details = getFullFormattedWorkingProgramData($wpData);
+			$semesters = getFullFormattedSemestersAndModulesTasks($wpData->semesters);
+			// print_r($educationalForms);
 
 			ob_start();
 			include __DIR__ . '/../../views/components/wpDetails/educationalDisciplineSemesterControlMethodsSlideContent.php';

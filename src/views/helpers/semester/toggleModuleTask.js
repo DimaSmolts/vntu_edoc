@@ -1,13 +1,11 @@
-const toggleControlWork = (event, moduleId) => {
+const toggleModuleTask = (event, moduleId) => {
 	if (event.target.checked) {
-
 		const postData = {
-			id: moduleId,
-			field: event.target.name,
-			value: event.target.checked
+			moduleId,
+			typeName: event.target.name,
 		};
 
-		fetch('api/updateModule', {
+		fetch('api/createModuleTask', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -21,7 +19,7 @@ const toggleControlWork = (event, moduleId) => {
 			})
 			.catch(error => console.error('Post error:', error));
 	} else {
-		fetch(`api/deleteControlWork?moduleId=${moduleId}`, {
+		fetch(`api/deleteModuleTask?moduleId=${moduleId}&type=${event.target.name}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json'

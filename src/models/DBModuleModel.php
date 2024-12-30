@@ -4,9 +4,11 @@ namespace App\Models;
 
 require_once __DIR__ . '/DBThemeModel.php';
 require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
+require_once __DIR__ . '/DBTaskDetailsModel.php';
 
 use App\Models\DBThemeModel;
 use App\Models\DBEducationalDisciplineSemesterModel;
+use App\Models\DBTaskDetailsModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,4 +28,9 @@ class DBModuleModel extends Model
 	{
 		return $this->belongsTo(DBEducationalDisciplineSemesterModel::class, 'educationalDisciplineSemesterId');
 	}
+	
+    public function tasks()
+    {
+        return $this->hasMany(DBTaskDetailsModel::class, 'moduleId');
+    }
 }
