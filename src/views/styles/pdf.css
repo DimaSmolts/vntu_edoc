@@ -21,6 +21,10 @@ div.right {
 	text-align: justify;
 }
 
+.mini-bottom-margin {
+	margin-bottom: 5mm;
+}
+
 .small-bottom-margin {
 	margin-bottom: 10mm;
 }

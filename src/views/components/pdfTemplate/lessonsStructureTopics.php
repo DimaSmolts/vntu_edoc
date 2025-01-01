@@ -222,8 +222,3 @@ foreach ($details->semesters as $semester) {
 	</div>
 	<!-- <p class="indent">Лабораторні заняття не передбачені.</p> -->
 <?php endif; ?>
-
-<div class="empty"></div>
-<div class="topic-title">
-	9. Самостійна робота
-</div>

@@ -11,6 +11,7 @@ require_once __DIR__ . '/../models/WPDetailsModel.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramDataForPDF.php';
 require_once __DIR__ . '/../helpers/getSemestersIdsByControlType.php';
 require_once __DIR__ . '/../helpers/getPointsDistributionForPDF.php';
+require_once __DIR__ . '/../helpers/formatters/getFullFormattedSelfworkData.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
@@ -69,6 +70,7 @@ class PDFController extends BaseController
 				$pointsDistributionSemestersData = getPointsDistributionForPDF($pointsDistributionRelatedData);
 				$structure = getFormattedLessonsAndExamingsStructure($rawDetails);
 				$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
+				$selfworkData = getFullFormattedSelfworkData($rawDetails);
 
 				require __DIR__ . '/../views/pages/pdf.php';
 				exit();

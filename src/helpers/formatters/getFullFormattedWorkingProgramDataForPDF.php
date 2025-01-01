@@ -198,11 +198,11 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 			return new PDFModuleModel(
 				$module->id,
-				$module->isColloquiumExists,
-				$module->isControlWorkExists,
+				false,
+				false,
 				$module->name ?? "",
 				$module->moduleNumber,
-				$module->colloquiumPoints,
+				null,
 				$themes,
 				$totalEducationalFormHoursStructureForModule
 			);
@@ -238,13 +238,13 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 		return new PDFSemesterModel(
 			$semester->id,
-			$semester->isCourseworkExists,
-			$semester->isCourseProjectExists,
-			$semester->isCalculationAndGraphicWorkExists,
-			$semester->isCalculationAndGraphicTaskExists,
-			$semester->additionalTasks,
-			$semester->courseworkAssessmentComponents,
-			$semester->courseProjectAssessmentComponents,
+			false,
+			false,
+			false,
+			false,
+			null,
+			'',
+			'',
 			$semester->semesterNumber,
 			$semester->examTypeId,
 			$modules,

@@ -101,19 +101,6 @@
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
-		<?php if ($structure->isColloquiumExists): ?>
-			<tr>
-				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Колоквіуми</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
-					<?php if (!empty($semesterData->modules)): ?>
-						<?php foreach ($semesterData->modules as $moduleData): ?>
-							<td class="center inserted"><?= htmlspecialchars($moduleData->colloquiumPoints) ?></td>
-						<?php endforeach; ?>
-					<?php endif; ?>
-					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->colloquiumPoints) ?></td>
-				<?php endforeach; ?>
-			</tr>
-		<?php endif; ?>
 		<tr>
 			<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="bold">Усього за модуль</td>
 			<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>

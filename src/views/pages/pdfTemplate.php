@@ -40,8 +40,11 @@
 	<!-- Додаємо розділ 5. Структура навчальної дисципліни -->
 	<?php include __DIR__ . '/../components/pdfTemplate/educationalDisciplineStructureTopic.php'; ?>
 
-	<!-- Додаємо розділи 6-9 з описом всіх типів занять -->
+	<!-- Додаємо розділи 6-7 з описом всіх типів занять -->
 	<?php include __DIR__ . '/../components/pdfTemplate/lessonsStructureTopics.php'; ?>
+
+	<!-- Додаємо розділи 9. Самостійна робота -->
+	<?php include __DIR__ . '/../components/pdfTemplate/selfworkTopic.php'; ?>
 
 	<div class="empty"></div>
 	<div class="topic-title">

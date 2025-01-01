@@ -144,10 +144,39 @@ class WPService
 	{
 		$wp = DBEducationalDisciplineWorkingProgramModel::with([
 			'semesters' => function ($query) {
-				$query->orderBy('semesterNumber');
+				$query
+					->with([
+						'tasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						},
+						'additionalTasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						},
+						'educationalFormLessonSelfworkHours' => function ($subquery) {
+							$subquery->with([
+								'semesterEducationalForm.educationalForm'
+							]);
+						},
+					])
+					->orderBy('semesterNumber');
 			},
 			'semesters.modules' => function ($query) {
-				$query->orderBy('moduleNumber');
+				$query
+					->with([
+						'tasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						}
+					])
+					->orderBy('moduleNumber');
 			},
 			'semesters.modules.themes' => function ($query) {
 				$query->orderBy('themeNumber')
