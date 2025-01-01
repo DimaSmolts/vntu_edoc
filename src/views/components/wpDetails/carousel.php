@@ -1,12 +1,5 @@
 <div class="carousel-wrapper" id="carouselWrapper">
 	<ul class="carousel-container" id="wpDetailsCarouselContainer">
-
-		<li class="slide" id="educationalDisciplineSemesterControlMethodsSlide">
-			<?php include __DIR__ . '/educationalDisciplineSemesterControlMethodsSlide.php'; ?>
-		</li>
-		<li class="slide" id="selfworkSlide">
-			<?php include __DIR__ . '/selfworkSlide.php'; ?>
-		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/generalInfoSlide.php'; ?>
 		</li>
@@ -19,8 +12,14 @@
 		<li class="slide">
 			<?php include __DIR__ . '/educationalDisciplineSemesterProgramSlide.php'; ?>
 		</li>
+		<li class="slide" id="educationalDisciplineSemesterControlMethodsSlide">
+			<?php include __DIR__ . '/educationalDisciplineSemesterControlMethodsSlide.php'; ?>
+		</li>
 		<li class="slide" id="educationalDisciplineStructureSlide">
 			<?php include __DIR__ . '/educationalDisciplineStructureSlide.php'; ?>
+		</li>
+		<li class="slide" id="selfworkSlide">
+			<?php include __DIR__ . '/selfworkSlide.php'; ?>
 		</li>
 		<li class="slide" id="pointsDistributionSlide">
 			<?php include __DIR__ . '/pointsDistributionSlide.php'; ?>

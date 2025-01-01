@@ -38,6 +38,6 @@ class DBTaskDetailsModel extends Model
 
 	public function educationalFormTaskHours()
 	{
-		return $this->hasOne(DBEducationalFormTaskHoursModel::class, 'taskDetailsId');
+		return $this->hasMany(DBEducationalFormTaskHoursModel::class, 'taskDetailsId');
 	}
 }

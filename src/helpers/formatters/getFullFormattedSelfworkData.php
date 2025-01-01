@@ -2,16 +2,29 @@
 
 require_once __DIR__ . '/../../models/SelfworkModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
+require_once __DIR__ . '/../../models/TaskModel.php';
+require_once __DIR__ . '/../../models/EducationalFormTaskHourModel.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
+require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
+require_once __DIR__ . '/../getTaskId.php';
+require_once __DIR__ . '/../getCourseTask.php';
+require_once __DIR__ . '/../getCalculationAndGraphicTypeTask.php';
+require_once __DIR__ . '/../getModuleTask.php';
+require_once __DIR__ . '/../getLessonTypeIdByName.php';
+require_once __DIR__ . '/../getLessonSelfworkByLessonTypeId.php';
 
 use App\Models\SemesterEducationalFormModel;
+use App\Models\TaskModel;
 use App\Models\SelfworkModel;
+use App\Models\EducationalFormTaskHourModel;
 
 function getFullFormattedSelfworkData($workingProgramData)
 {
+	$tasksIds = getTaskId();
+
 	// Обробляємо семестри робочої програми
-	return $workingProgramData->semesters->map(function ($semester) use (&$workingProgramData) {
+	return $workingProgramData->semesters->map(function ($semester) use (&$workingProgramData, &$tasksIds) {
 		$lectionsWithEducationalFormLessonHour = [];
 		$practicalsAmount = 0;
 		$seminarsAmount = 0;
@@ -19,6 +32,7 @@ function getFullFormattedSelfworkData($workingProgramData)
 		$semesterEducationalForms = [];
 		$colloquiumAmount = 0;
 		$controlWorkAmount = 0;
+		$moduleTask = null;
 
 		// Обробляємо всі обрані форми навчання для даного семестру та трансформуємо їх у модель
 		$semesterEducationalForms[] = $semester->educationalForms->map(function ($educationalForm) {
@@ -39,13 +53,19 @@ function getFullFormattedSelfworkData($workingProgramData)
 			&$labsAmount,
 			&$colloquiumAmount,
 			&$controlWorkAmount,
+			&$tasksIds,
+			&$moduleTask,
+			&$semester,
 		) {
 			// Збираємо кількість колоквіумів та контрольних робіт
-			if ($module->isColloquiumExists) {
+			$isColloquiumExists = getIsTypeOfWorkExistsInModule($module, $tasksIds->colloquium);
+			$isControlWorkExists = getIsTypeOfWorkExistsInModule($module, $tasksIds->controlWork);
+
+			if ($isColloquiumExists) {
 				$colloquiumAmount += 1;
 			}
 
-			if ($module->isControlWorkExists) {
+			if ($isControlWorkExists) {
 				$controlWorkAmount += 1;
 			}
 
@@ -63,6 +83,26 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$seminarsAmount += count($theme->seminars);
 				$labsAmount += count($theme->labs);
 			});
+
+			$rawModuleTask = getModuleTask($module);
+			$educationalFormModuleTaskHours = isset($rawModuleTask->educationalFormTaskHours)
+				? $rawModuleTask->educationalFormTaskHours->map(function ($moduleTaskHours) {
+					return new EducationalFormTaskHourModel(
+						$moduleTaskHours->semesterEducationalForm->id,
+						$moduleTaskHours->semesterEducationalForm->educationalForm->name,
+						$moduleTaskHours->hours
+					);
+				})->toArray()
+				: [];
+
+			$moduleTask = isset($rawModuleTask) ?
+				new TaskModel(
+					$semester->id,
+					$rawModuleTask->taskTypeId,
+					$rawModuleTask->id,
+					$rawModuleTask->taskType->name,
+					$educationalFormModuleTaskHours
+				) : null;
 		});
 
 		// Поєднуємо всі навчальні форми в один масив
@@ -81,6 +121,168 @@ function getFullFormattedSelfworkData($workingProgramData)
 		// Рахуємо всі години лекцій для різних форм навчання
 		$totalHoursForLections = getHoursSumForEducationalForms($lectionsWithEducationalFormLessonHour, $uniqueSemesterEducationalForms);
 
+		// Обробляємо всі додаткові завдання
+		$additionalTasks = $semester->additionalTasks->map(function ($additionalTask) use (&$semester) {
+			$educationalFormHours = isset($additionalTask->educationalFormTaskHours)
+				? $additionalTask->educationalFormTaskHours->map(function ($taskHours) {
+					return new EducationalFormTaskHourModel(
+						$taskHours->semesterEducationalForm->id,
+						$taskHours->semesterEducationalForm->educationalForm->name,
+						$taskHours->hours
+					);
+				})->toArray()
+				: [];
+
+			return new TaskModel(
+				$semester->id,
+				$additionalTask->taskTypeId,
+				$additionalTask->id,
+				$additionalTask->taskType->name,
+				$educationalFormHours
+			);
+		})->toArray();
+
+		// Дістаємо курсову роботу або проєкт 
+		$rawCourseTask = getCourseTask($semester);
+		$educationalFormCourseTaskHours = isset($rawCourseTask->educationalFormTaskHours)
+			? $rawCourseTask->educationalFormTaskHours->map(function ($courseTaskHours) {
+				return new EducationalFormTaskHourModel(
+					$courseTaskHours->semesterEducationalForm->id,
+					$courseTaskHours->semesterEducationalForm->educationalForm->name,
+					$courseTaskHours->hours
+				);
+			})->toArray()
+			: [];
+
+		$courseTask = isset($rawCourseTask) ?
+			new TaskModel(
+				$semester->id,
+				$rawCourseTask->taskTypeId,
+				$rawCourseTask->id,
+				$rawCourseTask->taskType->name,
+				$educationalFormCourseTaskHours
+			) : null;
+
+		// Дістаємо РГР або РГЗ 
+		$rawCalculationAndGraphicTypeTask = getCalculationAndGraphicTypeTask($semester);
+
+		$educationalFormCourseTaskHours = isset($rawCalculationAndGraphicTypeTask->educationalFormTaskHours)
+			? $rawCalculationAndGraphicTypeTask->educationalFormTaskHours->map(function ($courseTaskHours) {
+				return new EducationalFormTaskHourModel(
+					$courseTaskHours->semesterEducationalForm->id,
+					$courseTaskHours->semesterEducationalForm->educationalForm->name,
+					$courseTaskHours->hours
+				);
+			})->toArray()
+			: [];
+
+		$calculationAndGraphicTypeTask = isset($rawCalculationAndGraphicTypeTask) ?
+			new TaskModel(
+				$semester->id,
+				$rawCalculationAndGraphicTypeTask->taskTypeId,
+				$rawCalculationAndGraphicTypeTask->id,
+				$rawCalculationAndGraphicTypeTask->taskType->name,
+				$educationalFormCourseTaskHours
+			) : null;
+
+		$lessonTypesIds = getLessonTypeIdByName();
+
+		$rawLections = getLessonSelfworkByLessonTypeId($semester, $lessonTypesIds->lection);
+
+		$educationalFormLectionSelfworkHours = count($rawLections) > 0
+			? $rawLections->map(function ($rawLection) {
+				return isset($rawLection)
+					? new EducationalFormTaskHourModel(
+						$rawLection->semesterEducationalForm->id,
+						$rawLection->semesterEducationalForm->educationalForm->name,
+						$rawLection->hours
+					)
+					: null;
+			})->toArray()
+			: [];
+
+		$lectionSelfworkTask = count($rawLections) > 0
+			? new TaskModel(
+				$semester->id,
+				$rawLections->first()->lessonTypeId,
+				$rawLections->first()->id,
+				'lections',
+				$educationalFormLectionSelfworkHours
+			)
+			: null;
+
+		$rawLabs = getLessonSelfworkByLessonTypeId($semester, $lessonTypesIds->laboratory);
+
+		$educationalFormLabSelfworkHours = count($rawLabs) > 0
+			? $rawLabs->map(function ($rawLab) {
+				return isset($rawLab)
+					? new EducationalFormTaskHourModel(
+						$rawLab->semesterEducationalForm->id,
+						$rawLab->semesterEducationalForm->educationalForm->name,
+						$rawLab->hours
+					)
+					: null;
+			})->toArray()
+			: [];
+
+		$labSelfworkTask = count($rawLabs) > 0
+			? new TaskModel(
+				$semester->id,
+				$rawLabs->first()->lessonTypeId,
+				$rawLabs->first()->id,
+				'practicals',
+				$educationalFormLabSelfworkHours
+			)
+			: null;
+
+		$rawPracticals = getLessonSelfworkByLessonTypeId($semester, $lessonTypesIds->practical);
+
+		$educationalFormPracticalSelfworkHours = count($rawPracticals) > 0
+			? $rawPracticals->map(function ($rawPractical) {
+				return isset($rawPractical)
+					? new EducationalFormTaskHourModel(
+						$rawPractical->semesterEducationalForm->id,
+						$rawPractical->semesterEducationalForm->educationalForm->name,
+						$rawPractical->hours
+					)
+					: null;
+			})->toArray()
+			: [];
+
+		$practicalSelfworkTask = count($rawPracticals) > 0
+			? new TaskModel(
+				$semester->id,
+				$rawPracticals->first()->lessonTypeId,
+				$rawPracticals->first()->id,
+				'practicals',
+				$educationalFormPracticalSelfworkHours
+			)
+			: null;
+
+		$rawSeminars = getLessonSelfworkByLessonTypeId($semester, $lessonTypesIds->seminar);
+
+		$educationalFormSeminarSelfworkHours = count($rawSeminars) > 0
+			? $rawSeminars->map(function ($rawSeminar) {
+				return isset($rawSeminar)
+					? new EducationalFormTaskHourModel(
+						$rawSeminar->semesterEducationalForm->id,
+						$rawSeminar->semesterEducationalForm->educationalForm->name,
+						$rawSeminar->hours
+					)
+					: null;
+			})->toArray()
+			: [];
+
+		$seminarSelfworkTask = count($rawSeminars) > 0
+			? new TaskModel(
+				$semester->id,
+				$rawSeminars->first()->lessonTypeId,
+				$rawSeminars->first()->id,
+				'practicals',
+				$educationalFormSeminarSelfworkHours
+			)
+			: null;
+
 		return new SelfworkModel(
 			$semester->id,
 			$totalHoursForLections,
@@ -88,18 +290,24 @@ function getFullFormattedSelfworkData($workingProgramData)
 			$seminarsAmount,
 			$labsAmount,
 			$uniqueSemesterEducationalForms,
-			$semester->isCourseworkExists,
-			$semester->isCourseProjectExists,
-			$semester->isCalculationAndGraphicWorkExists,
-			$semester->isCalculationAndGraphicTaskExists,
-			isset($semester->additionalTasks),
-			json_decode($semester->additionalTasks ?? '[]', true),
+			getIsTypeOfWorkExistsInSemester($semester, $tasksIds->coursework),
+			getIsTypeOfWorkExistsInSemester($semester, $tasksIds->courseProject),
+			getIsTypeOfWorkExistsInSemester($semester, $tasksIds->calculationAndGraphicWork),
+			getIsTypeOfWorkExistsInSemester($semester, $tasksIds->calculationAndGraphicTask),
+			$additionalTasks,
 			$colloquiumAmount,
 			$controlWorkAmount,
 			$semester->semesterNumber,
 			isset($semester->examType) ? $semester->examType->id : null,
 			isset($semester->examType) ? $semester->examType->e_name : '',
 			$workingProgramData->creditsAmount,
+			$courseTask,
+			$calculationAndGraphicTypeTask,
+			$moduleTask,
+			$lectionSelfworkTask,
+			$labSelfworkTask,
+			$practicalSelfworkTask,
+			$seminarSelfworkTask,
 		);
 	})->toArray();
 }

@@ -178,4 +178,46 @@ class TaskApiController extends BaseController
 
 		echo json_encode($additionalTasks);
 	}
+
+	public function updateTaskHours()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$hours = intval($data['hours']);
+			$educationalFormId = intval($data['educationalFormId']);
+			$taskDetailsId = intval($data['taskDetailsId']);
+
+			$this->taskService->updateTaskHours($educationalFormId, $taskDetailsId, $hours);
+		}
+	}
+
+	public function updateLessonSelfworkHours()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$hours = intval($data['hours']);
+			$educationalFormId = intval($data['educationalFormId']);
+			$lessonTypeId = intval($data['lessonTypeId']);
+
+			$this->taskService->updateLessonSelfworkHours($educationalFormId, $lessonTypeId, $semesterId, $hours);
+		}
+	}
 }

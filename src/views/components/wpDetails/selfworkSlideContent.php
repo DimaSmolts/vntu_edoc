@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../../../helpers/getLessonTypeIdByName.php';
+
+$lessonTypeIds = getLessonTypeIdByName();
+?>
 <div>
 	<?php if (!empty($selfworkData)): ?>
 		<?php foreach ($selfworkData as $semesterSelfworkData): ?>
@@ -35,7 +40,28 @@
 				<tr>
 					<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 						<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-							<td class="selfwork-educational-forms-column"></td>
+							<?php
+							$hours = null;
+							if (isset($semesterSelfworkData->lectionSelfworkTask->educationalFormHours)) {
+								foreach ($semesterSelfworkData->lectionSelfworkTask->educationalFormHours as $educationalFormHours) {
+									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+										$hours = $educationalFormHours->hours;
+									}
+								}
+							}
+							?>
+							<td class="selfwork-educational-forms-column table-input-cell">
+								<input
+									type="number"
+									min="0"
+									value="<?= htmlspecialchars($hours ?? "") ?>"
+									oninput="updateLessonSelfworkHours(
+									event,
+									<?= htmlspecialchars($lessonTypeIds->lection) ?>,
+									<?= htmlspecialchars($educationalForm->id) ?>,
+									<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+									)">
+							</td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -51,7 +77,28 @@
 					<tr>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								if (isset($semesterSelfworkData->labSelfworkTask->educationalFormHours)) {
+									foreach ($semesterSelfworkData->labSelfworkTask->educationalFormHours as $educationalFormHours) {
+										if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+											$hours = $educationalFormHours->hours;
+										}
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateLessonSelfworkHours(
+									event,
+									<?= htmlspecialchars($lessonTypeIds->laboratory) ?>,
+									<?= htmlspecialchars($educationalForm->id) ?>,
+									<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+									)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -68,7 +115,28 @@
 					<tr>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								if (isset($semesterSelfworkData->practicalSelfworkTask->educationalFormHours)) {
+									foreach ($semesterSelfworkData->practicalSelfworkTask->educationalFormHours as $educationalFormHours) {
+										if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+											$hours = $educationalFormHours->hours;
+										}
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateLessonSelfworkHours(
+									event,
+									<?= htmlspecialchars($lessonTypeIds->practical) ?>,
+									<?= htmlspecialchars($educationalForm->id) ?>,
+									<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+									)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -85,24 +153,69 @@
 					<tr>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								if (isset($semesterSelfworkData->seminarSelfworkTask->educationalFormHours)) {
+									foreach ($semesterSelfworkData->seminarSelfworkTask->educationalFormHours as $educationalFormHours) {
+										if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+											$hours = $educationalFormHours->hours;
+										}
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateLessonSelfworkHours(
+									event,
+									<?= htmlspecialchars($lessonTypeIds->seminar) ?>,
+									<?= htmlspecialchars($educationalForm->id) ?>,
+									<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+									)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
 				<?php endif; ?>
-				<?php if ($semesterSelfworkData->isAdditionalTasksExist): ?>
+				<?php if (!empty($semesterSelfworkData->additionalTasks)): ?>
+					<?php
+					$taskTypeNames = array_map(function ($task) {
+						return $task->taskTypeName;
+					}, $semesterSelfworkData->additionalTasks);
+					?>
 					<tr>
 						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого</td>
 						<td rowspan="2">5-10 годин на роботу</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
-							Роботи: <?= htmlspecialchars(implode(', ', $semesterSelfworkData->additionalTasks)) ?>
+							Роботи: <?= htmlspecialchars(implode(', ', $taskTypeNames)) ?>
 						</td>
 					</tr>
 					<tr>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								foreach ($semesterSelfworkData->additionalTasks[0]->educationalFormHours as $educationalFormHours) {
+									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+										$hours = $educationalFormHours->hours;
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateTaskHours(
+											event,
+											<?= htmlspecialchars($educationalForm->id) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->additionalTasks[0]->taskDetailsId) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -114,7 +227,26 @@
 						<td>10-15 годин на завдання</td>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								foreach ($semesterSelfworkData->calculationAndGraphicTypeTask->educationalFormHours as $educationalFormHours) {
+									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+										$hours = $educationalFormHours->hours;
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateTaskHours(
+											event,
+											<?= htmlspecialchars($educationalForm->id) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->calculationAndGraphicTypeTask->taskDetailsId) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -126,7 +258,26 @@
 						<td>10-15 годин на завдання</td>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								foreach ($semesterSelfworkData->calculationAndGraphicTypeTask->educationalFormHours as $educationalFormHours) {
+									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+										$hours = $educationalFormHours->hours;
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateTaskHours(
+											event,
+											<?= htmlspecialchars($educationalForm->id) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->calculationAndGraphicTypeTask->taskDetailsId) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -135,16 +286,20 @@
 					<tr>
 						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання курсового проєкту</td>
-						<td>60 годин на один КП</td>
-						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">60</td>
+						<td><?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?> годин на один КП</td>
+						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
+							<?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?>
+						</td>
 					</tr>
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->isCourseworkExists): ?>
 					<tr>
 						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання курсової роботи</td>
-						<td>45 годин на одну КР</td>
-						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">45</td>
+						<td><?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?> годин на одну КР</td>
+						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
+							<?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?>
+						</td>
 					</tr>
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->colloquiumAmount > 0 || $semesterSelfworkData->controlWorkAmount > 0): ?>
@@ -164,7 +319,26 @@
 					<tr>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-								<td class="selfwork-educational-forms-column"></td>
+								<?php
+								$hours = null;
+								foreach ($semesterSelfworkData->moduleTask->educationalFormHours as $educationalFormHours) {
+									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
+										$hours = $educationalFormHours->hours;
+									}
+								}
+								?>
+								<td class="selfwork-educational-forms-column table-input-cell">
+									<input
+										type="number"
+										min="0"
+										value="<?= htmlspecialchars($hours ?? "") ?>"
+										oninput="updateTaskHours(
+											event,
+											<?= htmlspecialchars($educationalForm->id) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->moduleTask->taskDetailsId) ?>,
+											<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										)">
+								</td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>

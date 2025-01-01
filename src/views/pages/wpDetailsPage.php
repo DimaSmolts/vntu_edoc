@@ -137,6 +137,8 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
     <script src="src/views/helpers/semesterControlMethods/createNewAdditionalTasks.js"></script>
+    <script src="src/views/helpers/selfwork/updateTaskHours.js"></script>
+    <script src="src/views/helpers/selfwork/updateLessonSelfworkHours.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

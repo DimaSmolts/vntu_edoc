@@ -467,12 +467,39 @@ class WPService
 						'id',
 						'educationalDisciplineWPId',
 						'semesterNumber',
-						'examTypeId'
+						'examTypeId',
 					])
+						->with([
+							'tasks' => function ($subquery) {
+								$subquery->with([
+									'taskType',
+									'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+								]);
+							},
+							'additionalTasks' => function ($subquery) {
+								$subquery->with([
+									'taskType',
+									'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+								]);
+							},
+							'educationalFormLessonSelfworkHours' => function ($subquery) {
+								$subquery->with([
+									'semesterEducationalForm.educationalForm'
+								]);
+							},
+						])
 						->orderBy('semesterNumber');
 				},
 				'semesters.modules' => function ($query) {
 					$query->select(['id', 'educationalDisciplineSemesterId'])
+						->with([
+							'tasks' => function ($subquery) {
+								$subquery->with([
+									'taskType',
+									'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+								]);
+							}
+						])
 						->orderBy('moduleNumber');
 				},
 				'semesters.modules.themes' => function ($query) {

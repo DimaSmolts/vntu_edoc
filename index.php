@@ -306,6 +306,16 @@ $router->post('/api/updateWPLiterature', function () {
 	$workingProgramLiteratureApiController->updateWPLiterature();
 });
 
+$router->post('/api/updateTaskHours', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->updateTaskHours();
+});
+
+$router->post('/api/updateLessonSelfworkHours', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->updateLessonSelfworkHours();
+});
+
 $router->delete('/api/deleteTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->deleteTheme();

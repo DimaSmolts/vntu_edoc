@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+require_once __DIR__ . '/TaskModel.php';
+
+use App\Models\TaskModel;
+
 class SelfworkModel
 {
 	public int $semesterId;
@@ -14,7 +18,6 @@ class SelfworkModel
 	public bool $isCourseProjectExists;
 	public bool $isCalculationAndGraphicWorkExists;
 	public bool $isCalculationAndGraphiTaskExists;
-	public bool $isAdditionalTasksExist;
 	public array $additionalTasks;
 	public int $colloquiumAmount;
 	public int $controlWorkAmount;
@@ -22,6 +25,13 @@ class SelfworkModel
 	public ?int $examTypeId;
 	public ?string $examTypeName;
 	public ?int $creditsAmount;
+	public ?TaskModel $courseTask;
+	public ?TaskModel $calculationAndGraphicTypeTask;
+	public ?TaskModel $moduleTask;
+	public ?TaskModel $lectionSelfworkTask;
+	public ?TaskModel $labSelfworkTask;
+	public ?TaskModel $practicalSelfworkTask;
+	public ?TaskModel $seminarSelfworkTask;
 
 	public function __construct(
 		int $semesterId,
@@ -34,7 +44,6 @@ class SelfworkModel
 		bool $isCourseProjectExists,
 		bool $isCalculationAndGraphicWorkExists,
 		bool $isCalculationAndGraphiTaskExists,
-		bool $isAdditionalTasksExist,
 		array $additionalTasks,
 		int $colloquiumAmount,
 		int $controlWorkAmount,
@@ -42,7 +51,14 @@ class SelfworkModel
 		?int $examTypeId = null,
 		?string $examTypeName = '',
 		?int $creditsAmount = null,
-		) {
+		?TaskModel $courseTask = null,
+		?TaskModel $calculationAndGraphicTypeTask = null,
+		?TaskModel $moduleTask = null,
+		?TaskModel $lectionSelfworkTask = null,
+		?TaskModel $labSelfworkTask = null,
+		?TaskModel $practicalSelfworkTask = null,
+		?TaskModel $seminarSelfworkTask = null,
+	) {
 		$this->semesterId = $semesterId;
 		$this->totalHoursForLections = $totalHoursForLections;
 		$this->practicalsAmount = $practicalsAmount;
@@ -53,7 +69,6 @@ class SelfworkModel
 		$this->isCourseProjectExists = $isCourseProjectExists;
 		$this->isCalculationAndGraphicWorkExists = $isCalculationAndGraphicWorkExists;
 		$this->isCalculationAndGraphiTaskExists = $isCalculationAndGraphiTaskExists;
-		$this->isAdditionalTasksExist = $isAdditionalTasksExist;
 		$this->additionalTasks = $additionalTasks;
 		$this->colloquiumAmount = $colloquiumAmount;
 		$this->controlWorkAmount = $controlWorkAmount;
@@ -61,5 +76,12 @@ class SelfworkModel
 		$this->examTypeId = $examTypeId;
 		$this->examTypeName = $examTypeName;
 		$this->creditsAmount = $creditsAmount;
+		$this->courseTask = $courseTask;
+		$this->calculationAndGraphicTypeTask = $calculationAndGraphicTypeTask;
+		$this->moduleTask = $moduleTask;
+		$this->lectionSelfworkTask = $lectionSelfworkTask;
+		$this->labSelfworkTask = $labSelfworkTask;
+		$this->practicalSelfworkTask = $practicalSelfworkTask;
+		$this->seminarSelfworkTask = $seminarSelfworkTask;
 	}
 }

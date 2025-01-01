@@ -296,9 +296,40 @@ class TaskService
 	public function getAdditionalTasks()
 	{
 		$additionalTasks = Capsule::table('taskTypes')
-			->where('id', '>', 6)
+			->where('id', '>', 7)
 			->get();
 
 		return $additionalTasks;
+	}
+
+	public function updateTaskHours($educationalFormId, $taskDetailsId, $hours)
+	{
+		Capsule::table('educationalFormTaskHours')
+			// Додаємо новий запис або оновлюємо запис глобальних даних
+			->updateOrInsert(
+				[
+					'educationalFormId' => $educationalFormId,
+					'taskDetailsId' => $taskDetailsId
+				],
+				[
+					'hours' => $hours
+				]
+			);
+	}
+
+	public function updateLessonSelfworkHours($educationalFormId, $lessonTypeId, $semesterId, $hours)
+	{
+		Capsule::table('educationalFormLessonSelfworkHours')
+			// Додаємо новий запис або оновлюємо запис глобальних даних
+			->updateOrInsert(
+				[
+					'educationalFormId' => $educationalFormId,
+					'lessonTypeId' => $lessonTypeId,
+					'semesterId' => $semesterId
+				],
+				[
+					'hours' => $hours
+				]
+			);
 	}
 }

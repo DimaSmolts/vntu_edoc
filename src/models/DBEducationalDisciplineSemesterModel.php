@@ -7,12 +7,14 @@ require_once __DIR__ . '/DBEducationalDisciplineSemesterEducationFormModel.php';
 require_once __DIR__ . '/DBEducationalDisciplineWorkingProgramModel.php';
 require_once __DIR__ . '/DBExamTypeModel.php';
 require_once __DIR__ . '/DBTaskDetailsModel.php';
+require_once __DIR__ . '/DBEducationalFormLessonSelfworkHoursModel.php';
 
 use App\Models\DBModuleModel;
 use App\Models\DBEducationalDisciplineSemesterEducationFormModel;
 use App\Models\DBEducationalDisciplineWorkingProgramModel;
 use App\Models\DBExamTypeModel;
 use App\Models\DBTaskDetailsModel;
+use App\Models\DBEducationalFormLessonSelfworkHoursModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,7 +68,12 @@ class DBEducationalDisciplineSemesterModel extends Model
     {
         return $this->hasMany(DBTaskDetailsModel::class, 'semesterId')
             ->whereHas('taskType', function ($query) {
-                $query->where('id', '>', 6);
+                $query->where('id', '>', 7);
             });
     }
+
+	public function educationalFormLessonSelfworkHours()
+	{
+		return $this->hasMany(DBEducationalFormLessonSelfworkHoursModel::class, 'semesterId');
+	}
 }
