@@ -163,6 +163,7 @@ class WPService
 								'semesterEducationalForm.educationalForm'
 							]);
 						},
+						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm'
 					])
 					->orderBy('semesterNumber');
 			},

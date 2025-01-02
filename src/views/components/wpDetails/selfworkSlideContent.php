@@ -43,7 +43,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 					</td>
 				</tr>
 				<?php if (!empty($semesterSelfworkData->selfworks)): ?>
-					<?php foreach ($semesterSelfworkData->selfworks as $key => $selfwork): ?>
+					<?php foreach ($semesterSelfworkData->selfworks as $selfwork): ?>
 						<tr id="selfworkRow<?= htmlspecialchars($selfwork->lessonId) ?>" class="selfwork-row">
 							<th class="selfwork-number-column">
 								<div class="sub-number-container">

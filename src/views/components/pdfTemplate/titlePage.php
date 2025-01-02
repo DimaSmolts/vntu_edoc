@@ -1,4 +1,4 @@
-<page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
+<page backtop="20mm" backbottom="25mm" backleft="25mm" backright="10mm">
 	<div style="height: 100%; position: relative;">
 		<div class="center global"><?= htmlspecialchars($details->globalData->universityName) ?></div>
 		<div class="center inserted"><?= isset($details->facultyId) ? htmlspecialchars($details->faculty->name) : '' ?></div>

@@ -41,6 +41,44 @@
 				<?php endif; ?>
 			</tr>
 
+			<tr>
+				<th style="width: 5%;">1</th>
+				<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">
+					Самостійне опрацювання тем теоретичного матеріалу
+				</td>
+				<td
+					colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"
+					style="width: <?= htmlspecialchars($fullHoursAmountColumnWidth) ?>%;">
+				</td>
+			</tr>
+
+			<?php if (!empty($semesterSelfworkData->selfworks)): ?>
+				<?php foreach ($semesterSelfworkData->selfworks as $selfwork): ?>
+					<tr>
+						<th style="width: 5%;">1.<?= htmlspecialchars($selfwork->lessonNumber ?? '') ?></th>
+						<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;" class="italic">
+							<?= htmlspecialchars($selfwork->lessonName ?? '') ?>
+						</td>
+						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
+							<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
+								<?php
+								$hours = null;
+								if (isset($selfwork->educationalFormHours)) {
+									foreach ($selfwork->educationalFormHours as $educationalFormHours) {
+										if ($educationalFormHours->lessonFormName === $educationalForm->colName) {
+											$hours = $educationalFormHours->hours;
+											$total[$educationalForm->colName] += $hours;
+										}
+									}
+								}
+								?>
+								<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</tr>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
 			<?php
 			$sequenceNumber = 2;
 			?>

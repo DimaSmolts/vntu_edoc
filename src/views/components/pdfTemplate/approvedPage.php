@@ -1,4 +1,4 @@
-<page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
+<page backtop="20mm" backbottom="25mm" backleft="25mm" backright="10mm">
 	<page_footer>
 		<div class="center" style="position: absolute; bottom: 10mm; width: 100%;">
 			[[page_cu]]

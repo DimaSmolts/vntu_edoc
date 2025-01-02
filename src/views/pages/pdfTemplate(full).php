@@ -8,7 +8,7 @@
 <?php include __DIR__ . '/../components/pdfTemplate/educationalDisciplineDescriptionPage.php'; ?>
 
 <!-- Всі наступні розділи будуть переноситись на наступну сторінку за потреби -->
-<page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
+<page backtop="20mm" backbottom="25mm" backleft="25mm" backright="10mm">
 	<div class="empty"></div>
 	<div class="topic-title">
 		2. Передумови для вивчення дисципліни
