@@ -89,6 +89,4 @@ $bla = "
 
 $html2pdf->writeHTML($bla);
 
-
-
-$html2pdf->output();
+$html2pdf->output("test.pdf");

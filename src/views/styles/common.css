@@ -14,12 +14,23 @@ p {
 }
 
 .italic {
-	font-style: italic;
+    font-style: italic;
+}
+
+body.details {
+    display: grid;
+    grid-template-columns: 1fr 61% 1fr;
 }
 
 .container {
     width: 61%;
     margin: 0 auto;
+    background-color: white;
+}
+
+.details .container {
+    width: 100%;
+    margin: 0;
     background-color: white;
 }
 

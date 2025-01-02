@@ -15,11 +15,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
 </head>
 
-<body>
+<body class="details" id="detailsBody">
+    <div></div>
     <main class="container">
         <?php include __DIR__ . '/../components/wpDetails/carousel.php'; ?>
         <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
     </main>
+    <div></div>
+    <!-- <embed id="pdfPreview" src="https://iq.sdev.vntu.vn.ua/workingPrograms/pdf?id=59#view=FitH" width="100%" height="100%" /> -->
     <script src="src/views/helpers/wplist/logins.js"></script>
     <script src="src/views/constants/EducationalFormName.js"></script>
     <script src="src/views/constants/LessonTypesName.js"></script>

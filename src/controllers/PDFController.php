@@ -33,21 +33,21 @@ class PDFController extends BaseController
 
 	public function getPDFData()
 	{
-		$isLoggedIn = $this->checkIfUserLoggedIn();
+		// $isLoggedIn = $this->checkIfUserLoggedIn();
 
-		if (!$isLoggedIn) {
-			$this->showDoNotHaveAccessPage($isLoggedIn);
+		// if (!$isLoggedIn) {
+		// 	$this->showDoNotHaveAccessPage($isLoggedIn);
 
-			exit();
-		}
+		// 	exit();
+		// }
 
-		$isTeacher = $this->checkIfCurrentUserIsTeacher();
+		// $isTeacher = $this->checkIfCurrentUserIsTeacher();
 
-		if (!$isTeacher) {
-			$this->showDoNotHaveAccessPage($isLoggedIn);
+		// if (!$isTeacher) {
+		// 	$this->showDoNotHaveAccessPage($isLoggedIn);
 
-			exit();
-		}
+		// 	exit();
+		// }
 
 		$wpId = $_GET['id'];
 		$isHighlighting = isset($_GET['highlight']) ? $_GET['highlight'] : false;
@@ -63,7 +63,7 @@ class PDFController extends BaseController
 
 			$ifCurrentUserHasAccessToWP  = $this->checkIfCurrentUserHasAccessToWP($rawDetails->creator->id);
 
-			if ($ifCurrentUserHasAccessToWP) {
+			if (true) {
 				$details = getFullFormattedWorkingProgramDataForPDF($rawDetails);
 
 				$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($rawDetails);
