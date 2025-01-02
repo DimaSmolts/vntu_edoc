@@ -10,9 +10,9 @@ $lessonTypeIds = getLessonTypeIdByName();
 
 			<table class="selfwork-table" id="selfworkTable<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
 				<tr>
-					<th rowspan="2" class="selfwork-number-column">№ з/п</th>
+					<th rowspan="2" colspan="2" class="selfwork-number-column">№ з/п</th>
 					<th rowspan="2">Вид роботи</th>
-					<th rowspan="2" class="selfwork-workload-column">Необхідне навантаження</th>
+					<th rowspan="2">Необхідне навантаження</th>
 					<th colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">Кількість годин</th>
 				</tr>
 				<tr>
@@ -26,9 +26,9 @@ $lessonTypeIds = getLessonTypeIdByName();
 				$sequenceNumber = 1;
 				?>
 				<tr id="titleSelfwork<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
-					<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber) ?></th>
+					<th class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber) ?></th>
 					<td>Самостійне опрацювання тем теоретичного матеріалу</td>
-					<td>не менше 1 години на 1 тему</td>
+					<td></td>
 					<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"></td>
 					<td class="selfwork-educational-forms-column table-without-border">
 						<button
@@ -45,23 +45,20 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php if (!empty($semesterSelfworkData->selfworks)): ?>
 					<?php foreach ($semesterSelfworkData->selfworks as $selfwork): ?>
 						<tr id="selfworkRow<?= htmlspecialchars($selfwork->lessonId) ?>" class="selfwork-row">
-							<th class="selfwork-number-column">
-								<div class="sub-number-container">
-									<span><?= htmlspecialchars($sequenceNumber) ?>.</span>
-									<input
-										type="number"
-										class="center-text-align"
-										value="<?= htmlspecialchars($selfwork->lessonNumber ?? '') ?>"
-										name="lessonNumber"
-										oninput="updateSelfworkTheme(
+							<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber) ?>.</th>
+							<th class="selfwork-subnumber-column table-input-cell">
+								<input
+									type="number"
+									class="center-text-align"
+									value="<?= htmlspecialchars($selfwork->lessonNumber ?? '') ?>"
+									name="lessonNumber"
+									oninput="updateSelfworkTheme(
 										event,
 										<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>, 
 										<?= htmlspecialchars($selfwork->lessonId) ?>
 									)">
-								</div>
 							</th>
-
-							<td colspan="2" class="selfwork-educational-forms-column table-input-cell">
+							<td class="selfwork-theme-column table-input-cell">
 								<input
 									type="text"
 									placeholder="Введіть тему для самостійного опрацювання"
@@ -73,6 +70,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 										<?= htmlspecialchars($selfwork->lessonId) ?>
 									)">
 							</td>
+							<td>не менше 1 години на 1 тему</td>
 							<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 								<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
 									<?php
@@ -102,7 +100,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 							<?php endif; ?>
 							<td class="selfwork-educational-forms-column table-without-border">
 								<button
-									class="btn"
+									class="btn remove-selfwork-theme-btn"
 									type="button"
 									onclick="openApproveDeletingModal(
 										'тему для самостійного опрацювання',
@@ -123,7 +121,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				$sequenceNumber++;
 				?>
 				<tr>
-					<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+					<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 					<td rowspan="2">Опрацювання лекційного матеріалу</td>
 					<td rowspan="2">не менше 0,25 годин на 1 лекційну годину</td>
 					<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
@@ -165,7 +163,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				</tr>
 				<?php if ($semesterSelfworkData->labsAmount > 0): ?>
 					<tr>
-						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Підготовка до лабораторних занять</td>
 						<td rowspan="2">не менше 1 години на 1 тему занять</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -204,7 +202,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->practicalsAmount > 0): ?>
 					<tr>
-						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Підготовка до практичних занять</td>
 						<td rowspan="2">не менше 1 години на 1 тему занять</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -243,7 +241,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->seminarsAmount > 0): ?>
 					<tr>
-						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Підготовка до семінарських занять</td>
 						<td rowspan="2">не менше 1 години на 1 тему занять</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -287,7 +285,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 					}, $semesterSelfworkData->additionalTasks);
 					?>
 					<tr>
-						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого</td>
 						<td rowspan="2">5-10 годин на роботу</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -324,7 +322,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->isCalculationAndGraphicWorkExists): ?>
 					<tr>
-						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання розрахунково-графічної роботи</td>
 						<td>10-15 годин на завдання</td>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
@@ -356,7 +354,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->isCalculationAndGraphiTaskExists): ?>
 					<tr>
-						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання розрахунково-графічного завдання</td>
 						<td>10-15 годин на завдання</td>
 						<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
@@ -388,7 +386,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->isCourseProjectExists): ?>
 					<tr>
-						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання курсового проєкту</td>
 						<td><?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?> годин на один КП</td>
 						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -398,7 +396,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->isCourseworkExists): ?>
 					<tr>
-						<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td>Виконання курсової роботи</td>
 						<td><?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?> годин на одну КР</td>
 						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -408,7 +406,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 				<?php if ($semesterSelfworkData->colloquiumAmount > 0 || $semesterSelfworkData->controlWorkAmount > 0): ?>
 					<tr>
-						<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<td rowspan="2">Підготовка до модульного контролю</td>
 						<td rowspan="2">2-5 годин на захід</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
@@ -449,7 +447,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 					</tr>
 				<?php endif; ?>
 				<tr>
-					<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
+					<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 					<?php if ($semesterSelfworkData->examTypeId === 0): ?>
 						<td rowspan="2">Підготовка до складання іспиту</td>
 						<td rowspan="2">іспит – 3 години на кредит ЄКТС</td>

@@ -1,10 +1,24 @@
 const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 	const row = createElement({ elementName: 'tr', id: `selfworkRow${selfworkId}`, classList: ['selfwork-row'] });
 
+	const numberColumn = createElement({
+		elementName: 'th',
+		classList: ['selfwork-number-column'],
+		innerText: '1.'
+	});
+
+	row.appendChild(numberColumn);
+
+	const numberColumnInputCell = createElement({
+		elementName: 'td',
+		classList: ['selfwork-subnumber-column', 'table-input-cell'],
+	});
+
 	const numberColumnInput = createElement({
 		elementName: 'input',
 		min: 0,
 		value: '',
+		type: 'number',
 		classList: ['center-text-align'],
 		name: 'lessonNumber',
 		eventListenerType: 'input',
@@ -13,28 +27,13 @@ const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 		}
 	})
 
-	const textNode = createElement({ elementName: 'span', innerText: '1.' });
+	numberColumnInputCell.appendChild(numberColumnInput);
 
-	const numberColumn = createElement({
-		elementName: 'th',
-		classList: ['selfwork-number-column'],
-	})
-
-	const numberContainer = createElement({
-		elementName: 'div',
-		classList: ['sub-number-container']
-	})
-
-	numberContainer.appendChild(textNode);
-	numberContainer.appendChild(numberColumnInput);
-	numberColumn.appendChild(numberContainer);
-
-	row.appendChild(numberColumn);
+	row.appendChild(numberColumnInputCell);
 
 	const themeNameColumn = createElement({
 		elementName: 'td',
-		colspan: 2,
-		classList: ['selfwork-educational-forms-column', 'table-input-cell']
+		classList: ['selfwork-theme-column', 'table-input-cell']
 	})
 
 	const themeNameInput = createElement({
@@ -51,6 +50,13 @@ const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 
 	themeNameColumn.appendChild(themeNameInput);
 	row.appendChild(themeNameColumn);
+
+	const workloadColumn = createElement({
+		elementName: 'td',
+		innerText: 'не менше 1 години на 1 тему'
+	})
+
+	row.appendChild(workloadColumn);
 
 	educationalForms.forEach(educationalForm => {
 		const hoursColumn = createElement({
@@ -82,7 +88,7 @@ const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 	const removeBtn = createElement({
 		elementName: 'button',
 		type: 'button',
-		classList: ['btn'],
+		classList: ['btn', 'remove-selfwork-theme-btn'],
 		innerText: 'Видалити тему',
 		eventListenerType: 'click',
 		eventListener: (e) => {

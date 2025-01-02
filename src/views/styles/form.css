@@ -421,11 +421,19 @@ td {
 }
 
 .selfwork-number-column {
-	width: 8%;
+	width: 3%;
+}
+
+.selfwork-subnumber-column {
+	width: 5%;
 }
 
 .selfwork-educational-forms-column {
 	width: 10%;
+}
+
+.selfwork-theme-column {
+	width: 35%;
 }
 
 input::placeholder {
@@ -459,6 +467,11 @@ input::placeholder {
 
 .new-selfwork-theme-btn {
 	padding: 2px;
+}
+
+.remove-selfwork-theme-btn {
+	padding: 3px;
+	width: 100%;
 }
 
 .sub-number-container {
