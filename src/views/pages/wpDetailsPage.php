@@ -142,6 +142,11 @@
     <script src="src/views/helpers/semesterControlMethods/createNewAdditionalTasks.js"></script>
     <script src="src/views/helpers/selfwork/updateTaskHours.js"></script>
     <script src="src/views/helpers/selfwork/updateLessonSelfworkHours.js"></script>
+    <script src="src/views/helpers/selfwork/updateSelfworkTheme.js"></script>
+    <script src="src/views/helpers/selfwork/updateSelfworkHours.js"></script>
+    <script src="src/views/helpers/selfwork/deleteSelfworkTheme.js"></script>
+    <script src="src/views/helpers/selfwork/addNewSelfworkThemeRow.js"></script>
+    <script src="src/views/helpers/selfwork/addNewSelfworkTheme.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

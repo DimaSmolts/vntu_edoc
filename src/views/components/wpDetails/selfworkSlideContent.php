@@ -8,11 +8,11 @@ $lessonTypeIds = getLessonTypeIdByName();
 		<?php foreach ($selfworkData as $semesterSelfworkData): ?>
 			<p class="block-title">Самостійна робота до семестру <?= htmlspecialchars($semesterSelfworkData->semesterNumber ?? '') ?>:</p>
 
-			<table class="selfwork-table">
+			<table class="selfwork-table" id="selfworkTable<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
 				<tr>
 					<th rowspan="2" class="selfwork-number-column">№ з/п</th>
 					<th rowspan="2">Вид роботи</th>
-					<th rowspan="2">Необхідне навантаження</th>
+					<th rowspan="2" class="selfwork-workload-column">Необхідне навантаження</th>
 					<th colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">Кількість годин</th>
 				</tr>
 				<tr>
@@ -23,7 +23,104 @@ $lessonTypeIds = getLessonTypeIdByName();
 					<?php endif; ?>
 				</tr>
 				<?php
-				$sequenceNumber = 2;
+				$sequenceNumber = 1;
+				?>
+				<tr id="titleSelfwork<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
+					<th class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber) ?></th>
+					<td>Самостійне опрацювання тем теоретичного матеріалу</td>
+					<td>не менше 1 години на 1 тему</td>
+					<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"></td>
+					<td class="selfwork-educational-forms-column table-without-border">
+						<button
+							class="btn new-selfwork-theme-btn"
+							type="button"
+							onclick='addNewSelfworkTheme(
+								<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>,
+								<?= json_encode($semesterSelfworkData->educationalForms, JSON_UNESCAPED_UNICODE) ?>
+							)'>
+							Додати нову тему
+						</button>
+					</td>
+				</tr>
+				<?php if (!empty($semesterSelfworkData->selfworks)): ?>
+					<?php foreach ($semesterSelfworkData->selfworks as $key => $selfwork): ?>
+						<tr id="selfworkRow<?= htmlspecialchars($selfwork->lessonId) ?>" class="selfwork-row">
+							<th class="selfwork-number-column">
+								<div class="sub-number-container">
+									<span><?= htmlspecialchars($sequenceNumber) ?>.</span>
+									<input
+										type="number"
+										class="center-text-align"
+										value="<?= htmlspecialchars($selfwork->lessonNumber ?? '') ?>"
+										name="lessonNumber"
+										oninput="updateSelfworkTheme(
+										event,
+										<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>, 
+										<?= htmlspecialchars($selfwork->lessonId) ?>
+									)">
+								</div>
+							</th>
+
+							<td colspan="2" class="selfwork-educational-forms-column table-input-cell">
+								<input
+									type="text"
+									placeholder="Введіть тему для самостійного опрацювання"
+									value="<?= htmlspecialchars($selfwork->lessonName ?? '') ?>"
+									name="name"
+									oninput="updateSelfworkTheme(
+										event,
+										<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>, 
+										<?= htmlspecialchars($selfwork->lessonId) ?>
+									)">
+							</td>
+							<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
+								<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
+									<?php
+									$hours = null;
+									if (!empty($selfwork->educationalFormHours)) {
+										foreach ($selfwork->educationalFormHours as $educationalFormHours) {
+											if ($educationalFormHours->lessonFormName === $educationalForm->colName) {
+												$hours = $educationalFormHours->hours;
+											}
+										}
+									}
+									?>
+									<td class="selfwork-educational-forms-column table-input-cell">
+										<input
+											type="number"
+											min="0"
+											class="center-text-align"
+											value="<?= htmlspecialchars($hours ?? "") ?>"
+											oninput="updateSelfworkHours(
+												event,
+												<?= htmlspecialchars($educationalForm->id) ?>,
+												<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>,
+												<?= htmlspecialchars($selfwork->lessonId) ?>
+											)">
+									</td>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<td class="selfwork-educational-forms-column table-without-border">
+								<button
+									class="btn"
+									type="button"
+									onclick="openApproveDeletingModal(
+										'тему для самостійного опрацювання',
+										(event) => deleteSelfworkTheme(
+											event, 
+											<?= htmlspecialchars($selfwork->lessonId) ?>, 
+											<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										)
+									);">
+									Видалити тему
+								</button>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				<?php endif; ?>
+
+				<?php
+				$sequenceNumber++;
 				?>
 				<tr>
 					<th rowspan="2" class="selfwork-number-column"><?= htmlspecialchars($sequenceNumber++) ?></th>
@@ -54,6 +151,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 								<input
 									type="number"
 									min="0"
+									class="center-text-align"
 									value="<?= htmlspecialchars($hours ?? "") ?>"
 									oninput="updateLessonSelfworkHours(
 									event,
@@ -91,6 +189,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
 									event,
@@ -129,6 +228,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
 									event,
@@ -167,6 +267,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
 									event,
@@ -208,6 +309,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
 											event,
@@ -239,6 +341,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
 											event,
@@ -270,6 +373,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
 											event,
@@ -331,6 +435,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<input
 										type="number"
 										min="0"
+										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
 											event,

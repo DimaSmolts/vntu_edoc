@@ -516,6 +516,7 @@ class WPService
 									'semesterEducationalForm.educationalForm'
 								]);
 							},
+							'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm'
 						])
 						->orderBy('semesterNumber');
 				},
@@ -533,10 +534,10 @@ class WPService
 				},
 				'semesters.modules.themes' => function ($query) {
 					$query->with([
-						'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+						'lections',
+						'labs',
+						'practicals',
+						'seminars'
 					]);
 				},
 				'semesters.educationalForms.educationalForm',

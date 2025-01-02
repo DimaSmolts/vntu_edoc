@@ -7,5 +7,6 @@ function getLessonTypeIdByName()
 		'practical' => 2,
 		'seminar' => 3,
 		'laboratory' => 4,
+		'selfwork' => 5,
 	];
 };

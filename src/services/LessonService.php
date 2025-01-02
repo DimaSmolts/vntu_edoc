@@ -74,4 +74,28 @@ class LessonService
 			echo json_encode(['status' => 'error', 'message' => 'Lesson not found or delete failed']);
 		}
 	}
+
+	public function createNewSelfworkTheme($semesterId, $lessonTypeId): int
+	{
+		$selfworkId = Capsule::table('lessons')
+			->insertGetId([
+				'semesterId' => $semesterId,
+				'lessonTypeId' => $lessonTypeId
+			]);
+
+		return $selfworkId;
+	}
+
+	public function updateSelfworkTheme($field, $value, $selfworkId)
+	{
+		Capsule::table('lessons')
+			->updateOrInsert(
+				[
+					'id' => $selfworkId,
+				],
+				[
+					$field => $value
+				]
+			);
+	}
 }

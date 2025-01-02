@@ -10,6 +10,7 @@ require_once __DIR__ . '/../../services/LessonService.php';
 require_once __DIR__ . '/../../services/EducationalFormLessonHoursService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
+require_once __DIR__ . '/../../helpers/getLessonTypeIdByName.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonTypesData.php';
 
 use App\Controllers\BaseController;
@@ -87,6 +88,63 @@ class LessonApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$this->lessonService->deleteLesson($id);
+		}
+	}
+
+	public function createNewSelfworkTheme()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$lessonTypeIds = getLessonTypeIdByName();
+
+			$newSelfworkId = $this->lessonService->createNewSelfworkTheme($semesterId, $lessonTypeIds->selfwork);
+
+			echo json_encode(['status' => 'success', 'id' => $newSelfworkId]);
+		}
+	}
+
+	public function updateSelfworkTheme()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$field = $data['field'];
+			$value = $data['value'];
+			$selfworkId = intval($data['selfworkId']);
+
+			$this->lessonService->updateSelfworkTheme($field, $value, $selfworkId);
+		}
+	}
+
+	public function deleteSelfworkTheme()
+	{
+		header('Content-Type: application/json');
+
+		$semesterId = $_GET['semesterId'];
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$id = $_GET['id'];
 			$this->lessonService->deleteLesson($id);
 		}
 	}

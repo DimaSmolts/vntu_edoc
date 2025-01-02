@@ -316,6 +316,21 @@ $router->post('/api/updateLessonSelfworkHours', function () {
 	$taskApiController->updateLessonSelfworkHours();
 });
 
+$router->post('/api/createNewSelfworkTheme', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->createNewSelfworkTheme();
+});
+
+$router->post('/api/updateSelfworkTheme', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->updateSelfworkTheme();
+});
+
+$router->post('/api/updateSelfworkHours', function () {
+	$educationalFormLessonHoursApiController = new EducationalFormLessonHoursApiController();
+	$educationalFormLessonHoursApiController->updateSelfworkHours();
+});
+
 $router->delete('/api/deleteTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->deleteTheme();
@@ -354,6 +369,11 @@ $router->delete('/api/deleteLesson', function () {
 $router->delete('/api/deleteWPInvolvedPerson', function () {
 	$involvedPersonApiController = new WPInvolvedPersonApiController();
 	$involvedPersonApiController->deleteWPInvolvedPerson();
+});
+
+$router->delete('/api/deleteSelfworkTheme', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->deleteSelfworkTheme();
 });
 
 $router->run();

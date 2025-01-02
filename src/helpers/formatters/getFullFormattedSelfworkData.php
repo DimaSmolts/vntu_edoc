@@ -45,6 +45,9 @@ function getFullFormattedSelfworkData($workingProgramData)
 			);
 		})->toArray();
 
+		// Обробляємо всі теми самостійних
+		$selfworks = getLessonWithEducationalFormLessonHour($semester->selfworks);
+
 		// Обробляємо модулі семестра
 		$semester->modules->map(function ($module) use (
 			&$lectionsWithEducationalFormLessonHour,
@@ -308,6 +311,7 @@ function getFullFormattedSelfworkData($workingProgramData)
 			$labSelfworkTask,
 			$practicalSelfworkTask,
 			$seminarSelfworkTask,
+			$selfworks
 		);
 	})->toArray();
 }

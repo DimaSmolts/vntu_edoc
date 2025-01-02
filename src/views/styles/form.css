@@ -421,11 +421,19 @@ td {
 }
 
 .selfwork-number-column {
-	width: 5%;
+	width: 8%;
 }
 
 .selfwork-educational-forms-column {
 	width: 10%;
+}
+
+input::placeholder {
+	font-style: italic;
+}
+
+.selfwork-workload-column {
+	width: 25%;
 }
 
 .custom-tasks-block .choices {
@@ -441,6 +449,21 @@ td {
 
 .new-task-container label {
 	font-weight: normal;
-    font-size: 16px;	
-    text-align: end;
+	font-size: 16px;
+	text-align: end;
+}
+
+.table-without-border {
+	border: 0;
+}
+
+.new-selfwork-theme-btn {
+	padding: 2px;
+}
+
+.sub-number-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	align-items: center;
 }

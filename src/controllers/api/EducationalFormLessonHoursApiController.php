@@ -39,4 +39,25 @@ class EducationalFormLessonHoursApiController extends BaseController
 			$this->educationalFormLessonHoursService->updateEducationalFormLessonHours($lessonId, $educationalFormId, $hours);
 		}
 	}
+
+	public function updateSelfworkHours()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$hours = intval($data['hours']);
+			$educationalFormId = intval($data['educationalFormId']);
+			$selfworkId = intval($data['selfworkId']);
+
+			$this->educationalFormLessonHoursService->updateSelfworkHours($selfworkId, $educationalFormId, $hours);
+		}
+	}
 }

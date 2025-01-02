@@ -32,6 +32,7 @@ class SelfworkModel
 	public ?TaskModel $labSelfworkTask;
 	public ?TaskModel $practicalSelfworkTask;
 	public ?TaskModel $seminarSelfworkTask;
+	public array $selfworks;
 
 	public function __construct(
 		int $semesterId,
@@ -58,6 +59,7 @@ class SelfworkModel
 		?TaskModel $labSelfworkTask = null,
 		?TaskModel $practicalSelfworkTask = null,
 		?TaskModel $seminarSelfworkTask = null,
+		array $selfworks = [],
 	) {
 		$this->semesterId = $semesterId;
 		$this->totalHoursForLections = $totalHoursForLections;
@@ -83,5 +85,6 @@ class SelfworkModel
 		$this->labSelfworkTask = $labSelfworkTask;
 		$this->practicalSelfworkTask = $practicalSelfworkTask;
 		$this->seminarSelfworkTask = $seminarSelfworkTask;
+		$this->selfworks = $selfworks;
 	}
 }

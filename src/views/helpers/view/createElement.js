@@ -14,7 +14,12 @@ const createElement = ({
 	checked,
 	style,
 	placeholder,
-	data
+	data,
+	colspan,
+	rowspan,
+	min,
+	max,
+	disabled
 }) => {
 	const element = document.createElement(elementName);
 
@@ -76,6 +81,26 @@ const createElement = ({
 		Object.entries(data).forEach(([key, value]) => {
 			element.dataset[key] = value;
 		})
+	}
+
+	if (colspan) {
+		element.colSpan = colspan;
+	}
+
+	if (rowspan) {
+		element.rowSpan = rowspan;
+	}
+
+	if (min) {
+		element.min = min;
+	}
+
+	if (max) {
+		element.max = max;
+	}
+
+	if (disabled) {
+		element.disabled = disabled;
 	}
 
 	return element;

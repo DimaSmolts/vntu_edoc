@@ -72,8 +72,16 @@ class DBEducationalDisciplineSemesterModel extends Model
             });
     }
 
-	public function educationalFormLessonSelfworkHours()
-	{
-		return $this->hasMany(DBEducationalFormLessonSelfworkHoursModel::class, 'semesterId');
-	}
+    public function educationalFormLessonSelfworkHours()
+    {
+        return $this->hasMany(DBEducationalFormLessonSelfworkHoursModel::class, 'semesterId');
+    }
+
+    public function selfworks()
+    {
+        return $this->hasMany(DBLessonModel::class, 'semesterId')
+            ->whereHas('lessonType', function ($query) {
+                $query->where('name', 'selfwork');
+            });
+    }
 }
