@@ -9,7 +9,6 @@ class PDFModuleModel
 	public bool $isControlWorkExists;
 	public ?string $moduleName;
 	public ?int $moduleNumber;
-	public ?int $colloquiumPoints;
 	public array $themes;
 	public array $educationalFormHoursStructure = [];
 
@@ -19,7 +18,6 @@ class PDFModuleModel
 		bool $isControlWorkExists,
 		?string $moduleName = '',
 		?int $moduleNumber = null,
-		?int $colloquiumPoints = null,
 		array $themes = [],
 		array $educationalFormHoursStructure = [],
 	) {
@@ -28,7 +26,6 @@ class PDFModuleModel
 		$this->isControlWorkExists = $isControlWorkExists;
 		$this->moduleName = $moduleName;
 		$this->moduleNumber = $moduleNumber;
-		$this->colloquiumPoints = $colloquiumPoints;
 		$this->themes = $themes;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
 	}

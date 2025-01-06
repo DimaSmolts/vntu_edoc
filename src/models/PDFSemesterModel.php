@@ -7,11 +7,7 @@ class PDFSemesterModel
 	public int $id;
 	public bool $isCourseworkExists;
 	public bool $isCourseProjectExists;
-	public bool $isCalculationAndGraphicWorkExists;
-	public bool $isCalculationAndGraphicTaskExists;
-	public ?string $additionalTasks;
-	public ?string $courseworkAssessmentComponents;
-	public ?string $courseProjectAssessmentComponents;
+	public ?string $courseTaskAssessmentComponents;
 	public ?int $semesterNumber;
 	public ?int $examTypeId;
 	public array $modules;
@@ -30,11 +26,7 @@ class PDFSemesterModel
 		$id,
 		$isCourseworkExists,
 		$isCourseProjectExists,
-		$isCalculationAndGraphicWorkExists,
-		$isCalculationAndGraphicTaskExists,
-		?string $additionalTasks,
-		?string $courseworkAssessmentComponents = '',
-		?string $courseProjectAssessmentComponents = '',
+		?string $courseTaskAssessmentComponents = '',
 		?int $semesterNumber = null,
 		?int $examTypeId = null,
 		$modules = [],
@@ -52,11 +44,7 @@ class PDFSemesterModel
 		$this->id = $id;
 		$this->isCourseworkExists = $isCourseworkExists;
 		$this->isCourseProjectExists = $isCourseProjectExists;
-		$this->isCalculationAndGraphicWorkExists = $isCalculationAndGraphicWorkExists;
-		$this->isCalculationAndGraphicTaskExists = $isCalculationAndGraphicTaskExists;
-		$this->additionalTasks = $additionalTasks;
-		$this->courseworkAssessmentComponents = $courseworkAssessmentComponents;
-		$this->courseProjectAssessmentComponents = $courseProjectAssessmentComponents;
+		$this->courseTaskAssessmentComponents = $courseTaskAssessmentComponents;
 		$this->semesterNumber = $semesterNumber;
 		$this->examTypeId = $examTypeId;
 		$this->modules = $modules;

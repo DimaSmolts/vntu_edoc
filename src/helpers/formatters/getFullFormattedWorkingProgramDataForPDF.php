@@ -16,6 +16,8 @@ require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 require_once __DIR__ . '/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/getFormattedFacultiesData.php';
+require_once __DIR__ . '/../getTaskId.php';
+require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
 
 use App\Models\DepartmentModel;
 use App\Models\WPDetailsModel;
@@ -101,6 +103,8 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		&$seminarsForWorkingProgram,
 		&$labsForWorkingProgram,
 	) {
+		$taskTypeIds = getTaskId();
+
 		// Збираємо всі заняття по типах в семестрі
 		$lectionsForSemester = [];
 		$practicalsForSemester = [];
@@ -119,7 +123,14 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		})->toArray();
 
 		// Обробляємо модулі семестра та трансформуємо їх у модель
-		$modules = $semester->modules->map(function ($module) use (&$lectionsForSemester, &$practicalsForSemester, &$seminarsForSemester, &$labsForSemester, &$educationalForms) {
+		$modules = $semester->modules->map(function ($module) use (
+			&$lectionsForSemester,
+			&$practicalsForSemester,
+			&$seminarsForSemester,
+			&$labsForSemester,
+			&$educationalForms,
+			&$taskTypeIds,
+		) {
 			// Збираємо всі заняття по типах в модулі
 			$lectionsForModule = [];
 			$practicalsForModule = [];
@@ -198,11 +209,10 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 			return new PDFModuleModel(
 				$module->id,
-				false,
-				false,
+				getIsTypeOfWorkExistsInModule($module, $taskTypeIds->colloquium),
+				getIsTypeOfWorkExistsInModule($module, $taskTypeIds->controlWork),
 				$module->name ?? "",
 				$module->moduleNumber,
-				null,
 				$themes,
 				$totalEducationalFormHoursStructureForModule
 			);
@@ -235,16 +245,14 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 				$labsForSemester
 			);
 		};
+		
+		$courseTask = getCourseTask($semester);
 
 		return new PDFSemesterModel(
 			$semester->id,
-			false,
-			false,
-			false,
-			false,
-			null,
-			'',
-			'',
+			getIsTypeOfWorkExistsInSemester($semester, $taskTypeIds->coursework),
+			getIsTypeOfWorkExistsInSemester($semester, $taskTypeIds->courseProject),
+			isset($courseTask) ? $courseTask->assessmentComponents : '',
 			$semester->semesterNumber,
 			$semester->examTypeId,
 			$modules,

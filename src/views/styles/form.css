@@ -469,10 +469,7 @@ input::placeholder {
 	border: 0;
 }
 
-.new-selfwork-theme-btn {
-	padding: 2px;
-}
-
+.new-selfwork-theme-btn,
 .remove-selfwork-theme-btn {
 	padding: 3px;
 	width: 100%;

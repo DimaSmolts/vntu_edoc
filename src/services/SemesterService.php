@@ -76,7 +76,7 @@ class SemesterService
 
 	public function getCourseworksAndProjectsByWPId($wpId, $courseworksAndProjectsIds)
 	{
-		$coursework = DBEducationalDisciplineSemesterModel::select(['id'])
+		$coursework = DBEducationalDisciplineSemesterModel::select(['id', 'semesterNumber'])
 			->with([
 				'educationalForms.educationalForm',
 				'tasks' => function ($query) use (&$courseworksAndProjectsIds) {

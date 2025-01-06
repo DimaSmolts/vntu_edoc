@@ -92,7 +92,7 @@ class SemesterApiController extends BaseController
 			$isCourseworkExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->coursework);
 			$isCourseProjectExists = getIsTypeOfWorkExistsInWP($rawSemestersInfo, $tasksIds->courseProject);
 			$semesters = getFullFormattedCourseworksAndProjectsData($rawSemestersInfo);
-  
+
 			if ($isCourseworkExists || $isCourseProjectExists) {
 				$isLoggedIn = true;
 				$showReturnBtn = true;

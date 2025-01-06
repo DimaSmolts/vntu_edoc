@@ -15,7 +15,7 @@ $title = "Курсовий. Складові оцінювання.";
 				<div class="coursework-assesment-components-block" id="assesmentComponents<?= htmlspecialchars($semester->semesterId) ?>">
 					<p class="coursework-assesment-components-block-title">Складові оцінювання:</p>
 					<label>Назва складової:</label>
-					<label>Бали: <?= htmlspecialchars($semester->taskTypeId) ?></label>
+					<label>Бали:</label>
 
 					<?php if (isset($semester->assessmentComponents)): ?>
 						<?php

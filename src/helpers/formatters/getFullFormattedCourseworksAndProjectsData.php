@@ -31,7 +31,7 @@ function getFullFormattedCourseworksAndProjectsData($semesterCourseworkData)
 			isset($courseTask) ? $courseTask->taskType->id : null,
 			isset($courseTask) ? $courseTask->taskType->name : '',
 			isset($courseTask) ? $courseTask->assessmentComponents : '',
-			isset($courseTask->educationalFormTaskHours) ? $courseTask->educationalFormTaskHours->hours : null,
+			isset($courseTask->educationalFormTaskHours[0]) ? $courseTask->educationalFormTaskHours[0]->hours : null,
 			$educationalForms
 		);
 	})->toArray();
