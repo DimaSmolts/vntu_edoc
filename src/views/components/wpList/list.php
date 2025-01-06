@@ -5,7 +5,7 @@
 				<div class="wp-list-item-content wp-list-item-content-header">
 					<b>Назва дисципліни</b>
 					<b>Спеціальність</b>
-					<b>Рік навчання</b>
+					<b>Семестри</b>
 					<b>Дата створення</b>
 				</div>
 			</div>
@@ -14,16 +14,17 @@
 					<div class="wp-list-item-content">
 						<span><?= htmlspecialchars($item->disciplineName) ?></span>
 						<div class="specialties-names">
-							<?php if (!empty($item->specialtiesNames)): ?>
-								<?php foreach ($item->specialtiesNames as $specialtyName): ?>
-									<span><?= htmlspecialchars($specialtyName) ?></span>
+							<?php if (!empty($item->specialtiesCodesAndNames)): ?>
+								<?php foreach ($item->specialtiesCodesAndNames as $specialtiesCodeAndName): ?>
+									<span><?= htmlspecialchars($specialtiesCodeAndName->code) ?> - <?= htmlspecialchars($specialtiesCodeAndName->name) ?></span>
 								<?php endforeach; ?>
 							<?php endif; ?>
 						</div>
-						<span class="academic-year"><?= isset($item->academicYear) ? htmlspecialchars($item->academicYear) : "" ?></span>
+						<span class="academic-year"><?= htmlspecialchars($item->semesterNumbers ?? '') ?></span>
 						<span><?= htmlspecialchars($item->createdAt) ?></span>
 						<a class="btn" type="button" href="wpdetails?id=<?= htmlspecialchars($item->id) ?>">Відредагувати</a>
 						<button class="btn" type="button" onclick="duplicateWP(<?= htmlspecialchars($item->id) ?>)">Дублювати</button>
+						<a class="btn" type="button" href="pdf?id=<?= htmlspecialchars($item->id) ?>" target="_blank">PDF</a>
 					</div>
 				</li>
 			<?php endforeach; ?>

@@ -12,8 +12,15 @@ class WPService
 {
 	public function getWPList($wpCreatorId)
 	{
-		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::with(['creator'])
-			->select(['id', 'disciplineName', 'academicYear', 'specialtyIds', 'createdAt', 'wpCreatorId'])
+		$workingPrograms = DBEducationalDisciplineWorkingProgramModel::with([
+			'creator',
+			'semesters' => function ($query) {
+				$query
+					->select(['semesterNumber', 'educationalDisciplineWPId'])
+					->orderBy('semesterNumber');
+			}
+		])
+			->select(['id', 'disciplineName', 'specialtyIds', 'createdAt', 'wpCreatorId'])
 			->where('wpCreatorId', $wpCreatorId)
 			->orderBy('createdAt')
 			->get();
@@ -23,18 +30,21 @@ class WPService
 				$specialtyIds = json_decode($workingProgram->specialtyIds ?? '[]', true);
 
 				if (!empty($specialtyIds)) {
-					$specialties = Capsule::table('spec_edu_pr')
+					$specialties = Capsule::table('special')
 						->select('id', 'spec', 'spec_num_code')
 						->whereIn('id', $specialtyIds)
 						->get();
 
-					$specialtiesNames = $specialties->map(function ($specialty) {
-						return $specialty->spec;
+					$specialtiesCodesAndNames = $specialties->map(function ($specialty) {
+						return (object)[
+							'name' => $specialty->spec,
+							'code' => $specialty->spec_num_code
+						];
 					})->toArray();
 
-					$workingProgram->specialtiesNames = $specialtiesNames;
+					$workingProgram->specialtiesCodesAndNames = $specialtiesCodesAndNames;
 				} else {
-					$workingProgram->specialtiesNames = [];
+					$workingProgram->specialtiesCodesAndNames = [];
 				}
 			}
 
