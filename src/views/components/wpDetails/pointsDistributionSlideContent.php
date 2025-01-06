@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../helpers/getTaskId.php';
+require_once __DIR__ . '/../../../helpers/view/getAdditionalTasksGroupedBySemester.php';
 
 $pointsDistributionBySemesters = [];
 if (!empty($pointsDistributionRelatedData->semesters)) {
@@ -27,17 +28,7 @@ $modulesIdsInSemester = $semestersAndModulesIds['modulesIdsInSemester'];
 $semesterWithDifferentialCreditIds = $semestersIdsByControlType['semesterWithDifferentialCreditId'];
 $semesterWithExamIds = $semestersIdsByControlType['semesterWithExamId'];
 
-$additionalTasks = [];
-
-foreach ($pointsDistributionRelatedData->semesters as $semester) {
-	foreach ($semester->additionalTasks as $additionalTask) {
-		$taskTypeName = $additionalTask->taskTypeName;
-		if (!isset($additionalTasks[$taskTypeName])) {
-			$additionalTasks[$taskTypeName] = [];
-		}
-		$additionalTasks[$taskTypeName][] = $additionalTask;
-	}
-}
+$additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelatedData);
 
 $tasksIds = getTaskId();
 ?>
@@ -290,7 +281,7 @@ $tasksIds = getTaskId();
 								$semesterToAdditionalTaskCorrelation[$semesterData->id] = $dataForSemester;
 							}
 							?>
-							<td><?= htmlspecialchars($taskTypeName) ?></td>
+							<td><?= htmlspecialchars(mb_ucfirst($taskTypeName)) ?></td>
 							<?php foreach ($semesterToAdditionalTaskCorrelation as $semesterId => $semesterData): ?>
 								<td class="center-text-align disabled-cell"></td>
 								<?php if (!empty($semesterData->modules)): ?>

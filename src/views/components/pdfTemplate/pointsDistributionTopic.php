@@ -1,3 +1,15 @@
+<?php
+
+require_once __DIR__ . '/../../../helpers/view/getPointsWithSemestersDescriptionString.php';
+require_once __DIR__ . '/../../../helpers/view/getAdditionalTasksGroupedBySemester.php';
+
+$practicalPointsForSemestersDescription = getPointsWithSemestersDescriptionString($pointsDistributionSemestersData, 'practicalPoints');
+$labPointsForSemestersDescription = getPointsWithSemestersDescriptionString($pointsDistributionSemestersData, 'labPoints');
+$seminarPointsForSemestersDescription = getPointsWithSemestersDescriptionString($pointsDistributionSemestersData, 'seminarPoints');
+
+$additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelatedData);
+?>
+
 <div class="empty"></div>
 <div class="topic-title">
 	13. Розподіл балів, які отримують студенти
@@ -5,7 +17,7 @@
 <p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах):</p>
 <!-- <p class="indent justify">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p> -->
 
-<?php if (!empty($pointsDistributionSemestersData['semesters'])): ?>
+<?php if (!empty($pointsDistributionSemestersData)): ?>
 	<?php
 	// Визначаємо початкову ширину колонки "Вид роботи" (у відсотках) для таблиць з заняттями
 	$activityTypeColumnWidth = 100;
@@ -40,7 +52,7 @@
 	<table class="small-bottom-margin">
 		<tr>
 			<th rowspan="2" style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Вид роботи</th>
-			<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+			<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 				<th
 					colspan="<?= htmlspecialchars($semestersColumnsWidth[$semesterData->id]['colspan']) ?>"
 					style="width: <?= htmlspecialchars($semestersColumnsWidth[$semesterData->id]['width']) ?>%;">
@@ -50,7 +62,7 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+			<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<th
@@ -64,8 +76,10 @@
 		</tr>
 		<?php if ($structure->isPracticalsExist): ?>
 			<tr>
-				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання практичних завдань (1 завдання - <?= htmlspecialchars($practicalPoints) ?> б)</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Виконання практичних завдань (1 завдання - <?= htmlspecialchars($practicalPointsForSemestersDescription) ?>)
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<td class="center calculated"><?= htmlspecialchars($moduleData->practicalsPoints) ?></td>
@@ -77,8 +91,10 @@
 		<?php endif; ?>
 		<?php if ($structure->isLabsExist): ?>
 			<tr>
-				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання лабораторних завдань (1 завдання - <?= htmlspecialchars($labPoints) ?> б)</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Виконання лабораторних завдань (1 завдання - <?= htmlspecialchars($labPointsForSemestersDescription) ?>)
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<td class="center calculated"><?= htmlspecialchars($moduleData->labsPoints) ?></td>
@@ -90,8 +106,10 @@
 		<?php endif; ?>
 		<?php if ($structure->isSeminarsExist): ?>
 			<tr>
-				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Виконання семінарських завдань (1 завдання - <?= htmlspecialchars($seminarPoints) ?> б)</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Виконання семінарських завдань (1 завдання - <?= htmlspecialchars($seminarPointsForSemestersDescription) ?>)
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<td class="center calculated"><?= htmlspecialchars($moduleData->seminarsPoints) ?></td>
@@ -101,9 +119,127 @@
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
+		<?php if ($structure->isColloquiumExists): ?>
+			<tr>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Колоквіуми
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
+					<?php if (!empty($semesterData->modules)): ?>
+						<?php foreach ($semesterData->modules as $moduleData): ?>
+							<?php if ($moduleData->isColloquiumExists): ?>
+								<td class="center calculated"><?= htmlspecialchars($moduleData->colloquiumPoints) ?></td>
+							<?php else: ?>
+								<td class="center calculated">-</td>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->colloquiumPoints) ?></td>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php if ($structure->isControlWorkExists): ?>
+			<tr>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Контрольні роботи
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
+					<?php if (!empty($semesterData->modules)): ?>
+						<?php foreach ($semesterData->modules as $moduleData): ?>
+							<?php if ($moduleData->isControlWorkExists): ?>
+								<td class="center calculated"><?= htmlspecialchars($moduleData->controlWorkPoints) ?></td>
+							<?php else: ?>
+								<td class="center calculated">-</td>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->controlWorkPoints) ?></td>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php if ($structure->isCalculationAndGraphicWorkExists): ?>
+			<tr>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Розрахунково-графічна робота (РГР)
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
+					<?php if (!empty($semesterData->modules)): ?>
+						<?php foreach ($semesterData->modules as $moduleData): ?>
+							<td class="center inserted">-</td>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<?php if (isset($semesterData->calculationAndGraphicWorkPoints)): ?>
+						<td class="center inserted"><?= htmlspecialchars($semesterData->calculationAndGraphicWorkPoints) ?></td>
+					<?php else: ?>
+						<td class="center inserted">-</td>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php if ($structure->isCalculationAndGraphicTaskExists): ?>
+			<tr>
+				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+					Розрахунково-графічне завдання (РГЗ)
+				</td>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
+					<?php if (!empty($semesterData->modules)): ?>
+						<?php foreach ($semesterData->modules as $moduleData): ?>
+							<td class="center inserted">-</td>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<?php if (isset($semesterData->calculationAndGraphicTaskPoints)): ?>
+						<td class="center inserted"><?= htmlspecialchars($semesterData->calculationAndGraphicTaskPoints) ?></td>
+					<?php else: ?>
+						<td class="center inserted">-</td>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</tr>
+		<?php endif; ?>
+		<?php if ($structure->isAdditionalTasksExist): ?>
+			<?php if (!empty($additionalTasks)): ?>
+				<?php foreach ($additionalTasks as $taskTypeName => $additionalTasksByTypeName): ?>
+					<tr>
+						<?php
+						$semesterToAdditionalTaskCorrelation = [];
+
+						foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+							$semesterTask = null;
+							foreach ($semesterData->additionalTasks as $additionalTask) {
+								if ($additionalTask->taskTypeName === $taskTypeName) {
+									$semesterTask = $additionalTask;
+								}
+							}
+
+							$dataForSemester = (object)[
+								"modules" => $semesterData->modules,
+								"additionalTask" => $semesterTask
+							];
+
+							$semesterToAdditionalTaskCorrelation[$semesterData->id] = $dataForSemester;
+						}
+						?>
+						<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">
+							<?= htmlspecialchars(mb_ucfirst($taskTypeName)) ?>
+						</td>
+						<?php foreach ($semesterToAdditionalTaskCorrelation as $semesterId => $semesterData): ?>
+							<?php if (!empty($semesterData->modules)): ?>
+								<?php foreach ($semesterData->modules as $moduleData): ?>
+									<td class="center inserted">-</td>
+								<?php endforeach; ?>
+							<?php endif; ?>
+							<?php if (isset($semesterData->additionalTask)): ?>
+								<td class="center inserted"><?= htmlspecialchars($semesterData->additionalTask->points) ?></td>
+							<?php else: ?>
+								<td class="center inserted">-</td>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</tr>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		<?php endif; ?>
 		<tr>
 			<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="bold">Усього за модуль</td>
-			<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+			<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<th class="calculated"><?= htmlspecialchars($moduleData->moduleTotal) ?></th>
@@ -119,7 +255,7 @@
 		<?php if (!empty($semesterWithDifferentialCreditIds)): ?>
 			<tr>
 				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Диф. залік</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<td></td>
@@ -136,7 +272,7 @@
 		<?php if (!empty($semesterWithExamIds)): ?>
 			<tr>
 				<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="inserted">Іспит</td>
-				<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+				<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 					<?php if (!empty($semesterData->modules)): ?>
 						<?php foreach ($semesterData->modules as $moduleData): ?>
 							<td></td>
@@ -144,7 +280,8 @@
 					<?php endif; ?>
 					<?php if (in_array($semesterData->id, $semesterWithExamIds)): ?>
 						<?php
-						$examPoints = $pointsDistributionSemestersData['pointsDistribution']["examPointsSemester$semesterData->id"] ?? 0;
+						$points = json_decode($semesterData->pointsDistribution, true);
+						$examPoints = $points['examPoints'] ?? 0;
 						?>
 						<td class="center inserted"><?= htmlspecialchars($examPoints) ?></td>
 					<?php else: ?>
@@ -155,7 +292,7 @@
 		<?php endif; ?>
 		<tr>
 			<td style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;" class="bold">Всього</td>
-			<?php foreach ($pointsDistributionSemestersData['semesters'] as $semesterData): ?>
+			<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
 				<?php if (!empty($semesterData->modules)): ?>
 					<?php foreach ($semesterData->modules as $moduleData): ?>
 						<td></td>
