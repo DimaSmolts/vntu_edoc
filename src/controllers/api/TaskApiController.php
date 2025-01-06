@@ -253,9 +253,10 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$hours = intval($data['hours']);
+			$hours = floatval($data['hours']);
 			$educationalFormId = intval($data['educationalFormId']);
 			$lessonTypeId = intval($data['lessonTypeId']);
+			print_r($hours);
 
 			$this->taskService->updateLessonSelfworkHours($educationalFormId, $lessonTypeId, $semesterId, $hours);
 		}

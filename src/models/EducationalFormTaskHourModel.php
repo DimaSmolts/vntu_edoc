@@ -6,12 +6,12 @@ class EducationalFormTaskHourModel
 {
     public int $id;
     public string $educationalFormName;
-    public ?int $hours;
+    public ?float $hours;
 
     public function __construct(
         int $id,
         string $educationalFormName,
-        ?int $hours = null,
+        ?float $hours = null,
     ) {
         $this->id = $id;
         $this->educationalFormName = $educationalFormName;

@@ -86,7 +86,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									<td class="selfwork-educational-forms-column table-input-cell">
 										<input
 											type="number"
-											min="0"
+											min="1"
 											class="center-text-align"
 											value="<?= htmlspecialchars($hours ?? "") ?>"
 											oninput="updateSelfworkHours(
@@ -144,18 +144,21 @@ $lessonTypeIds = getLessonTypeIdByName();
 									}
 								}
 							}
+
+							$minHours = intval($semesterSelfworkData->totalHoursForLections[$educationalForm->colName]) * 0.25;
 							?>
 							<td class="selfwork-educational-forms-column table-input-cell">
 								<input
 									type="number"
-									min="0"
+									min="<?= htmlspecialchars($minHours) ?>"
+									step="0.25"
 									class="center-text-align"
 									value="<?= htmlspecialchars($hours ?? "") ?>"
 									oninput="updateLessonSelfworkHours(
-									event,
-									<?= htmlspecialchars($lessonTypeIds->lection) ?>,
-									<?= htmlspecialchars($educationalForm->id) ?>,
-									<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
+										event,
+										<?= htmlspecialchars($lessonTypeIds->lection) ?>,
+										<?= htmlspecialchars($educationalForm->id) ?>,
+										<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>
 									)">
 							</td>
 						<?php endforeach; ?>
@@ -167,7 +170,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 						<td rowspan="2">Підготовка до лабораторних занять</td>
 						<td rowspan="2">не менше 1 години на 1 тему занять</td>
 						<td class="italic" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
-							лабораторних: <?= htmlspecialchars($semesterSelfworkData->practicalsAmount) ?>
+							лабораторних: <?= htmlspecialchars($semesterSelfworkData->labsAmount) ?>
 						</td>
 					</tr>
 					<tr>
@@ -182,11 +185,13 @@ $lessonTypeIds = getLessonTypeIdByName();
 										}
 									}
 								}
+
+								$minHours = intval($semesterSelfworkData->labsAmount) * 1;
 								?>
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="<?= htmlspecialchars($minHours) ?>"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
@@ -221,11 +226,13 @@ $lessonTypeIds = getLessonTypeIdByName();
 										}
 									}
 								}
+
+								$minHours = intval($semesterSelfworkData->practicalsAmount) * 1;
 								?>
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="<?= htmlspecialchars($minHours) ?>"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
@@ -260,11 +267,13 @@ $lessonTypeIds = getLessonTypeIdByName();
 										}
 									}
 								}
+
+								$minHours = intval($semesterSelfworkData->seminarsAmount) * 1;
 								?>
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="<?= htmlspecialchars($minHours) ?>"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateLessonSelfworkHours(
@@ -302,11 +311,14 @@ $lessonTypeIds = getLessonTypeIdByName();
 										$hours = $educationalFormHours->hours;
 									}
 								}
+								$minHours = count($semesterSelfworkData->additionalTasks) * 5;
+								$maxHours = count($semesterSelfworkData->additionalTasks) * 10;
 								?>
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="<?= htmlspecialchars($minHours) ?>"
+										max="<?= htmlspecialchars($maxHours) ?>"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
@@ -338,7 +350,8 @@ $lessonTypeIds = getLessonTypeIdByName();
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="10"
+										max="15"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
@@ -370,7 +383,8 @@ $lessonTypeIds = getLessonTypeIdByName();
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="10"
+										max="15"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
@@ -428,11 +442,15 @@ $lessonTypeIds = getLessonTypeIdByName();
 										$hours = $educationalFormHours->hours;
 									}
 								}
+								$moduleControlAmount = $semesterSelfworkData->colloquiumAmount + $semesterSelfworkData->controlWorkAmount;
+								$minHours = $moduleControlAmount * 2;
+								$maxHours = $moduleControlAmount * 5;
 								?>
 								<td class="selfwork-educational-forms-column table-input-cell">
 									<input
 										type="number"
-										min="0"
+										min="<?= htmlspecialchars($minHours) ?>"
+										max="<?= htmlspecialchars($maxHours) ?>"
 										class="center-text-align"
 										value="<?= htmlspecialchars($hours ?? "") ?>"
 										oninput="updateTaskHours(
