@@ -1,8 +1,5 @@
 <div class="carousel-wrapper" id="carouselWrapper">
 	<ul class="carousel-container" id="wpDetailsCarouselContainer">
-		<li class="slide" id="pointsDistributionSlide">
-			<?php include __DIR__ . '/pointsDistributionSlide.php'; ?>
-		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/generalInfoSlide.php'; ?>
 		</li>
@@ -24,9 +21,9 @@
 		<li class="slide" id="selfworkSlide">
 			<?php include __DIR__ . '/selfworkSlide.php'; ?>
 		</li>
-		<!-- <li class="slide" id="pointsDistributionSlide">
+		<li class="slide" id="pointsDistributionSlide">
 			<?php include __DIR__ . '/pointsDistributionSlide.php'; ?>
-		</li> -->
+		</li>
 		<li class="slide">
 			<?php include __DIR__ . '/studingAndExamingMethodsSlide.php'; ?>
 		</li>

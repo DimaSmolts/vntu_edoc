@@ -10,7 +10,7 @@ require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
 require_once __DIR__ . '/../getTaskId.php';
 require_once __DIR__ . '/../getCourseTask.php';
 require_once __DIR__ . '/../getCalculationAndGraphicTypeTask.php';
-require_once __DIR__ . '/../getModuleTask.php';
+require_once __DIR__ . '/../getModulesTasks.php';
 require_once __DIR__ . '/../getLessonTypeIdByName.php';
 require_once __DIR__ . '/../getLessonSelfworkByLessonTypeId.php';
 
@@ -32,7 +32,7 @@ function getFullFormattedSelfworkData($workingProgramData)
 		$semesterEducationalForms = [];
 		$colloquiumAmount = 0;
 		$controlWorkAmount = 0;
-		$moduleTask = null;
+		$modulesTasksInSemester = [];
 
 		// Обробляємо всі обрані форми навчання для даного семестру та трансформуємо їх у модель
 		$semesterEducationalForms[] = $semester->educationalForms->map(function ($educationalForm) {
@@ -57,7 +57,7 @@ function getFullFormattedSelfworkData($workingProgramData)
 			&$colloquiumAmount,
 			&$controlWorkAmount,
 			&$tasksIds,
-			&$moduleTask,
+			&$modulesTasksInSemester,
 			&$semester,
 		) {
 			// Збираємо кількість колоквіумів та контрольних робіт
@@ -87,25 +87,9 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$labsAmount += count($theme->labs);
 			});
 
-			$rawModuleTask = getModuleTask($module);
-			$educationalFormModuleTaskHours = isset($rawModuleTask->educationalFormTaskHours)
-				? $rawModuleTask->educationalFormTaskHours->map(function ($moduleTaskHours) {
-					return new EducationalFormTaskHourModel(
-						$moduleTaskHours->semesterEducationalForm->id,
-						$moduleTaskHours->semesterEducationalForm->educationalForm->name,
-						$moduleTaskHours->hours
-					);
-				})->toArray()
-				: [];
+			$rawModulesTasks = getModulesTasks($module, $semester);
 
-			$moduleTask = isset($rawModuleTask) ?
-				new TaskModel(
-					$semester->id,
-					$rawModuleTask->taskTypeId,
-					$rawModuleTask->id,
-					$rawModuleTask->taskType->name,
-					$educationalFormModuleTaskHours
-				) : null;
+			$modulesTasksInSemester = array_merge($modulesTasksInSemester, $rawModulesTasks);
 		});
 
 		// Поєднуємо всі навчальні форми в один масив
@@ -141,7 +125,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$additionalTask->taskTypeId,
 				$additionalTask->id,
 				$additionalTask->taskType->name,
-				$educationalFormHours
+				$educationalFormHours,
+				$additionalTask->points ?? null,
 			);
 		})->toArray();
 
@@ -163,7 +148,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawCourseTask->taskTypeId,
 				$rawCourseTask->id,
 				$rawCourseTask->taskType->name,
-				$educationalFormCourseTaskHours
+				$educationalFormCourseTaskHours,
+				$rawCourseTask->points ?? null,
 			) : null;
 
 		// Дістаємо РГР або РГЗ 
@@ -185,7 +171,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawCalculationAndGraphicTypeTask->taskTypeId,
 				$rawCalculationAndGraphicTypeTask->id,
 				$rawCalculationAndGraphicTypeTask->taskType->name,
-				$educationalFormCourseTaskHours
+				$educationalFormCourseTaskHours,
+				$rawCalculationAndGraphicTypeTask->points ?? null
 			) : null;
 
 		$lessonTypesIds = getLessonTypeIdByName();
@@ -210,7 +197,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawLections->first()->lessonTypeId,
 				$rawLections->first()->id,
 				'lections',
-				$educationalFormLectionSelfworkHours
+				$educationalFormLectionSelfworkHours,
+				$rawLections->first()->points ?? null
 			)
 			: null;
 
@@ -234,7 +222,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawLabs->first()->lessonTypeId,
 				$rawLabs->first()->id,
 				'practicals',
-				$educationalFormLabSelfworkHours
+				$educationalFormLabSelfworkHours,
+				$rawLabs->first()->points ?? null
 			)
 			: null;
 
@@ -258,7 +247,8 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawPracticals->first()->lessonTypeId,
 				$rawPracticals->first()->id,
 				'practicals',
-				$educationalFormPracticalSelfworkHours
+				$educationalFormPracticalSelfworkHours,
+				$rawPracticals->first()->points ?? null
 			)
 			: null;
 
@@ -282,9 +272,12 @@ function getFullFormattedSelfworkData($workingProgramData)
 				$rawSeminars->first()->lessonTypeId,
 				$rawSeminars->first()->id,
 				'practicals',
-				$educationalFormSeminarSelfworkHours
+				$educationalFormSeminarSelfworkHours,
+				$rawSeminars->first()->points ?? null
 			)
 			: null;
+
+		$moduleTask = $modulesTasksInSemester[0];
 
 		return new SelfworkModel(
 			$semester->id,
