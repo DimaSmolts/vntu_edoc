@@ -452,6 +452,44 @@ class WPService
 	public function getLessonsAndExamingsStructure($wpId)
 	{
 		$wps = DBEducationalDisciplineWorkingProgramModel::with([
+			'semesters' => function ($query) {
+				$query->with([
+					'tasks' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					},
+					'additionalTasks' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					},
+					'calculationAndGraphicTypeTask' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					},
+				]);
+			},
+			'semesters.modules' => function ($query) {
+				$query->with([
+					'tasks' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					},
+					'colloquium' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					},
+					'controlWork' => function ($subquery) {
+						$subquery->with([
+							'taskType',
+						]);
+					}
+				]);
+			},
 			'semesters.modules.themes' => function ($query) {
 				$query->with([
 					'labs',

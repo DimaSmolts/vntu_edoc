@@ -1,11 +1,11 @@
-const updateGeneralPoints = (event, wpId, semestersIds) => {
+const updateGeneralPoints = (event, semesterId) => {
 	// Створюємо Map для збору сюди всіх введених даних
 	const pointsDistributionMap = new Map;
 
 	// Шукаємо комірки з введеними даними
-	const practicalPointsCell = document.getElementById(`practicalPoints`);
-	const labPointsCell = document.getElementById(`labPoints`);
-	const seminarPointsCell = document.getElementById(`seminarPoints`);
+	const practicalPointsCell = document.getElementById(`practicalPoints${semesterId}`);
+	const labPointsCell = document.getElementById(`labPoints${semesterId}`);
+	const seminarPointsCell = document.getElementById(`seminarPoints${semesterId}`);
 
 	if (practicalPointsCell) {
 		const practicalPoints = Number(practicalPointsCell?.value) ?? 0;
@@ -25,22 +25,20 @@ const updateGeneralPoints = (event, wpId, semestersIds) => {
 		pointsDistributionMap.set('seminarPoints', seminarPoints);
 	}
 
-	semestersIds.forEach(id => {
-		const examPointsCell = document.getElementById(`examSemester${id}`);
+	const examPointsCell = document.getElementById(`examSemester${semesterId}`);
 
-		if (examPointsCell) {
-			const examPoints = Number(examPointsCell?.value) ?? 0;
+	if (examPointsCell) {
+		const examPoints = Number(examPointsCell?.value) ?? 0;
 
-			pointsDistributionMap.set(`examPointsSemester${id}`, examPoints);
-		}
-	});
+		pointsDistributionMap.set('examPoints', examPoints);
+	}
 
 	const postData = {
-		id: wpId,
+		id: semesterId,
 		field: 'pointsDistribution',
 		value: Object.fromEntries(pointsDistributionMap)
 	};
 
 	// Оновлюємо в БД
-	updateWP(postData);
+	updateSemesterPointsDistribution(postData);
 }

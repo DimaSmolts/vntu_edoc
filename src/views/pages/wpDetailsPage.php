@@ -131,8 +131,12 @@
     <script src="src/views/helpers/pointsDistribution/updateTotalBySemesterCell.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateTotalByModuleCell.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateColloquiumPoints.js"></script>
+    <script src="src/views/helpers/pointsDistribution/updateControlWorkPoints.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateGeneralPoints.js"></script>
     <script src="src/views/helpers/pointsDistribution/updateLessonPoints.js"></script>
+    <script src="src/views/helpers/pointsDistribution/updateSemesterPointsDistribution.js"></script>
+    <script src="src/views/helpers/pointsDistribution/updateModuleTaskPoints.js"></script>
+    <script src="src/views/helpers/pointsDistribution/updateTaskPoints.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbarWithListAndLink.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorWithoutToolbar.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditor.js"></script>
@@ -155,6 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
+        getPointsDistributionSlide();
         <?php
         $semestersIds = [];
 

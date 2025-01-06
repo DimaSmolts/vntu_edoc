@@ -261,6 +261,16 @@ $router->post('/api/updateAssesmentComponents', function () {
 	$taskApiController->updateAssesmentComponents();
 });
 
+$router->post('/api/updateModuleTaskPoints', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->updateModuleTaskPoints();
+});
+
+$router->post('/api/updateTaskPointsById', function () {
+	$taskApiController = new TaskApiController();
+	$taskApiController->updateTaskPointsById();
+});
+
 $router->post('/api/createNewModule', function () {
 	$moduleApiController = new ModuleApiController();
 	$moduleApiController->createNewModule();

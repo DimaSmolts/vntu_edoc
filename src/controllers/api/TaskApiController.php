@@ -126,6 +126,46 @@ class TaskApiController extends BaseController
 		}
 	}
 
+	public function updateModuleTaskPoints()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$moduleId = intval($data['moduleId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByModuleId($moduleId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$taskTypeId = intval($data['taskTypeId']);
+			$points = intval($data['points']);
+
+			$this->taskService->updateModuleTaskPoints($moduleId, $taskTypeId, $points);
+		}
+	}
+
+	public function updateTaskPointsById()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$semesterId = intval($data['semesterId']);
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$taskDetailsId = intval($data['taskDetailsId']);
+			$points = intval($data['points']);
+
+			$this->taskService->updateTaskPointsById($taskDetailsId, $points);
+		}
+	}
+
 	public function deleteIndividualTask()
 	{
 		header('Content-Type: application/json');

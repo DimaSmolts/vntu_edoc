@@ -1,6 +1,6 @@
-const updateColloquiumPoints = (event, semesterId, moduleId, modulesIds) => {
+const updateColloquiumPoints = (event, semesterId, moduleId, taskTypeId, modulesIds) => {
     // Оновлюємо значення в БД
-    updateModuleInfo(event, moduleId)
+    updateModuleTaskPoints(event, moduleId, taskTypeId)
 
     // Оновлюємо значання колонки Разом для семестра у рядку Колоквіуми
     const colloquiumSemesterCell = document.getElementById(`colloquiumSemester${semesterId}`);

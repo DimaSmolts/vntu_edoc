@@ -261,6 +261,52 @@ class TaskService
 		}
 	}
 
+	public function updateModuleTaskPoints($moduleId, $taskTypeId, $points)
+	{
+		$task = Capsule::table('taskDetails')
+			->where('moduleId', $moduleId)
+			->where('taskTypeId', $taskTypeId)
+			->first();
+
+		if (!$task) {
+			echo json_encode(['status' => 'error', 'message' => 'Task not found']);
+			return;
+		}
+
+		$updated = Capsule::table('taskDetails')
+			->where('moduleId', $moduleId)
+			->where('taskTypeId', $taskTypeId)
+			->update(['points' => $points]);
+
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Points updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
+		}
+	}
+
+	public function updateTaskPointsById($taskDetailsId, $points)
+	{
+		$task = Capsule::table('taskDetails')
+			->where('id', $taskDetailsId)
+			->first();
+
+		if (!$task) {
+			echo json_encode(['status' => 'error', 'message' => 'Task not found']);
+			return;
+		}
+
+		$updated = Capsule::table('taskDetails')
+			->where('id', $taskDetailsId)
+			->update(['points' => $points]);
+
+		if ($updated) {
+			echo json_encode(['status' => 'success', 'message' => 'Points updated successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'No changes were made']);
+		}
+	}
+
 	public function deleteIndividualTask($semesterId, $taskTypeId)
 	{
 		// Use Capsule to delete the theme by ID
@@ -296,7 +342,7 @@ class TaskService
 	public function getAdditionalTasks()
 	{
 		$additionalTasks = Capsule::table('taskTypes')
-			->where('id', '>', 7)
+			->where('id', '>', 6)
 			->get();
 
 		return $additionalTasks;

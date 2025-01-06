@@ -28,9 +28,25 @@ class DBModuleModel extends Model
 	{
 		return $this->belongsTo(DBEducationalDisciplineSemesterModel::class, 'educationalDisciplineSemesterId');
 	}
-	
-    public function tasks()
-    {
-        return $this->hasMany(DBTaskDetailsModel::class, 'moduleId');
-    }
+
+	public function tasks()
+	{
+		return $this->hasMany(DBTaskDetailsModel::class, 'moduleId');
+	}
+
+	public function colloquium()
+	{
+		return $this->hasOne(DBTaskDetailsModel::class, 'moduleId')
+			->whereHas('taskType', function ($query) {
+				$query->where('id', 5);
+			});
+	}
+
+	public function controlWork()
+	{
+		return $this->hasOne(DBTaskDetailsModel::class, 'moduleId')
+			->whereHas('taskType', function ($query) {
+				$query->where('id', 6);
+			});
+	}
 }

@@ -1,6 +1,6 @@
-const updateExamPoints = (event, semesterId, wpId, semestersIds) => {
+const updateExamPoints = (event, semesterId) => {
 	// Оновлюємо значення в БД
-	updateGeneralPoints(event, wpId, semestersIds);
+	updateGeneralPoints(event, semesterId);
 
 	// Оновлюємо Всього для семестра
 	updateFullTotalBySemesterCell(semesterId);

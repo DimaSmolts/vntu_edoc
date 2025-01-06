@@ -325,6 +325,10 @@ td {
 	text-align: center;
 }
 
+.point-input-column {
+	width: 85px;
+}
+
 .disabled-cell {
 	background-color: #ccc;
 }

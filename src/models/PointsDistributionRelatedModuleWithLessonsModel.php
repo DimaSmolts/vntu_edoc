@@ -12,6 +12,7 @@ class PointsDistributionRelatedModuleWithLessonsModel
 	public bool $isControlWorkExists;
 	public ?int $moduleNumber;
 	public ?int $colloquiumPoints;
+	public ?int $controlWorkPoints;
 
 	public function __construct(
 		int $moduleId,
@@ -21,7 +22,8 @@ class PointsDistributionRelatedModuleWithLessonsModel
 		bool $isColloquiumExists,
 		bool $isControlWorkExists,
 		?int $moduleNumber = null,
-		?int $colloquiumPoints = null
+		?int $colloquiumPoints = null,
+		?int $controlWorkPoints = null,
 	) {
 		$this->moduleId = $moduleId;
 		$this->practicals = $practicals;
@@ -31,5 +33,6 @@ class PointsDistributionRelatedModuleWithLessonsModel
 		$this->isControlWorkExists = $isControlWorkExists;
 		$this->moduleNumber = $moduleNumber;
 		$this->colloquiumPoints = $colloquiumPoints;
+		$this->controlWorkPoints = $controlWorkPoints;
 	}
 }

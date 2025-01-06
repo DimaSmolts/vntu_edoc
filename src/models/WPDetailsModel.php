@@ -45,7 +45,6 @@ class WPDetailsModel
 	public ?string $methodologicalSupport;
 	public ?string $individualTaskNotes;
 	public ?int $creditsAmount;
-	public ?string $pointsDistribution;
 	public ?int $modulesInWorkingProgramAmount;
 	public array $semesters;
 	public array $availableEducationalForms;
@@ -95,7 +94,6 @@ class WPDetailsModel
 		?string $methodologicalSupport = "",
 		?string $individualTaskNotes = "",
 		?int $creditsAmount = null,
-		?string $pointsDistribution = "",
 		?int $modulesInWorkingProgramAmount = 0,
 		array $semesters = [],
 		array $availableEducationalForms = [],
@@ -144,7 +142,6 @@ class WPDetailsModel
 		$this->methodologicalSupport = $methodologicalSupport;
 		$this->individualTaskNotes = $individualTaskNotes;
 		$this->creditsAmount = $creditsAmount;
-		$this->pointsDistribution = $pointsDistribution;
 		$this->modulesInWorkingProgramAmount = $modulesInWorkingProgramAmount;
 		$this->semesters = $semesters;
 		$this->availableEducationalForms = $availableEducationalForms;

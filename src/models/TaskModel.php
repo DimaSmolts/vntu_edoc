@@ -9,6 +9,7 @@ class TaskModel
     public int $taskDetailsId;
     public string $taskTypeName;
 	public array $educationalFormHours;
+	public ?int $points;
 
     public function __construct(
         int $semesterId,
@@ -16,11 +17,13 @@ class TaskModel
         int $taskDetailsId,
         string $taskTypeName,
         array $educationalFormHours,
+        ?int $points,
     ) {
         $this->semesterId = $semesterId;
         $this->taskTypeId = $taskTypeId;
         $this->taskDetailsId = $taskDetailsId;
         $this->taskTypeName = $taskTypeName;
         $this->educationalFormHours = $educationalFormHours;
+        $this->points = $points;
     }
 }

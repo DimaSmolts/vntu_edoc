@@ -25,13 +25,7 @@ class DBEducationalDisciplineSemesterModel extends Model
         'educationalDisciplineWPId',
         'semesterNumber',
         'examTypeId',
-        'isCourseworkExists',
-        'isCourseProjectExists',
-        'isCalculationAndGraphicWorkExists',
-        'isCalculationAndGraphicTaskExists',
-        'additionalTasks',
-        'courseworkAssessmentComponents',
-        'courseProjectAssessmentComponents',
+        'pointsDistribution',
     ];
 
     public $timestamps = false;
@@ -68,7 +62,7 @@ class DBEducationalDisciplineSemesterModel extends Model
     {
         return $this->hasMany(DBTaskDetailsModel::class, 'semesterId')
             ->whereHas('taskType', function ($query) {
-                $query->where('id', '>', 7);
+                $query->where('id', '>', 6);
             });
     }
 
@@ -82,6 +76,14 @@ class DBEducationalDisciplineSemesterModel extends Model
         return $this->hasMany(DBLessonModel::class, 'semesterId')
             ->whereHas('lessonType', function ($query) {
                 $query->where('name', 'selfwork');
+            });
+    }
+
+    public function calculationAndGraphicTypeTask()
+    {
+        return $this->hasOne(DBTaskDetailsModel::class, 'semesterId')
+            ->whereHas('taskType', function ($query) {
+                $query->whereIn('id', [3, 4]);
             });
     }
 }

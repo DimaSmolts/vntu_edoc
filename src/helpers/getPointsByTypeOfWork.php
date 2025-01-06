@@ -7,16 +7,27 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 		'labPoints' => [],
 		'seminarPoints' => [],
 		'colloquiumPoints' => [],
+		'controlWorkPoints' => [],
+		'calculationAndGraphicPoints' => []
 	];
 
-	$pointsDistribution = isset($pointsDistributionRelatedData->pointsDistribution) ? json_decode($pointsDistributionRelatedData->pointsDistribution, true) : null;
+	$pointsDistributionBySemesters = isset($pointsDistributionRelatedData->pointsDistribution) ? json_decode($pointsDistributionRelatedData->pointsDistribution, true) : null;
+
+	$pointsDistributionBySemesters = [];
+	if (!empty($pointsDistributionRelatedData->semesters)) {
+		foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+			$pointsDistributionBySemesters[$semesterData->id] = isset($semesterData->pointsDistribution) ? json_decode($semesterData->pointsDistribution, true) : null;
+		}
+	}
+
 
 	if ($structure->isPracticalsExist) {
 		$practicalPointsData = [];
-		$practicalPoints = $pointsDistribution['practicalPoints'] ?? 0;
 
 		if (!empty($pointsDistributionRelatedData->semesters)) {
 			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+				$practicalPoints = $pointsDistributionBySemesters[$semesterData->id]['practicalPoints'] ?? 0;
+
 				$modulesPoints = [];
 				$semesterPoints = 0;
 				if (!empty($semesterData->modules)) {
@@ -36,10 +47,11 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 
 	if ($structure->isLabsExist) {
 		$labPointsData = [];
-		$labPoints = $pointsDistribution['labPoints'] ?? 0;
 
 		if (!empty($pointsDistributionRelatedData->semesters)) {
 			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+				$labPoints = $pointsDistributionBySemesters[$semesterData->id]['labPoints'] ?? 0;
+
 				$modulesPoints = [];
 				$semesterPoints = 0;
 				if (!empty($semesterData->modules)) {
@@ -59,10 +71,11 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 
 	if ($structure->isSeminarsExist) {
 		$seminarPointsData = [];
-		$seminarPoints = $pointsDistribution['seminarPoints'] ?? 0;
 
 		if (!empty($pointsDistributionRelatedData->semesters)) {
 			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+				$seminarPoints = $pointsDistributionBySemesters[$semesterData->id]['seminarPoints'] ?? 0;
+
 				$modulesPoints = [];
 				$semesterPoints = 0;
 				if (!empty($semesterData->modules)) {
@@ -102,6 +115,40 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 		$pointsByTypeOfWork['colloquiumPoints'] = $colloquiumPointsData;
 	}
 
+	if ($structure->isControlWorkExists) {
+		$controlWorkPointsData = [];
+
+		if (!empty($pointsDistributionRelatedData->semesters)) {
+			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+				$modulesPoints = [];
+				$semesterPoints = 0;
+				if (!empty($semesterData->modules)) {
+					foreach ($semesterData->modules as $moduleData) {
+						$modulesPoints['module' . $moduleData->moduleId] = $moduleData->controlWorkPoints ?? 0;
+						$semesterPoints += $modulesPoints['module' . $moduleData->moduleId];
+					}
+				}
+
+				$controlWorkPointsData['semester' . $semesterData->id] = $modulesPoints;
+				$controlWorkPointsData['semester' . $semesterData->id . 'Sum'] = $semesterPoints;
+			}
+		}
+
+		$pointsByTypeOfWork['controlWorkPoints'] = $controlWorkPointsData;
+	}
+
+	if ($structure->isCalculationAndGraphicWorkExists || $structure->isCalculationAndGraphicTaskExists) {
+		$calculationAndGraphicPointsData = [];
+
+		if (!empty($pointsDistributionRelatedData->semesters)) {
+			foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
+				$calculationAndGraphicPointsData['semester' . $semesterData->id] = $semesterData->calculationAndGraphicTypeTask;
+			}
+		}
+
+		$pointsByTypeOfWork['calculationAndGraphicPoints'] = $calculationAndGraphicPointsData;
+	}
+
 	$semestersTotalData = [];
 
 	if (!empty($pointsDistributionRelatedData->semesters)) {
@@ -115,10 +162,19 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 					$labTotal = empty($pointsByTypeOfWork['labPoints']) ? 0 : $pointsByTypeOfWork['labPoints']['semester' . $semesterData->id]['module' . $moduleData->moduleId];
 					$seminarTotal = empty($pointsByTypeOfWork['seminarPoints']) ? 0 : $pointsByTypeOfWork['seminarPoints']['semester' . $semesterData->id]['module' . $moduleData->moduleId];
 					$colloquiumPoints = isset($moduleData->colloquiumPoints) ? $moduleData->colloquiumPoints : 0;
+					$controlWorkPoints = isset($moduleData->controlWorkPoints) ? $moduleData->controlWorkPoints : 0;
 
-					$modulesTotalData['module' . $moduleData->moduleId] = $practicalTotal + $labTotal + $seminarTotal + $colloquiumPoints;
+					$modulesTotalData['module' . $moduleData->moduleId] = $practicalTotal + $labTotal + $seminarTotal + $colloquiumPoints + $controlWorkPoints;
 					$semesterTotalPoints += $modulesTotalData['module' . $moduleData->moduleId];
 				}
+			}
+
+			if (isset($semesterData->calculationAndGraphicTypeTask)) {
+				$semesterTotalPoints += $semesterData->calculationAndGraphicTypeTask->points;
+			}
+
+			foreach ($semesterData->additionalTasks as $additionalTask) {
+				$semesterTotalPoints += $additionalTask->points;
 			}
 
 			$semestersTotalData['semester' . $semesterData->id] = $modulesTotalData;
@@ -133,7 +189,7 @@ function getPointsByTypeOfWork($pointsDistributionRelatedData, $structure)
 	if (!empty($pointsDistributionRelatedData->semesters)) {
 		foreach ($pointsDistributionRelatedData->semesters as $semesterData) {
 			if ($semesterData->examTypeId === 0) {
-				$examPoints = $pointsDistribution['examPoints'] ?? 0;
+				$examPoints = $pointsDistributionBySemesters[$semesterData->id]['examPoints'] ?? 0;
 				$totalBySemesters['semester' . $semesterData->id . 'Sum'] = $pointsByTypeOfWork['totalByModules']['semester' . $semesterData->id . 'Sum'] + $examPoints;
 			} else {
 				$totalBySemesters['semester' . $semesterData->id . 'Sum'] = $pointsByTypeOfWork['totalByModules']['semester' . $semesterData->id . 'Sum'];

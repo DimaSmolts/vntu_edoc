@@ -49,7 +49,6 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'methodologicalSupport',
 		'individualTaskNotes',
 		'creditsAmount',
-		'pointsDistribution',
 		'wpCreatorId'
 	];
 
