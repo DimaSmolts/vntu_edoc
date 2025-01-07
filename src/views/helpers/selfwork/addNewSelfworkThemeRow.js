@@ -61,14 +61,15 @@ const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 	educationalForms.forEach(educationalForm => {
 		const hoursColumn = createElement({
 			elementName: 'td',
-			classList: ['selfwork-educational-forms-column', 'table-input-cell']
+			classList: ['selfwork-educational-forms-column', 'table-input-cell', 'not-valid-bg']
 		})
 
 		const hoursInput = createElement({
 			elementName: 'input',
 			type: 'number',
-			min: 0,
-			classList: ['center-text-align'],
+			id: `selfwork${selfworkId}InputEF${educationalForm.educationalFormId}Sem${semesterId}`,
+			min: 1,
+			classList: ['center-text-align', 'not-valid-bg'],
 			value: '',
 			eventListenerType: 'input',
 			eventListener: (e) => {
@@ -112,4 +113,6 @@ const addNewSelfworkThemeRow = (semesterId, educationalForms, selfworkId) => {
 
 		titleSelfwork.after(row);
 	}
+	
+	updateValidation();
 }

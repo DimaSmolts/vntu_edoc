@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="src/views/styles/carousel.css">
     <link rel="stylesheet" href="src/views/styles/form.css">
     <link rel="stylesheet" href="src/views/styles/semester.css">
+    <link rel="stylesheet" href="src/views/styles/validationBlock.css">
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
     <!-- Бібліотека для випадаючих списків з пошуком -->
@@ -16,7 +17,7 @@
 </head>
 
 <body class="details" id="detailsBody">
-    <div></div>
+    <?php include __DIR__ . '/../components/validationBlock/validationBlock.php'; ?>
     <main class="container">
         <?php include __DIR__ . '/../components/wpDetails/carousel.php'; ?>
         <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
@@ -151,6 +152,20 @@
     <script src="src/views/helpers/selfwork/deleteSelfworkTheme.js"></script>
     <script src="src/views/helpers/selfwork/addNewSelfworkThemeRow.js"></script>
     <script src="src/views/helpers/selfwork/addNewSelfworkTheme.js"></script>
+    <script src="src/views/helpers/maps/getEducationFormNameById.js"></script>
+    <script src="src/views/helpers/maps/getLessonTypeIdByName.js"></script>
+    <script src="src/views/helpers/maps/getLessonTypeNameById.js"></script>
+    <script src="src/views/helpers/validation/addWarning.js"></script>
+    <script src="src/views/helpers/validation/removeWarning.js"></script>
+    <script src="src/views/helpers/validation/validateSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/validateLessonSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/validateAdditionalTasksSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/calculationAndGraphicTypeTaskSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/validateModuleControlSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/runValidation.js"></script>
+    <script src="src/views/helpers/validation/updateValidation.js"></script>
+    <script src="src/views/helpers/validation/globalVariables.js"></script>
+    <script src="src/views/helpers/validation/renderValidationWarnings.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -159,7 +174,22 @@
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <!-- Змінюємо інпут для введення основної літератури -->
     <script>
-        getPointsDistributionSlide();
+        const validationMap = new Map();
+
+        // Custom event emitter for validation errors
+        const validationWarningsEventTarget = new EventTarget();
+
+        function dispatchValidationWarningsChange() {
+            const event = new Event('validationWarningsChange');
+            validationWarningsEventTarget.dispatchEvent(event);
+        }
+
+        validationWarningsEventTarget.addEventListener('validationWarningsChange', renderValidationWarnings);
+
+        runValidation({
+            selfworkData: <?php echo json_encode($selfworkData); ?>
+        })
+
         <?php
         $semestersIds = [];
 

@@ -1,4 +1,9 @@
-const updateSelfworkHours = (event, educationalFormId, semesterId, selfworkId) => {
+const updateSelfworkHours = ({
+	event,
+	educationalFormId,
+	semesterId,
+	selfworkId,
+}) => {
 	const postData = {
 		hours: event.target.value,
 		educationalFormId,
@@ -16,6 +21,8 @@ const updateSelfworkHours = (event, educationalFormId, semesterId, selfworkId) =
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
+			} else {
+				updateValidation();
 			}
 		})
 		.catch(error => console.error('Post error:', error));

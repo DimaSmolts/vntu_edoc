@@ -13,6 +13,7 @@ require_once __DIR__ . '/../helpers/formatters/getFormattedEducationalFormData.p
 require_once __DIR__ . '/../helpers/formatters/getFormattedFacultiesData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedCreator.php';
+require_once __DIR__ . '/../helpers/formatters/getFullFormattedSelfworkData.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
@@ -112,6 +113,8 @@ class WPController extends BaseController
 
 				$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 				$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
+
+				$selfworkData = getFullFormattedSelfworkData($rawDetails);
 
 				$isLoggedIn = true;
 				$showReturnBtn = true;

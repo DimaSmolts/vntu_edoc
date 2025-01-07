@@ -1,0 +1,22 @@
+.validation-container {
+	padding: 10px;
+	background-color: burlywood;
+	overflow: scroll;
+	height: 100vh;
+}
+
+.validation-container p {
+	margin-bottom: 10px;
+}
+
+.visible {
+	display: block;
+}
+
+.unvisible {
+	display: none;
+}
+
+.not-valid-bg {
+	background-color: #EA5B60;
+}

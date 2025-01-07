@@ -8,6 +8,7 @@ const deleteSelfworkTheme = (event, id, semesterId) => {
 		.then(response => response.json())
 		.then(data => {
 			if (data.status === 'success') {
+				updateValidation();
 				document.getElementById(`selfworkRow${id}`).remove();
 			} else {
 				console.log('Failed to delete the theme.');

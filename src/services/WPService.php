@@ -101,19 +101,58 @@ class WPService
 	{
 		$wps = DBEducationalDisciplineWorkingProgramModel::with([
 			'semesters' => function ($query) {
-				$query->orderBy('semesterNumber');
+				$query
+					->with([
+						'tasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						},
+						'additionalTasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						},
+						'educationalFormLessonSelfworkHours' => function ($subquery) {
+							$subquery->with([
+								'semesterEducationalForm.educationalForm'
+							]);
+						},
+						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+					])
+					->orderBy('semesterNumber');;
 			},
 			'semesters.modules' => function ($query) {
-				$query->orderBy('moduleNumber');
+				$query
+					->with([
+						'tasks' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						}
+					])
+					->orderBy('moduleNumber');
 			},
 			'semesters.modules.themes' => function ($query) {
-				$query->orderBy('themeNumber');
+				$query
+					->with([
+						'lections',
+						'labs',
+						'practicals',
+						'seminars'
+					])
+					->orderBy('themeNumber');
 			},
 			'createdByPersons' => function ($query) {
 				$query->with(['person' => function ($query) {
 					$query->with('workPositionData');
 				}, 'involvedRole']);
 			},
+			'semesters.educationalForms.educationalForm',
+			'semesters.examType',
 			'educationalProgramGuarantor' => function ($query) {
 				$query->with(['person' => function ($query) {
 					$query->with('workPositionData');

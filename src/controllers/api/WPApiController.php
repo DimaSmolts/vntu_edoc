@@ -249,4 +249,21 @@ class WPApiController extends BaseController
 			}
 		}
 	}
+
+	public function getDataForValidation()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$wpData = $this->wpService->getDataForSelfwork($wpId);
+			$selfworkData = getFullFormattedSelfworkData($wpData);
+
+			echo json_encode((['selfworkData' => $selfworkData]));
+		}
+	}
 }

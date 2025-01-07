@@ -91,6 +91,11 @@ $router->get('/wpdetails', function () {
 	$wpController->getWPDetails();
 });
 
+$router->get('/api/getDataForValidation', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->getDataForValidation();
+});
+
 $router->get('/globalWPData', function () {
 	$globalDataController = new GlobalDataController();
 	$globalDataController->getWorkingProgramGlobalData();
