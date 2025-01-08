@@ -1,6 +1,7 @@
 const updateSemesterPointsDistribution = (postData) => {
     makePostRequest({
         link: 'api/updateSemester',
-        postData
+        postData,
+		responseOKHandler: updateValidation
     });
 }

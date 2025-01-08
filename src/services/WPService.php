@@ -115,6 +115,11 @@ class WPService
 								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
 							]);
 						},
+						'calculationAndGraphicTypeTask' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+							]);
+						},
 						'educationalFormLessonSelfworkHours' => function ($subquery) {
 							$subquery->with([
 								'semesterEducationalForm.educationalForm'
@@ -131,6 +136,16 @@ class WPService
 							$subquery->with([
 								'taskType',
 								'educationalFormTaskHours.semesterEducationalForm.educationalForm'
+							]);
+						},
+						'colloquium' => function ($subquery) {
+							$subquery->with([
+								'taskType',
+							]);
+						},
+						'controlWork' => function ($subquery) {
+							$subquery->with([
+								'taskType',
 							]);
 						}
 					])

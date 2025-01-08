@@ -160,17 +160,24 @@
     <script src="src/views/helpers/maps/getEducationFormNameById.js"></script>
     <script src="src/views/helpers/maps/getLessonTypeIdByName.js"></script>
     <script src="src/views/helpers/maps/getLessonTypeNameById.js"></script>
+    <script src="src/views/helpers/renderValidation/renderTopicValidationWarnings.js"></script>
+    <script src="src/views/helpers/renderValidation/groupValidationEntries.js"></script>
+    <script src="src/views/helpers/renderValidation/renderPointDistributionValidationWarnings.js"></script>
+    <script src="src/views/helpers/renderValidation/renderSelfworkValidationWarnings.js"></script>
+    <script src="src/views/helpers/renderValidation/renderValidationWarnings.js"></script>
     <script src="src/views/helpers/validation/addWarning.js"></script>
     <script src="src/views/helpers/validation/removeWarning.js"></script>
     <script src="src/views/helpers/validation/validateSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateAdditionalTasksSelfworkHours.js"></script>
-    <script src="src/views/helpers/validation/calculationAndGraphicTypeTaskSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/validateCalculationAndGraphicTypeTaskSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/validateSemesterPointDistribution.js"></script>
     <script src="src/views/helpers/validation/validateModuleControlSelfworkHours.js"></script>
+    <script src="src/views/helpers/validation/runSelfworkDataValidation.js"></script>
+    <script src="src/views/helpers/validation/runPointsDistributionTotalValidation.js"></script>
     <script src="src/views/helpers/validation/runValidation.js"></script>
     <script src="src/views/helpers/validation/updateValidation.js"></script>
     <script src="src/views/helpers/validation/globalVariables.js"></script>
-    <script src="src/views/helpers/validation/renderValidationWarnings.js"></script>
 
     <!-- Бібліотека для інпутів із можливістю стилізації тексту -->
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
@@ -192,16 +199,10 @@
         validationWarningsEventTarget.addEventListener('validationWarningsChange', renderValidationWarnings);
 
         runValidation({
-            selfworkData: <?php echo json_encode($selfworkData); ?>
+            selfworkData: <?php echo json_encode($selfworkData); ?>,
+            pointsDistributionTotalBySemesters: <?php echo json_encode($pointsDistributionTotalBySemesters); ?>,
+            semestersNumbersByIds: <?php echo json_encode(!empty($semestersNumbersByIds) ? $semestersNumbersByIds : null); ?>,
         })
-
-        <?php
-        $semestersIds = [];
-
-        foreach ($details->semesters as $semester) {
-            $semestersIds[] = $semester->id;
-        }
-        ?>
 
         initializeSelectHandlers({
             semestersIds: <?php echo json_encode(!empty($semestersIds) ? $semestersIds : null); ?>,

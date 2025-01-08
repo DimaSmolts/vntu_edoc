@@ -8,7 +8,8 @@ const updateTaskPoints = async (event, semesterId, taskDetailsId, additionalTask
 
     makePostRequest({
         link: 'api/updateTaskPointsById',
-        postData
+        postData,
+		responseOKHandler: updateValidation
     });
 
 	// Оновлюємо Усього за модуль для семестра

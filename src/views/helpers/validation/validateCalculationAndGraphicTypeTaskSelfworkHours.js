@@ -1,4 +1,4 @@
-const calculationAndGraphicTypeTaskSelfworkHours = ({
+const validateCalculationAndGraphicTypeTaskSelfworkHours = ({
 	element = null,
 	value,
 	educationalFormId,

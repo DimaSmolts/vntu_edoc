@@ -7,6 +7,7 @@ const updateModuleTaskPoints = (event, moduleId, taskTypeId) => {
 
     makePostRequest({
         link: 'api/updateModuleTaskPoints',
-        postData
+        postData,
+		responseOKHandler: updateValidation
     });
 }

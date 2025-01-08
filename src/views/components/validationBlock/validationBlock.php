@@ -6,5 +6,12 @@
 	<div id="validTitleBlock">
 		<h2 class="validation-title validation-valid-title">Документ відповідає всім вимогам</h2>
 	</div>
-	<div id="selfworkValidationGroup"></div>
+	<div id="selfworkValidationGroupContainer">
+		<h6 id="selfworkValidationTitleBlock" class="validation-topic-title">Самостійна робота:</h6>
+		<div id="selfworkValidationGroup"></div>
+	</div>
+	<div id="pointDistributionValidationGroupContainer">
+		<h6 id="pointDistributionValidationTitleBlock" class="validation-topic-title">Розподіл балів:</h6>
+		<div id="pointDistributionValidationGroup"></div>
+	</div>
 </div>

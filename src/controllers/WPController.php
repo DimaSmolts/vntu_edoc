@@ -116,6 +116,19 @@ class WPController extends BaseController
 
 				$selfworkData = getFullFormattedSelfworkData($rawDetails);
 
+				$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($rawDetails);
+				$structure = getFormattedLessonsAndExamingsStructure($rawDetails);
+				$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
+				$pointsDistributionTotalBySemesters = $pointsByTypeOfWork['totalBySemesters'];
+
+				$semestersIds = [];
+				$semestersNumbersByIds = [];
+
+				foreach ($rawDetails->semesters as $semester) {
+					$semestersIds[] = $semester->id;
+					$semestersNumbersByIds[$semester->id] = $semester->semesterNumber ?? '';
+				}
+
 				$isLoggedIn = true;
 				$showReturnBtn = true;
 				$showEditGlobalDataBtn = false;

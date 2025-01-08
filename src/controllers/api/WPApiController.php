@@ -260,10 +260,24 @@ class WPApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$wpData = $this->wpService->getDataForSelfwork($wpId);
+			$wpData = $this->wpService->getWPDetails($wpId);
 			$selfworkData = getFullFormattedSelfworkData($wpData);
 
-			echo json_encode((['selfworkData' => $selfworkData]));
+			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
+			$structure = getFormattedLessonsAndExamingsStructure($wpData);
+			$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
+
+			$semestersNumbersByIds = [];
+
+			foreach ($wpData->semesters as $semester) {
+				$semestersNumbersByIds[$semester->id] = $semester->semesterNumber ?? '';
+			}
+
+			echo json_encode(([
+				'selfworkData' => $selfworkData,
+				'pointsDistributionTotalBySemesters' => $pointsByTypeOfWork['totalBySemesters'],
+				'semestersNumbersByIds' => $semestersNumbersByIds
+			]));
 		}
 	}
 }

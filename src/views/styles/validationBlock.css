@@ -44,3 +44,9 @@
 .not-valid-bg {
 	background-color: antiquewhite;
 }
+
+.validation-topic-title {
+	font-size: 20px;
+    text-align: left;
+    margin-bottom: 10px;
+}
