@@ -33,6 +33,7 @@ function addNumbersToList($content)
 }
 
 $html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array('25mm', '20mm', '10mm', '20mm'));
+$html2pdf->pdf->setTitle("$details->disciplineName (документ)");
 $html2pdf->pdf->SetAutoPageBreak(true, 20); // 20mm bottom margin
 $css = file_get_contents(__DIR__ . '/../styles/pdf.css');
 
@@ -72,7 +73,7 @@ $highlighting = $isHighlighting ? "
 }
 " : "";
 
-$bla = "
+$html2pdf->writeHTML("
     <style>
         * {
             margin: 0;
@@ -84,9 +85,6 @@ $bla = "
         $css
     </style>
     $htmlContentChanged
-";
-// echo $bla;
+");
 
-$html2pdf->writeHTML($bla);
-
-$html2pdf->output("test.pdf");
+$html2pdf->output("$details->disciplineName.pdf");

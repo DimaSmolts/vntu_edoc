@@ -228,7 +228,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 								<?php endforeach; ?>
 							<?php endif; ?>
 							<?php if (isset($semesterData->additionalTask)): ?>
-								<td class="center inserted"><?= htmlspecialchars($semesterData->additionalTask->points) ?></td>
+								<td class="center inserted"><?= htmlspecialchars($semesterData->additionalTask->points ?? 0) ?></td>
 							<?php else: ?>
 								<td class="center inserted">-</td>
 							<?php endif; ?>
