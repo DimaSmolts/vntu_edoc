@@ -5,9 +5,13 @@ const updateAssesmentComponents = (event, semesterId, taskTypeId) => {
 
     const componentsInputsMap = new Map;
 
+    let pointsTotal = 0;
+
     componentsInputs.forEach(inputs => {
         const name = inputs.querySelector('input[name=assesmentComponentName]');
         const points = inputs.querySelector('input[name=assesmentComponentPoints]');
+
+        pointsTotal += Number(points.value);
 
         componentsInputsMap.set(name.value, points.value);
     })
@@ -22,6 +26,11 @@ const updateAssesmentComponents = (event, semesterId, taskTypeId) => {
 
     makePostRequest({
         link: 'api/updateAssesmentComponents',
-        postData
+        postData,
+        responseOKHandler: updateValidation
     });
+
+    const assesmentComponentTotalValueElement = document.getElementById(`assesmentComponentTotalValue${semesterId}`);
+
+    assesmentComponentTotalValueElement.innerText = pointsTotal;
 }

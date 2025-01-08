@@ -3,7 +3,7 @@ const addAssesmentComponentsInputs = (event, semesterId, taskTypeId) => {
 
 	const container = document.getElementById(`assesmentComponents${semesterId}`);
 
-	const addAssesmentComponent = document.getElementById(`addAssesmentComponent${semesterId}`);
+	const assesmentComponentTotal = document.getElementById(`assesmentComponentTotal${semesterId}`);
 
 	const assesmentComponentsInputs = createElement({ elementName: 'div', classList: ['assesment-components-inputs'] });
 
@@ -40,5 +40,5 @@ const addAssesmentComponentsInputs = (event, semesterId, taskTypeId) => {
 	assesmentComponentsInputs.appendChild(assesmentComponentPoints);
 	assesmentComponentsInputs.appendChild(removeAssesmentComponentBtn);
 
-	container.insertBefore(assesmentComponentsInputs, addAssesmentComponent);
+	container.insertBefore(assesmentComponentsInputs, assesmentComponentTotal);
 }

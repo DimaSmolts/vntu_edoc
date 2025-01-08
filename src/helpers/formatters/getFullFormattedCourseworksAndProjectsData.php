@@ -24,6 +24,14 @@ function getFullFormattedCourseworksAndProjectsData($semesterCourseworkData)
 
 		$courseTask = getCourseTask($semester);
 
+		$pointsTotal = 0;
+
+		if (isset($courseTask->assessmentComponents)) {
+			$points = json_decode($courseTask->assessmentComponents, true);
+
+			$pointsTotal = array_sum($points);
+		}
+
 		return new SemesterCourseworkAndProjectModel(
 			$semester->id,
 			isset($courseTask),
@@ -32,7 +40,8 @@ function getFullFormattedCourseworksAndProjectsData($semesterCourseworkData)
 			isset($courseTask) ? $courseTask->taskType->name : '',
 			isset($courseTask) ? $courseTask->assessmentComponents : '',
 			isset($courseTask->educationalFormTaskHours[0]) ? $courseTask->educationalFormTaskHours[0]->hours : null,
-			$educationalForms
+			$educationalForms,
+			$pointsTotal
 		);
 	})->toArray();
 }

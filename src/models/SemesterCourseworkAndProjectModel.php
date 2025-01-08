@@ -12,6 +12,7 @@ class SemesterCourseworkAndProjectModel
     public ?string $assessmentComponents;
     public ?int $hours;
     public array $educationalForms;
+    public ?int $pointsTotal; 
 
     public function __construct(
         int $semesterId,
@@ -22,6 +23,7 @@ class SemesterCourseworkAndProjectModel
         ?string $assessmentComponents = '',
         ?int $hours = null,
         array $educationalForms = [],
+        ?int $pointsTotal = null,
     ) {
         $this->semesterId = $semesterId;
         $this->isExists = $isExists;
@@ -31,5 +33,6 @@ class SemesterCourseworkAndProjectModel
         $this->assessmentComponents = $assessmentComponents;
         $this->hours = $hours;
         $this->educationalForms = $educationalForms;
+        $this->pointsTotal = $pointsTotal;
     }
 }

@@ -16,6 +16,7 @@ require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgram
 require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalFormData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSelfworkData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSemestersAndModulesTasks.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworksAndProjectsData.php';
 require_once __DIR__ . '/../../helpers/getPointsByTypeOfWork.php';
 require_once __DIR__ . '/../../helpers/getSemestersWithModulesWithLessons.php';
 require_once __DIR__ . '/../../helpers/getSemestersAndModulesIds.php';
@@ -267,6 +268,8 @@ class WPApiController extends BaseController
 			$structure = getFormattedLessonsAndExamingsStructure($wpData);
 			$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
 
+			$courseworksAndProjectsData = getFullFormattedCourseworksAndProjectsData($wpData->semesters);
+
 			$semestersNumbersByIds = [];
 
 			foreach ($wpData->semesters as $semester) {
@@ -276,7 +279,8 @@ class WPApiController extends BaseController
 			echo json_encode(([
 				'selfworkData' => $selfworkData,
 				'pointsDistributionTotalBySemesters' => $pointsByTypeOfWork['totalBySemesters'],
-				'semestersNumbersByIds' => $semestersNumbersByIds
+				'semestersNumbersByIds' => $semestersNumbersByIds,
+				'courseworksAndProjectsData' => $courseworksAndProjectsData
 			]));
 		}
 	}

@@ -14,6 +14,7 @@ require_once __DIR__ . '/../helpers/formatters/getFormattedFacultiesData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedCreator.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedSelfworkData.php';
+require_once __DIR__ . '/../helpers/formatters/getFullFormattedCourseworksAndProjectsData.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
@@ -120,6 +121,8 @@ class WPController extends BaseController
 				$structure = getFormattedLessonsAndExamingsStructure($rawDetails);
 				$pointsByTypeOfWork = getPointsByTypeOfWork($pointsDistributionRelatedData, $structure);
 				$pointsDistributionTotalBySemesters = $pointsByTypeOfWork['totalBySemesters'];
+
+				$courseworksAndProjectsData = getFullFormattedCourseworksAndProjectsData($rawDetails->semesters);
 
 				$semestersIds = [];
 				$semestersNumbersByIds = [];

@@ -57,8 +57,14 @@ $title = "Курсовий. Складові оцінювання.";
 							</button>
 						</div>
 					<?php endif; ?>
+					<label id="assesmentComponentTotal<?= htmlspecialchars($semester->semesterId) ?>">Всього:</label>
+					<label
+						id="assesmentComponentTotalValue<?= htmlspecialchars($semester->semesterId) ?>"
+						class="center-text-align <?php if (intval($semester->pointsTotal) !== 100): ?>not-valid-bg<?php endif; ?>">
+						<?= htmlspecialchars($semester->pointsTotal) ?>
+					</label>
 					<button
-						class="btn"
+						class="btn add-assesment-btn"
 						id="addAssesmentComponent<?= htmlspecialchars($semester->semesterId) ?>"
 						onclick="addAssesmentComponentsInputs(event, <?= htmlspecialchars($semester->semesterId) ?>, <?= htmlspecialchars($semester->taskTypeId) ?>)">
 						Додати складову

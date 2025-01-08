@@ -4,7 +4,7 @@ const renderValidationWarnings = () => {
 	const invalidTitleBlock = document.getElementById('invalidTitleBlock');
 	const validTitleBlock = document.getElementById('validTitleBlock');
 
-	if (validationEntries.length > 0) {
+	if (validationEntries?.length > 0) {
 		validTitleBlock.style.display = 'none';
 		invalidTitleBlock.style.display = 'block';
 	} else {
@@ -16,4 +16,5 @@ const renderValidationWarnings = () => {
 
 	renderSelfworkValidationWarnings(groupedValidationEntries['selfworkValidationGroup']);
 	renderPointDistributionValidationWarnings(groupedValidationEntries['pointDistributionValidationGroup']);
+	renderAssesmentComponentValidationWarnings(groupedValidationEntries['assesmentComponentValidationGroup']);
 }
