@@ -1,12 +1,36 @@
 .validation-container {
 	padding: 10px;
-	background-color: burlywood;
 	overflow: scroll;
 	height: 100vh;
+	overflow-x: hidden;
 }
 
 .validation-container p {
 	margin-bottom: 10px;
+    border: 2px solid orange;
+    background-color: antiquewhite;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.validation-title {
+	font-size: 1.9em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.validation-invalid-title {
+	color: #d9534f;
+}
+
+.validation-valid-title {
+	color: #5cb85c;
+}
+
+.validation-note {
+    font-weight: normal;
+    font-style: italic;
+    margin-bottom: 10px;
 }
 
 .visible {
@@ -18,5 +42,5 @@
 }
 
 .not-valid-bg {
-	background-color: #EA5B60;
+	background-color: antiquewhite;
 }

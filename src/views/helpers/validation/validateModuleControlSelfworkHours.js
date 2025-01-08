@@ -23,7 +23,7 @@ const validateModuleControlSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: minValueWarningName,
-			message: `Кількість годин для підготовки до модульного контролю (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
+			message: `⚠️ Кількість годин для підготовки до модульного контролю (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
 		}
 
 		addWarning(warning);
@@ -38,7 +38,7 @@ const validateModuleControlSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: maxValueWarningName,
-			message: `Кількість годин для підготовки до модульного контролю (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
+			message: `⚠️ Кількість годин для підготовки до модульного контролю (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
 		}
 
 		addWarning(warning);

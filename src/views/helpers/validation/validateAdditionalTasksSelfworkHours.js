@@ -23,7 +23,7 @@ const validateAdditionalTasksSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: minValueWarningName,
-			message: `Кількість годин для написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
+			message: `⚠️ Кількість годин для написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
 		}
 
 		addWarning(warning);
@@ -38,7 +38,7 @@ const validateAdditionalTasksSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: maxValueWarningName,
-			message: `Кількість годин для написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
+			message: `⚠️ Кількість годин для написання рефератів / підготовка презентацій / творчих робіт / есеїв / іншого (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
 		}
 
 		addWarning(warning);

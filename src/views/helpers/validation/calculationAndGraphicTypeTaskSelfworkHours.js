@@ -22,7 +22,7 @@ const calculationAndGraphicTypeTaskSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: minValueWarningName,
-			message: `Кількість годин для виконання РГР/РГЗ (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
+			message: `⚠️ Кількість годин для виконання РГР/РГЗ (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
 		}
 
 		addWarning(warning);
@@ -37,7 +37,7 @@ const calculationAndGraphicTypeTaskSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: maxValueWarningName,
-			message: `Кількість годин для виконання РГР/РГЗ (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
+			message: `⚠️ Кількість годин для виконання РГР/РГЗ (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) ВИЩА ніж необхідно (макс. значення - ${maxValue})`
 		}
 
 		addWarning(warning);

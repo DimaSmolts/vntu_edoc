@@ -277,7 +277,7 @@ function getFullFormattedSelfworkData($workingProgramData)
 			)
 			: null;
 
-		$moduleTask = $modulesTasksInSemester[0];
+		$moduleTask = isset($modulesTasksInSemester[0]) ? $modulesTasksInSemester[0] : null;
 
 		return new SelfworkModel(
 			$semester->id,
