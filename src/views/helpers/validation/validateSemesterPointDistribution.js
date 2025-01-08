@@ -13,14 +13,16 @@ const validateSemesterPointDistribution = ({
 		removeWarning({
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
-			name: maxValueWarningName
+			name: maxValueWarningName,
+			isParentElementHighlight: false
 		});
 
 		const warning = {
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
 			name: minValueWarningName,
-			message: `⚠️ Кількість балів для ${semesterNumber} семестру НИЖЧА (${value}) ніж необхідно (коректне значення - ${correctValue})`
+			message: `⚠️ Кількість балів для ${semesterNumber} семестру НИЖЧА ніж необхідно (коректне значення - ${correctValue})`,
+			isParentElementHighlight: false
 		}
 
 		addWarning(warning);
@@ -28,14 +30,16 @@ const validateSemesterPointDistribution = ({
 		removeWarning({
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
-			name: minValueWarningName
+			name: minValueWarningName,
+			isParentElementHighlight: false
 		})
 
 		const warning = {
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
 			name: maxValueWarningName,
-			message: `⚠️ Кількість балів для ${semesterNumber} семестру ВИЩА (${value}) ніж необхідно (коректне значення - ${correctValue})`
+			message: `⚠️ Кількість балів для ${semesterNumber} семестру ВИЩА ніж необхідно (коректне значення - ${correctValue})`,
+			isParentElementHighlight: false
 		}
 
 		addWarning(warning);
@@ -43,13 +47,15 @@ const validateSemesterPointDistribution = ({
 		removeWarning({
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
-			name: minValueWarningName
+			name: minValueWarningName,
+			isParentElementHighlight: false
 		});
 
 		removeWarning({
 			targetElement: element,
 			group: 'pointDistributionValidationGroup',
-			name: maxValueWarningName
+			name: maxValueWarningName,
+			isParentElementHighlight: false
 		});
 	}
 }

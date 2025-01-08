@@ -1,4 +1,4 @@
-const updateControlWorkPoints = (event, semesterId, moduleId, taskTypeId, modulesIds) => {
+const updateControlWorkPoints = (event, semesterId, moduleId, taskTypeId, modulesIds, additionalTasks) => {
     // Оновлюємо значення в БД
     updateModuleTaskPoints(event, moduleId, taskTypeId)
 
@@ -20,7 +20,7 @@ const updateControlWorkPoints = (event, semesterId, moduleId, taskTypeId, module
     // Стовпець для даного модуля
     updateTotalByModuleCell(moduleId);
     // Стовпець Разом для семестра
-    updateTotalBySemesterCell(semesterId, modulesIds);
+    updateTotalBySemesterCell(semesterId, additionalTasks);
 
     // Рядок Всього для семестра
     updateFullTotalBySemesterCell(semesterId, modulesIds);

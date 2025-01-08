@@ -71,7 +71,8 @@ $tasksIds = getTaskId();
 									event,
 									'practical',
 									<?= htmlspecialchars(json_encode($semestersWithModulesWithPracticals[$semesterData->id], JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>,
-									<?= htmlspecialchars($semesterData->id) ?>
+									<?= htmlspecialchars($semesterData->id) ?>,
+									<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 								)">
 						</td>
 						<?php if (!empty($semesterData->modules)): ?>
@@ -102,7 +103,8 @@ $tasksIds = getTaskId();
 									event,
 									'lab',
 									<?= htmlspecialchars(json_encode($semestersWithModulesWithLabs[$semesterData->id], JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>,
-									<?= htmlspecialchars($semesterData->id) ?>
+									<?= htmlspecialchars($semesterData->id) ?>,
+									<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 								)">
 						</td>
 						<?php if (!empty($semesterData->modules)): ?>
@@ -133,7 +135,8 @@ $tasksIds = getTaskId();
 									event,
 									'seminar',
 									<?= htmlspecialchars(json_encode($semestersWithModulesWithSeminars[$semesterData->id], JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>,
-									<?= htmlspecialchars($semesterData->id) ?>
+									<?= htmlspecialchars($semesterData->id) ?>,
+									<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 								)">
 						</td>
 						<?php if (!empty($semesterData->modules)): ?>
@@ -172,7 +175,8 @@ $tasksIds = getTaskId();
 												<?= htmlspecialchars($semesterData->id) ?>,
 												<?= htmlspecialchars($moduleData->moduleId) ?>,
 												<?= htmlspecialchars($tasksIds->colloquium) ?>,
-												<?= json_encode($modulesIds) ?>
+												<?= json_encode($modulesIds) ?>,
+												<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 											)">
 									</td>
 								<?php else: ?>
@@ -209,7 +213,8 @@ $tasksIds = getTaskId();
 												<?= htmlspecialchars($semesterData->id) ?>,
 												<?= htmlspecialchars($moduleData->moduleId) ?>,
 												<?= htmlspecialchars($tasksIds->controlWork) ?>,
-												<?= json_encode($modulesIds) ?>
+												<?= json_encode($modulesIds) ?>,
+												<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 											)">
 									</td>
 								<?php else: ?>
@@ -246,7 +251,8 @@ $tasksIds = getTaskId();
 											oninput="updateTaskPoints(
 												event,
 												<?= htmlspecialchars($semesterData->id) ?>,
-												<?= htmlspecialchars($semester->calculationAndGraphicTypeTask->taskDetailsId) ?>
+												<?= htmlspecialchars($semester->calculationAndGraphicTypeTask->taskDetailsId) ?>,
+												<?= htmlspecialchars(json_encode($semesterData->additionalTasks, JSON_HEX_APOS | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8') ?>
 											)">
 									</td>
 								<?php else: ?>
@@ -382,7 +388,11 @@ $tasksIds = getTaskId();
 							<td class="center-text-align disabled-cell"></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<th id="fullSemester<?= htmlspecialchars($semesterData->id) ?>Total" class="center-text-align disabled-cell"><?= htmlspecialchars($totalBySemesters['semester' . $semesterData->id . 'Sum']) ?></th>
+					<th
+						id="fullSemester<?= htmlspecialchars($semesterData->id) ?>Total"
+						class="center-text-align disabled-cell <?php if (intval($totalBySemesters['semester' . $semesterData->id . 'Sum']) !== 100): ?>not-valid-bg<?php endif; ?>">
+						<?= htmlspecialchars($totalBySemesters['semester' . $semesterData->id . 'Sum']) ?>
+					</th>
 				<?php endforeach; ?>
 			</tr>
 		</table>

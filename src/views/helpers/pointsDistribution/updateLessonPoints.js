@@ -1,4 +1,4 @@
-const updateLessonPoints = (event, lessonType, modules, semesterId) => {
+const updateLessonPoints = (event, lessonType, modules, semesterId, additionalTasks) => {
 	// Оновлюємо значення в БД
 	updateGeneralPoints(event, semesterId);
 
@@ -20,7 +20,7 @@ const updateLessonPoints = (event, lessonType, modules, semesterId) => {
 	semesterCell.innerText = event.target.value * semesterLessons;
 
 	// Оновлюємо Усього за модуль для семестра
-	updateTotalBySemesterCell(semesterId);
+	updateTotalBySemesterCell(semesterId, additionalTasks);
 
 	// Оновлюємо Всього для семестра
 	updateFullTotalBySemesterCell(semesterId);

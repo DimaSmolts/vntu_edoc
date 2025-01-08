@@ -10,7 +10,7 @@ const makePostRequest = ({
 		},
 		body: JSON.stringify(postData)
 	})
-		.then(response => {
+		.then(async response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			} else {
@@ -19,7 +19,7 @@ const makePostRequest = ({
 				}
 
 				if (debouncedHandleInput) {
-					debouncedHandleInput();
+					await debouncedHandleInput();
 				}
 			}
 		})

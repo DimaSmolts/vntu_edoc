@@ -8,7 +8,7 @@ const makeDeleteRequest = ({
 			'Content-Type': 'application/json'
 		}
 	})
-		.then(response => {
+		.then(async response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			} else {
@@ -17,7 +17,7 @@ const makeDeleteRequest = ({
 				}
 
 				if (debouncedHandleInput) {
-					debouncedHandleInput();
+					await debouncedHandleInput();
 				}
 			}
 		})

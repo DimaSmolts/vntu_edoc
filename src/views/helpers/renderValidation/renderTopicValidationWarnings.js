@@ -3,8 +3,9 @@ const renderTopicValidationWarnings = ({
 	titleBlock,
 	validationGroupBlock
 }) => {
-	if (validationEntries.length === 0) {
+	if (!validationEntries) {
 		titleBlock.style.display = 'none';
+		validationGroupBlock.innerText = '';
 		return;
 	}
 

@@ -1,4 +1,4 @@
-const updatePDF = () => {
+const updatePDF = async () => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
@@ -9,5 +9,5 @@ const updatePDF = () => {
 	const uniqueParam = new Date().getTime(); // or use Math.random() for a random value
 	const newSrc = originalSrc.split('?')[0] + `?id=${wpId}&cache=` + uniqueParam + '#view=FitH';
 
-	embedElement.setAttribute('src', newSrc);
+	await embedElement.setAttribute('src', newSrc);
 }
