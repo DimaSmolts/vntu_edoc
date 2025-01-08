@@ -1,20 +1,12 @@
-const deleteSelfworkTheme = (event, id, semesterId) => {
-	fetch(`api/deleteSelfworkTheme/?id=${id}&semesterId=${semesterId}`, {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json'
-		}
+const deleteSelfworkTheme = async (event, id, semesterId) => {
+	const data = await makeDeleteRequestAndReturnData({
+		linkWithParams: `api/deleteSelfworkTheme/?id=${id}&semesterId=${semesterId}`
 	})
-		.then(response => response.json())
-		.then(data => {
-			if (data.status === 'success') {
-				updateValidation();
-				document.getElementById(`selfworkRow${id}`).remove();
-			} else {
-				console.log('Failed to delete the theme.');
-			}
-		})
-		.catch(error => {
-			console.error('Error:', error);
-		});
+
+	if (data.status === 'success') {
+		updateValidation();
+		document.getElementById(`selfworkRow${id}`).remove();
+	} else {
+		console.log('Failed to delete the theme.');
+	}
 }

@@ -3,15 +3,10 @@ const addNewModule = async (semesterId) => {
 		semesterId
 	};
 
-	const response = await fetch('api/createNewModule', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(postData)
-	})
-
-	const data = await response.json();
+	const data = await makePostRequestAndReturnData({
+        link: 'api/createNewModule',
+        postData
+    })
 	
 	return createModuleBlock(data.moduleId);
 }

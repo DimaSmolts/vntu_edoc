@@ -1,23 +1,15 @@
-const deleteLesson = (event, id, container) => {
-	fetch(`api/deleteLesson/?id=${id}`, {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json'
-		}
+const deleteLesson = async (event, id, container) => {
+	const data = await makeDeleteRequestAndReturnData({
+		linkWithParams: `api/deleteLesson/?id=${id}`
 	})
-		.then(response => response.json())
-		.then(data => {
-			if (data.status === 'success') {
-				document.getElementById(`lessonBlock${id}`).remove();
 
-				if (!container.querySelector('.remove-lesson-btn')) {
-					container.replaceChildren();
-				}
-			} else {
-				console.log('Failed to delete the theme.');
-			}
-		})
-		.catch(error => {
-			console.error('Error:', error);
-		});
+	if (data.status === 'success') {
+		document.getElementById(`lessonBlock${id}`).remove();
+
+		if (!container.querySelector('.remove-lesson-btn')) {
+			container.replaceChildren();
+		}
+	} else {
+		console.log('Failed to delete the theme.');
+	}
 }

@@ -176,7 +176,7 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$typeName = $_GET['type'];
+			$typeName = isset($_GET['type']) ? $_GET['type'] : null;
 			$typeId = isset($_GET['typeId']) ? $_GET['typeId'] : null;
 
 			$tasksIds = getTaskId();

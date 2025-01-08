@@ -3,15 +3,10 @@ const duplicateWP = async (wpId) => {
         wpId
     };
 
-    const response = await fetch('api/duplicateWP', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postData)
-    })
-
-    const data = await response.json();
+	const data = await makePostRequestAndReturnData({
+		link: 'api/duplicateWP',
+		postData
+	})
 
     return createNewListItem(data);
 }

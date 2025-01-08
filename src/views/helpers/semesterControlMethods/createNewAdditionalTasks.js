@@ -6,15 +6,10 @@ const createNewAdditionalTasks = async (semesterId) => {
         taskName: taskNameInput.value
     };
 
-    const response = await fetch(`api/createNewAdditionalTasks`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postData)
-    })
-
-    const data = await response.json();
+	const data = await makePostRequestAndReturnData({
+		link: 'api/createNewAdditionalTasks',
+		postData
+	})
 
     const additionalTaskIdsSelect = document.querySelector(`#additionalTaskIdsSelect${semesterId}`);
     const rawSelectedAdditionalTaskIds = JSON.parse(additionalTaskIdsSelect.getAttribute('data-additionalTaskIds'));

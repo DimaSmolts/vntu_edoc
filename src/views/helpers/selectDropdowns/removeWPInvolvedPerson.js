@@ -1,62 +1,60 @@
-const removeWPInvolvedPerson = ({ id, isCreatedBy = false, newSelectedCreatedByInvolvedPersonsIds = null, isDocAprovedBy = false, personPositionName = null }) => {
-	fetch(`api/deleteWPInvolvedPerson/?id=${id}`, {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json'
-		}
+const removeWPInvolvedPerson = async ({
+	id,
+	isCreatedBy = false,
+	newSelectedCreatedByInvolvedPersonsIds = null,
+	isDocAprovedBy = false,
+	personPositionName = null
+}) => {
+	const data = await makeDeleteRequestAndReturnData({
+		linkWithParams: `api/deleteWPInvolvedPerson/?id=${id}`
 	})
-		.then(response => response.json())
-		.then(data => {
-			if (data.status === 'success') {
-				if (isCreatedBy) {
-					document.getElementById(`createdBy${id}AdditionalInfoBlock`).remove();
 
-					const createdByPersonsSelect = document.getElementById('createdByPersonsIdsSelect');
+	if (data.status === 'success') {
+		if (isCreatedBy) {
+			document.getElementById(`createdBy${id}AdditionalInfoBlock`).remove();
 
-					const updatedCreatedByInvolvedPersonsIds = JSON.stringify(newSelectedCreatedByInvolvedPersonsIds);
-					createdByPersonsSelect.setAttribute('data-createdByInvolvedPersonsIds', updatedCreatedByInvolvedPersonsIds);
-				} else if (isDocAprovedBy) {
-					document.getElementById('docApprovedByPosition').remove();
-					const select = document.getElementById('docApprovedBySelect');
-					select.removeAttribute('data-wpInvolvedPersonId');
+			const createdByPersonsSelect = document.getElementById('createdByPersonsIdsSelect');
 
-					const docApprovedByBlock = document.getElementById('docApprovedByBlock');
-					docApprovedByBlock.classList.remove('doc-approved-by-additional-info-block');
-					docApprovedByBlock.classList.add('doc-approved-by-info-block')
-				} else {
-					const degree = document.getElementById(`${personPositionName}Degree`);
-					const position = document.getElementById(`${personPositionName}Position`);
-					const minutesOfMeeting = document.getElementById(`${personPositionName}MinutesOfMeeting`);
+			const updatedCreatedByInvolvedPersonsIds = JSON.stringify(newSelectedCreatedByInvolvedPersonsIds);
+			createdByPersonsSelect.setAttribute('data-createdByInvolvedPersonsIds', updatedCreatedByInvolvedPersonsIds);
+		} else if (isDocAprovedBy) {
+			document.getElementById('docApprovedByPosition').remove();
+			const select = document.getElementById('docApprovedBySelect');
+			select.removeAttribute('data-wpInvolvedPersonId');
 
-					if (degree) {
-						degree.remove();
-					}
+			const docApprovedByBlock = document.getElementById('docApprovedByBlock');
+			docApprovedByBlock.classList.remove('doc-approved-by-additional-info-block');
+			docApprovedByBlock.classList.add('doc-approved-by-info-block')
+		} else {
+			const degree = document.getElementById(`${personPositionName}Degree`);
+			const position = document.getElementById(`${personPositionName}Position`);
+			const minutesOfMeeting = document.getElementById(`${personPositionName}MinutesOfMeeting`);
 
-					if (position) {
-						position.remove();
-					}
-
-					if (minutesOfMeeting) {
-						minutesOfMeeting.remove();
-					}
-
-					const block = document.getElementById(`${personPositionName}Block`);
-					if (personPositionName === 'educationalProgramGuarantor') {
-						block.classList.add('involved-person-info-block', 'guarantor-info-block');
-					} else {
-						block.classList.add('involved-person-info-block')
-					}
-					block.classList.remove('involved-person-additional-info-block')
-
-					const select = document.getElementById(`${personPositionName}Select`);
-					select.removeAttribute('data-wpInvolvedPersonId');
-					select.removeAttribute(`data-${personPositionName}Id`);
-				}
-			} else {
-				console.log('Failed to delete the theme.');
+			if (degree) {
+				degree.remove();
 			}
-		})
-		.catch(error => {
-			console.error('Error:', error);
-		});
+
+			if (position) {
+				position.remove();
+			}
+
+			if (minutesOfMeeting) {
+				minutesOfMeeting.remove();
+			}
+
+			const block = document.getElementById(`${personPositionName}Block`);
+			if (personPositionName === 'educationalProgramGuarantor') {
+				block.classList.add('involved-person-info-block', 'guarantor-info-block');
+			} else {
+				block.classList.add('involved-person-info-block')
+			}
+			block.classList.remove('involved-person-additional-info-block')
+
+			const select = document.getElementById(`${personPositionName}Select`);
+			select.removeAttribute('data-wpInvolvedPersonId');
+			select.removeAttribute(`data-${personPositionName}Id`);
+		}
+	} else {
+		console.log('Failed to delete the theme.');
+	}
 }

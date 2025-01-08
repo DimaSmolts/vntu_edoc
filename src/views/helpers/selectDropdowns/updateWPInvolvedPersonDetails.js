@@ -6,11 +6,8 @@ const updateWPInvolvedPersonDetails = (event, wpInvolvedPersonId, wpId) => {
         value: event.target.value
     };
 
-    fetch('api/updateWPInvolvedPersonDetails', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postData)
-    })
+    makePostRequest({
+        link: 'api/updateWPInvolvedPersonDetails',
+        postData
+    });
 } 

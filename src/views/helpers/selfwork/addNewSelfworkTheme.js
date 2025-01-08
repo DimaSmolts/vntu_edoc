@@ -3,15 +3,10 @@ const addNewSelfworkTheme = async (semesterId, educationalForms) => {
 		semesterId
 	};
 
-	const response = await fetch('api/createNewSelfworkTheme', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(postData)
-	})
-
-	const data = await response.json();
+	const data = await makePostRequestAndReturnData({
+        link: 'api/createNewSelfworkTheme',
+        postData
+    })
 
 	return addNewSelfworkThemeRow(
 		semesterId,

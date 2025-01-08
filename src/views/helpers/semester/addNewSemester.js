@@ -1,23 +1,12 @@
-const addNewSemester = (wpId, educationalForms) => {
+const addNewSemester = async (wpId, educationalForms) => {
 	const postData = {
 		wpId
 	};
 
-	fetch('api/createNewSemester', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(postData)
+	const data = await makePostRequestAndReturnData({
+		link: 'api/createNewSemester',
+		postData
 	})
-		.then(response => {
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
-			return response.json();
-		})
-		.then(data => {
-			createSemesterContainer(data.semesterId, educationalForms);
-		})
-		.catch(error => console.error('Post error:', error));
+
+	return createSemesterContainer(data.semesterId, educationalForms);
 }

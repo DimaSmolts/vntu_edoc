@@ -22,9 +22,13 @@
         <?php include __DIR__ . '/../components/wpDetails/carousel.php'; ?>
         <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
     </main>
-    <div></div>
-    <!-- <embed id="pdfPreview" src="https://iq.sdev.vntu.vn.ua/workingPrograms/pdf?id=59#view=FitH" width="100%" height="100%" /> -->
+    <embed id="pdfPreview" src="https://iq.sdev.vntu.vn.ua/workingPrograms/pdf?id=<?= htmlspecialchars($details->id) ?>#view=FitH" width="100%" height="100%" />
     <script src="src/views/helpers/wplist/logins.js"></script>
+    <script src="src/views/helpers/requests/makeGetRequestAndReturnData.js"></script>
+    <script src="src/views/helpers/requests/makePostRequest.js"></script>
+    <script src="src/views/helpers/requests/makePostRequestAndReturnData.js"></script>
+    <script src="src/views/helpers/requests/makeDeleteRequest.js"></script>
+    <script src="src/views/helpers/requests/makeDeleteRequestAndReturnData.js"></script>
     <script src="src/views/constants/EducationalFormName.js"></script>
     <script src="src/views/constants/LessonTypesName.js"></script>
     <script src="src/views/helpers/modal/openApproveDeletingModal.js"></script>
@@ -35,6 +39,7 @@
     <script src="src/views/helpers/view/createCheckboxWithLabelAtTheBeginning.js"></script>
     <script src="src/views/helpers/view/createSlide.js"></script>
     <script src="src/views/helpers/view/updateWPFormHeight.js"></script>
+    <script src="src/views/helpers/view/updatePDF.js"></script>
     <script src="src/views/helpers/updating/updateWP.js"></script>
     <script src="src/views/helpers/updating/updateGeneralInfo.js"></script>
     <script src="src/views/helpers/carousel/arrowsHandler.js"></script>
@@ -229,5 +234,15 @@
             informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
             wpId: <?= htmlspecialchars($details->id) ?>
         });
+
+        function debounce(func, delay) {
+            let timer;
+            return function(...args) {
+                clearTimeout(timer);
+                timer = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        const debouncedHandleInput = debounce(updatePDF, 3000);
     </script>
 </body>
