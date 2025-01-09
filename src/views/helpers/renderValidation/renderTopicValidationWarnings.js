@@ -21,12 +21,16 @@ const renderTopicValidationWarnings = ({
 	const messagesIdsToCreate = validationEntriesIds.filter(id => !existingWarningMessagesIds.includes(id));
 	const messagesIdsToRemove = existingWarningMessagesIds.filter(id => !validationEntriesIds.includes(id));
 
-	validationEntries.forEach(({ elementId, message }) => {
+	validationEntries.forEach(({ elementId, message, slideNumber }) => {
 		if (messagesIdsToCreate.includes(elementId)) {
 			const validationMessageBlock = createElement({
 				elementName: 'p',
 				id: elementId,
 				innerText: message,
+				eventListenerType: 'click',
+				eventListener: () => {
+					goToSlide(slideNumber);
+				}
 			})
 
 			validationGroupBlock.appendChild(validationMessageBlock);

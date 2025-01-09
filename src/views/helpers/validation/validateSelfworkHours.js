@@ -14,7 +14,8 @@ const validateSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: warningName,
-			message: `⚠️ Кількість годин для cамостійного опрацювання тем теоретичного матеріалу (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
+			message: `⚠️ Кількість годин для cамостійного опрацювання тем теоретичного матеріалу (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`,
+			slideNumber: getSlideNumberByName('selfworkContent')
 		}
 
 		addWarning(warning)

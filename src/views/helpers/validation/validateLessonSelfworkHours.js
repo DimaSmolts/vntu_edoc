@@ -16,7 +16,8 @@ const validateLessonSelfworkHours = ({
 			targetElement: element,
 			group: 'selfworkValidationGroup',
 			name: warningName,
-			message: `⚠️ Кількість годин для ${getMessageBeginning(lessonTypeId)} (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`
+			message: `⚠️ Кількість годин для ${getMessageBeginning(lessonTypeId)} (${getEducationFormNameById(educationalFormId)} форма, ${semesterNumber} сем.) НИЖЧА ніж необхідно (мін. значення - ${minValue})`,
+			slideNumber: getSlideNumberByName('selfworkContent')
 		}
 
 		addWarning(warning)

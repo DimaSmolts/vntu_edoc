@@ -160,6 +160,7 @@
     <script src="src/views/helpers/maps/getEducationFormNameById.js"></script>
     <script src="src/views/helpers/maps/getLessonTypeIdByName.js"></script>
     <script src="src/views/helpers/maps/getLessonTypeNameById.js"></script>
+    <script src="src/views/helpers/maps/getSlideNumberByName.js"></script>
     <script src="src/views/helpers/renderValidation/renderTopicValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/groupValidationEntries.js"></script>
     <script src="src/views/helpers/renderValidation/renderPointDistributionValidationWarnings.js"></script>

@@ -7,6 +7,7 @@ let currentIndex = 0; // Track the current slide index
 
 // Update the carousel to align the visible slide
 const updateSlidePosition = () => {
+	console.log(currentIndex);
 	const slideWidth = slides[0].clientWidth; // Get the width of a single slide
 	slidesContainer.scrollTo({
 		left: currentIndex * slideWidth,
@@ -41,6 +42,34 @@ prevButton.addEventListener("click", () => {
 
 // Initial state of buttons
 updateButtonState();
+
+const goToSlide = (slideNumber) => {
+	const updatedSlides = document.querySelectorAll(".slide");
+
+	// Ensure the slide number is within the valid range
+	if (slideNumber >= 0 && slideNumber < updatedSlides.length) {
+		currentIndex = slideNumber;
+		updateSlidePosition();
+	}
+};
+
+const goToSlideIncludeAssessmentComponentSlide = async (slideNumber) => {
+	const courseworksAndProjectsInfoSlide = document.getElementById('courseworksAndProjectsInfoSlide');
+
+	if (!courseworksAndProjectsInfoSlide) {
+		// перевіряємо чи є курсовий та рендеримо наступний слайд про курсовий
+		await getCourseworkSlide();
+	}
+
+	const updatedSlides = document.querySelectorAll(".slide");
+
+	// Ensure the slide number is within the valid range
+	if (slideNumber >= 0 && slideNumber < updatedSlides.length) {
+		currentIndex = slideNumber;
+
+		updateSlidePosition();
+	}
+};
 
 // додаємо функції які слідкують за перегортанням певних слайдів
 const observerOptions = {

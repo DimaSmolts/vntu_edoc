@@ -1,4 +1,11 @@
-const addWarning = ({ targetElement = null, group, name, message, isParentElementHighlight = true }) => {
+const addWarning = ({
+	targetElement = null,
+	group,
+	name,
+	message,
+	isParentElementHighlight = true,
+	slideNumber
+}) => {
 	if (targetElement) {
 		targetElement.classList.add('not-valid-bg');
 		if (isParentElementHighlight) {
@@ -9,7 +16,8 @@ const addWarning = ({ targetElement = null, group, name, message, isParentElemen
 	if (!validationMap.get(name)) {
 		validationMap.set(name, {
 			group,
-			message
+			message,
+			slideNumber
 		});
 	}
 }
