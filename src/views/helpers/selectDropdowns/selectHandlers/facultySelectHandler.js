@@ -20,6 +20,6 @@ const facultySelectHandler = async () => {
 	facultyIdSelect.addEventListener('change', async (event) => {
 		event.target.name = 'facultyId';
 
-		await updateGeneralInfo(event, wpId);
+		await updateGeneralInfo(event, wpId, true);
 	});
 };

@@ -1,6 +1,7 @@
-const updateWP = (postData) => {
+const updateWP = (postData, isUpdateValidation) => {
     makePostRequest({
         link: 'api/updateWPDetails',
-        postData
+        postData,
+		responseOKHandler: isUpdateValidation ? updateValidation : null
     });
 }

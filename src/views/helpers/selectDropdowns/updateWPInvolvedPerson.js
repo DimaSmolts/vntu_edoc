@@ -4,5 +4,7 @@ const updateWPInvolvedPerson = async (postData) => {
         postData
     })
 
+    updateValidation();
+
     return data;
 } 

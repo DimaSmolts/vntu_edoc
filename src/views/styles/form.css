@@ -27,6 +27,8 @@
 	width: 100%;
 	font-size: 17px;
 	padding: 5px;
+	border: 1px solid #777;
+	border-radius: 2.5px;
 }
 
 .wp-form textarea {
@@ -347,6 +349,11 @@ td {
 	border-color: #777 !important;
 	padding: 0 !important;
 	min-height: 34px !important;
+}
+
+.choices__inner input {
+    border: 0;
+    border-radius: 0;
 }
 
 .choices__list--single {

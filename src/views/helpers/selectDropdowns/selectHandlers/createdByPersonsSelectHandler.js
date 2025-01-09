@@ -52,7 +52,7 @@ const createdByPersonsSelectHandler = async () => {
 			Object.entries(updatedSelectedCreatedByInvolvedPersonsIds).filter(([invPersonId]) => Number(invPersonId) !== Number(involvedPersonId))
 		);
 
-		removeWPInvolvedPerson({ id: involvedPersonId, isCreatedBy: true, newSelectedCreatedByInvolvedPersonsIds });
+		removeWPInvolvedPerson({ id: involvedPersonId, wpId, isCreatedBy: true, newSelectedCreatedByInvolvedPersonsIds });
 	});
 
 	if (selectedCreatedByInvolvedPersonsIds) {

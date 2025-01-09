@@ -6,9 +6,10 @@ const updateValidation = async () => {
 		linkWithParams: `api/getDataForValidation/?id=${wpId}`
 	});
 
-	const { selfworkData, pointsDistributionTotalBySemesters, semestersNumbersByIds, courseworksAndProjectsData } = data;
+	const { details, selfworkData, pointsDistributionTotalBySemesters, semestersNumbersByIds, courseworksAndProjectsData } = data;
 
 	runValidation({
+		wpDetails: details,
 		selfworkData,
 		pointsDistributionTotalBySemesters,
 		semestersNumbersByIds,

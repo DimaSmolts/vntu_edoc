@@ -33,7 +33,7 @@ const departmentSelectHandler = async () => {
 	departmentIdSelect.addEventListener('change', async (event) => {
 		event.target.name = 'departmentId';
 
-		await updateGeneralInfo(event, wpId);
+		await updateGeneralInfo(event, wpId, true);
 	});
 
 	if (selectedDepartmentId) {

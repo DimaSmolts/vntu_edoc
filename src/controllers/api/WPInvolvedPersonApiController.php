@@ -77,12 +77,13 @@ class WPInvolvedPersonApiController extends BaseController
 	{
 		header('Content-Type: application/json');
 
-		$id = $_GET['id'];
+		$wpId = intval($_GET['wpId']);
 
-		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$id = intval($_GET['id']);
 			$this->wpInvolvedPersonService->deleteWPInvolvedPerson($id);
 		}
 	}

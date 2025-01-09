@@ -25,7 +25,7 @@ $title = "Загальна інформація";
 			id="disciplineName"
 			name="disciplineName"
 			value="<?= htmlspecialchars($details->disciplineName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 	</label>
 	<label id="stydingLevelDropdownLabel">Рівень вищої освіти:
 		<select
@@ -94,7 +94,7 @@ $title = "Загальна інформація";
 				id="academicYear"
 				name="academicYear"
 				value="<?= htmlspecialchars($details->academicYear ?? '') ?>"
-				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 		</label>
 		<label>Кількість кредитів:
 			<input
@@ -102,7 +102,7 @@ $title = "Загальна інформація";
 				id="creditsAmount"
 				name="creditsAmount"
 				value="<?= htmlspecialchars($details->creditsAmount ?? '') ?>"
-				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 		</label>
 		<label>Код:
 			<input
@@ -111,7 +111,7 @@ $title = "Загальна інформація";
 				name="code"
 				placeholder="СУЯ ВНТУ-08-53-РП.023.01:23"
 				value="<?= htmlspecialchars($details->code ?? '') ?>"
-				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
+				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 		</label>
 		<!-- Створюємо контейнер для редагування примітки -->
 		<label>Примітка:</label>

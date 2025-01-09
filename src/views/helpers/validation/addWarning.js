@@ -4,6 +4,7 @@ const addWarning = ({
 	name,
 	message,
 	isParentElementHighlight = true,
+	labelId = null,
 	slideNumber
 }) => {
 	if (targetElement) {
@@ -13,11 +14,18 @@ const addWarning = ({
 		}
 	}
 
+	if (labelId) {
+		const label = document.getElementById(labelId);
+
+		label.classList.add('not-valid-bg');
+	}
+
 	if (!validationMap.get(name)) {
 		validationMap.set(name, {
 			group,
 			message,
-			slideNumber
+			slideNumber,
+			targetElement
 		});
 	}
 }

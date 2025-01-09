@@ -13,7 +13,8 @@ const renderValidationWarnings = () => {
 	}
 
 	const groupedValidationEntries = groupValidationEntries(validationEntries);
-
+	
+	renderGeneralInfoValidationWarnings(groupedValidationEntries['generalInfoValidationGroup']);
 	renderSelfworkValidationWarnings(groupedValidationEntries['selfworkValidationGroup']);
 	renderPointDistributionValidationWarnings(groupedValidationEntries['pointDistributionValidationGroup']);
 	renderAssesmentComponentValidationWarnings(groupedValidationEntries['assesmentComponentValidationGroup']);

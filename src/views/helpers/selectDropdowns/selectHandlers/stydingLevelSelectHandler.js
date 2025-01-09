@@ -20,6 +20,6 @@ const stydingLevelSelectHandler = async () => {
 	stydingLevelIdSelect.addEventListener('change', async (event) => {
 		event.target.name = 'stydingLevelId';
 
-		await updateGeneralInfo(event, wpId);
+		await updateGeneralInfo(event, wpId, true);
 	});
 };

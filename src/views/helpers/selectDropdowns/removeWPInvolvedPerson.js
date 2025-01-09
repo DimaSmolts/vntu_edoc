@@ -1,12 +1,13 @@
 const removeWPInvolvedPerson = async ({
 	id,
+	wpId,
 	isCreatedBy = false,
 	newSelectedCreatedByInvolvedPersonsIds = null,
 	isDocAprovedBy = false,
 	personPositionName = null
 }) => {
 	const data = await makeDeleteRequestAndReturnData({
-		linkWithParams: `api/deleteWPInvolvedPerson/?id=${id}`
+		linkWithParams: `api/deleteWPInvolvedPerson/?id=${id}&wpId=${wpId}`
 	})
 
 	if (data.status === 'success') {
@@ -54,6 +55,8 @@ const removeWPInvolvedPerson = async ({
 			select.removeAttribute('data-wpInvolvedPersonId');
 			select.removeAttribute(`data-${personPositionName}Id`);
 		}
+
+		updateValidation();
 	} else {
 		console.log('Failed to delete the theme.');
 	}

@@ -163,12 +163,21 @@
     <script src="src/views/helpers/maps/getSlideNumberByName.js"></script>
     <script src="src/views/helpers/renderValidation/renderTopicValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/groupValidationEntries.js"></script>
+    <script src="src/views/helpers/renderValidation/renderGeneralInfoValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderPointDistributionValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderSelfworkValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderAssesmentComponentValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderValidationWarnings.js"></script>
     <script src="src/views/helpers/validation/addWarning.js"></script>
     <script src="src/views/helpers/validation/removeWarning.js"></script>
+    <script src="src/views/helpers/validation/validateFaculty.js"></script>
+    <script src="src/views/helpers/validation/validateDepartment.js"></script>
+    <script src="src/views/helpers/validation/validateDisciplineName.js"></script>
+    <script src="src/views/helpers/validation/validateStydingLevel.js"></script>
+    <script src="src/views/helpers/validation/validateDocApprovedBy.js"></script>
+    <script src="src/views/helpers/validation/validateAcademicYear.js"></script>
+    <script src="src/views/helpers/validation/validateCreditsAmount.js"></script>
+    <script src="src/views/helpers/validation/validateCode.js"></script>
     <script src="src/views/helpers/validation/validateSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateAdditionalTasksSelfworkHours.js"></script>
@@ -176,6 +185,7 @@
     <script src="src/views/helpers/validation/validateSemesterPointDistribution.js"></script>
     <script src="src/views/helpers/validation/validateModuleControlSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateCourseTypeWorkAssesmentComponentTotal.js"></script>
+    <script src="src/views/helpers/validation/runGeneralInfoValidation.js"></script>
     <script src="src/views/helpers/validation/runSelfworkDataValidation.js"></script>
     <script src="src/views/helpers/validation/runPointsDistributionTotalValidation.js"></script>
     <script src="src/views/helpers/validation/runCourseworksAndProjectsValidation.js"></script>
@@ -203,6 +213,7 @@
         validationWarningsEventTarget.addEventListener('validationWarningsChange', renderValidationWarnings);
 
         runValidation({
+            wpDetails: <?php echo json_encode($details); ?>,
             selfworkData: <?php echo json_encode($selfworkData); ?>,
             pointsDistributionTotalBySemesters: <?php echo json_encode($pointsDistributionTotalBySemesters); ?>,
             semestersNumbersByIds: <?php echo json_encode(!empty($semestersNumbersByIds) ? $semestersNumbersByIds : null); ?>,

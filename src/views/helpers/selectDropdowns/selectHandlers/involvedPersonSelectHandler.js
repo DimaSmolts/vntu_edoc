@@ -28,7 +28,7 @@ const involvedPersonSelectHandler = async ({ involvedPersonName, selectInvolvedP
 		if (wpInvolvedPersonId && event.target.value) {
 			await selectInvolvedPerson(wpInvolvedPersonId, event.target.value, wpId);
 		} else if (!event.target.value) {
-			await removeWPInvolvedPerson({ id: wpInvolvedPersonId, personPositionName: involvedPersonName, isDocAprovedBy });
+			await removeWPInvolvedPerson({ id: wpInvolvedPersonId, wpId, personPositionName: involvedPersonName, isDocAprovedBy });
 		} else {
 			await selectNewInvolvedPerson(null, event.target.value, wpId);
 		}

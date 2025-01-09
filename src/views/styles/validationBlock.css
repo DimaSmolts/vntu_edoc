@@ -7,17 +7,17 @@
 
 .validation-container p {
 	margin-bottom: 10px;
-    border: 2px solid orange;
-    background-color: antiquewhite;
-    padding: 10px;
-    border-radius: 20px;
+	border: 2px solid orange;
+	background-color: antiquewhite;
+	padding: 10px;
+	border-radius: 20px;
 	cursor: pointer;
 }
 
 .validation-title {
 	font-size: 1.9em;
-    text-align: center;
-    margin-bottom: 10px;
+	text-align: center;
+	margin-bottom: 10px;
 }
 
 .validation-invalid-title {
@@ -29,9 +29,9 @@
 }
 
 .validation-note {
-    font-weight: normal;
-    font-style: italic;
-    margin-bottom: 10px;
+	font-weight: normal;
+	font-style: italic;
+	margin-bottom: 10px;
 }
 
 .visible {
@@ -43,11 +43,11 @@
 }
 
 .not-valid-bg {
-	background-color: antiquewhite;
+	background-color: antiquewhite !important;
 }
 
 .validation-topic-title {
 	font-size: 20px;
-    text-align: left;
-    margin-bottom: 10px;
+	text-align: left;
+	margin-bottom: 10px;
 }

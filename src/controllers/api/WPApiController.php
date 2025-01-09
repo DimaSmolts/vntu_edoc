@@ -262,6 +262,8 @@ class WPApiController extends BaseController
 
 		if ($ifCurrentUserHasAccessToWP) {
 			$wpData = $this->wpService->getWPDetails($wpId);
+			$details = getFullFormattedWorkingProgramData($wpData);
+
 			$selfworkData = getFullFormattedSelfworkData($wpData);
 
 			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
@@ -277,6 +279,7 @@ class WPApiController extends BaseController
 			}
 
 			echo json_encode(([
+				'details' => $details,
 				'selfworkData' => $selfworkData,
 				'pointsDistributionTotalBySemesters' => $pointsByTypeOfWork['totalBySemesters'],
 				'semestersNumbersByIds' => $semestersNumbersByIds,

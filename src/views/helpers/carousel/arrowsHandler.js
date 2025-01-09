@@ -43,13 +43,21 @@ prevButton.addEventListener("click", () => {
 // Initial state of buttons
 updateButtonState();
 
-const goToSlide = (slideNumber) => {
+const goToSlide = (slideNumber, targetElement) => {
 	const updatedSlides = document.querySelectorAll(".slide");
 
 	// Ensure the slide number is within the valid range
 	if (slideNumber >= 0 && slideNumber < updatedSlides.length) {
 		currentIndex = slideNumber;
 		updateSlidePosition();
+
+		// Focus on the input if the ID is provided
+		if (targetElement) {
+			targetElement.focus();
+			if (targetElement?.setSelectionRange) {
+				targetElement.setSelectionRange(0, 0);
+			}
+		}
 	}
 };
 
