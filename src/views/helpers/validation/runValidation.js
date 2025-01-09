@@ -6,7 +6,8 @@ const runValidation = ({
 	courseworksAndProjectsData
 }) => {
 	console.log(wpDetails);
-	runGeneralInfoValidation(wpDetails)
+	runGeneralInfoValidation(wpDetails);
+	runApprovedInfoValidation(wpDetails);
 	runSelfworkDataValidation(selfworkData);
 	runPointsDistributionTotalValidation({ pointsDistributionTotalBySemesters, semestersNumbersByIds });
 

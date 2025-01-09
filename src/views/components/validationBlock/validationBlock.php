@@ -10,6 +10,10 @@
 		<h6 id="generalInfoValidationTitleBlock" class="validation-topic-title" style="display: none;">Загальна інформація:</h6>
 		<div id="generalInfoValidationGroup"></div>
 	</div>
+	<div id="approvedInfoValidationGroupContainer">
+		<h6 id="approvedInfoValidationTitleBlock" class="validation-topic-title" style="display: none;">Затверження робочої програми:</h6>
+		<div id="approvedInfoValidationGroup"></div>
+	</div>
 	<div id="selfworkValidationGroupContainer">
 		<h6 id="selfworkValidationTitleBlock" class="validation-topic-title" style="display: none;">Самостійна робота:</h6>
 		<div id="selfworkValidationGroup"></div>

@@ -15,6 +15,7 @@ const renderValidationWarnings = () => {
 	const groupedValidationEntries = groupValidationEntries(validationEntries);
 	
 	renderGeneralInfoValidationWarnings(groupedValidationEntries['generalInfoValidationGroup']);
+	renderApprovedInfoValidationWarnings(groupedValidationEntries['approvedInfoValidationGroup']);
 	renderSelfworkValidationWarnings(groupedValidationEntries['selfworkValidationGroup']);
 	renderPointDistributionValidationWarnings(groupedValidationEntries['pointDistributionValidationGroup']);
 	renderAssesmentComponentValidationWarnings(groupedValidationEntries['assesmentComponentValidationGroup']);

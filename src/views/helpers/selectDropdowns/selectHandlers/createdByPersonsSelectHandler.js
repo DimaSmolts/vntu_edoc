@@ -4,7 +4,7 @@ const createdByPersonsSelectHandler = async () => {
 	const selectedCreatedByInvolvedPersonsIds = JSON.parse(createdByPersonsIdsSelect.getAttribute('data-createdByInvolvedPersonsIds'));
 
 	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const createdByPersonsIdsSelectChoices = createNewSelectWithSearch('#createdByPersonsIdsSelect'); // Перезапускаємо Choices.js
+	const createdByPersonsIdsSelectChoices = await createNewSelectWithSearch('#createdByPersonsIdsSelect'); // Перезапускаємо Choices.js
 
 	const createdByPersonsIdsSelectSearchDropdown = async (inputValue) => {
 		const personsIds = selectedCreatedByInvolvedPersonsIds ? Object.values(selectedCreatedByInvolvedPersonsIds) : [];
