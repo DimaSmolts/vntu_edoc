@@ -91,6 +91,7 @@ $title = "Загальна інформація";
 		<label>Рік підготовки:
 			<input
 				type="number"
+				min="1"
 				id="academicYear"
 				name="academicYear"
 				value="<?= htmlspecialchars($details->academicYear ?? '') ?>"
@@ -99,6 +100,7 @@ $title = "Загальна інформація";
 		<label>Кількість кредитів:
 			<input
 				type="number"
+				min="1"
 				id="creditsAmount"
 				name="creditsAmount"
 				value="<?= htmlspecialchars($details->creditsAmount ?? '') ?>"
