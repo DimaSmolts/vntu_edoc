@@ -10,7 +10,8 @@ const validateDisciplineName = ({
 			group: 'generalInfoValidationGroup',
 			name: warningName,
 			message: `⚠️ Введіть назву дисципліни (вона ж буде назвою робочої програми)`,
-			slideNumber: getSlideNumberByName('generalInfo')
+			slideNumber: getSlideNumberByName('generalInfo'),
+			isParentElementHighlight: false,
 		}
 
 		addWarning(warning);
@@ -18,7 +19,8 @@ const validateDisciplineName = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName
+			name: warningName,
+			isParentElementHighlight: false,
 		});
 	}
 }

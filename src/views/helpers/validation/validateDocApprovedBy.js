@@ -10,9 +10,7 @@ const validateDocApprovedBy = ({
 			group: 'generalInfoValidationGroup',
 			name: warningName,
 			message: `⚠️ Оберіть особу, яка затверджує документ`,
-			slideNumber: getSlideNumberByName('generalInfo'),
-			isParentElementHighlight: false,
-			labelId: 'docApprovedByLabel'
+			slideNumber: getSlideNumberByName('generalInfo')
 		}
 
 		addWarning(warning);
@@ -20,9 +18,7 @@ const validateDocApprovedBy = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName,
-			isParentElementHighlight: false,
-			labelId: 'docApprovedByLabel'
+			name: warningName
 		});
 	}
 }

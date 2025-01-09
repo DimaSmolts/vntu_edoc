@@ -3,7 +3,7 @@ const involvedPersonSelectHandler = async ({ involvedPersonName, selectInvolvedP
 	const involvedPersonId = involvedPersonSelect.getAttribute(`data-${involvedPersonName}Id`);
 	const wpId = involvedPersonSelect.getAttribute('data-wpId');
 
-	const involvedPersonSelectChoices = createNewSelectWithSearch(`#${involvedPersonName}Select`);
+	const involvedPersonSelectChoices = await createNewSelectWithSearch(`#${involvedPersonName}Select`);
 
 	const involvedPersonSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

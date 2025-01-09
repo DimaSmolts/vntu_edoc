@@ -11,6 +11,7 @@ const validateCreditsAmount = ({
 			name: warningName,
 			message: `⚠️ Введіть кількість кредитів`,
 			slideNumber: getSlideNumberByName('generalInfo'),
+			isParentElementHighlight: false
 		}
 
 		addWarning(warning);
@@ -18,7 +19,8 @@ const validateCreditsAmount = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName
+			name: warningName,
+			isParentElementHighlight: false
 		});
 	}
 }

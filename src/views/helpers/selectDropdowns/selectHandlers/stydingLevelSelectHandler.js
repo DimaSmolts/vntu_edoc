@@ -3,11 +3,11 @@ const stydingLevelSelectHandler = async () => {
 	const wpId = stydingLevelIdSelect.getAttribute('data-wpId');
 	const selectedStydingLevelId = Number(stydingLevelIdSelect.getAttribute('data-stydingLevelId'));
 
+	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
+	const stydingLevelIdSelectChoices = await createNewSelect('#stydingLevelIdSelect'); // Перезапускаємо Choices.js
+
 	// Спочатку отримуємо факультети з бекенду
 	const results = await fetchStydingLevelTypes();
-
-	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const stydingLevelIdSelectChoices = createNewSelect('#stydingLevelIdSelect'); // Перезапускаємо Choices.js
 
 	const options = results.map(faculty => {
 		return new Option(faculty.label, faculty.value, faculty.value === selectedStydingLevelId, faculty.value === selectedStydingLevelId);

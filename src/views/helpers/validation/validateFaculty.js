@@ -10,9 +10,7 @@ const validateFaculty = ({
 			group: 'generalInfoValidationGroup',
 			name: warningName,
 			message: `⚠️ Оберіть факультет`,
-			slideNumber: getSlideNumberByName('generalInfo'),
-			isParentElementHighlight: false,
-			labelId: 'facultyDropdownLabel'
+			slideNumber: getSlideNumberByName('generalInfo')
 		}
 
 		addWarning(warning);
@@ -20,9 +18,7 @@ const validateFaculty = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName,
-			isParentElementHighlight: false,
-			labelId: 'facultyDropdownLabel'
+			name: warningName
 		});
 	}
 }

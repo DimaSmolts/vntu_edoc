@@ -11,6 +11,7 @@ const validateCode = ({
 			name: warningName,
 			message: `⚠️ Введіть код`,
 			slideNumber: getSlideNumberByName('generalInfo'),
+			isParentElementHighlight: false
 		}
 
 		addWarning(warning);
@@ -18,7 +19,8 @@ const validateCode = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName
+			name: warningName,
+			isParentElementHighlight: false
 		});
 	}
 }

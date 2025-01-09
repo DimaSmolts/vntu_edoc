@@ -11,6 +11,7 @@ const validateAcademicYear = ({
 			name: warningName,
 			message: `⚠️ Введіть рік підготовки`,
 			slideNumber: getSlideNumberByName('generalInfo'),
+			isParentElementHighlight: false
 		}
 
 		addWarning(warning);
@@ -18,7 +19,8 @@ const validateAcademicYear = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName
+			name: warningName,
+			isParentElementHighlight: false
 		});
 	}
 }

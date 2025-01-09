@@ -212,14 +212,6 @@
 
         validationWarningsEventTarget.addEventListener('validationWarningsChange', renderValidationWarnings);
 
-        runValidation({
-            wpDetails: <?php echo json_encode($details); ?>,
-            selfworkData: <?php echo json_encode($selfworkData); ?>,
-            pointsDistributionTotalBySemesters: <?php echo json_encode($pointsDistributionTotalBySemesters); ?>,
-            semestersNumbersByIds: <?php echo json_encode(!empty($semestersNumbersByIds) ? $semestersNumbersByIds : null); ?>,
-            courseworksAndProjectsData: <?php echo json_encode($courseworksAndProjectsData); ?>,
-        })
-
         initializeSelectHandlers({
             semestersIds: <?php echo json_encode(!empty($semestersIds) ? $semestersIds : null); ?>,
         })
@@ -261,5 +253,13 @@
         }
 
         const debouncedHandleInput = debounce(updatePDF, 3000);
+
+        runValidation({
+            wpDetails: <?php echo json_encode($details); ?>,
+            selfworkData: <?php echo json_encode($selfworkData); ?>,
+            pointsDistributionTotalBySemesters: <?php echo json_encode($pointsDistributionTotalBySemesters); ?>,
+            semestersNumbersByIds: <?php echo json_encode(!empty($semestersNumbersByIds) ? $semestersNumbersByIds : null); ?>,
+            courseworksAndProjectsData: <?php echo json_encode($courseworksAndProjectsData); ?>,
+        })
     </script>
 </body>

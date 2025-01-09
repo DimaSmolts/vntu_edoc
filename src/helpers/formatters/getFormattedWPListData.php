@@ -13,7 +13,7 @@ function getFormattedWPListData($wps)
 
 		return new WPListItemModel(
 			$wp->id,
-			$wp->disciplineName,
+			$wp->disciplineName ?? '',
 			$wp->createdAt,
 			$wp->specialtiesCodesAndNames,
 			implode(', ', $semesterNumbers)

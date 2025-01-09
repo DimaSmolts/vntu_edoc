@@ -10,9 +10,7 @@ const validateStydingLevel = ({
 			group: 'generalInfoValidationGroup',
 			name: warningName,
 			message: `⚠️ Оберіть рівень вищої освіти`,
-			slideNumber: getSlideNumberByName('generalInfo'),
-			isParentElementHighlight: false,
-			labelId: 'stydingLevelDropdownLabel'
+			slideNumber: getSlideNumberByName('generalInfo')
 		}
 
 		addWarning(warning);
@@ -20,9 +18,7 @@ const validateStydingLevel = ({
 		removeWarning({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
-			name: warningName,
-			isParentElementHighlight: false,
-			labelId: 'stydingLevelDropdownLabel'
+			name: warningName
 		});
 	}
 }

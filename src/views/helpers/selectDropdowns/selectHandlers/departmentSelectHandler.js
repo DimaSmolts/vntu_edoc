@@ -4,7 +4,7 @@ const departmentSelectHandler = async () => {
 	const selectedDepartmentId = Number(departmentIdSelect.getAttribute('data-departmentId'));
 
 	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const departmentIdSelectChoices = createNewSelectWithSearch('#departmentIdSelect'); // Перезапускаємо Choices.js
+	const departmentIdSelectChoices = await createNewSelectWithSearch('#departmentIdSelect'); // Перезапускаємо Choices.js
 
 	const departmentIdSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {
