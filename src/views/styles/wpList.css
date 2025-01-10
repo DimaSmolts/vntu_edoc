@@ -20,7 +20,7 @@
 }
 
 .wp-list-item:nth-child(even) {
-    background-color: ghostwhite;
+    background-color: #f6f5f5;
 }
 
 .wp-list-item-content-header {

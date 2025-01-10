@@ -35,7 +35,7 @@ body.details {
 }
 
 .page-title-container {
-    background-color: #515252;
+    background-color: #103F95;
     padding: 15px 150px;
     position: relative;
     display: grid;
@@ -51,7 +51,7 @@ body.details {
 }
 
 .btn {
-    background-color: #05a2ae;
+    background-color: #5770B5;
     color: #ffffff;
     padding: 10px;
     border: 0px;
@@ -60,6 +60,10 @@ body.details {
     text-decoration: none;
     cursor: pointer;
     text-align: center;
+}
+
+.btn:hover {
+    background-color: #1B5BC3;
 }
 
 .to-list-btn {

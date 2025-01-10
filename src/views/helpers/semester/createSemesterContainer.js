@@ -59,7 +59,7 @@ const createSemesterContainer = (semesterId, educationalForms) => {
 		elementName: "button",
 		id: `addModuleBtn${semesterId}`,
 		innerText: 'Додати модуль',
-		classList: ['btn'],
+		classList: ['btn', 'module-btn'],
 		eventListenerType: 'click',
 		eventListener: (event) => {
 			addModule(event, semesterId, `addModuleBtn${semesterId}`, `modulesContainer${semesterId}`)

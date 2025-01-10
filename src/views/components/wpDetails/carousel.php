@@ -35,13 +35,13 @@
 		</li>
 	</ul>
 	<div class="carousel-arrow-container">
-		<button class="carousel-arrow" id="carousel-arrow-prev">
+		<button class="btn carousel-arrow" id="carousel-arrow-prev">
 			Назад
 		</button>
 		<div>
 			<a class="btn" type="button" href="pdf?id=<?= htmlspecialchars($details->id) ?>" target="_blank">Згенерувати PDF</a>
 		</div>
-		<button class="carousel-arrow" id="carousel-arrow-next">
+		<button class="btn carousel-arrow" id="carousel-arrow-next">
 			Далі
 		</button>
 	</div>

@@ -13,7 +13,7 @@ const createModuleBlock = (moduleId) => {
 	const removeModuleBtn = createElement({
 		elementName: "button",
 		innerText: "Видалити модуль",
-		classList: ["btn"],
+		classList: ["btn", "module-btn"],
 		eventListenerType: 'click',
 		eventListener: (event) => {
 			openApproveDeletingModal('модуль', () => deleteModule(event, moduleId));

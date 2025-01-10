@@ -62,7 +62,7 @@ if (!empty($details->semesters)) {
 									<div class="module-title-container">
 										<p class="block-title module-title" id="moduleTitle<?= htmlspecialchars($moduleData->moduleId) ?>">Mодуль <?= $moduleData->moduleNumber ? htmlspecialchars($moduleData->moduleNumber) : "" ?></p>
 										<button
-											class="btn"
+											class="btn module-btn"
 											onclick="openApproveDeletingModal('модуль', (event)=>deleteModule(event, <?= htmlspecialchars($moduleData->moduleId) ?>))">
 											Видалити модуль
 										</button>
@@ -142,7 +142,7 @@ if (!empty($details->semesters)) {
 							<?php endforeach; ?>
 						<?php endif; ?>
 						<button
-							class="btn"
+							class="btn module-btn"
 							id="addModuleBtn<?= htmlspecialchars($semesterData->id) ?>"
 							onclick="addModule(event, <?= htmlspecialchars($semesterData->id) ?>, 'addModuleBtn<?= htmlspecialchars($semesterData->id) ?>', 'modulesContainer<?= htmlspecialchars($semesterData->id) ?>')">
 							Додати модуль
@@ -152,5 +152,5 @@ if (!empty($details->semesters)) {
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
-	<button id="addNewSemester" class="btn semester-btn" onclick="addNewSemester(<?= htmlspecialchars($details->id) ?>, <?= htmlspecialchars($educationalForms) ?>)">Додати семестр</button>
+	<button id="addNewSemester" class="btn" onclick="addNewSemester(<?= htmlspecialchars($details->id) ?>, <?= htmlspecialchars($educationalForms) ?>)">Додати семестр</button>
 </div>

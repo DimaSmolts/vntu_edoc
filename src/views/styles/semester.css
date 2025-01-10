@@ -1,9 +1,17 @@
-.semester-btn {
-	background-color: #428bca;
+.module-btn {
+	background-color: #3EA5F0;
+}
+
+.module-btn:hover {
+	background-color: #0078D4;
 }
 
 .theme-btn {
-	background-color: #5cb85c;
+	background-color: #e6a204;
+}
+
+.theme-btn:hover {
+	background-color: #c79010;
 }
 
 .modules-container {
