@@ -27,6 +27,11 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 	$semestersColumnsWidth = [];
 	if (!empty($details->semesters)) {
 		foreach ($details->semesters as $semester) {
+			$semestersColumnsWidth[$semester->id] = [
+				'colspan' => 1,
+				'width' => 10
+			];
+
 			if (!empty($semester->modules)) {
 				// Збираємо всі дані для семестру (кількість модулів для об'єднання колонок, ширину колонки)
 				$semesterColumn = [];
@@ -41,6 +46,8 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 
 				// Віднімаємо ширину колонки семестру та колонки "Разом" для семестру, щоб отримати ширину колонки "Вид роботи"
 				$activityTypeColumnWidth -= $semesterColumn['width'] + $semesterTotalColumnWidth;
+			} else {
+				$activityTypeColumnWidth -= 10 + $semesterTotalColumnWidth;
 			}
 		}
 	}
@@ -245,7 +252,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 						<th class="calculated"><?= htmlspecialchars($moduleData->moduleTotal) ?></th>
 					<?php endforeach; ?>
 				<?php endif; ?>
-				<th class="calculated"><?= htmlspecialchars($semesterData->modulesTotal->modulesTotalPoints) ?></th>
+				<th class="calculated"><?= htmlspecialchars($semesterData->modulesTotal->modulesTotalPoints ?? 0) ?></th>
 			<?php endforeach; ?>
 		</tr>
 		<?php

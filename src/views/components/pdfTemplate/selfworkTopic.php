@@ -342,7 +342,7 @@
 					colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"
 					style="width: <?= htmlspecialchars($fullHoursAmountColumnWidth) ?>%;"
 					class="none-border-left center calculated">
-					<?= htmlspecialchars($hours) ?>
+					<?= htmlspecialchars($hours ?? '') ?>
 				</td>
 			</tr>
 
