@@ -9,4 +9,8 @@ const updateModuleInfo = (event, moduleId) => {
         link: 'api/updateModule',
         postData
     });
+
+    if (event.target.name === 'moduleNumber') {
+        updateValidation();
+    }
 }

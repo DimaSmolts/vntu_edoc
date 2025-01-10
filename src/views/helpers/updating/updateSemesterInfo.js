@@ -9,4 +9,8 @@ const updateSemesterInfo = (event, semesterId) => {
         link: 'api/updateSemester',
         postData
     });
+
+    if (event.target.name === 'semesterNumber') {
+        updateValidation();
+    }
 }

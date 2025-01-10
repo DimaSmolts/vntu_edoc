@@ -165,6 +165,7 @@
     <script src="src/views/helpers/renderValidation/groupValidationEntries.js"></script>
     <script src="src/views/helpers/renderValidation/renderGeneralInfoValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderApprovedInfoValidationWarnings.js"></script>
+    <script src="src/views/helpers/renderValidation/renderWPProgramValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderPointDistributionValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderSelfworkValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderAssesmentComponentValidationWarnings.js"></script>
@@ -184,6 +185,9 @@
     <script src="src/views/helpers/validation/validateHeadOfDepartment.js"></script>
     <script src="src/views/helpers/validation/validateHeadOfCommission.js"></script>
     <script src="src/views/helpers/validation/validateApprovedBy.js"></script>
+    <script src="src/views/helpers/validation/validateSemestersAmount.js"></script>
+    <script src="src/views/helpers/validation/validateModulesAmount.js"></script>
+    <script src="src/views/helpers/validation/validateThemesAmount.js"></script>
     <script src="src/views/helpers/validation/validateSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateAdditionalTasksSelfworkHours.js"></script>
@@ -193,6 +197,7 @@
     <script src="src/views/helpers/validation/validateCourseTypeWorkAssesmentComponentTotal.js"></script>
     <script src="src/views/helpers/validation/runGeneralInfoValidation.js"></script>
     <script src="src/views/helpers/validation/runApprovedInfoValidation.js"></script>
+    <script src="src/views/helpers/validation/runWPProgramValidation.js"></script>
     <script src="src/views/helpers/validation/runSelfworkDataValidation.js"></script>
     <script src="src/views/helpers/validation/runPointsDistributionTotalValidation.js"></script>
     <script src="src/views/helpers/validation/runCourseworksAndProjectsValidation.js"></script>

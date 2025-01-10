@@ -12,10 +12,17 @@ const addNewSemester = async (wpId, educationalForms) => {
 
 	const educationalDisciplineSemesterControlMethodsContent = document.getElementById('educationalDisciplineSemesterControlMethodsContent');
 
-	const semestersIds = JSON.parse(educationalDisciplineSemesterControlMethodsContent.getAttribute('data-semestersIds'));
+	const educationalDisciplineSemesterControlMethodsContentSemestersIds = JSON.parse(educationalDisciplineSemesterControlMethodsContent.getAttribute('data-semestersIds'));
 
-    const updatedSemestersIds = JSON.stringify([...semestersIds, data.semesterId]);
-    educationalDisciplineSemesterControlMethodsContent.setAttribute('data-semestersIds', updatedSemestersIds);
+	const updatedEducationalDisciplineSemesterControlMethodsContentSemestersIds = JSON.stringify([...educationalDisciplineSemesterControlMethodsContentSemestersIds, data.semesterId]);
+	educationalDisciplineSemesterControlMethodsContent.setAttribute('data-semestersIds', updatedEducationalDisciplineSemesterControlMethodsContentSemestersIds);
+
+	const educationalDisciplineSemesterProgramContent = document.getElementById('educationalDisciplineSemesterProgram');
+
+	const educationalDisciplineSemesterProgramContentSemestersIds = JSON.parse(educationalDisciplineSemesterProgramContent.getAttribute('data-semestersIds'));
+
+	const updatedEducationalDisciplineSemesterProgramContentSemestersIds = JSON.stringify([...educationalDisciplineSemesterProgramContentSemestersIds, data.semesterId]);
+	educationalDisciplineSemesterProgramContent.setAttribute('data-semestersIds', updatedEducationalDisciplineSemesterProgramContentSemestersIds);
 
 	return createSemesterContainer(data.semesterId, educationalForms);
 }

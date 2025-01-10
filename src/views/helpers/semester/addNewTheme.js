@@ -7,6 +7,8 @@ const addNewTheme = async (moduleId) => {
 		link: 'api/createNewTheme',
 		postData
 	})
+
+	updateValidation();
 	
 	return createThemeBlock(data.themeId);
 }

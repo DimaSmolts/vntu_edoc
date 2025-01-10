@@ -1,10 +1,28 @@
 <?php
 $title = "Програма навчальної дисципліни";
+
+$semestersIds = [];
+$modulesIds = [];
+
+if (!empty($details->semesters)) {
+	foreach ($details->semesters as $semesterData) {
+		$semestersIds[] = $semesterData->id;
+		if (!empty($semesterData->modules)) {
+			foreach ($semesterData->modules as $module) {
+				$modulesIds[] = $module->moduleId;
+			}
+		}
+	}
+}
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
-<div id="educationalDisciplineSemesterProgram" class="wp-form">
+<div
+	id="educationalDisciplineSemesterProgram"
+	class="wp-form"
+	data-semestersIds=<?= json_encode($semestersIds) ?>
+	data-modulesIds=<?= json_encode($modulesIds) ?>>
 	<div id="semestersContainer">
 		<?php if (!empty($details->semesters)): ?>
 			<?php foreach ($details->semesters as $semesterData): ?>
