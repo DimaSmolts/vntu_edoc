@@ -166,6 +166,7 @@
     <script src="src/views/helpers/renderValidation/renderGeneralInfoValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderApprovedInfoValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderWPProgramValidationWarnings.js"></script>
+    <script src="src/views/helpers/renderValidation/renderWPProgramControlMethodsValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderPointDistributionValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderSelfworkValidationWarnings.js"></script>
     <script src="src/views/helpers/renderValidation/renderAssesmentComponentValidationWarnings.js"></script>
@@ -188,6 +189,7 @@
     <script src="src/views/helpers/validation/validateSemestersAmount.js"></script>
     <script src="src/views/helpers/validation/validateModulesAmount.js"></script>
     <script src="src/views/helpers/validation/validateThemesAmount.js"></script>
+    <script src="src/views/helpers/validation/validateEducationalFormsAmount.js"></script>
     <script src="src/views/helpers/validation/validateSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/validation/validateAdditionalTasksSelfworkHours.js"></script>
@@ -268,6 +270,7 @@
 
         runValidation({
             wpDetails: <?php echo json_encode($details); ?>,
+            educationalForms: <?php echo json_encode($educationalForms); ?>,
             selfworkData: <?php echo json_encode($selfworkData); ?>,
             pointsDistributionTotalBySemesters: <?php echo json_encode($pointsDistributionTotalBySemesters); ?>,
             semestersNumbersByIds: <?php echo json_encode(!empty($semestersNumbersByIds) ? $semestersNumbersByIds : null); ?>,

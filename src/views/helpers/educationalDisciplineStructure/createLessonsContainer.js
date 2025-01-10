@@ -5,10 +5,20 @@ const createLessonsContainer = (themes) => {
 	if (themes.length === 0) {
 		const noModulesText = createElement({
 			elementName: "p",
-			innerText: "Немає тем модулів. Додайте теми до модуля, щоб мати можливість відредагувати структуру навчальної дисципліни"
+			innerText: "Немає тем у модулях. Додайте теми до модуля, щоб мати можливість відредагувати структуру навчальної дисципліни"
 		});
 
 		lessonsContainer.appendChild(noModulesText);
+		return;
+	}
+
+	if (theme.semesterEducationalForms.length === 0) {
+		const noEducationalFormsText = createElement({
+			elementName: "p",
+			innerText: "Немає форм здобуття освіти. Додайте принаймні одну форму здобуття освіти, щоб мати можливість відредагувати структуру навчальної дисципліни"
+		});
+
+		lessonsContainer.appendChild(noEducationalFormsText);
 		return;
 	}
 

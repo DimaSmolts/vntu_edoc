@@ -1,4 +1,4 @@
-const runWPProgramValidation = (wpDetails) => {
+const runWPProgramValidation = ({ wpDetails, educationalForms }) => {
 	const isSemestersAmountValid = validateSemestersAmount({
 		value: wpDetails.semesters
 	});
@@ -30,6 +30,20 @@ const runWPProgramValidation = (wpDetails) => {
 					currentModulesIds.push(module.moduleId);
 				})
 			}
+
+			const educationalFormsCheckboxes = educationalForms
+				.map(educationalForm => {
+					return document.getElementById(`semester${semester.id}${educationalForm.colName}Checkbox`);
+				})
+				.filter(checkbox => checkbox);
+
+
+			validateEducationalFormsAmount({
+				elements: educationalFormsCheckboxes.length > 0 ? educationalFormsCheckboxes : null,
+				value: semester.educationalForms,
+				semesterId: semester.id,
+				semesterNumber: semester.semesterNumber
+			})
 		});
 
 		const currentSemestersIds = wpDetails.semesters.map(({ id }) => id);

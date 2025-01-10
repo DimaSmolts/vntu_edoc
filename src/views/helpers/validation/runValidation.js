@@ -1,5 +1,6 @@
 const runValidation = ({
 	wpDetails,
+	educationalForms,
 	selfworkData,
 	pointsDistributionTotalBySemesters,
 	semestersNumbersByIds,
@@ -14,7 +15,7 @@ const runValidation = ({
 	});
 	runGeneralInfoValidation(wpDetails);
 	runApprovedInfoValidation(wpDetails);
-	runWPProgramValidation(wpDetails);
+	runWPProgramValidation({ wpDetails, educationalForms });
 	runSelfworkDataValidation(selfworkData);
 	runPointsDistributionTotalValidation({ pointsDistributionTotalBySemesters, semestersNumbersByIds });
 	runCourseworksAndProjectsValidation(courseworksAndProjectsData);

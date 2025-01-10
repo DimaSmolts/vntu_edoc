@@ -18,6 +18,10 @@
 		<h6 id="programValidationTitleBlock" class="validation-topic-title" style="display: none;">Програма навчальної дисципліни:</h6>
 		<div id="programValidationGroup"></div>
 	</div>
+	<div id="programControlMethodsValidationGroupContainer">
+		<h6 id="programControlMethodsValidationTitleBlock" class="validation-topic-title" style="display: none;">Програма навчальної дисципліни (Додатково):</h6>
+		<div id="programControlMethodsValidationGroup"></div>
+	</div>
 	<div id="selfworkValidationGroupContainer">
 		<h6 id="selfworkValidationTitleBlock" class="validation-topic-title" style="display: none;">Самостійна робота:</h6>
 		<div id="selfworkValidationGroup"></div>

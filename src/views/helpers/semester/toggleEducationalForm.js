@@ -1,17 +1,20 @@
-const toggleEducationalForm = (event, educationalDisciplineSemesterId, educationalFormId) => {
+const toggleEducationalForm = async (event, educationalDisciplineSemesterId, educationalFormId) => {
 	if (event.target.checked) {
 		const postData = {
 			educationalDisciplineSemesterId,
 			educationalFormId
 		};
 
-		makePostRequest({
+		await makePostRequest({
 			link: 'api/createSemesterEducationForm',
 			postData
 		});
+
 	} else {
-		makeDeleteRequest({
+		await makeDeleteRequest({
 			linkWithParams: `api/deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`
 		})
 	}
+
+	await updateValidation();
 }
