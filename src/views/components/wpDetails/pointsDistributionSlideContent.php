@@ -396,5 +396,7 @@ $tasksIds = getTaskId();
 				<?php endforeach; ?>
 			</tr>
 		</table>
+	<?php else: ?>
+		<p>Недостатньо даних, додайте принаймні один семестр.</p>
 	<?php endif; ?>
 </div>

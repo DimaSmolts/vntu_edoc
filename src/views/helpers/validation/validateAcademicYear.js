@@ -9,7 +9,7 @@ const validateAcademicYear = ({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
 			name: warningName,
-			message: `⚠️ Введіть рік підготовки`,
+			message: `⚠️ Введіть рік підготовки (не менше ніж 1)`,
 			slideNumber: getSlideNumberByName('generalInfo'),
 			isParentElementHighlight: false
 		}

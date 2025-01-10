@@ -54,9 +54,6 @@ const goToSlide = (slideNumber, targetElement) => {
 		// Focus on the input if the ID is provided
 		if (targetElement) {
 			targetElement.focus();
-			if (targetElement?.setSelectionRange) {
-				targetElement.setSelectionRange(0, 0);
-			}
 		}
 	}
 };

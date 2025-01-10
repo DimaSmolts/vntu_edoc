@@ -10,7 +10,9 @@ const initializeSelectHandlers = ({ semestersIds }) => {
 	headOfCommissionSelectHandler();
 	approvedBySelectHandler();
 	docApprovedBySelectHandler();
-	semestersIds.forEach(semesterId => {
-		examTypeSelectHandler(semesterId);
-	});
+	if (semestersIds && semestersIds.length > 0) {
+		semestersIds.forEach(semesterId => {
+			examTypeSelectHandler(semesterId);
+		});
+	}
 };

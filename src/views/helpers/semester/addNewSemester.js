@@ -8,5 +8,14 @@ const addNewSemester = async (wpId, educationalForms) => {
 		postData
 	})
 
+	updateValidation();
+
+	const educationalDisciplineSemesterControlMethodsContent = document.getElementById('educationalDisciplineSemesterControlMethodsContent');
+
+	const semestersIds = JSON.parse(educationalDisciplineSemesterControlMethodsContent.getAttribute('data-semestersIds'));
+
+    const updatedSemestersIds = JSON.stringify([...semestersIds, data.semesterId]);
+    educationalDisciplineSemesterControlMethodsContent.setAttribute('data-semestersIds', updatedSemestersIds);
+
 	return createSemesterContainer(data.semesterId, educationalForms);
 }

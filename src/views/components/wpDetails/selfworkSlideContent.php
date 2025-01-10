@@ -510,5 +510,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 				</tr>
 			</table>
 		<?php endforeach; ?>
+	<?php else: ?>
+		<p>Недостатньо даних, додайте принаймні один семестр.</p>
 	<?php endif; ?>
 </div>

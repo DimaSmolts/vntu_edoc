@@ -9,7 +9,7 @@ const validateCreditsAmount = ({
 			targetElement: element,
 			group: 'generalInfoValidationGroup',
 			name: warningName,
-			message: `⚠️ Введіть кількість кредитів`,
+			message: `⚠️ Введіть кількість кредитів (не менше ніж 1)`,
 			slideNumber: getSlideNumberByName('generalInfo'),
 			isParentElementHighlight: false
 		}
