@@ -2,6 +2,7 @@ const initializeSelectHandlers = ({ semestersIds }) => {
 	facultySelectHandler();
 	departmentSelectHandler();
 	stydingLevelSelectHandler();
+	fieldOfStudySelectHandler();
 	specialtySelectHandler();
 	educationalProgramSelectHandler();
 	createdByPersonsSelectHandler();

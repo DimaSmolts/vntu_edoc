@@ -75,6 +75,7 @@
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalProgramsByIds.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchExamTypes.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchAdditionalTasks.js"></script>
+    <script src="src/views/helpers/selectDropdowns/fetch/fetchFieldsOfStudy.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/involvedPersonSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/createdByPersonsSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramGuarantorSelectHandler.js"></script>
@@ -89,6 +90,7 @@
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/examTypeSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/additionalTaskSelectHandler.js"></script>
+    <script src="src/views/helpers/selectDropdowns/selectHandlers/fieldOfStudySelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/initializeSelectHandlers.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPerson.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPersonDetails.js"></script>
@@ -150,6 +152,7 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorForPrerequisitesAndGoal.js"></script>
     <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
     <script src="src/views/helpers/semesterControlMethods/createNewAdditionalTasks.js"></script>
+    <script src="src/views/helpers/generalInfo/createNewFieldOfStudy.js"></script>
     <script src="src/views/helpers/selfwork/updateTaskHours.js"></script>
     <script src="src/views/helpers/selfwork/updateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/selfwork/updateSelfworkTheme.js"></script>

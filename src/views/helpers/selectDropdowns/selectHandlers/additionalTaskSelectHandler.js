@@ -5,10 +5,10 @@ const additionalTaskSelectHandler = async (semesterId) => {
 
 	const results = await fetchAdditionalTasks();
 
-	// Initialize or retrieve the Choices.js instance
+	// Ініціалізуємо або викликаємо Choices.js сутність 
 	const additionalTaskIdsSelectChoices = getAdditionalTaskIdsSelectChoices(semesterId);
 
-	// Map results to options
+	// Обробляємо результути пошуку до опцій
 	const options = results.map(additionalTask => {
 		return {
 			value: additionalTask.value.toString(),
@@ -17,42 +17,41 @@ const additionalTaskSelectHandler = async (semesterId) => {
 		};
 	});
 
-	// Clear existing choices and set new ones
+	// Очищаємо обрані choices і встановлюємо нові
 	additionalTaskIdsSelectChoices.clearStore();
 	additionalTaskIdsSelectChoices.setChoices(options, 'value', 'label', true);
 
-	// Ensure event listeners are added only once
-	additionalTaskIdsSelect.removeEventListener('choice', handleChoiceEvent);
-	additionalTaskIdsSelect.removeEventListener('removeItem', handleRemoveEvent);
+	// Додаємо оновлені event listeners
+	additionalTaskIdsSelect.removeEventListener('choice', handleAdditionalTaskChoiceEvent);
+	additionalTaskIdsSelect.removeEventListener('removeItem', handleAdditionalTaskRemoveEvent);
 
-	additionalTaskIdsSelect.addEventListener('choice', (event) => handleChoiceEvent(event, semesterId));
-	additionalTaskIdsSelect.addEventListener('removeItem', (event) => handleRemoveEvent(event, semesterId));
+	additionalTaskIdsSelect.addEventListener('choice', (event) => handleAdditionalTaskChoiceEvent(event, semesterId));
+	additionalTaskIdsSelect.addEventListener('removeItem', (event) => handleAdditionalTaskRemoveEvent(event, semesterId));
 };
 
 const getAdditionalTaskIdsSelectChoices = (semesterId) => {
 	const additionalTaskIdsSelect = document.getElementById(`additionalTaskIdsSelect${semesterId}`);
 
-	// Check if a Choices instance already exists
+	// Перевіряємо чи об'єкт пошуку з вибором уже існує
 	if (additionalTaskIdsSelect.choicesInstance) {
 		return additionalTaskIdsSelect.choicesInstance;
 	}
 
-	// Initialize a new Choices instance if not already initialized
+	// Ініціалізуємо новий, якщо ні
 	const choicesInstance = new Choices(additionalTaskIdsSelect, {
 		removeItemButton: true,
 		searchEnabled: true,
 	});
 
-	// Attach the instance to the DOM element for future reference
 	additionalTaskIdsSelect.choicesInstance = choicesInstance;
 
 	return choicesInstance;
 };
 
-const handleChoiceEvent = async (event, semesterId) => {
+const handleAdditionalTaskChoiceEvent = async (event, semesterId) => {
 	await createAdditionalTask(event.detail.value, semesterId);
 };
 
-const handleRemoveEvent = async (event, semesterId) => {
+const handleAdditionalTaskRemoveEvent = async (event, semesterId) => {
 	await deleteAdditionalTask(event.detail.value, semesterId);
 };

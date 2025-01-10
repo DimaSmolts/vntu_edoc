@@ -34,14 +34,28 @@ $title = "Загальна інформація";
 			<?php if (isset($details->stydingLevelId)): ?> data-stydingLevelId=<?= htmlspecialchars($details->stydingLevelId) ?><?php endif; ?>>
 		</select>
 	</label>
-	<label>Галузь знань (немає відповідної таблиці в БД):
-		<input
-			type="text"
-			id="fielfOfStudyName"
-			name="fielfOfStudyName"
-			value="<?= htmlspecialchars($details->fielfOfStudyName ?? '') ?>"
-			oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>)">
-	</label>
+	<label>Галузь знань:</label>
+	<div id="fieldsOfStudyComponents">
+		<select
+			id="fieldsOfStudyIdsSelect"
+			multiple
+			<?php if (isset($details->fieldsOfStudyIds)): ?> data-fieldsOfStudyIds=<?= json_encode($details->fieldsOfStudyIds) ?><?php endif; ?>>
+		</select>
+		<div class="new-field-of-study-container">
+			<label>Додати галузь знань, якщо її немає в випадаючому списку:</label>
+			<input
+				type="text"
+				name="name"
+				id="fieldOfStudyName">
+			<button
+				class="btn"
+				type="button"
+				onclick="createNewFieldOfStudy(<?= htmlspecialchars($details->id) ?>)">
+				Додати
+			</button>
+		</div>
+	</div>
+
 	<label id="specialtyDropdownLabel" class="multiselect-label">Спеціальність:
 		<select
 			id="specialtyIdsSelect"
