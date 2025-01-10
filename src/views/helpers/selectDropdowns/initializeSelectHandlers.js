@@ -1,8 +1,8 @@
-const initializeSelectHandlers = ({ semestersIds }) => {
+const initializeSelectHandlers = ({ wpId, semestersIds }) => {
 	facultySelectHandler();
 	departmentSelectHandler();
 	stydingLevelSelectHandler();
-	fieldOfStudySelectHandler();
+	fieldOfStudySelectHandler(wpId);
 	specialtySelectHandler();
 	educationalProgramSelectHandler();
 	createdByPersonsSelectHandler();

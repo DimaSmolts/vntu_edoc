@@ -1,7 +1,7 @@
 const fieldOfStudySelectHandler = async (wpId) => {
 	const fieldsOfStudyIdsSelect = document.querySelector(`#fieldsOfStudyIdsSelect`);
 	const rawSelectedFieldsOfStudyIds = JSON.parse(fieldsOfStudyIdsSelect.getAttribute('data-fieldsOfStudyIds'));
-	const selectedFieldsOfStudyIds = rawSelectedFieldsOfStudyIds.map(id => Number(id));
+	const selectedFieldsOfStudyIds = rawSelectedFieldsOfStudyIds ? rawSelectedFieldsOfStudyIds.map(id => Number(id)) : [];
 
 	const results = await fetchFieldsOfStudy();
 

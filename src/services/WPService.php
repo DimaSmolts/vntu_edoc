@@ -715,4 +715,13 @@ class WPService
 			->first()
 			->wpCreatorId;
 	}
+
+	public function getFieldsOfStudyByWpId($wpId) {
+		
+		return DBEducationalDisciplineWorkingProgramModel::select(['fieldsOfStudyIds'])
+			->where('id', $wpId)
+			->get()
+			->first()
+			->fieldsOfStudyIds;
+	}
 }

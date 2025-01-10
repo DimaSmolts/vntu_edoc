@@ -230,6 +230,7 @@
         validationWarningsEventTarget.addEventListener('validationWarningsChange', renderValidationWarnings);
 
         initializeSelectHandlers({
+            wpId: <?= htmlspecialchars($details->id) ?>,
             semestersIds: <?php echo json_encode(!empty($semestersIds) ? $semestersIds : null); ?>,
         })
 
