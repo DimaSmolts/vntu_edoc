@@ -81,7 +81,13 @@
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="3">
 				<b>Галузь знань</b><br>
-				<?= htmlspecialchars($details->fielfOfStudyName) ?>
+				<?php if (!empty($details->fieldsOfStudy)): ?>
+					<?php foreach ($details->fieldsOfStudy as $fieldOfStudy): ?>
+						<?= htmlspecialchars($fieldOfStudy->name) ?><br>
+					<?php endforeach; ?>
+				<?php else: ?>
+					-
+				<?php endif; ?>
 			</td>
 			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<span class="change">Обов'язкова (професійна чи загальна)</span>

@@ -35,7 +35,7 @@ $title = "Загальна інформація";
 		</select>
 	</label>
 	<label>Галузь знань:</label>
-	<div id="fieldsOfStudyComponents">
+	<div id="fieldsOfStudyComponents" class="new-field-of-study-components">
 		<select
 			id="fieldsOfStudyIdsSelect"
 			multiple
@@ -46,6 +46,7 @@ $title = "Загальна інформація";
 			<input
 				type="text"
 				name="name"
+				placeholder="13 Механічна інженерія"
 				id="fieldOfStudyName">
 			<button
 				class="btn"

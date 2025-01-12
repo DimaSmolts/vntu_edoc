@@ -22,7 +22,28 @@
 			<b class="basic-info-name">рівень вищої освіти</b>: <span class="inserted"><?= htmlspecialchars($details->stydingLevelId) ?></span>
 		</div>
 		<div class="basic-info">
-			<b class="basic-info-name">галузь знань</b>: <span class="inserted"><?= htmlspecialchars($details->fielfOfStudyName) ?></span>
+			<?php
+			$fieldsOfStudy = $details->fieldsOfStudy;
+			$firstFieldOfStudy = array_shift($fieldsOfStudy);
+			?>
+			<table class="table-without-borders" style="width: 100%">
+				<tr>
+					<th style="width: 18%">галузь знань:</th>
+					<td style="width: 82%">
+						<span class="inserted"><?= htmlspecialchars($firstFieldOfStudy->name ?? '') ?></span>
+					</td>
+				</tr>
+				<?php if (!empty($fieldsOfStudy)): ?>
+					<?php foreach ($fieldsOfStudy as $fieldOfStudy): ?>
+						<tr>
+							<td style="width: 18%"></td>
+							<td style="width: 82%">
+								<span class="inserted"><?= htmlspecialchars($fieldOfStudy->name) ?></span>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</table>
 		</div>
 		<div class="basic-info">
 			<?php

@@ -4,20 +4,35 @@
 			[[page_cu]]
 		</div>
 	</page_footer>
-
-	<!-- <div class="topic-title-page-start">
-		Робоча програма навчальної дисципліни <span class="inserted">«<?= htmlspecialchars($details->disciplineName) ?>»</span>
-	</div> -->
 	<p class="justify">Робоча програма навчальної дисципліни <span class="span inserted">«<?= htmlspecialchars($details->disciplineName) ?>»</span></p>
 	<div>
 		<b>рівень вищої освіти</b> – <span class="inserted">
 			<?= htmlspecialchars($details->stydingLevel->name ?? '') ?>
 		</span>
 	</div>
-	<div>
-		<b>галузь знань</b> – <span class="inserted">
-			<?= htmlspecialchars($details->fielfOfStudyName) ?>
-		</span>
+	<div class="basic-info">
+		<?php
+		$fieldsOfStudy = $details->fieldsOfStudy;
+		$firstFieldOfStudy = array_shift($fieldsOfStudy);
+		?>
+		<table class="table-without-borders" style="width: 100%">
+			<tr>
+				<th style="width: 18%">галузь знань:</th>
+				<td style="width: 82%">
+					<span class="inserted"><?= htmlspecialchars($firstFieldOfStudy->name ?? '') ?></span>
+				</td>
+			</tr>
+			<?php if (!empty($fieldsOfStudy)): ?>
+				<?php foreach ($fieldsOfStudy as $fieldOfStudy): ?>
+					<tr>
+						<td style="width: 18%"></td>
+						<td style="width: 82%">
+							<span class="inserted"><?= htmlspecialchars($fieldOfStudy->name) ?></span>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</table>
 	</div>
 	<div class="basic-info">
 		<?php
@@ -84,7 +99,7 @@
 					<tr>
 						<th class="approved-first-col" rowspan="<?= htmlspecialchars(count($details->createdByPersons)) ?>">Розроблено</th>
 						<td class="approved-second-col none-border-left"><span class="inserted"><?= htmlspecialchars($createdByPerson->position ?? '') ?></span></td>
-						<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($createdByPerson->degree) ?></span>, <span class="inserted"><?= htmlspecialchars($createdByPerson->workPosition) ?></span></td>
+						<td class="approved-third-col center"><span class="inserted"><?= htmlspecialchars($createdByPerson->name) ?> <?= htmlspecialchars(mb_strtoupper($createdByPerson->surname, 'UTF-8')) ?></span>,<br><span class="inserted"><?= htmlspecialchars($createdByPerson->degree ?? '') ?></span>, <span class="inserted"><?= htmlspecialchars($createdByPerson->workPosition) ?></span></td>
 						<td class="approved-forth-col"></td>
 					</tr>
 				<?php else: ?>

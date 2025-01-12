@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/../../models/SpecialtyModel.php';
+require_once __DIR__ . '/../../models/FieldOfStudyModel.php';
 require_once __DIR__ . '/../../models/EducationalProgramModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
@@ -30,6 +31,7 @@ use App\Models\WorkingProgramLiteratureModel;
 use App\Models\EducationalProgramModel;
 use App\Models\FacultyModel;
 use App\Models\SpecialtyModel;
+use App\Models\FieldOfStudyModel;
 
 function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 {
@@ -60,6 +62,16 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->individualTaskNotes ?? '',
 		$workingProgramData->creditsAmount,
 	);
+
+	// Відформатовуємо галузі знань
+	$fieldsOfStudy = $workingProgramData->fieldsOfStudy->map(function ($fieldOfStudy) {
+		return new FieldOfStudyModel(
+			$fieldOfStudy->id,
+			$fieldOfStudy->name
+		);
+	})->toArray();
+
+	$workingProgram->fieldsOfStudy = $fieldsOfStudy;
 
 	// Відформатовуємо спеціальності
 	$specialties = $workingProgramData->specialties->map(function ($specialty) {

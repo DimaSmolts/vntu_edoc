@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class FieldOfStudyModel extends Model
+class FieldOfStudyModel
 {
-	protected $table = 'fieldsOfStudy';
-	protected $fillable = ['name'];
+    public int $id;
+    public string $name;
 
-	public $timestamps = false;
+    public function __construct(
+        $id,
+        $name,
+    ) {
+        $this->id = $id;
+        $this->name = $name;
+    }
 }

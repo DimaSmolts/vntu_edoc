@@ -293,6 +293,19 @@ class WPService
 			->get()
 			->first();
 
+		$fieldsOfStudyIds = json_decode($wp->fieldsOfStudyIds ?? '[]', true);
+
+		if (!empty($fieldsOfStudyIds)) {
+			$fieldsOfStudy = Capsule::table('fieldsOfStudy')
+				->select('id', 'name')
+				->whereIn('id', $fieldsOfStudyIds)
+				->get();
+
+			$wp->fieldsOfStudy = $fieldsOfStudy;
+		} else {
+			$wp->fieldsOfStudy = collect();
+		}
+
 		$specialtyIds = json_decode($wp->specialtyIds ?? '[]', true);
 
 		if (!empty($specialtyIds)) {
@@ -716,8 +729,9 @@ class WPService
 			->wpCreatorId;
 	}
 
-	public function getFieldsOfStudyByWpId($wpId) {
-		
+	public function getFieldsOfStudyByWpId($wpId)
+	{
+
 		return DBEducationalDisciplineWorkingProgramModel::select(['fieldsOfStudyIds'])
 			->where('id', $wpId)
 			->get()

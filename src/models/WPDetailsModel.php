@@ -63,6 +63,7 @@ class WPDetailsModel
 	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
 	public ?FacultyModel $faculty;
 	public ?DepartmentModel $department;
+	public array $fieldsOfStudy;
 	public array $specialties;
 	public array $educationalPrograms;
 	public ?StydingLevelTypeModel $stydingLevel;
@@ -111,6 +112,7 @@ class WPDetailsModel
 		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
 		?FacultyModel $faculty = null,
 		?DepartmentModel $department = null,
+		?array $fieldsOfStudy = [],
 		?array $specialties = [],
 		?array $educationalPrograms = [],
 		?StydingLevelTypeModel $stydingLevel = null,
@@ -158,6 +160,7 @@ class WPDetailsModel
 		$this->lessonsAndExamingsStructure = $lessonsAndExamingsStructure;
 		$this->faculty = $faculty;
 		$this->department = $department;
+		$this->fieldsOfStudy = $fieldsOfStudy;
 		$this->specialties = $specialties;
 		$this->educationalPrograms = $educationalPrograms;
 		$this->stydingLevel = $stydingLevel;
