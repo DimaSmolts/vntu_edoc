@@ -264,6 +264,9 @@ class WPApiController extends BaseController
 			$wpData = $this->wpService->getWPDetails($wpId);
 			$details = getFullFormattedWorkingProgramData($wpData);
 
+			$rawEducationalForms = $this->educationalFormService->getEducationalForms();
+			$educationalForms = getFormattedEducationalFormData($rawEducationalForms);
+
 			$selfworkData = getFullFormattedSelfworkData($wpData);
 
 			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
@@ -281,6 +284,7 @@ class WPApiController extends BaseController
 			echo json_encode(([
 				'details' => $details,
 				'selfworkData' => $selfworkData,
+				'educationalForms' => $educationalForms,
 				'pointsDistributionTotalBySemesters' => $pointsByTypeOfWork['totalBySemesters'],
 				'semestersNumbersByIds' => $semestersNumbersByIds,
 				'courseworksAndProjectsData' => $courseworksAndProjectsData

@@ -7,7 +7,6 @@ $lessonTypeIds = getLessonTypeIdByName();
 	<?php if (!empty($selfworkData)): ?>
 		<?php foreach ($selfworkData as $semesterSelfworkData): ?>
 			<p class="block-title">Самостійна робота до семестру <?= htmlspecialchars($semesterSelfworkData->semesterNumber ?? '') ?>:</p>
-
 			<table class="selfwork-table" id="selfworkTable<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
 				<tr>
 					<th rowspan="2" colspan="2" class="selfwork-number-column">№ з/п</th>
@@ -460,7 +459,7 @@ $lessonTypeIds = getLessonTypeIdByName();
 									}
 								}
 								$moduleControlAmount = $semesterSelfworkData->colloquiumAmount + $semesterSelfworkData->controlWorkAmount;
-								
+
 								$minHours = $moduleControlAmount * 2;
 								$maxHours = $moduleControlAmount * 5;
 								?>
@@ -483,31 +482,33 @@ $lessonTypeIds = getLessonTypeIdByName();
 						<?php endif; ?>
 					</tr>
 				<?php endif; ?>
-				<tr>
-					<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
-					<?php if ($semesterSelfworkData->examTypeId === 0): ?>
-						<td rowspan="2">Підготовка до складання іспиту</td>
-						<td rowspan="2">іспит – 3 години на кредит ЄКТС</td>
-					<?php elseif ($semesterSelfworkData->examTypeId === 1): ?>
-						<td rowspan="2">Підготовка до складання заліку</td>
-						<td rowspan="2">залік – 1 година на кредит ЄКТС</td>
-					<?php elseif ($semesterSelfworkData->examTypeId === 2): ?>
-						<td rowspan="2">Підготовка до складання диф. заліку</td>
-						<td rowspan="2">диф. залік – 1 година на кредит ЄКТС</td>
-					<?php endif; ?>
-					<td class="center-text-align" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
-						Кредити: <?= htmlspecialchars($semesterSelfworkData->creditsAmount) ?>
-					</td>
-				</tr>
-				<tr>
-					<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
+				<?php if (isset($semesterSelfworkData->examTypeId)): ?>
+					<tr>
+						<th rowspan="2" class="selfwork-number-column" colspan="2"><?= htmlspecialchars($sequenceNumber++) ?></th>
 						<?php if ($semesterSelfworkData->examTypeId === 0): ?>
-							<?= htmlspecialchars($semesterSelfworkData->creditsAmount * 3) ?>
-						<?php else: ?>
-							<?= htmlspecialchars($semesterSelfworkData->creditsAmount) ?>
+							<td rowspan="2">Підготовка до складання іспиту</td>
+							<td rowspan="2">іспит – 3 години на кредит ЄКТС</td>
+						<?php elseif ($semesterSelfworkData->examTypeId === 1): ?>
+							<td rowspan="2">Підготовка до складання заліку</td>
+							<td rowspan="2">залік – 1 година на кредит ЄКТС</td>
+						<?php elseif ($semesterSelfworkData->examTypeId === 2): ?>
+							<td rowspan="2">Підготовка до складання диф. заліку</td>
+							<td rowspan="2">диф. залік – 1 година на кредит ЄКТС</td>
 						<?php endif; ?>
-					</td>
-				</tr>
+						<td class="center-text-align" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
+							Кредити: <?= htmlspecialchars($semesterSelfworkData->creditsAmount) ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="center-text-align disabled-cell" colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>">
+							<?php if ($semesterSelfworkData->examTypeId === 0): ?>
+								<?= htmlspecialchars($semesterSelfworkData->creditsAmount * 3) ?>
+							<?php else: ?>
+								<?= htmlspecialchars($semesterSelfworkData->creditsAmount) ?>
+							<?php endif; ?>
+						</td>
+					</tr>
+				<?php endif; ?>
 			</table>
 		<?php endforeach; ?>
 	<?php else: ?>

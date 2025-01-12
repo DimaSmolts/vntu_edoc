@@ -12,7 +12,7 @@ const createLessonsContainer = (themes) => {
 		return;
 	}
 
-	if (theme.semesterEducationalForms.length === 0) {
+	if (themes[0].semesterEducationalForms.length === 0) {
 		const noEducationalFormsText = createElement({
 			elementName: "p",
 			innerText: "Немає форм здобуття освіти. Додайте принаймні одну форму здобуття освіти, щоб мати можливість відредагувати структуру навчальної дисципліни"

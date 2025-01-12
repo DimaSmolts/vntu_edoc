@@ -48,6 +48,12 @@ const goToSlide = (slideNumber, targetElement) => {
 
 	// Ensure the slide number is within the valid range
 	if (slideNumber >= 0 && slideNumber < updatedSlides.length) {
+
+		if (slideNumber === getSlideNumberByName('pointDistribution')) {
+			// отримуємо всі дані для розподілу балів оцінювання знань  з окремих видів роботи та в цілому по модулях (в балах)
+			getPointsDistributionSlide();
+		}
+
 		currentIndex = slideNumber;
 		updateSlidePosition();
 

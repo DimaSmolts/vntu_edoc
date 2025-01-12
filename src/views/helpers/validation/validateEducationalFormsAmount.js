@@ -17,7 +17,7 @@ const validateEducationalFormsAmount = ({
 			group: 'programControlMethodsValidationGroup',
 			name: warningName,
 			message: `⚠️ Додайте принаймні одну форму здобуття освіти до семестру ${semesterNumber ? semesterNumber : ''}`,
-			slideNumber: getSlideNumberByName('semesterProgram')
+			slideNumber: getSlideNumberByName('semesterControlMethodsProgram')
 		}
 
 		addWarning(warning);

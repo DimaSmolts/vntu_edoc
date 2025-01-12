@@ -8,10 +8,16 @@ class SpecialtyService
 {
 	public function getSpecialtiesByQuery($query)
 	{
-		$specialties = Capsule::table('spec_edu_pr')
-			->select('id', 'spec', 'spec_num_code')
+		$specialties = Capsule::table('special')
+			->selectRaw("
+				DISTINCT CASE 
+					WHEN INSTR(name, '.') > 0 THEN SUBSTR(name, 1, INSTR(name, '.') - 1)
+					ELSE name
+				END || '.' AS specialtyName,
+				spec_num_code
+			")
 			->where(function ($q) use ($query) {
-				$q->where('spec', 'LIKE', '%' . $query . '%')
+				$q->where('name', 'LIKE', "$query%")
 					->orWhere('spec_num_code', 'LIKE', '%' . $query . '%');
 			})
 			->limit(10)

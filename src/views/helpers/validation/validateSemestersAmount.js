@@ -7,7 +7,7 @@ const validateSemestersAmount = ({
 		const warning = {
 			group: 'programValidationGroup',
 			name: warningName,
-			message: `⚠️ Додайте принаймні один семестер`,
+			message: `⚠️ Додайте принаймні один семестр`,
 			slideNumber: getSlideNumberByName('semesterProgram')
 		}
 

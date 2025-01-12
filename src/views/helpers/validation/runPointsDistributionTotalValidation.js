@@ -1,6 +1,8 @@
 const runPointsDistributionTotalValidation = ({ pointsDistributionTotalBySemesters, semestersNumbersByIds }) => {
-	if (semestersNumbersByIds?.length > 0) {
-		Object.entries(semestersNumbersByIds).forEach(([semesterId, semesterNumber]) => {
+	const semestersNumbersByIdsEntries = Object.entries(semestersNumbersByIds);
+
+	if (semestersNumbersByIdsEntries?.length > 0) {
+		semestersNumbersByIdsEntries.forEach(([semesterId, semesterNumber]) => {
 			const semesterTotalCell = document.getElementById(`fullSemester${semesterId}Total`);
 
 			validateSemesterPointDistribution({

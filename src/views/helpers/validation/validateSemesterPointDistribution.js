@@ -22,6 +22,7 @@ const validateSemesterPointDistribution = ({
 			group: 'pointDistributionValidationGroup',
 			name: minValueWarningName,
 			message: `⚠️ Кількість балів для ${semesterNumber} семестру НИЖЧА ніж необхідно (коректне значення - ${correctValue})`,
+			slideNumber: getSlideNumberByName('pointDistribution'),
 			isParentElementHighlight: false
 		}
 
@@ -39,6 +40,7 @@ const validateSemesterPointDistribution = ({
 			group: 'pointDistributionValidationGroup',
 			name: maxValueWarningName,
 			message: `⚠️ Кількість балів для ${semesterNumber} семестру ВИЩА ніж необхідно (коректне значення - ${correctValue})`,
+			slideNumber: getSlideNumberByName('pointDistribution'),
 			isParentElementHighlight: false
 		}
 
