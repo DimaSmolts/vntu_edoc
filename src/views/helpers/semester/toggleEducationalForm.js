@@ -7,14 +7,14 @@ const toggleEducationalForm = async (event, educationalDisciplineSemesterId, edu
 
 		await makePostRequest({
 			link: 'api/createSemesterEducationForm',
-			postData
+			postData,
+			responseOKHandler: updateValidation
 		});
 
 	} else {
 		await makeDeleteRequest({
-			linkWithParams: `api/deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`
+			linkWithParams: `api/deleteSemesterEducationForm?educationalDisciplineSemesterId=${educationalDisciplineSemesterId}&educationalFormId=${educationalFormId}`,
+			responseOKHandler: updateValidation
 		})
 	}
-
-	await updateValidation();
 }

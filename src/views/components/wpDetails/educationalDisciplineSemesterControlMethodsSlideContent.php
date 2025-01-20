@@ -20,10 +20,10 @@
 							}
 						}
 						?>
-						<label>
+						<label class="<?php if (!$isChecked): ?>not-valid-bg<?php endif; ?>">
 							<input
 								id="semester<?= htmlspecialchars($semesterData->semesterId) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
-								class="checkbox"
+								class="checkbox <?php if (!$isChecked): ?>not-valid-bg<?php endif; ?>"
 								type="checkbox"
 								name="<?= htmlspecialchars($educationalForm->colName) ?>"
 								<?= $isChecked ? 'checked' : '' ?>

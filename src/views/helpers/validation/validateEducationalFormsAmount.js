@@ -8,6 +8,7 @@ const validateEducationalFormsAmount = ({
 
 	if (value.length === 0) {
 		removeWarning({
+			targetElements: elements,
 			group: 'programControlMethodsValidationGroup',
 			name: warningName
 		});

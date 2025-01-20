@@ -7,7 +7,6 @@ let currentIndex = 0; // Track the current slide index
 
 // Update the carousel to align the visible slide
 const updateSlidePosition = () => {
-	console.log(currentIndex);
 	const slideWidth = slides[0].clientWidth; // Get the width of a single slide
 	slidesContainer.scrollTo({
 		left: currentIndex * slideWidth,
