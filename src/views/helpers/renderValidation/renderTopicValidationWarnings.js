@@ -1,7 +1,8 @@
 const renderTopicValidationWarnings = ({
 	validationEntries,
 	titleBlock,
-	validationGroupBlock
+	validationGroupBlock,
+	isCourseTypeWorkSlide = false
 }) => {
 	if (!validationEntries) {
 		titleBlock.style.display = 'none';
@@ -50,7 +51,11 @@ const renderTopicValidationWarnings = ({
 				innerText: message,
 				eventListenerType: 'click',
 				eventListener: () => {
-					goToSlide(slideNumber, targetElement);
+					if (isCourseTypeWorkSlide) {
+						goToSlideIncludeAssessmentComponentSlide();
+					} else {
+						goToSlide(slideNumber, targetElement);
+					}
 				}
 			})
 

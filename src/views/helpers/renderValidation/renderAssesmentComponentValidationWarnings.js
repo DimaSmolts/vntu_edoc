@@ -5,6 +5,7 @@ const renderAssesmentComponentValidationWarnings = (validationEntries) => {
 	renderTopicValidationWarnings({
 		validationEntries,
 		titleBlock,
-		validationGroupBlock
+		validationGroupBlock,
+		isCourseTypeWorkSlide: true
 	})
 }

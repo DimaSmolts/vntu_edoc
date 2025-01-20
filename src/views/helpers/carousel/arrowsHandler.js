@@ -71,14 +71,10 @@ const goToSlideIncludeAssessmentComponentSlide = async (slideNumber) => {
 		await getCourseworkSlide();
 	}
 
-	const updatedSlides = document.querySelectorAll(".slide");
-
-	// Ensure the slide number is within the valid range
-	if (slideNumber >= 0 && slideNumber < updatedSlides.length) {
-		currentIndex = slideNumber;
-
-		updateSlidePosition();
-	}
+	currentIndex = getSlideNumberByName('pointDistribution');
+	updateSlidePosition();
+	currentIndex++;
+	updateSlidePosition();
 };
 
 // додаємо функції які слідкують за перегортанням певних слайдів
