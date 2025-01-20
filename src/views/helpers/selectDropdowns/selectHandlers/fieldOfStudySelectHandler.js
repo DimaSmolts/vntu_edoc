@@ -3,10 +3,10 @@ const fieldOfStudySelectHandler = async (wpId) => {
 	const rawSelectedFieldsOfStudyIds = JSON.parse(fieldsOfStudyIdsSelect.getAttribute('data-fieldsOfStudyIds'));
 	const selectedFieldsOfStudyIds = rawSelectedFieldsOfStudyIds ? rawSelectedFieldsOfStudyIds.map(id => Number(id)) : [];
 
-	const results = await fetchFieldsOfStudy();
-
 	// Ініціалізуємо або викликаємо Choices.js сутність 
-	const fieldsOfStudyIdsSelectChoices = getFieldOfStudyIdsSelectChoices();
+	const fieldsOfStudyIdsSelectChoices = await getFieldOfStudyIdsSelectChoices();
+
+	const results = await fetchFieldsOfStudy();
 
 	// Обробляємо результути пошуку до опцій
 	const options = results.map(fieldsOfStudy => {
@@ -27,21 +27,16 @@ const fieldOfStudySelectHandler = async (wpId) => {
 	fieldsOfStudyIdsSelect.addEventListener('change', () => handleFieldsOfStudyChangeEvent(fieldsOfStudyIdsSelectChoices, wpId));
 };
 
-const getFieldOfStudyIdsSelectChoices = () => {
+const getFieldOfStudyIdsSelectChoices = async () => {
 	const fieldsOfStudyIdsSelect = document.getElementById(`fieldsOfStudyIdsSelect`);
 
 	// Перевіряємо чи об'єкт пошуку з вибором уже існує
 	if (fieldsOfStudyIdsSelect.choicesInstance) {
-		return fieldsOfStudyIdsSelect.choicesInstance;
+		return await fieldsOfStudyIdsSelect.choicesInstance;
 	}
 
 	// Ініціалізуємо новий, якщо ні
-	const choicesInstance = new Choices(fieldsOfStudyIdsSelect, {
-		removeItemButton: true,
-		searchEnabled: true,
-	});
-
-	fieldsOfStudyIdsSelect.choicesInstance = choicesInstance;
+	const choicesInstance = await createNewSelectWithSearch('#fieldsOfStudyIdsSelect');
 
 	return choicesInstance;
 };
@@ -54,5 +49,5 @@ const handleFieldsOfStudyChangeEvent = async (fieldsOfStudyIdsSelectChoices, wpI
 		}
 	};
 
-	await updateGeneralInfo(updatedEvent, wpId);
+	await updateGeneralInfo(updatedEvent, wpId, true);
 };

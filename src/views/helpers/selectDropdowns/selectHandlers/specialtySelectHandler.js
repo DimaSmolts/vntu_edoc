@@ -5,7 +5,7 @@ const specialtySelectHandler = async () => {
 	const selectedSpecialtyIds = rawSelectedSpecialtyIds.map(id => Number(id));
 
 	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const specialtyIdsSelectChoices = createNewSelectWithSearch('#specialtyIdsSelect'); // Перезапускаємо Choices.js
+	const specialtyIdsSelectChoices = await createNewSelectWithSearch('#specialtyIdsSelect'); // Перезапускаємо Choices.js
 
 	const specialtyIdsSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {

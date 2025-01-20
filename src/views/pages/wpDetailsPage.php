@@ -180,6 +180,7 @@
     <script src="src/views/helpers/validation/validateDepartment.js"></script>
     <script src="src/views/helpers/validation/validateDisciplineName.js"></script>
     <script src="src/views/helpers/validation/validateStydingLevel.js"></script>
+    <script src="src/views/helpers/validation/validateFieldsOfStudy.js"></script>
     <script src="src/views/helpers/validation/validateSpecialties.js"></script>
     <script src="src/views/helpers/validation/validateDocApprovedBy.js"></script>
     <script src="src/views/helpers/validation/validateAcademicYear.js"></script>

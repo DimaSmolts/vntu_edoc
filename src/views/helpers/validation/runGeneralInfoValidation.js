@@ -3,6 +3,7 @@ const runGeneralInfoValidation = (wpDetails) => {
 	const departmentIdSelect = document.getElementById(`departmentIdSelect`);
 	const disciplineNameInput = document.getElementById(`disciplineName`);
 	const stydingLevelIdSelect = document.getElementById(`stydingLevelIdSelect`);
+	const fieldsOfStudyIdsSelect = document.getElementById(`fieldsOfStudyIdsSelect`);
 	const specialtyIdsSelect = document.getElementById(`specialtyIdsSelect`);
 	const docApprovedBySelect = document.getElementById(`docApprovedBySelect`);
 	const academicYearInput = document.getElementById(`academicYear`);
@@ -27,6 +28,11 @@ const runGeneralInfoValidation = (wpDetails) => {
 	validateStydingLevel({
 		element: stydingLevelIdSelect,
 		value: wpDetails.stydingLevelId
+	});
+
+	validateFieldsOfStudy({
+		element: fieldsOfStudyIdsSelect,
+		value: wpDetails.fieldsOfStudyIds
 	});
 
 	validateSpecialties({
