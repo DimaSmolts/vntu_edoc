@@ -19,7 +19,11 @@ const specialtySelectHandler = async () => {
 		specialtyIdsSelectChoices.clearChoices(); // Очищаємо старі результати
 
 		const options = results.map(specialty => {
-			return new Option(specialty.label, specialty.value, selectedSpecialtyIds.includes(specialty.value), selectedSpecialtyIds.includes(specialty.value));
+			return {
+				value: specialty.value.toString(),
+				label: specialty.label,
+				selected: selectedSpecialtyIds.includes(specialty.value),
+			};
 		});
 
 		specialtyIdsSelectChoices.setChoices(options, 'value', 'label', true); // Додаємо нові результати
@@ -39,7 +43,7 @@ const specialtySelectHandler = async () => {
 			}
 		};
 
-		await updateGeneralInfo(updatedEvent, wpId);
+		await updateGeneralInfo(updatedEvent, wpId, true);
 	});
 
 	if (selectedSpecialtyIds) {
@@ -47,7 +51,11 @@ const specialtySelectHandler = async () => {
 
 		// Заповнюємо список опцій, включаючи попередньо вибранi спеціальності
 		const options = results.map(specialty => {
-			return new Option(specialty.label, specialty.value, selectedSpecialtyIds.includes(specialty.value), selectedSpecialtyIds.includes(specialty.value));
+			return {
+				value: specialty.value.toString(),
+				label: specialty.label,
+				selected: selectedSpecialtyIds.includes(specialty.value),
+			};
 		});
 
 		specialtyIdsSelectChoices.setChoices(options, 'value', 'label', true);  // Встановлюємо опції з попередньо вибраним значенням

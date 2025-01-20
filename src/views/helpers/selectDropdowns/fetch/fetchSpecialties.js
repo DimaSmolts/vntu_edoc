@@ -4,6 +4,6 @@ const fetchSpecialties = async (query) => {
 
 	return data.map(specialty => ({
 		value: specialty.id,
-		label: `${specialty.spec_num_code} ${specialty.spec}`,
+		label: `${specialty.spec_num_code} ${specialty.name}`,
 	}));
 };

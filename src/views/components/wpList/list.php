@@ -16,7 +16,7 @@
 						<div class="specialties-names">
 							<?php if (!empty($item->specialtiesCodesAndNames)): ?>
 								<?php foreach ($item->specialtiesCodesAndNames as $specialtiesCodeAndName): ?>
-									<span><?= htmlspecialchars($specialtiesCodeAndName->code) ?> - <?= htmlspecialchars($specialtiesCodeAndName->name) ?></span>
+									<span><?= htmlspecialchars($specialtiesCodeAndName->code) ?> <?= htmlspecialchars($specialtiesCodeAndName->name) ?></span>
 								<?php endforeach; ?>
 							<?php endif; ?>
 						</div>

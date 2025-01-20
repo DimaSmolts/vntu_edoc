@@ -372,6 +372,7 @@ td {
 .choices__inner input {
 	border: 0;
 	border-radius: 0;
+	background-color: transparent;
 }
 
 .choices__list--single {

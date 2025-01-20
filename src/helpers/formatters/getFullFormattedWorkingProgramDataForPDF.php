@@ -46,7 +46,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		$workingProgramData->disciplineName ?? '',
 		$workingProgramData->stydingLevelId ?? '',
 		isset($workingProgramData->fieldsOfStudyIds) ? json_decode($workingProgramData->fieldsOfStudyIds) : [],
-		[],
+		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
 		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],
 		$workingProgramData->notes ?? '',
 		$workingProgramData->prerequisites ?? '',
@@ -78,7 +78,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 		return new SpecialtyModel(
 			$specialty->id,
 			$specialty->spec_num_code,
-			$specialty->spec
+			$specialty->name
 		);
 	})->toArray();
 
@@ -256,7 +256,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 				$labsForSemester
 			);
 		};
-		
+
 		$courseTask = getCourseTask($semester);
 
 		return new PDFSemesterModel(

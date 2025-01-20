@@ -31,13 +31,21 @@ class WPService
 
 				if (!empty($specialtyIds)) {
 					$specialties = Capsule::table('special')
-						->select('id', 'spec', 'spec_num_code')
+						->selectRaw("
+							MIN(id) AS id,
+							CASE 
+								WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+								ELSE spec
+							END AS name,
+							spec_num_code
+						")
 						->whereIn('id', $specialtyIds)
+						->groupBy('name', 'spec_num_code')
 						->get();
 
 					$specialtiesCodesAndNames = $specialties->map(function ($specialty) {
 						return (object)[
-							'name' => $specialty->spec,
+							'name' => $specialty->name,
 							'code' => $specialty->spec_num_code
 						];
 					})->toArray();
@@ -309,9 +317,17 @@ class WPService
 		$specialtyIds = json_decode($wp->specialtyIds ?? '[]', true);
 
 		if (!empty($specialtyIds)) {
-			$specialties = Capsule::table('spec_edu_pr')
-				->select('id', 'spec', 'spec_num_code')
+			$specialties = Capsule::table('special')
+				->selectRaw("
+					MIN(id) AS id,
+					CASE 
+						WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+						ELSE spec
+					END AS name,
+					spec_num_code
+				")
 				->whereIn('id', $specialtyIds)
+				->groupBy('name', 'spec_num_code')
 				->get();
 
 			$wp->specialties = $specialties;

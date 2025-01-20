@@ -6,21 +6,23 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class SpecialtyService
 {
-	public function getSpecialtiesByQuery($query)
+	public function getSpecialtiesByQuery($queryText)
 	{
 		$specialties = Capsule::table('special')
 			->selectRaw("
-				DISTINCT CASE 
-					WHEN INSTR(name, '.') > 0 THEN SUBSTR(name, 1, INSTR(name, '.') - 1)
-					ELSE name
-				END || '.' AS specialtyName,
+        		MIN(id) AS id,
+				CASE 
+					WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+					ELSE spec
+				END AS name,
 				spec_num_code
 			")
-			->where(function ($q) use ($query) {
-				$q->where('name', 'LIKE', "$query%")
-					->orWhere('spec_num_code', 'LIKE', '%' . $query . '%');
+			->where(function ($query) use ($queryText) {
+				$query->where('spec', 'LIKE', "%$queryText%")
+					->orWhere('spec_num_code', '=', $queryText);
 			})
-			->limit(10)
+			->where('arc', '=', false)
+			->groupBy('name', 'spec_num_code')
 			->get();
 
 		return $specialties;
@@ -28,9 +30,17 @@ class SpecialtyService
 
 	public function getSpecialtiesByIds($ids)
 	{
-		$specialties = Capsule::table('spec_edu_pr')
-			->select('id', 'spec', 'spec_num_code')
+		$specialties = Capsule::table('special')
+			->selectRaw("
+				MIN(id) AS id,
+				CASE 
+					WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+					ELSE spec
+				END AS name,
+				spec_num_code
+			")
 			->whereIn('id', $ids)
+			->groupBy('name', 'spec_num_code')
 			->get();
 
 		return $specialties;
