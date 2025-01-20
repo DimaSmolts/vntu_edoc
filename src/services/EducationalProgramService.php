@@ -6,14 +6,26 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class EducationalProgramService
 {
-	public function getEducationalProgramsByQuery($query)
+	public function getEducationalProgramsByQuery($queryText)
 	{
 		$educationalPrograms = Capsule::table('special')
-			->select('id', 'spec', 'arc')
-			->where('arc', false)
-			->where('spec', 'LIKE', '%' . $query . '%')
-			->limit(10)
+			->selectRaw("
+				MIN(id) AS id,
+				TRIM(
+					CASE 
+						WHEN INSTR(spec, '.') > 0 
+						THEN SUBSTR(spec, INSTR(spec, '.') + 1)
+						ELSE ''
+					END
+				) AS name
+			")
+			->whereRaw("INSTR(spec, '.') > 0")
+			->whereRaw("SUBSTR(spec, INSTR(spec, '.') + 1) LIKE ?", ["%$queryText%"])
+			->where('arc', '=', false)
+			->groupBy('name')
+			->having('name', '<>', '')
 			->get();
+
 
 		return $educationalPrograms;
 	}
@@ -21,8 +33,18 @@ class EducationalProgramService
 	public function getEducationalProgramsByIds($ids)
 	{
 		$educationalPrograms = Capsule::table('special')
-			->select('id', 'spec', 'arc')
+			->selectRaw("
+				MIN(id) AS id,
+				TRIM(
+					CASE 
+						WHEN INSTR(spec, '.') > 0 
+						THEN SUBSTR(spec, INSTR(spec, '.') + 1)
+						ELSE ''
+					END
+				) AS name
+			")
 			->whereIn('id', $ids)
+			->groupBy('name')
 			->get();
 
 		return $educationalPrograms;

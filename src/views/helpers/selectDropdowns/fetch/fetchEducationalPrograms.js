@@ -4,6 +4,6 @@ const fetchEducationalPrograms = async (query) => {
 
 	return data.map(educationalPrograms => ({
 		value: educationalPrograms.id,
-		label: educationalPrograms.spec,
+		label: educationalPrograms.name,
 	}));
 };

@@ -339,8 +339,18 @@ class WPService
 
 		if (!empty($educationalProgramIds)) {
 			$educationalPrograms = Capsule::table('special')
-				->select('id', 'spec')
+				->selectRaw("
+					MIN(id) AS id,
+					TRIM(
+						CASE 
+							WHEN INSTR(spec, '.') > 0 
+							THEN SUBSTR(spec, INSTR(spec, '.') + 1)
+							ELSE ''
+						END
+					) AS name
+				")
 				->whereIn('id', $educationalProgramIds)
+				->groupBy('name')
 				->get();
 
 			$wp->educationalPrograms = $educationalPrograms;

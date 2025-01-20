@@ -5,7 +5,7 @@ const educationalProgramSelectHandler = async () => {
 	const selectedEducationalProgramIds = rawSelectedEducationalProgramIds.map(id => Number(id));
 
 	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const educationalProgramIdsSelectChoices = createNewSelectWithSearch('#educationalProgramIdsSelect'); // Перезапускаємо Choices.js
+	const educationalProgramIdsSelectChoices = await createNewSelectWithSearch('#educationalProgramIdsSelect'); // Перезапускаємо Choices.js
 
 	const educationalProgramIdsSelectSearchDropdown = async (inputValue) => {
 		if (inputValue.length < 3) {
@@ -39,7 +39,7 @@ const educationalProgramSelectHandler = async () => {
 			}
 		};
 
-		await updateGeneralInfo(updatedEvent, wpId);
+		await updateGeneralInfo(updatedEvent, wpId, true);
 	});
 
 	if (selectedEducationalProgramIds) {

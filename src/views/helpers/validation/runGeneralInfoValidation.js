@@ -5,6 +5,7 @@ const runGeneralInfoValidation = (wpDetails) => {
 	const stydingLevelIdSelect = document.getElementById(`stydingLevelIdSelect`);
 	const fieldsOfStudyIdsSelect = document.getElementById(`fieldsOfStudyIdsSelect`);
 	const specialtyIdsSelect = document.getElementById(`specialtyIdsSelect`);
+	const educationalProgramIdsSelect = document.getElementById(`educationalProgramIdsSelect`);
 	const docApprovedBySelect = document.getElementById(`docApprovedBySelect`);
 	const academicYearInput = document.getElementById(`academicYear`);
 	const creditsAmountInput = document.getElementById(`creditsAmount`);
@@ -40,6 +41,11 @@ const runGeneralInfoValidation = (wpDetails) => {
 		value: wpDetails.specialtyIds
 	});
 
+	validateEducationalProgram({
+		element: educationalProgramIdsSelect,
+		value: wpDetails.educationalProgramIds
+	});
+
 	validateDocApprovedBy({
 		element: docApprovedBySelect,
 		value: wpDetails.docApprovedBy
@@ -54,7 +60,7 @@ const runGeneralInfoValidation = (wpDetails) => {
 		element: creditsAmountInput,
 		value: wpDetails.creditsAmount
 	});
-	
+
 	validateCode({
 		element: codeInput,
 		value: wpDetails.code

@@ -88,7 +88,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	$educationalPrograms = $workingProgramData->educationalPrograms->map(function ($educationalProgram) {
 		return new EducationalProgramModel(
 			$educationalProgram->id,
-			$educationalProgram->spec
+			$educationalProgram->name
 		);
 	})->toArray();
 

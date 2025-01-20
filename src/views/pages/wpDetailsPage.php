@@ -182,6 +182,7 @@
     <script src="src/views/helpers/validation/validateStydingLevel.js"></script>
     <script src="src/views/helpers/validation/validateFieldsOfStudy.js"></script>
     <script src="src/views/helpers/validation/validateSpecialties.js"></script>
+    <script src="src/views/helpers/validation/validateEducationalProgram.js"></script>
     <script src="src/views/helpers/validation/validateDocApprovedBy.js"></script>
     <script src="src/views/helpers/validation/validateAcademicYear.js"></script>
     <script src="src/views/helpers/validation/validateCreditsAmount.js"></script>
