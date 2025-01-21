@@ -8,6 +8,9 @@
 				</div>
 				<!-- Додавання контейнеру для чекбоксів форм навчання -->
 				<div class="educational-forms-container">
+					<?php
+					$isAnyEducationalFormSelected = false;
+					?>
 					<p class='educational-forms-label'>Форми здобуття освіти:</p>
 					<!-- Додавання чекбоксів для усіх існуючих форм навчання -->
 					<?php foreach ($educationalForms as $educationalForm): ?>
@@ -16,14 +19,15 @@
 						foreach ($semesterData->educationalForms as $form) {
 							if ($form->educationalFormId == $educationalForm->id) {
 								$isChecked = true;
+								$isAnyEducationalFormSelected = true;
 								break;
 							}
 						}
 						?>
-						<label class="<?php if (!$isChecked): ?>not-valid-bg<?php endif; ?>">
+						<label class="<?php if (!$isAnyEducationalFormSelected): ?>not-valid-bg<?php endif; ?>">
 							<input
 								id="semester<?= htmlspecialchars($semesterData->semesterId) ?><?= htmlspecialchars($educationalForm->colName) ?>Checkbox"
-								class="checkbox <?php if (!$isChecked): ?>not-valid-bg<?php endif; ?>"
+								class="checkbox <?php if (!$isAnyEducationalFormSelected): ?>not-valid-bg<?php endif; ?>"
 								type="checkbox"
 								name="<?= htmlspecialchars($educationalForm->colName) ?>"
 								<?= $isChecked ? 'checked' : '' ?>
