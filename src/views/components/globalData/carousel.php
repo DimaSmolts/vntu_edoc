@@ -21,6 +21,9 @@
 		<li class="globalDataSlide">
 			<?php include __DIR__ . '/colloquiumAssessmentCriteriaSlide.php'; ?>
 		</li>
+		<li class="globalDataSlide">
+			<?php include __DIR__ . '/controlWorkAssessmentCriteriaSlide.php'; ?>
+		</li>
 	</ul>
 	<div class="global-data-carousel-arrow-container">
 		<button class="global-data-carousel-arrow" id="globalDataCarouselArrowPrev">

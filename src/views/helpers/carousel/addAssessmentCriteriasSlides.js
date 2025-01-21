@@ -4,7 +4,8 @@ const addAssessmentCriteriasSlides = ({
 	labSlideContent,
 	seminarSlideContent,
 	courseworkSlideContent,
-	colloquiumSlideContent
+	colloquiumSlideContent,
+	controlWorkSlideContent
 }) => {
 	const carouselContainer = document.getElementById('wpDetailsCarouselContainer');
 
@@ -36,6 +37,12 @@ const addAssessmentCriteriasSlides = ({
 		const colloquiumSlide = createSlide(colloquiumSlideContent);
 
 		carouselContainer.appendChild(colloquiumSlide);
+	}
+
+	if (structure.isControlWorkExists) {
+		const controlWorkSlide = createSlide(controlWorkSlideContent);
+
+		carouselContainer.appendChild(controlWorkSlide);
 	}
 }
 

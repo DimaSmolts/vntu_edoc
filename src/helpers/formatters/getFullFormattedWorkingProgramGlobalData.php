@@ -74,6 +74,17 @@ function getFullFormattedWorkingProgramGlobalData($globalWPData)
 		$globalWPData->colloquiumAssessmentCriteriaForFXAndF ?? '',
 	) : null;
 
+	$controlWorkAssessmentCriteria = isset($globalWPData) ? new AssessmentCriteriaModel(
+		$globalWPData->controlWorkAssessmentCriteriaForA,
+		$globalWPData->controlWorkAssessmentCriteriaForB,
+		$globalWPData->controlWorkAssessmentCriteriaForC,
+		$globalWPData->controlWorkAssessmentCriteriaForD,
+		$globalWPData->controlWorkAssessmentCriteriaForE,
+		$globalWPData->controlWorkAssessmentCriteriaForFX ?? '',
+		$globalWPData->controlWorkAssessmentCriteriaForF ?? '',
+		$globalWPData->controlWorkAssessmentCriteriaForFXAndF ?? '',
+	) : null;
+
 	return new WorkingProgramGlobalDataOverwriteModel(
 		isset($globalWPData) ? $globalWPData->universityName : '',
 		isset($globalWPData) ? $globalWPData->universityShortName : '',
@@ -83,6 +94,7 @@ function getFullFormattedWorkingProgramGlobalData($globalWPData)
 		$labAssessmentCriteria,
 		$seminarAssessmentCriteria,
 		$courseworkAssessmentCriteria,
-		$colloquiumAssessmentCriteria
+		$colloquiumAssessmentCriteria,
+		$controlWorkAssessmentCriteria,
 	);
 };

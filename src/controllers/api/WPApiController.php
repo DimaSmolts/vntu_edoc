@@ -138,6 +138,10 @@ class WPApiController extends BaseController
 
 			$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
 
+			$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
+
+			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
+
 			$isLoggedIn = true;
 			$showReturnBtn = true;
 			$showEditGlobalDataBtn = false;
@@ -162,13 +166,19 @@ class WPApiController extends BaseController
 			include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
 			$colloquiumSlideContent = ob_get_clean();
 
+			ob_start();
+			include __DIR__ . '/../../views/components/wpDetails/controlWorkAssessmentCriteriaSlide.php';
+			$controlWorkSlideContent = ob_get_clean();
+
 			echo json_encode([
 				'structure' => $structure,
+				'pointsDistributionRelatedData' => $pointsDistributionRelatedData,
 				'practicalSlideContent' => $practicalSlideContent,
 				'labSlideContent' => $labSlideContent,
 				'seminarSlideContent' => $seminarSlideContent,
 				'courseworkSlideContent' => $courseworkSlideContent,
-				'colloquiumSlideContent' => $colloquiumSlideContent
+				'colloquiumSlideContent' => $colloquiumSlideContent,
+				'controlWorkSlideContent' => $controlWorkSlideContent,
 			]);
 		}
 	}
@@ -193,6 +203,7 @@ class WPApiController extends BaseController
 			$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
 
 			ob_start();
+
 			include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';
 			$pointsDistributionSlideContent = ob_get_clean();
 

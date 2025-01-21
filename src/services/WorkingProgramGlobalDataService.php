@@ -59,6 +59,12 @@ class WorkingProgramGlobalDataService
 			'colloquiumAssessmentCriteriaForD' => $globalWPData->colloquiumAssessmentCriteria->D,
 			'colloquiumAssessmentCriteriaForE' => $globalWPData->colloquiumAssessmentCriteria->E,
 			'colloquiumAssessmentCriteriaForFXAndF' => $globalWPData->colloquiumAssessmentCriteria->FXAndF,
+			'controlWorkAssessmentCriteriaForA' => $globalWPData->controlWorkAssessmentCriteria->A,
+			'controlWorkAssessmentCriteriaForB' => $globalWPData->controlWorkAssessmentCriteria->B,
+			'controlWorkAssessmentCriteriaForC' => $globalWPData->controlWorkAssessmentCriteria->C,
+			'controlWorkAssessmentCriteriaForD' => $globalWPData->controlWorkAssessmentCriteria->D,
+			'controlWorkAssessmentCriteriaForE' => $globalWPData->controlWorkAssessmentCriteria->E,
+			'controlWorkAssessmentCriteriaForFXAndF' => $globalWPData->controlWorkAssessmentCriteria->FXAndF,
 		]);
 	}
 

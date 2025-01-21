@@ -17,6 +17,7 @@ class WorkingProgramGlobalDataOverwriteModel
 	public ?AssessmentCriteriaModel $seminarAssessmentCriteria;
 	public ?AssessmentCriteriaModel $courseworkAssessmentCriteria;
 	public ?AssessmentCriteriaModel $colloquiumAssessmentCriteria;
+	public ?AssessmentCriteriaModel $controlWorkAssessmentCriteria;
 
 	public function __construct(
 		?string $universityName = "",
@@ -28,6 +29,7 @@ class WorkingProgramGlobalDataOverwriteModel
 		?AssessmentCriteriaModel $seminarAssessmentCriteria = null,
 		?AssessmentCriteriaModel $courseworkAssessmentCriteria = null,
 		?AssessmentCriteriaModel $colloquiumAssessmentCriteria = null,
+		?AssessmentCriteriaModel $controlWorkAssessmentCriteria = null,
 	) {
 		$this->universityName = $universityName;
 		$this->universityShortName = $universityShortName;
@@ -38,5 +40,6 @@ class WorkingProgramGlobalDataOverwriteModel
 		$this->seminarAssessmentCriteria = $seminarAssessmentCriteria;
 		$this->courseworkAssessmentCriteria = $courseworkAssessmentCriteria;
 		$this->colloquiumAssessmentCriteria = $colloquiumAssessmentCriteria;
+		$this->controlWorkAssessmentCriteria = $controlWorkAssessmentCriteria;
 	}
 }

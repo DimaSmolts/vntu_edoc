@@ -53,6 +53,12 @@ class DBWorkingProgramGlobalDataOverwriteModel extends Model
 		'colloquiumAssessmentCriteriaForD',
 		'colloquiumAssessmentCriteriaForE',
 		'colloquiumAssessmentCriteriaForFXAndF',
+		'controlWorkAssessmentCriteriaForA',
+		'controlWorkAssessmentCriteriaForB',
+		'controlWorkAssessmentCriteriaForC',
+		'controlWorkAssessmentCriteriaForD',
+		'controlWorkAssessmentCriteriaForE',
+		'controlWorkAssessmentCriteriaForFXAndF',
 	];
 
 	public $timestamps = false;
