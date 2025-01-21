@@ -42,4 +42,36 @@ class AssessmentCriteriaApiController extends BaseController
 			$this->assessmentCriteriaService->updateAssessmentCriteria($wpId, $field, $value, $lessonTypeId, $taskTypeId);
 		}
 	}
+
+	public function updateDefaultAssessmentCriteria()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = json_decode($input, true);
+
+		$isAdmin = $this->checkIfCurrentUserIsAdmin();
+
+		if (!$isAdmin) {
+			$this->showDoNotHaveAccessGlobalDataPage();
+
+			exit();
+		}
+
+		$wpId = intval($data['wpId']);
+		$field = $data['field'];
+		$value = $data['value'];
+		$lessonTypeId = isset($data['lessonTypeId']) ? intval($data['lessonTypeId']) : null;
+		$taskTypeId = isset($data['taskTypeId']) ? intval($data['taskTypeId']) : null;
+		$isGeneral = isset($data['isGeneral']) ? $data['isGeneral'] : null;
+		$isAdditionalTask = isset($data['isAdditionalTask']) ? $data['isAdditionalTask'] : null;
+
+		if ($isGeneral) {
+			$this->assessmentCriteriaService->updateGeneralAssessmentCriteria($field, $value);
+		} else if ($isAdditionalTask) {
+			$this->assessmentCriteriaService->updateAdditionalTaskAssessmentCriteria($field, $value);
+		} else {
+			$this->assessmentCriteriaService->updateAssessmentCriteria(null, $field, $value, $lessonTypeId, $taskTypeId);
+		}
+	}
 }

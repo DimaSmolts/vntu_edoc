@@ -34,7 +34,7 @@ use App\Models\FacultyModel;
 use App\Models\SpecialtyModel;
 use App\Models\FieldOfStudyModel;
 
-function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
+function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWPData)
 {
 	// Створюємо модель загальних даних для робочої програми
 	$workingProgram = new WPDetailsModel(
@@ -445,7 +445,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 	) : null;
 
 	// Додаємо глобальні дані
-	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
+	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($globalWPData);
 
 	// Додаємо критерії оцінювання
 	$workingProgram->assessmentCriterias = getFullFormattedAssessmentCriterias($workingProgramData);

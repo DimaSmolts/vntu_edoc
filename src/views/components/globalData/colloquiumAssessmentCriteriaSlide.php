@@ -1,50 +1,54 @@
 <?php
+require_once __DIR__ . '/../../../helpers/getTaskId.php';
+
+$taskTypeId = getTaskId()->colloquium;
+
 $title = "Критерії оцінювання колоквіумів";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100):
+	<label>A:
 		<textarea
-			id="colloquiumAssessmentCriteriaForA"
-			name="colloquiumAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->A ?? '') ?></textarea>
 	</label>
-	<label>B (82-89):
+	<label>B:
 		<textarea
-			id="colloquiumAssessmentCriteriaForB"
-			name="colloquiumAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->B ?? '') ?></textarea>
 	</label>
-	<label>C (75-81):
+	<label>C:
 		<textarea
-			id="colloquiumAssessmentCriteriaForC"
-			name="colloquiumAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->C ?? '') ?></textarea>
 	</label>
-	<label>D (64-74):
+	<label>D:
 		<textarea
-			id="colloquiumAssessmentCriteriaForD"
-			name="colloquiumAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->D ?? '') ?></textarea>
 	</label>
-	<label>E (60-63):
+	<label>E:
 		<textarea
-			id="colloquiumAssessmentCriteriaForE"
-			name="colloquiumAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->E ?? '') ?></textarea>
 	</label>
-	<label>FX, F та (0-59):
+	<label>FX, F:
 		<textarea
-			id="colloquiumAssessmentCriteriaForFXAndF"
-			name="colloquiumAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->colloquiumAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['colloquium']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

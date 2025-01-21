@@ -1,50 +1,54 @@
 <?php
+require_once __DIR__ . '/../../../helpers/getLessonTypeIdByName.php';
+
+$lessonTypesId = getLessonTypeIdByName()->laboratory;
+
 $title = "Критерії оцінювання лабораторних занять";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100):
+	<label>A:
 		<textarea
-			id="labAssessmentCriteriaForA"
-			name="labAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->A ?? '') ?></textarea>
 	</label>
-	<label>B (82-89):
+	<label>B:
 		<textarea
-			id="labAssessmentCriteriaForB"
-			name="labAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->B ?? '') ?></textarea>
 	</label>
-	<label>C (75-81):
+	<label>C:
 		<textarea
-			id="labAssessmentCriteriaForC"
-			name="labAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->C ?? '') ?></textarea>
 	</label>
-	<label>D (64-74):
+	<label>D:
 		<textarea
-			id="labAssessmentCriteriaForD"
-			name="labAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->D ?? '') ?></textarea>
 	</label>
-	<label>E (60-63):
+	<label>E:
 		<textarea
-			id="labAssessmentCriteriaForE"
-			name="labAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->E ?? '') ?></textarea>
 	</label>
-	<label>FX, F та (0-59):
+	<label>FX, F:
 		<textarea
-			id="labAssessmentCriteriaForFXAndF"
-			name="labAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->labAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['laboratory']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

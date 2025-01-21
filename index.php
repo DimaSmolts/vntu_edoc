@@ -225,6 +225,11 @@ $router->post('/api/updateAssessmentCriteria', function () {
 	$assessmentCriteriaApiController->updateAssessmentCriteria();
 });
 
+$router->post('/api/updateDefaultAssessmentCriteria', function () {
+	$assessmentCriteriaApiController = new AssessmentCriteriaApiController();
+	$assessmentCriteriaApiController->updateDefaultAssessmentCriteria();
+});
+
 $router->post('/api/createNewWP', function () {
 	$wpApiController = new WPApiController();
 	$wpApiController->createNewWP();

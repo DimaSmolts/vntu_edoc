@@ -1,50 +1,54 @@
 <?php
+require_once __DIR__ . '/../../../helpers/getLessonTypeIdByName.php';
+
+$lessonTypesId = getLessonTypeIdByName()->seminar;
+
 $title = "Критерії оцінювання семінарських занять";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100):
+	<label>A:
 		<textarea
-			id="seminarAssessmentCriteriaForA"
-			name="seminarAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->A ?? '') ?></textarea>
 	</label>
-	<label>B (82-89):
+	<label>B:
 		<textarea
-			id="seminarAssessmentCriteriaForB"
-			name="seminarAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->B ?? '') ?></textarea>
 	</label>
-	<label>C (75-81):
+	<label>C:
 		<textarea
-			id="seminarAssessmentCriteriaForC"
-			name="seminarAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->C ?? '') ?></textarea>
 	</label>
-	<label>D (64-74):
+	<label>D:
 		<textarea
-			id="seminarAssessmentCriteriaForD"
-			name="seminarAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->D ?? '') ?></textarea>
 	</label>
-	<label>E (60-63):
+	<label>E:
 		<textarea
-			id="seminarAssessmentCriteriaForE"
-			name="seminarAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->E ?? '') ?></textarea>
 	</label>
-	<label>FX, F та (0-59):
+	<label>FX, F:
 		<textarea
-			id="seminarAssessmentCriteriaForFXAndF"
-			name="seminarAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->seminarAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($data->$lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['seminar']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

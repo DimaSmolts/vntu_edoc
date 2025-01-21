@@ -41,23 +41,4 @@ class WorkingProgramGlobalDataApiController extends BaseController
 
 		$this->workingProgramGlobalDataService->updateGlobalData($field, $value);
 	}
-
-	public function updateWorkingProgramGlobalDataOverwrite()
-	{
-		header('Content-Type: application/json');
-
-		$input = file_get_contents('php://input');
-		$data = json_decode($input, true);
-
-		$wpId = intval($data['wpId']);
-		$field = $data['field'];
-		$value = $data['value'];
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$this->workingProgramGlobalDataService->updateWorkingProgramGlobalDataOverwrite($wpId, $field, $value);
-		}
-	}
 }

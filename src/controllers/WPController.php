@@ -7,6 +7,7 @@ require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/EducationalFormService.php';
 require_once __DIR__ . '/../services/FacultyService.php';
 require_once __DIR__ . '/../services/DepartmentService.php';
+require_once __DIR__ . '/../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedWPListData.php';
 require_once __DIR__ . '/../helpers/formatters/getFormattedEducationalFormData.php';
@@ -21,6 +22,7 @@ use App\Services\WPService;
 use App\Services\EducationalFormService;
 use App\Services\FacultyService;
 use App\Services\DepartmentService;
+use App\Services\WorkingProgramGlobalDataService;
 
 class WPController extends BaseController
 {
@@ -28,6 +30,7 @@ class WPController extends BaseController
 	protected EducationalFormService $educationalFormService;
 	protected FacultyService $facultyService;
 	protected DepartmentService $departmentService;
+	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 
 	function __construct()
 	{
@@ -35,6 +38,7 @@ class WPController extends BaseController
 		$this->educationalFormService = new EducationalFormService();
 		$this->facultyService = new FacultyService();
 		$this->departmentService = new DepartmentService();
+		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 	}
 
 	public function getWPListItems()
@@ -110,7 +114,9 @@ class WPController extends BaseController
 			$ifCurrentUserHasAccessToWP  = $this->checkIfCurrentUserHasAccessToWP($rawDetails->creator->id);
 
 			if ($ifCurrentUserHasAccessToWP) {
-				$details = getFullFormattedWorkingProgramData($rawDetails);
+				$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
+
+				$details = getFullFormattedWorkingProgramData($rawDetails, $rawGlobalWPData);
 
 				$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 				$educationalForms = getFormattedEducationalFormData($rawEducationalForms);

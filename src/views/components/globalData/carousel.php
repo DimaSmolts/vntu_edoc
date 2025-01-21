@@ -19,6 +19,18 @@
 			<?php include __DIR__ . '/courseworkAssessmentCriteriaSlide.php'; ?>
 		</li>
 		<li class="globalDataSlide">
+			<?php include __DIR__ . '/courseProjectAssessmentCriteriaSlide.php'; ?>
+		</li>
+		<li class="globalDataSlide">
+			<?php include __DIR__ . '/calculationAndGraphicWorkAssessmentCriteriaSlide.php'; ?>
+		</li>
+		<li class="globalDataSlide">
+			<?php include __DIR__ . '/calculationAndGraphicTaskAssessmentCriteriaSlide.php'; ?>
+		</li>
+		<li class="globalDataSlide">
+			<?php include __DIR__ . '/additionalTasksAssessmentCriteriaSlide.php'; ?>
+		</li>
+		<li class="globalDataSlide">
 			<?php include __DIR__ . '/colloquiumAssessmentCriteriaSlide.php'; ?>
 		</li>
 		<li class="globalDataSlide">
@@ -26,11 +38,11 @@
 		</li>
 	</ul>
 	<div class="global-data-carousel-arrow-container">
-		<button class="global-data-carousel-arrow" id="globalDataCarouselArrowPrev">
+		<button class="btn global-data-carousel-arrow" id="globalDataCarouselArrowPrev">
 			Назад
 		</button>
 		<div></div>
-		<button class="global-data-carousel-arrow" id="globalDataCarouselArrowNext">
+		<button class="btn global-data-carousel-arrow" id="globalDataCarouselArrowNext">
 			Далі
 		</button>
 	</div>

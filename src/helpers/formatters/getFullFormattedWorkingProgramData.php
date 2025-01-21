@@ -20,7 +20,7 @@ use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\WorkingProgramLiteratureModel;
 
-function getFullFormattedWorkingProgramData($workingProgramData)
+function getFullFormattedWorkingProgramData($workingProgramData, $globalWPData)
 {
 	$workingProgram = new WPDetailsModel(
 		$workingProgramData->id,
@@ -217,7 +217,7 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 		$workingProgramData->docApprovedBy->minutesOfMeeting,
 	) : null;
 
-	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
+	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($globalWPData);
 
 	$workingProgram->assessmentCriterias = getFullFormattedAssessmentCriterias($workingProgramData);
 

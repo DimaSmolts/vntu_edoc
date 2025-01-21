@@ -6,6 +6,7 @@ const updateGlobalData = (event) => {
 
     makePostRequest({
         link: 'api/updateGlobalData',
-        postData
+        postData,
+        isGlobal: true
     });
 }

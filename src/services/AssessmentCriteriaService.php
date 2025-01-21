@@ -6,6 +6,13 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class AssessmentCriteriaService
 {
+	public function getDefaultAssessmentCriterias()
+	{
+		return Capsule::table('assessmentCriterias')
+			->where('educationalDisciplineWPId', null)
+			->get();
+	}
+
 	public function getGeneralAssessmentCriteria()
 	{
 		return Capsule::table('assessmentCriterias')
@@ -74,7 +81,6 @@ class AssessmentCriteriaService
 		Capsule::table('assessmentCriterias')->insertGetId($oldAssessmentCriteria);
 	}
 
-	// Функція для зміни дефолтних даних на рівні робочої програми
 	public function updateAssessmentCriteria($wpId, $field, $value, $lessonTypeId, $taskTypeId)
 	{
 		Capsule::table('assessmentCriterias')
@@ -83,6 +89,39 @@ class AssessmentCriteriaService
 					'educationalDisciplineWPId' => $wpId,
 					'lessonTypeId' => $lessonTypeId,
 					'taskTypeId' => $taskTypeId
+				],
+				[
+					$field => $value
+				]
+			);
+	}
+
+	public function updateGeneralAssessmentCriteria($field, $value)
+	{
+		Capsule::table('assessmentCriterias')
+			->updateOrInsert(
+				[
+					'educationalDisciplineWPId' => null,
+					'lessonTypeId' => null,
+					'taskTypeId' => null,
+					'isGeneral' => true,
+				],
+				[
+					$field => $value
+				]
+			);
+	}
+
+	public function updateAdditionalTaskAssessmentCriteria($field, $value)
+	{
+		Capsule::table('assessmentCriterias')
+			->updateOrInsert(
+				[
+					'educationalDisciplineWPId' => null,
+					'lessonTypeId' => null,
+					'taskTypeId' => null,
+					'isGeneral' => null,
+					'isAdditionalTask' => true,
 				],
 				[
 					$field => $value

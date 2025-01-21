@@ -1,50 +1,54 @@
 <?php
+require_once __DIR__ . '/../../../helpers/getTaskId.php';
+
+$taskTypeId = getTaskId()->controlWork;
+
 $title = "Критерії оцінювання контрольних робіт";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100):
+	<label>A:
 		<textarea
-			id="controlWorkAssessmentCriteriaForA"
-			name="controlWorkAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->A ?? '') ?></textarea>
 	</label>
-	<label>B (82-89):
+	<label>B:
 		<textarea
-			id="controlWorkAssessmentCriteriaForB"
-			name="controlWorkAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->B ?? '') ?></textarea>
 	</label>
-	<label>C (75-81):
+	<label>C:
 		<textarea
-			id="controlWorkAssessmentCriteriaForC"
-			name="controlWorkAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->C ?? '') ?></textarea>
 	</label>
-	<label>D (64-74):
+	<label>D:
 		<textarea
-			id="controlWorkAssessmentCriteriaForD"
-			name="controlWorkAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->D ?? '') ?></textarea>
 	</label>
-	<label>E (60-63):
+	<label>E:
 		<textarea
-			id="controlWorkAssessmentCriteriaForE"
-			name="controlWorkAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->E ?? '') ?></textarea>
 	</label>
-	<label>FX, F та (0-59):
+	<label>FX, F:
 		<textarea
-			id="controlWorkAssessmentCriteriaForFXAndF"
-			name="controlWorkAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="2"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->controlWorkAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, null, <?= htmlspecialchars($taskTypeId) ?>)"><?= htmlspecialchars($assessmentCriterias['controlWork']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

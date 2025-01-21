@@ -1,7 +1,8 @@
 const makePostRequest = ({
 	link,
 	postData,
-	responseOKHandler = null
+	responseOKHandler = null,
+	isGlobal = false
 }) => {
 	fetch(link, {
 		method: 'POST',
@@ -14,12 +15,14 @@ const makePostRequest = ({
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			} else {
-				if (responseOKHandler) {
-					responseOKHandler();
-				}
+				if (!isGlobal) {
+					if (responseOKHandler) {
+						responseOKHandler();
+					}
 
-				if (debouncedHandleInput) {
-					await debouncedHandleInput();
+					if (debouncedHandleInput) {
+						await debouncedHandleInput();
+					}
 				}
 			}
 		})

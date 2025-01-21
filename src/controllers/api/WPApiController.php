@@ -4,11 +4,11 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/WPService.php';
-require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../../services/AssessmentCriteriaService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../services/DepartmentService.php';
 require_once __DIR__ . '/../../services/EducationalFormService.php';
+require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedAssessmentCriterias.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
@@ -25,29 +25,29 @@ require_once __DIR__ . '/../../helpers/getSemestersIdsByControlType.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
-use App\Services\WorkingProgramGlobalDataService;
 use App\Services\AssessmentCriteriaService;
 use App\Services\WorkingProgramLiteratureService;
 use App\Services\DepartmentService;
 use App\Services\EducationalFormService;
+use App\Services\WorkingProgramGlobalDataService;
 
 class WPApiController extends BaseController
 {
 	protected WPService $wpService;
-	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 	protected AssessmentCriteriaService $assessmentCriteriaService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 	protected DepartmentService $departmentService;
 	protected EducationalFormService $educationalFormService;
+	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
-		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 		$this->assessmentCriteriaService = new AssessmentCriteriaService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 		$this->departmentService = new DepartmentService();
 		$this->educationalFormService = new EducationalFormService();
+		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 	}
 
 	public function createNewWP()
@@ -74,14 +74,11 @@ class WPApiController extends BaseController
 
 		$disciplineName = $_POST['disciplineName'] ?? null;
 
-		// $globalWPData = getFullFormattedWorkingProgramGlobalData($generalAssessmentCriteria);
-
 		$newWPId = $this->wpService->createNewWP($disciplineName, $sessionInfo->id);
 
 		$generalAssessmentCriteria = $this->assessmentCriteriaService->getGeneralAssessmentCriteria();
 		$this->assessmentCriteriaService->copyAssessmentCriteria($newWPId, $generalAssessmentCriteria);
 
-		// $this->workingProgramGlobalDataService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
 		$this->workingProgramLiteratureService->createNewWPLiterature($newWPId);
 
 		header("Location: /workingPrograms/wpdetails?id=" . $newWPId);
@@ -329,7 +326,9 @@ class WPApiController extends BaseController
 
 		if ($ifCurrentUserHasAccessToWP) {
 			$wpData = $this->wpService->getWPDetails($wpId);
-			$details = getFullFormattedWorkingProgramData($wpData);
+			$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
+
+			$details = getFullFormattedWorkingProgramData($wpData, $rawGlobalWPData);
 
 			$rawEducationalForms = $this->educationalFormService->getEducationalForms();
 			$educationalForms = getFormattedEducationalFormData($rawEducationalForms);

@@ -6,6 +6,7 @@ require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../services/WPService.php';
 require_once __DIR__ . '/../services/SemesterService.php';
 require_once __DIR__ . '/../services/ModuleService.php';
+require_once __DIR__ . '/../services/WorkingProgramGlobalDataService.php';
 require_once __DIR__ . '/../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../models/WPDetailsModel.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramDataForPDF.php';
@@ -17,18 +18,21 @@ use App\Controllers\BaseController;
 use App\Services\WPService;
 use App\Services\SemesterService;
 use App\Services\ModuleService;
+use App\Services\WorkingProgramGlobalDataService;
 
 class PDFController extends BaseController
 {
 	protected WPService $wpService;
 	protected SemesterService $semesterService;
 	protected ModuleService $moduleService;
+	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
 		$this->semesterService = new SemesterService();
 		$this->moduleService = new ModuleService();
+		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
 	}
 
 	public function getPDFData()
@@ -64,7 +68,9 @@ class PDFController extends BaseController
 			$ifCurrentUserHasAccessToWP  = $this->checkIfCurrentUserHasAccessToWP($rawDetails->creator->id);
 
 			if ($ifCurrentUserHasAccessToWP) {
-				$details = getFullFormattedWorkingProgramDataForPDF($rawDetails);
+				$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
+
+				$details = getFullFormattedWorkingProgramDataForPDF($rawDetails, $rawGlobalWPData);
 
 				$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($rawDetails);
 				$pointsDistributionSemestersData = getPointsDistributionForPDF($pointsDistributionRelatedData);

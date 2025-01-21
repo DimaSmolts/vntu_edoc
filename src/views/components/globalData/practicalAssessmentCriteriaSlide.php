@@ -1,50 +1,54 @@
 <?php
+require_once __DIR__ . '/../../../helpers/getLessonTypeIdByName.php';
+
+$lessonTypesId = getLessonTypeIdByName()->practical;
+
 $title = "Критерії оцінювання практичних занять";
 ?>
 
 <?php include __DIR__ . '/../header.php'; ?>
 
 <form class="wp-form">
-	<label>A (90-100):
+	<label>A:
 		<textarea
-			id="practicalAssessmentCriteriaForA"
-			name="practicalAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->A ?? '') ?></textarea>
 	</label>
-	<label>B (82-89):
+	<label>B:
 		<textarea
-			id="practicalAssessmentCriteriaForB"
-			name="practicalAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->B ?? '') ?></textarea>
 	</label>
-	<label>C (75-81):
+	<label>C:
 		<textarea
-			id="practicalAssessmentCriteriaForC"
-			name="practicalAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->C ?? '') ?></textarea>
 	</label>
-	<label>D (64-74):
+	<label>D:
 		<textarea
-			id="practicalAssessmentCriteriaForD"
-			name="practicalAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->D ?? '') ?></textarea>
 	</label>
-	<label>E (60-63):
+	<label>E:
 		<textarea
-			id="practicalAssessmentCriteriaForE"
-			name="practicalAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->E ?? '') ?></textarea>
 	</label>
-	<label>FX, F та (0-59):
+	<label>FX, F:
 		<textarea
-			id="practicalAssessmentCriteriaForFXAndF"
-			name="practicalAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="5"
-			oninput="updateGlobalData(event)"><?= htmlspecialchars($data->practicalAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateDefaultAssessmentCriteria(event, <?= htmlspecialchars($lessonTypesId) ?>, null)"><?= htmlspecialchars($assessmentCriterias['practical']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>
