@@ -11,44 +11,74 @@ $title = "Критерії оцінювання знань, умінь та на
 <form class="wp-form">
 	<label><?= htmlspecialchars($labels['A']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForA"
-			name="controlWorkAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->A ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['B']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForB"
-			name="controlWorkAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->B ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['C']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForC"
-			name="controlWorkAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->C ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['D']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForD"
-			name="controlWorkAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->D ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['E']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForE"
-			name="controlWorkAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->E ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['FXAndF']) ?>
 		<textarea
-			id="controlWorkAssessmentCriteriaForFXAndF"
-			name="controlWorkAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->controlWorkAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['controlWork']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['controlWork']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

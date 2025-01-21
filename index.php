@@ -11,6 +11,7 @@ require_once __DIR__ . '/src/controllers/GlobalDataController.php';
 require_once __DIR__ . '/src/controllers/PDFController.php';
 require_once __DIR__ . '/src/controllers/api/WPApiController.php';
 require_once __DIR__ . '/src/controllers/api/WorkingProgramGlobalDataApiController.php';
+require_once __DIR__ . '/src/controllers/api/AssessmentCriteriaApiController.php';
 require_once __DIR__ . '/src/controllers/api/WPInvolvedPersonApiController.php';
 require_once __DIR__ . '/src/controllers/api/SemesterApiController.php';
 require_once __DIR__ . '/src/controllers/api/ModuleApiController.php';
@@ -36,6 +37,7 @@ use App\Controllers\GlobalDataController;
 use App\Controllers\PDFController;
 use App\Controllers\WPApiController;
 use App\Controllers\WorkingProgramGlobalDataApiController;
+use App\Controllers\AssessmentCriteriaApiController;
 use App\Controllers\WPInvolvedPersonApiController;
 use App\Controllers\SemesterApiController;
 use App\Controllers\ModuleApiController;
@@ -218,9 +220,9 @@ $router->post('/api/updateGlobalData', function () {
 	$workingProgramGlobalDataApiController->updateGlobalData();
 });
 
-$router->post('/api/updateWorkingProgramGlobalDataOverwrite', function () {
-	$workingProgramGlobalDataApiController = new WorkingProgramGlobalDataApiController();
-	$workingProgramGlobalDataApiController->updateWorkingProgramGlobalDataOverwrite();
+$router->post('/api/updateAssessmentCriteria', function () {
+	$assessmentCriteriaApiController = new AssessmentCriteriaApiController();
+	$assessmentCriteriaApiController->updateAssessmentCriteria();
 });
 
 $router->post('/api/createNewWP', function () {

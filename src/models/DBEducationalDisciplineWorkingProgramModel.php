@@ -4,7 +4,7 @@ namespace App\Models;
 
 require_once __DIR__ . '/DBEducationalDisciplineSemesterModel.php';
 require_once __DIR__ . '/DBWorkingProgramInvolvedPersonModel.php';
-require_once __DIR__ . '/DBWorkingProgramGlobalDataOverwriteModel.php';
+require_once __DIR__ . '/DBAssessmentCriteriaModel.php';
 require_once __DIR__ . '/DBWorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/DBFacultyModel.php';
 require_once __DIR__ . '/DBDepartmentModel.php';
@@ -12,7 +12,7 @@ require_once __DIR__ . '/DBStydingLevelTypeModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
-use App\Models\DBWorkingProgramGlobalDataOverwriteModel;
+use App\Models\DBAssessmentCriteriaModel;
 use App\Models\DBWorkingProgramLiteratureModel;
 use App\Models\DBFacultyModel;
 use App\Models\DBDepartmentModel;
@@ -58,9 +58,70 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		return $this->hasMany(DBEducationalDisciplineSemesterModel::class, 'educationalDisciplineWPId');
 	}
 
-	public function globalData()
+	public function generalAssessmentCriteria()
 	{
-		return $this->hasOne(DBWorkingProgramGlobalDataOverwriteModel::class, 'educationalDisciplineWorkingProgramId');
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->where('isGeneral', true);
+	}
+
+	public function practicalAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('practical');
+	}
+
+	public function seminarAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('seminar');
+	}
+
+	public function laboratoryAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('laboratory');
+	}
+
+	public function courseworkAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('coursework');
+	}
+
+	public function courseProjectAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('courseProject');
+	}
+
+	public function calculationAndGraphicWorkAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('calculationAndGraphicWork');
+	}
+
+	public function calculationAndGraphicTaskAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('calculationAndGraphicTask');
+	}
+
+	public function colloquiumAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('colloquium');
+	}
+
+	public function controlWorkAssessmentCriteria()
+	{
+		return $this->hasOne(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('controlWork');
+	}
+
+	public function additionalTasksAssessmentCriterias()
+	{
+		return $this->hasMany(DBAssessmentCriteriaModel::class, 'educationalDisciplineWPId')
+			->whereHas('additionalTask');
 	}
 
 	public function literature()

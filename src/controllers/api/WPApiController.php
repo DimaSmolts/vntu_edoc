@@ -5,10 +5,11 @@ namespace App\Controllers;
 require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
+require_once __DIR__ . '/../../services/AssessmentCriteriaService.php';
 require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../services/DepartmentService.php';
 require_once __DIR__ . '/../../services/EducationalFormService.php';
-require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramGlobalData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFullFormattedAssessmentCriterias.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
@@ -25,6 +26,7 @@ require_once __DIR__ . '/../../helpers/getSemestersIdsByControlType.php';
 use App\Controllers\BaseController;
 use App\Services\WPService;
 use App\Services\WorkingProgramGlobalDataService;
+use App\Services\AssessmentCriteriaService;
 use App\Services\WorkingProgramLiteratureService;
 use App\Services\DepartmentService;
 use App\Services\EducationalFormService;
@@ -33,6 +35,7 @@ class WPApiController extends BaseController
 {
 	protected WPService $wpService;
 	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
+	protected AssessmentCriteriaService $assessmentCriteriaService;
 	protected WorkingProgramLiteratureService $workingProgramLiteratureService;
 	protected DepartmentService $departmentService;
 	protected EducationalFormService $educationalFormService;
@@ -41,6 +44,7 @@ class WPApiController extends BaseController
 	{
 		$this->wpService = new WPService();
 		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
+		$this->assessmentCriteriaService = new AssessmentCriteriaService();
 		$this->workingProgramLiteratureService = new WorkingProgramLiteratureService();
 		$this->departmentService = new DepartmentService();
 		$this->educationalFormService = new EducationalFormService();
@@ -70,12 +74,14 @@ class WPApiController extends BaseController
 
 		$disciplineName = $_POST['disciplineName'] ?? null;
 
-		$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
-
-		$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
+		// $globalWPData = getFullFormattedWorkingProgramGlobalData($generalAssessmentCriteria);
 
 		$newWPId = $this->wpService->createNewWP($disciplineName, $sessionInfo->id);
-		$this->workingProgramGlobalDataService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
+
+		$generalAssessmentCriteria = $this->assessmentCriteriaService->getGeneralAssessmentCriteria();
+		$this->assessmentCriteriaService->copyAssessmentCriteria($newWPId, $generalAssessmentCriteria);
+
+		// $this->workingProgramGlobalDataService->createNewWorkingProgramGlobalDataOverwrite($newWPId, $globalWPData);
 		$this->workingProgramLiteratureService->createNewWPLiterature($newWPId);
 
 		header("Location: /workingPrograms/wpdetails?id=" . $newWPId);
@@ -130,15 +136,11 @@ class WPApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$rawStructure = $this->wpService->getLessonsAndExamingsStructure($wpId);
-
-			$structure = getFormattedLessonsAndExamingsStructure($rawStructure);
-
-			$rawGlobalWPData = $this->workingProgramGlobalDataService->getGlobalDataByWPId($wpId);
-
-			$globalWPData = getFullFormattedWorkingProgramGlobalData($rawGlobalWPData);
-
 			$wpData = $this->wpService->getLessonsAndExamingsStructure($wpId);
+
+			$structure = getFormattedLessonsAndExamingsStructure($wpData);
+
+			$assessmentCriterias = getFullFormattedAssessmentCriterias($wpData);
 
 			$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($wpData);
 
@@ -146,29 +148,79 @@ class WPApiController extends BaseController
 			$showReturnBtn = true;
 			$showEditGlobalDataBtn = false;
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/practicalAssessmentCriteriaSlide.php';
-			$practicalSlideContent = ob_get_clean();
+			$practicalSlideContent = null;
+			$labSlideContent = null;
+			$seminarSlideContent = null;
+			$courseworkSlideContent = null;
+			$courseProjectSlideContent = null;
+			$calculationAndGraphicWorkSlideContent = null;
+			$calculationAndGraphicTaskSlideContent = null;
+			$additionalTasksSlidesContent = [];
+			$colloquiumSlideContent = null;
+			$controlWorkSlideContent = null;
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/labAssessmentCriteriaSlide.php';
-			$labSlideContent = ob_get_clean();
+			if ($structure->isPracticalsExist) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/practicalAssessmentCriteriaSlide.php';
+				$practicalSlideContent = ob_get_clean();
+			}
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
-			$seminarSlideContent = ob_get_clean();
+			if ($structure->isLabsExist) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/labAssessmentCriteriaSlide.php';
+				$labSlideContent = ob_get_clean();
+			}
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
-			$courseworkSlideContent = ob_get_clean();
+			if ($structure->isSeminarsExist) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/seminarAssessmentCriteriaSlide.php';
+				$seminarSlideContent = ob_get_clean();
+			}
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
-			$colloquiumSlideContent = ob_get_clean();
+			if ($structure->isCourseworkExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/courseworkAssessmentCriteriaSlide.php';
+				$courseworkSlideContent = ob_get_clean();
+			}
 
-			ob_start();
-			include __DIR__ . '/../../views/components/wpDetails/controlWorkAssessmentCriteriaSlide.php';
-			$controlWorkSlideContent = ob_get_clean();
+			if ($structure->isCourseProjectExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/courseProjectAssessmentCriteriaSlide.php';
+				$courseProjectSlideContent = ob_get_clean();
+			}
+
+			if ($structure->isCalculationAndGraphicWorkExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/calculationAndGraphicWorkAssessmentCriteriaSlide.php';
+				$calculationAndGraphicWorkSlideContent = ob_get_clean();
+			}
+
+			if ($structure->isCalculationAndGraphicTaskExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/calculationAndGraphicTaskAssessmentCriteriaSlide.php';
+				$calculationAndGraphicTaskSlideContent = ob_get_clean();
+			}
+
+			if ($structure->isAdditionalTasksExist) {
+				foreach ($assessmentCriterias['additionalTasks'] as $additionalTask) {
+					ob_start();
+					include __DIR__ . '/../../views/components/wpDetails/additionalTaskAssessmentCriteriaSlide.php';
+					$taskContent = ob_get_clean();
+					$additionalTasksSlidesContent[$additionalTask->taskName] = $taskContent;
+				}
+			}
+
+			if ($structure->isColloquiumExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/colloquiumAssessmentCriteriaSlide.php';
+				$colloquiumSlideContent = ob_get_clean();
+			}
+
+			if ($structure->isControlWorkExists) {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/controlWorkAssessmentCriteriaSlide.php';
+				$controlWorkSlideContent = ob_get_clean();
+			}
 
 			echo json_encode([
 				'structure' => $structure,
@@ -177,6 +229,10 @@ class WPApiController extends BaseController
 				'labSlideContent' => $labSlideContent,
 				'seminarSlideContent' => $seminarSlideContent,
 				'courseworkSlideContent' => $courseworkSlideContent,
+				'courseProjectSlideContent' => $courseProjectSlideContent,
+				'calculationAndGraphicWorkSlideContent' => $calculationAndGraphicWorkSlideContent,
+				'calculationAndGraphicTaskSlideContent' => $calculationAndGraphicTaskSlideContent,
+				'additionalTasksSlidesContent' => $additionalTasksSlidesContent,
 				'colloquiumSlideContent' => $colloquiumSlideContent,
 				'controlWorkSlideContent' => $controlWorkSlideContent,
 			]);

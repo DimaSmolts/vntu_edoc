@@ -11,44 +11,74 @@ $title = "Критерії оцінювання знань, умінь та на
 <form class="wp-form">
 	<label><?= htmlspecialchars($labels['A']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForA"
-			name="practicalAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= $globalWPData->practicalAssessmentCriteria->A ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= $assessmentCriterias['practical']->A ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['B']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForB"
-			name="practicalAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->practicalAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= htmlspecialchars($assessmentCriterias['practical']->B ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['C']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForC"
-			name="practicalAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->practicalAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= htmlspecialchars($assessmentCriterias['practical']->C ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['D']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForD"
-			name="practicalAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->practicalAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= htmlspecialchars($assessmentCriterias['practical']->D ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['E']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForE"
-			name="practicalAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->practicalAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= htmlspecialchars($assessmentCriterias['practical']->E ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['FXAndF']) ?>
 		<textarea
-			id="practicalAssessmentCriteriaForFXAndF"
-			name="practicalAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->practicalAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				<?= htmlspecialchars($assessmentCriterias['practical']->lessonTypeId) ?>,
+				null
+			)"><?= htmlspecialchars($assessmentCriterias['practical']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

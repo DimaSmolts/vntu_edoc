@@ -7,51 +7,87 @@ $title = "Критерії оцінювання знань, умінь та на
 <form class="wp-form">
 	<label>A (90-100):
 		<textarea
-			id="generalAssessmentCriteriaForA"
-			name="generalAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->A ?? '') ?>
+		</textarea>
 	</label>
 	<label>B (82-89):
 		<textarea
-			id="generalAssessmentCriteriaForB"
-			name="generalAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->B ?? '') ?></textarea>
 	</label>
 	<label>C (75-81):
 		<textarea
-			id="generalAssessmentCriteriaForC"
-			name="generalAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->C ?? '') ?></textarea>
 	</label>
 	<label>D (64-74):
 		<textarea
-			id="generalAssessmentCriteriaForD"
-			name="generalAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->D ?? '') ?></textarea>
 	</label>
 	<label>E (60-63):
 		<textarea
-			id="generalAssessmentCriteriaForE"
-			name="generalAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->E ?? '') ?></textarea>
 	</label>
 	<label>FX (35-59):
 		<textarea
-			id="generalAssessmentCriteriaForFX"
-			name="generalAssessmentCriteriaForFX"
+			id="FX"
+			name="FX"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->FX ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->FX ?? '') ?></textarea>
 	</label>
 	<label>F (0-34):
 		<textarea
-			id="generalAssessmentCriteriaForF"
-			name="generalAssessmentCriteriaForF"
+			id="F"
+			name="F"
 			rows="5"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($details->id) ?>)"><?= htmlspecialchars($details->globalData->generalAssessmentCriteria->F ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($details->id) ?>,
+				null,
+				null
+			)"><?= htmlspecialchars($details->assessmentCriterias['general']->F ?? '') ?></textarea>
 	</label>
 </form>

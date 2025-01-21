@@ -11,44 +11,74 @@ $title = "Критерії оцінювання знань, умінь та на
 <form class="wp-form">
 	<label><?= htmlspecialchars($labels['A']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForA"
-			name="colloquiumAssessmentCriteriaForA"
+			id="A"
+			name="A"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->A ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->A ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['B']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForB"
-			name="colloquiumAssessmentCriteriaForB"
+			id="B"
+			name="B"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->B ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->B ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['C']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForC"
-			name="colloquiumAssessmentCriteriaForC"
+			id="C"
+			name="C"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->C ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->C ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['D']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForD"
-			name="colloquiumAssessmentCriteriaForD"
+			id="D"
+			name="D"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->D ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->D ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['E']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForE"
-			name="colloquiumAssessmentCriteriaForE"
+			id="E"
+			name="E"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->E ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->E ?? '') ?></textarea>
 	</label>
 	<label><?= htmlspecialchars($labels['FXAndF']) ?>
 		<textarea
-			id="colloquiumAssessmentCriteriaForFXAndF"
-			name="colloquiumAssessmentCriteriaForFXAndF"
+			id="FXAndF"
+			name="FXAndF"
 			rows="2"
-			oninput="updateWorkingProgramGlobalDataOverwrite(event, <?= htmlspecialchars($wpId) ?>)"><?= htmlspecialchars($globalWPData->colloquiumAssessmentCriteria->FXAndF ?? '') ?></textarea>
+			oninput="updateAssessmentCriteria(
+				event,
+				<?= htmlspecialchars($wpId) ?>,
+				null,
+				<?= htmlspecialchars($assessmentCriterias['colloquium']->taskTypeId) ?>
+			)"><?= htmlspecialchars($assessmentCriterias['colloquium']->FXAndF ?? '') ?></textarea>
 	</label>
 </form>

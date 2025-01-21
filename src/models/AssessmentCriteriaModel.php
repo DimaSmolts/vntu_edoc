@@ -12,6 +12,9 @@ class AssessmentCriteriaModel
 	public ?string $FX;
 	public ?string $F;
 	public ?string $FXAndF;
+	public ?string $taskName;
+	public ?int $lessonTypeId;
+	public ?int $taskTypeId;
 
 	public function __construct(
 		?string $A = "",
@@ -22,6 +25,9 @@ class AssessmentCriteriaModel
 		?string $FX = "",
 		?string $F = "",
 		?string $FXAndF = "",
+		?string $taskName = "",
+		?int $lessonTypeId = null,
+		?int $taskTypeId = null
 	) {
 		$this->A = $A;
 		$this->B = $B;
@@ -31,5 +37,8 @@ class AssessmentCriteriaModel
 		$this->FX = $FX;
 		$this->F = $F;
 		$this->FXAndF = $FXAndF;
+		$this->taskName = $taskName;
+		$this->lessonTypeId = $lessonTypeId;
+		$this->taskTypeId = $taskTypeId;
 	}
 }

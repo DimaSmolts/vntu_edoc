@@ -17,6 +17,7 @@ require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 require_once __DIR__ . '/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/getFormattedFacultiesData.php';
+require_once __DIR__ . '/getFullFormattedAssessmentCriterias.php';
 require_once __DIR__ . '/../getTaskId.php';
 require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
 
@@ -445,6 +446,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData)
 
 	// Додаємо глобальні дані
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
+
+	// Додаємо критерії оцінювання
+	$workingProgram->assessmentCriterias = getFullFormattedAssessmentCriterias($workingProgramData);
 
 	// Додаємо літературу
 	$formattedLiterature = isset($workingProgramData->literature) ? new WorkingProgramLiteratureModel(

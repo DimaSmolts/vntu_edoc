@@ -10,6 +10,7 @@ require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/getFullFormattedWorkingProgramGlobalData.php';
+require_once __DIR__ . '/getFullFormattedAssessmentCriterias.php';
 
 use App\Models\WPDetailsModel;
 use App\Models\SemesterModel;
@@ -217,6 +218,8 @@ function getFullFormattedWorkingProgramData($workingProgramData)
 	) : null;
 
 	$workingProgram->globalData = getFullFormattedWorkingProgramGlobalData($workingProgramData->globalData);
+
+	$workingProgram->assessmentCriterias = getFullFormattedAssessmentCriterias($workingProgramData);
 
 	$formattedLiterature = isset($workingProgramData->literature) ? new WorkingProgramLiteratureModel(
 		$workingProgramData->literature->main,

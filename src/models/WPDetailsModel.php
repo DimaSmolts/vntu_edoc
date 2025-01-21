@@ -3,7 +3,7 @@
 namespace App\Models;
 
 require_once __DIR__ . '/WPInvolvedPersonModel.php';
-require_once __DIR__ . '/WorkingProgramGlobalDataOverwriteModel.php';
+require_once __DIR__ . '/WorkingProgramGlobalDataModel.php';
 require_once __DIR__ . '/WorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
 require_once __DIR__ . '/FacultyModel.php';
@@ -11,7 +11,7 @@ require_once __DIR__ . '/DepartmentModel.php';
 require_once __DIR__ . '/StydingLevelTypeModel.php';
 
 use App\Models\WPInvolvedPersonModel;
-use App\Models\WorkingProgramGlobalDataOverwriteModel;
+use App\Models\WorkingProgramGlobalDataModel;
 use App\Models\WorkingProgramLiteratureModel;
 use App\Models\LessonsAndExamingsStructureModel;
 use App\Models\FacultyModel;
@@ -58,7 +58,7 @@ class WPDetailsModel
 	public ?WPInvolvedPersonModel $headOfCommission;
 	public ?WPInvolvedPersonModel $approvedBy;
 	public ?WPInvolvedPersonModel $docApprovedBy;
-	public ?WorkingProgramGlobalDataOverwriteModel $globalData;
+	public ?WorkingProgramGlobalDataModel $globalData;
 	public ?WorkingProgramLiteratureModel $literature;
 	public ?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure;
 	public ?FacultyModel $faculty;
@@ -67,6 +67,7 @@ class WPDetailsModel
 	public array $specialties;
 	public array $educationalPrograms;
 	public ?StydingLevelTypeModel $stydingLevel;
+	public array $assessmentCriterias;
 
 	public function __construct(
 		int $id,
@@ -107,7 +108,7 @@ class WPDetailsModel
 		?WPInvolvedPersonModel $headOfCommission = null,
 		?WPInvolvedPersonModel $approvedBy = null,
 		?WPInvolvedPersonModel $docApprovedBy = null,
-		?WorkingProgramGlobalDataOverwriteModel $globalData = null,
+		?WorkingProgramGlobalDataModel $globalData = null,
 		?WorkingProgramLiteratureModel $literature = null,
 		?LessonsAndExamingsStructureModel $lessonsAndExamingsStructure = null,
 		?FacultyModel $faculty = null,
@@ -116,6 +117,7 @@ class WPDetailsModel
 		?array $specialties = [],
 		?array $educationalPrograms = [],
 		?StydingLevelTypeModel $stydingLevel = null,
+		array $assessmentCriterias = [],
 	) {
 		$this->id = $id;
 		$this->wpCreatorId = $wpCreatorId;
@@ -164,5 +166,6 @@ class WPDetailsModel
 		$this->specialties = $specialties;
 		$this->educationalPrograms = $educationalPrograms;
 		$this->stydingLevel = $stydingLevel;
+		$this->assessmentCriterias = $assessmentCriterias;
 	}
 }
