@@ -82,12 +82,12 @@ function getAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeO
 		return $labels;
 	}
 
-	$labels['A'] = '';
-	$labels['B'] = '';
-	$labels['C'] = '';
-	$labels['D'] = '';
-	$labels['E'] = '';
-	$labels['FXAndF'] = '';
+	$labels['A'] = 'A';
+	$labels['B'] = 'B';
+	$labels['C'] = 'C';
+	$labels['D'] = 'D';
+	$labels['E'] = 'E';
+	$labels['FXAndF'] = 'FXAndF';
 
 	return $labels;
 }

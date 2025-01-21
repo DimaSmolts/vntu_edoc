@@ -23,7 +23,6 @@ class AssessmentCriteriaService
 			->where('educationalDisciplineWPId', null)
 			->where('lessonTypeId', $lessonTypeId)
 			->where('taskTypeId', null)
-			->where('isGeneral', false)
 			->get()
 			->first();
 	}
@@ -34,7 +33,6 @@ class AssessmentCriteriaService
 			->where('educationalDisciplineWPId', null)
 			->where('lessonTypeId', null)
 			->where('taskTypeId', $taskTypeId)
-			->where('isGeneral', false)
 			->get()
 			->first();
 	}
@@ -50,12 +48,27 @@ class AssessmentCriteriaService
 			->first();
 	}
 
-	public function copyAssessmentCriteria($wpId, $oldAssessmentCriteria)
+	public function getAssessmentCriteriaByWPIdAndLessonType($wpId, $lessonTypeId)
+	{
+		return Capsule::table('assessmentCriterias')
+			->where('educationalDisciplineWPId', $wpId)
+			->where('lessonTypeId', $lessonTypeId)
+			->where('taskTypeId', null)
+			->get()
+			->first();
+	}
+
+	public function copyAssessmentCriteria($wpId, $oldAssessmentCriteria, $additionalTaskTypeId = null)
 	{
 		$oldAssessmentCriteria = (array)$oldAssessmentCriteria; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
 		unset($oldAssessmentCriteria['id']); // Видаляємо з скопійованих даних id
 		unset($oldAssessmentCriteria['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id початкової робочої програми
 		$oldAssessmentCriteria['educationalDisciplineWPId'] = $wpId; // Вставляємо id нової робочої програми
+
+		if ($additionalTaskTypeId) {
+			unset($oldAssessmentCriteria['taskTypeId']); // Видаляємо з скопійованих даних id типу завдання
+			$oldAssessmentCriteria['taskTypeId'] = $additionalTaskTypeId; // Вставляємо id типу завдання
+		}
 
 		// Створюємо новий запис глобальних даних
 		Capsule::table('assessmentCriterias')->insertGetId($oldAssessmentCriteria);
@@ -75,5 +88,23 @@ class AssessmentCriteriaService
 					$field => $value
 				]
 			);
+	}
+
+	public function deleteAssessmentCriteriaByLessonType($wpId, $lessonTypeId)
+	{
+		// Use Capsule to delete the theme by ID
+		Capsule::table('assessmentCriterias')
+			->where('educationalDisciplineWPId', $wpId)
+			->where('lessonTypeId', $lessonTypeId)
+			->delete();
+	}
+
+	public function deleteAssessmentCriteriaByTaskType($wpId, $taskTypeId)
+	{
+		// Use Capsule to delete the theme by ID
+		Capsule::table('assessmentCriterias')
+			->where('educationalDisciplineWPId', $wpId)
+			->where('taskTypeId', $taskTypeId)
+			->delete();
 	}
 }

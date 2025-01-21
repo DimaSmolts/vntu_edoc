@@ -1,7 +1,11 @@
 const createNewLesson = async ({ themeId, lessonTypeName, semesterEducationalForms, container }) => {
+	const url = new URL(window.location.href);
+	const wpId = url.searchParams.get("id");
+
     const postData = {
         themeId,
-        lessonTypeName
+        lessonTypeName,
+        wpId
     };
 
     const data = await makePostRequestAndReturnData({

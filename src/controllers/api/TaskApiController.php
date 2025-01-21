@@ -5,21 +5,25 @@ namespace App\Controllers;
 require_once __DIR__ . '/../BaseController.php';
 require_once __DIR__ . '/../../services/WPService.php';
 require_once __DIR__ . '/../../services/TaskService.php';
+require_once __DIR__ . '/../../services/AssessmentCriteriaService.php';
 require_once __DIR__ . '/../../helpers/getTaskId.php';
 
 use App\Controllers\BaseController;
 use App\Services\WPService;
 use App\Services\TaskService;
+use App\Services\AssessmentCriteriaService;
 
 class TaskApiController extends BaseController
 {
 	protected WPService $wpService;
 	protected TaskService $taskService;
+	protected AssessmentCriteriaService $assessmentCriteriaService;
 
 	function __construct()
 	{
 		$this->wpService = new WPService();
 		$this->taskService = new TaskService();
+		$this->assessmentCriteriaService = new AssessmentCriteriaService();
 	}
 
 	public function createIndividualTask()
@@ -35,10 +39,17 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = intval($data['wpId']);
+
 			if (isset($data['typeId'])) {
 				$typeId = $data['typeId'];
 
 				$this->taskService->createAdditionalTask($typeId, $semesterId);
+
+				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaForAdditionalTask();
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria, $typeId);
+
 				exit();
 			}
 
@@ -47,18 +58,38 @@ class TaskApiController extends BaseController
 
 			if ($typeName === 'coursework') {
 				$this->taskService->createCoursework($tasksIds->coursework, $semesterId, $tasksIds->courseProject);
+
+				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->coursework);
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->courseProject);
 			}
 
 			if ($typeName === 'courseProject') {
 				$this->taskService->createCourseProject($tasksIds->courseProject, $semesterId, $tasksIds->coursework);
+
+				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->courseProject);
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->coursework);
 			}
 
 			if ($typeName === 'calculationAndGraphicWork') {
 				$this->taskService->createCalculationAndGraphicWork($tasksIds->calculationAndGraphicWork, $semesterId, $tasksIds->calculationAndGraphicTask);
+
+				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicWork);
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->calculationAndGraphicTask);
 			}
 
 			if ($typeName === 'calculationAndGraphicTask') {
 				$this->taskService->createCalculationAndGraphicTask($tasksIds->calculationAndGraphicTask, $semesterId, $tasksIds->calculationAndGraphicWork);
+
+				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicTask);
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->calculationAndGraphicWork);
 			}
 		}
 	}
@@ -99,10 +130,16 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = intval($data['wpId']);
+
 			$typeName = $data['typeName'];
 			$tasksIds = getTaskId();
 
 			$this->taskService->createModuleTask($tasksIds->{$typeName}, $moduleId);
+
+			$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->{$typeName});
+
+			$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria,);
 		}
 	}
 
@@ -176,12 +213,16 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = $_GET['wpId'];
+
 			$typeName = isset($_GET['type']) ? $_GET['type'] : null;
 			$typeId = isset($_GET['typeId']) ? $_GET['typeId'] : null;
 
 			$tasksIds = getTaskId();
 
 			$this->taskService->deleteIndividualTask($semesterId, $typeId ?? $tasksIds->{$typeName});
+
+			$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $typeId ?? $tasksIds->{$typeName});
 		}
 	}
 
@@ -195,11 +236,15 @@ class TaskApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = $_GET['wpId'];
+
 			$typeName = $_GET['type'];
 
 			$tasksIds = getTaskId();
 
 			$this->taskService->deleteModuleTask($moduleId, $tasksIds->{$typeName});
+
+			$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $typeId ?? $tasksIds->{$typeName});
 		}
 	}
 

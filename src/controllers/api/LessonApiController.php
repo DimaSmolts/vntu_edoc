@@ -8,6 +8,7 @@ require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../services/LessonTypeService.php';
 require_once __DIR__ . '/../../services/LessonService.php';
 require_once __DIR__ . '/../../services/EducationalFormLessonHoursService.php';
+require_once __DIR__ . '/../../services/AssessmentCriteriaService.php';
 require_once __DIR__ . '/../../models/LessonTypeModel.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeId.php';
 require_once __DIR__ . '/../../helpers/getLessonTypeIdByName.php';
@@ -18,6 +19,7 @@ use App\Services\WPService;
 use App\Services\LessonTypeService;
 use App\Services\LessonService;
 use App\Services\EducationalFormLessonHoursService;
+use App\Services\AssessmentCriteriaService;
 
 class LessonApiController extends BaseController
 {
@@ -25,6 +27,7 @@ class LessonApiController extends BaseController
 	protected LessonTypeService $lessonTypeService;
 	protected LessonService $lessonService;
 	protected EducationalFormLessonHoursService $educationalFormLessonHoursService;
+	protected AssessmentCriteriaService $assessmentCriteriaService;
 
 	function __construct()
 	{
@@ -32,6 +35,7 @@ class LessonApiController extends BaseController
 		$this->lessonTypeService = new LessonTypeService();
 		$this->lessonService = new LessonService();
 		$this->educationalFormLessonHoursService = new EducationalFormLessonHoursService();
+		$this->assessmentCriteriaService = new AssessmentCriteriaService();
 	}
 
 	public function createNewLesson()
@@ -48,12 +52,22 @@ class LessonApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = intval($data['wpId']);
+
 			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
 			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
 			$newLessonId = $this->lessonService->createNewLesson($themeId, $lessonTypeId);
+
+			$existingLessonAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndLessonType($wpId, $lessonTypeId);
+
+			if (!$existingLessonAssessmentCriteria) {
+				$lessonAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByLessonType($lessonTypeId);
+
+				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $lessonAssessmentCriteria);
+			}
 
 			echo json_encode(['status' => 'success', 'lessonId' => $newLessonId]);
 		}
@@ -88,7 +102,17 @@ class LessonApiController extends BaseController
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = $_GET['wpId'];
+
+			$lesson = $this->lessonService->getLessonById($id);
+
 			$this->lessonService->deleteLesson($id);
+
+			$lessons = $this->lessonService->getLessonsByThemeIdAndTypeId($lesson->themeId, $lesson->lessonTypeId);
+
+			if (count($lessons) === 0) {
+				$this->assessmentCriteriaService->deleteAssessmentCriteriaByLessonType($wpId, $lesson->lessonTypeId);
+			}
 		}
 	}
 

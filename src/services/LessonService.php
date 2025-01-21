@@ -6,6 +6,26 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class LessonService
 {
+	public function getLessonById($id)
+	{
+		return Capsule::table('lessons')
+			->where([
+				'id' => $id
+			])
+			->get()
+			->first();
+	}
+
+	public function getLessonsByThemeIdAndTypeId($themeId, $lessonTypeId)
+	{
+		return Capsule::table('lessons')
+			->where([
+				'themeId' => $themeId,
+				'lessonTypeId' => $lessonTypeId,
+			])
+			->get();
+	}
+
 	public function createNewLesson($themeId, $lessonTypeId): int
 	{
 		$lessonId = Capsule::table('lessons')->insertGetId([
