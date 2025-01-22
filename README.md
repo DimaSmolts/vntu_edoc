@@ -50,3 +50,5 @@ php .\scripts\font-converter.php
 - Go to vendor/spipu/html2pdf/src/Html2Pdf.php
 
 - Add these changes https://github.com/spipu/html2pdf/pull/802/files
+
+6. Set up .env file
