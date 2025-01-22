@@ -1,6 +1,7 @@
 const makePostRequestAndReturnData = async ({
 	link,
-	postData
+	postData,
+	isList = false
 }) => {
 	const response = await fetch(link, {
 		method: 'POST',
@@ -12,7 +13,7 @@ const makePostRequestAndReturnData = async ({
 
 	const data = await response.json();
 
-	if (debouncedHandleInput) {
+	if (!isList && debouncedHandleInput) {
 		await debouncedHandleInput();
 	}
 

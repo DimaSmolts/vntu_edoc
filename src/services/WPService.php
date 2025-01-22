@@ -3,6 +3,8 @@
 namespace App\Services;
 
 require_once __DIR__ . '/../models/DBEducationalDisciplineWorkingProgramModel.php';
+require_once __DIR__ . '/../helpers/getLessonTypeIdByName.php';
+require_once __DIR__ . '/../helpers/getTaskId.php';
 
 use App\Models\DBEducationalDisciplineWorkingProgramModel;
 
@@ -385,9 +387,13 @@ class WPService
 	public function duplicateWP($wpId)
 	{
 		$newWPData = [];
+
+		$lessonTypeIds = getLessonTypeIdByName();
+		$taskTypeIds = getTaskId();
+
 		try {
 			// Починаємо транзакцію, щоб відмінити всі зміни, якщо трапиться помилка посеред процесу дублювання 
-			Capsule::transaction(function () use ($wpId, &$newWPData) {
+			Capsule::transaction(function () use ($wpId, &$newWPData, &$lessonTypeIds, &$taskTypeIds) {
 				// Дістаємо всі дані робочої програми
 				$oldWPData = Capsule::table('educationalDisciplineWorkingProgram')->where('id', $wpId)->first();
 
@@ -406,18 +412,189 @@ class WPService
 					->where('id', $newWPId)
 					->first();
 
-				// Дістаємо глобальні значення для даної робочої програми
-				$oldWorkingProgramGlobalDataOverwriteData = Capsule::table('workingProgramGlobalDataOverwrite')
-					->where('educationalDisciplineWorkingProgramId', $wpId)
+				// Дістаємо значення загальних критеріїв оцінювання для даної робочої програми
+				$oldGeneralAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('isGeneral', true)
 					->first();
 
-				$oldWorkingProgramGlobalDataOverwriteData = (array)$oldWorkingProgramGlobalDataOverwriteData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
-				unset($oldWorkingProgramGlobalDataOverwriteData['id']); // Видаляємо з скопійованих даних id
-				unset($oldWorkingProgramGlobalDataOverwriteData['educationalDisciplineWorkingProgramId']); // Видаляємо з скопійованих даних id старої робочої програми
-				$oldWorkingProgramGlobalDataOverwriteData['educationalDisciplineWorkingProgramId'] = $newWPId; // Вставляємо id нової робочої програми
+				$oldGeneralAssessmentCriterias = (array)$oldGeneralAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+				unset($oldGeneralAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+				unset($oldGeneralAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+				$oldGeneralAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
 
-				// Створюємо новий запис глобальних даних
-				Capsule::table('workingProgramGlobalDataOverwrite')->insertGetId($oldWorkingProgramGlobalDataOverwriteData);
+				// Створюємо новий запис критеріїв оцінювання
+				Capsule::table('assessmentCriterias')->insertGetId($oldGeneralAssessmentCriterias);
+
+				// Дістаємо значення критеріїв оцінювання практичних робіт для даної робочої програми
+				$oldPracticalAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('lessonTypeId', $lessonTypeIds->practical)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання практичних робіт
+				if ($oldPracticalAssessmentCriterias) {
+					$oldPracticalAssessmentCriterias = (array)$oldPracticalAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldPracticalAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldPracticalAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldPracticalAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldPracticalAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання лабораторних робіт для даної робочої програми
+				$oldLaboratoryAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('lessonTypeId', $lessonTypeIds->laboratory)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання лабораторних робіт
+				if ($oldLaboratoryAssessmentCriterias) {
+					$oldLaboratoryAssessmentCriterias = (array)$oldLaboratoryAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldLaboratoryAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldLaboratoryAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldLaboratoryAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldLaboratoryAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання семінарських робіт для даної робочої програми
+				$oldSeminarAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('lessonTypeId', $lessonTypeIds->seminar)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання лабораторних робіт
+				if ($oldSeminarAssessmentCriterias) {
+					$oldSeminarAssessmentCriterias = (array)$oldSeminarAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldSeminarAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldSeminarAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldSeminarAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldSeminarAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання курсової роботи для даної робочої програми
+				$oldCourseworkAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->coursework)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання курсової роботи
+				if ($oldCourseworkAssessmentCriterias) {
+					$oldCourseworkAssessmentCriterias = (array)$oldCourseworkAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldCourseworkAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldCourseworkAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldCourseworkAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldCourseworkAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання курсового проєкту для даної робочої програми
+				$oldCourseProjectAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->courseProject)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання курсового проєкту
+				if ($oldCourseProjectAssessmentCriterias) {
+					$oldCourseProjectAssessmentCriterias = (array)$oldCourseProjectAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldCourseProjectAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldCourseProjectAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldCourseProjectAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldCourseProjectAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання РГР для даної робочої програми
+				$oldCalculationAndGraphicWorkAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->calculationAndGraphicWork)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання РГР
+				if ($oldCalculationAndGraphicWorkAssessmentCriterias) {
+					$oldCalculationAndGraphicWorkAssessmentCriterias = (array)$oldCalculationAndGraphicWorkAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldCalculationAndGraphicWorkAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldCalculationAndGraphicWorkAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldCalculationAndGraphicWorkAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldCalculationAndGraphicWorkAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання РГЗ для даної робочої програми
+				$oldCalculationAndGraphicTaskAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->calculationAndGraphicTask)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання РГЗ
+				if ($oldCalculationAndGraphicTaskAssessmentCriterias) {
+					$oldCalculationAndGraphicTaskAssessmentCriterias = (array)$oldCalculationAndGraphicTaskAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldCalculationAndGraphicTaskAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldCalculationAndGraphicTaskAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldCalculationAndGraphicTaskAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldCalculationAndGraphicTaskAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання колоквіумів для даної робочої програми
+				$oldColloquiumAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->colloquium)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання колоквіумів
+				if ($oldColloquiumAssessmentCriterias) {
+					$oldColloquiumAssessmentCriterias = (array)$oldColloquiumAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldColloquiumAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldColloquiumAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldColloquiumAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldColloquiumAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання контрольних робіт для даної робочої програми
+				$oldControlWorkAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('taskTypeId', $taskTypeIds->controlWork)
+					->first();
+
+				// Перевіряємо чи є критерії оцінювання контрольних робіт
+				if ($oldControlWorkAssessmentCriterias) {
+					$oldControlWorkAssessmentCriterias = (array)$oldControlWorkAssessmentCriterias; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldControlWorkAssessmentCriterias['id']); // Видаляємо з скопійованих даних id
+					unset($oldControlWorkAssessmentCriterias['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldControlWorkAssessmentCriterias['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldControlWorkAssessmentCriterias);
+				}
+
+				// Дістаємо значення критеріїв оцінювання додаткових завдань для даної робочої програми
+				$oldAdditionalTaskAssessmentCriterias = Capsule::table('assessmentCriterias')
+					->where('educationalDisciplineWPId', $wpId)
+					->where('isAdditionalTask', true)
+					->get();
+
+				// Перебираємо критерії оцінюванн для всіх додаткових завдань
+				foreach ($oldAdditionalTaskAssessmentCriterias as $oldCriteriasData) {
+					$oldCriteriasData = (array)$oldCriteriasData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+					unset($oldCriteriasData['id']); // Видаляємо з скопійованих даних id
+					unset($oldCriteriasData['educationalDisciplineWPId']); // Видаляємо з скопійованих даних id старої робочої програми
+					$oldCriteriasData['educationalDisciplineWPId'] = $newWPId; // Вставляємо id нової робочої програми
+
+					// Створюємо новий запис критеріїв оцінювання
+					Capsule::table('assessmentCriterias')->insertGetId($oldCriteriasData);
+				}
 
 				// Дістаємо літературу для даної робочої програми
 				$oldWorkingProgramLiteratureData = Capsule::table('workingProgramLiterature')

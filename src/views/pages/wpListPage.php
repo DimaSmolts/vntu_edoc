@@ -30,6 +30,7 @@ $title = "Робочі програми";
     <script src="src/views/helpers/wplist/duplicateWP.js"></script>
     <script src="src/views/helpers/wplist/logins.js"></script>
     <script src="src/views/helpers/validation/globalVariables.js"></script>
+    <script src="src/views/helpers/requests/makePostRequestAndReturnData.js"></script>
 </body>
 
 </html>

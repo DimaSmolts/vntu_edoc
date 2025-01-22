@@ -19,7 +19,8 @@ const createElement = ({
 	rowspan,
 	min,
 	max,
-	disabled
+	disabled,
+	target
 }) => {
 	const element = document.createElement(elementName);
 
@@ -101,6 +102,10 @@ const createElement = ({
 
 	if (disabled) {
 		element.disabled = disabled;
+	}
+
+	if (target) {
+		element.target = target;
 	}
 
 	return element;

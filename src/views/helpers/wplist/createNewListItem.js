@@ -27,12 +27,22 @@ const createNewListItem = (data) => {
 		}
 	});
 
+	const pdfBtn = createElement({
+		elementName: "a",
+		classList: ["btn"],
+		innerText: 'PDF',
+		type: "button",
+		href: `pdf?id=${data.id}`,
+		target: "_blank"
+	});
+
 	itemContentContainer.appendChild(disciplineName);
 	itemContentContainer.appendChild(specialtyName);
 	itemContentContainer.appendChild(academicYear);
 	itemContentContainer.appendChild(createdAt);
 	itemContentContainer.appendChild(editBtn);
 	itemContentContainer.appendChild(duplicateBtn);
+	itemContentContainer.appendChild(pdfBtn);
 
 	item.appendChild(itemContentContainer);
 
