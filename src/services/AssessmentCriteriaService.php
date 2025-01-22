@@ -65,6 +65,16 @@ class AssessmentCriteriaService
 			->first();
 	}
 
+	public function getAssessmentCriteriaByWPIdAndTaskType($wpId, $taskTypeId)
+	{
+		return Capsule::table('assessmentCriterias')
+			->where('educationalDisciplineWPId', $wpId)
+			->where('lessonTypeId', null)
+			->where('taskTypeId', $taskTypeId)
+			->get()
+			->first();
+	}
+
 	public function copyAssessmentCriteria($wpId, $oldAssessmentCriteria, $additionalTaskTypeId = null)
 	{
 		$oldAssessmentCriteria = (array)$oldAssessmentCriteria; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними

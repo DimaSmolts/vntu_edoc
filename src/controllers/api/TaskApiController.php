@@ -59,37 +59,45 @@ class TaskApiController extends BaseController
 			if ($typeName === 'coursework') {
 				$this->taskService->createCoursework($tasksIds->coursework, $semesterId, $tasksIds->courseProject);
 
-				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->coursework);
+				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->coursework);
 
-				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
-				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->courseProject);
+				if (!$existingAssessmentCriteria) {
+					$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->coursework);
+					$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				}
 			}
 
 			if ($typeName === 'courseProject') {
 				$this->taskService->createCourseProject($tasksIds->courseProject, $semesterId, $tasksIds->coursework);
 
-				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->courseProject);
+				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->courseProject);
 
-				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
-				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->coursework);
+				if (!$existingAssessmentCriteria) {
+					$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->courseProject);
+					$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				}
 			}
 
 			if ($typeName === 'calculationAndGraphicWork') {
 				$this->taskService->createCalculationAndGraphicWork($tasksIds->calculationAndGraphicWork, $semesterId, $tasksIds->calculationAndGraphicTask);
 
-				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicWork);
+				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->calculationAndGraphicWork);
 
-				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
-				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->calculationAndGraphicTask);
+				if (!$existingAssessmentCriteria) {
+					$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicWork);
+					$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				}
 			}
 
 			if ($typeName === 'calculationAndGraphicTask') {
 				$this->taskService->createCalculationAndGraphicTask($tasksIds->calculationAndGraphicTask, $semesterId, $tasksIds->calculationAndGraphicWork);
 
-				$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicTask);
+				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->calculationAndGraphicWork);
 
-				$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
-				$this->assessmentCriteriaService->deleteAssessmentCriteriaByTaskType($wpId, $tasksIds->calculationAndGraphicWork);
+				if (!$existingAssessmentCriteria) {
+					$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicTask);
+					$this->assessmentCriteriaService->copyAssessmentCriteria($wpId, $taskAssessmentCriteria);
+				}
 			}
 		}
 	}
