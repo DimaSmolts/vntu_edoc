@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__ . '/createAssessmentCriteriaLabel.php';
+require_once __DIR__ . '/createAssessmentCriteriaLabelForPDF.php';
 require_once __DIR__ . '/getAssessmentCriteriaPoints.php';
 
-function getAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeOfPoints)
+function getAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeOfPoints, $isPDF = false)
 {
 	$points = [];
 
@@ -41,12 +42,21 @@ function getAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeO
 			$points['general'] = $semesterPoints;
 		}
 
-		$labels['A'] = createGeneralAssessmentCriteriaLabel('A', $points['general']);
-		$labels['B'] = createGeneralAssessmentCriteriaLabel('B', $points['general']);
-		$labels['C'] = createGeneralAssessmentCriteriaLabel('C', $points['general']);
-		$labels['D'] = createGeneralAssessmentCriteriaLabel('D', $points['general']);
-		$labels['E'] = createGeneralAssessmentCriteriaLabel('E', $points['general']);
-		$labels['FXAndF'] = createGeneralAssessmentCriteriaLabel('FXAndF', $points['general']);
+		if ($isPDF) {
+			$labels['A'] = createGeneralAssessmentCriteriaLabelForPDF('A', $points['general']);
+			$labels['B'] = createGeneralAssessmentCriteriaLabelForPDF('B', $points['general']);
+			$labels['C'] = createGeneralAssessmentCriteriaLabelForPDF('C', $points['general']);
+			$labels['D'] = createGeneralAssessmentCriteriaLabelForPDF('D', $points['general']);
+			$labels['E'] = createGeneralAssessmentCriteriaLabelForPDF('E', $points['general']);
+			$labels['FXAndF'] = createGeneralAssessmentCriteriaLabelForPDF('FXAndF', $points['general']);
+		} else {
+			$labels['A'] = createGeneralAssessmentCriteriaLabel('A', $points['general']);
+			$labels['B'] = createGeneralAssessmentCriteriaLabel('B', $points['general']);
+			$labels['C'] = createGeneralAssessmentCriteriaLabel('C', $points['general']);
+			$labels['D'] = createGeneralAssessmentCriteriaLabel('D', $points['general']);
+			$labels['E'] = createGeneralAssessmentCriteriaLabel('E', $points['general']);
+			$labels['FXAndF'] = createGeneralAssessmentCriteriaLabel('FXAndF', $points['general']);
+		}
 
 		return $labels;
 	}
@@ -72,22 +82,31 @@ function getAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeO
 			$points[$groupedPoints] = $semesterPoints;
 		}
 
-		$labels['A'] = createSemestersAssessmentCriteriaLabel('A', $points, $semesterNumbersByPoints);
-		$labels['B'] = createSemestersAssessmentCriteriaLabel('B', $points, $semesterNumbersByPoints);
-		$labels['C'] = createSemestersAssessmentCriteriaLabel('C', $points, $semesterNumbersByPoints);
-		$labels['D'] = createSemestersAssessmentCriteriaLabel('D', $points, $semesterNumbersByPoints);
-		$labels['E'] = createSemestersAssessmentCriteriaLabel('E', $points, $semesterNumbersByPoints);
-		$labels['FXAndF'] = createSemestersAssessmentCriteriaLabel('FXAndF', $points, $semesterNumbersByPoints);
+		if ($isPDF) {
+			$labels['A'] = createSemestersAssessmentCriteriaLabelForPDF('A', $points, $semesterNumbersByPoints);
+			$labels['B'] = createSemestersAssessmentCriteriaLabelForPDF('B', $points, $semesterNumbersByPoints);
+			$labels['C'] = createSemestersAssessmentCriteriaLabelForPDF('C', $points, $semesterNumbersByPoints);
+			$labels['D'] = createSemestersAssessmentCriteriaLabelForPDF('D', $points, $semesterNumbersByPoints);
+			$labels['E'] = createSemestersAssessmentCriteriaLabelForPDF('E', $points, $semesterNumbersByPoints);
+			$labels['FXAndF'] = createSemestersAssessmentCriteriaLabelForPDF('FXAndF', $points, $semesterNumbersByPoints);
+		} else {
+			$labels['A'] = createSemestersAssessmentCriteriaLabel('A', $points, $semesterNumbersByPoints);
+			$labels['B'] = createSemestersAssessmentCriteriaLabel('B', $points, $semesterNumbersByPoints);
+			$labels['C'] = createSemestersAssessmentCriteriaLabel('C', $points, $semesterNumbersByPoints);
+			$labels['D'] = createSemestersAssessmentCriteriaLabel('D', $points, $semesterNumbersByPoints);
+			$labels['E'] = createSemestersAssessmentCriteriaLabel('E', $points, $semesterNumbersByPoints);
+			$labels['FXAndF'] = createSemestersAssessmentCriteriaLabel('FXAndF', $points, $semesterNumbersByPoints);
+		}
 
 		return $labels;
 	}
 
-	$labels['A'] = 'A';
-	$labels['B'] = 'B';
-	$labels['C'] = 'C';
-	$labels['D'] = 'D';
-	$labels['E'] = 'E';
-	$labels['FXAndF'] = 'FXAndF';
+	$labels['A'] = $isPDF ? [] : 'A';
+	$labels['B'] = $isPDF ? [] : 'B';
+	$labels['C'] = $isPDF ? [] : 'C';
+	$labels['D'] = $isPDF ? [] : 'D';
+	$labels['E'] = $isPDF ? [] : 'E';
+	$labels['FXAndF'] = $isPDF ? "" : 'FXAndF';
 
 	return $labels;
 }

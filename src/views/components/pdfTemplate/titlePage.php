@@ -19,7 +19,7 @@
 		<div class="center title-placeholder small-bottom-margin">(шифр і назва навчальної дисципліни)</div>
 
 		<div class="basic-info">
-			<b class="basic-info-name">рівень вищої освіти</b>: <span class="inserted"><?= htmlspecialchars($details->stydingLevelId) ?></span>
+			<b class="basic-info-name">рівень вищої освіти</b>: <span class="inserted"><?= htmlspecialchars($details->stydingLevel->name ?? '') ?></span>
 		</div>
 		<div class="basic-info">
 			<?php

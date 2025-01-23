@@ -35,7 +35,7 @@ $title = "Загальна інформація";
 		</select>
 	</label>
 	<label>Галузь знань:</label>
-	<div id="fieldsOfStudyComponents" class="new-field-of-study-components">
+	<div id="fieldsOfStudyComponents" class="new-field-of-study-components multiselect-label">
 		<select
 			id="fieldsOfStudyIdsSelect"
 			multiple

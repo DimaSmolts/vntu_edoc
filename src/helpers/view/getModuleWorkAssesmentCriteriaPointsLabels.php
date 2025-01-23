@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__ . '/createAssessmentCriteriaLabel.php';
+require_once __DIR__ . '/createAssessmentCriteriaLabelForPDF.php';
 require_once __DIR__ . '/getAssessmentCriteriaPoints.php';
 
-function getModuleWorkAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeOfModuleWork)
+function getModuleWorkAssesmentCriteriaPointsLabels($pointsDistributionRelatedData, $typeOfModuleWork, $isPDF = false)
 {
 	$isModuleWorkExistsField = $typeOfModuleWork === "colloquium" ? "isColloquiumExists" : "isControlWorkExists";
 	$moduleWorkPointsField = $typeOfModuleWork === "colloquium" ? "colloquiumPoints" : "controlWorkPoints";
@@ -47,12 +48,21 @@ function getModuleWorkAssesmentCriteriaPointsLabels($pointsDistributionRelatedDa
 			$points['general'] = $modulePoints;
 		}
 
-		$labels['A'] = createGeneralAssessmentCriteriaLabel('A', $points['general']);
-		$labels['B'] = createGeneralAssessmentCriteriaLabel('B', $points['general']);
-		$labels['C'] = createGeneralAssessmentCriteriaLabel('C', $points['general']);
-		$labels['D'] = createGeneralAssessmentCriteriaLabel('D', $points['general']);
-		$labels['E'] = createGeneralAssessmentCriteriaLabel('E', $points['general']);
-		$labels['FXAndF'] = createGeneralAssessmentCriteriaLabel('FXAndF', $points['general']);
+		if ($isPDF) {
+			$labels['A'] = createGeneralAssessmentCriteriaLabelForPDF('A', $points['general']);
+			$labels['B'] = createGeneralAssessmentCriteriaLabelForPDF('B', $points['general']);
+			$labels['C'] = createGeneralAssessmentCriteriaLabelForPDF('C', $points['general']);
+			$labels['D'] = createGeneralAssessmentCriteriaLabelForPDF('D', $points['general']);
+			$labels['E'] = createGeneralAssessmentCriteriaLabelForPDF('E', $points['general']);
+			$labels['FXAndF'] = createGeneralAssessmentCriteriaLabelForPDF('FXAndF', $points['general']);
+		} else {
+			$labels['A'] = createGeneralAssessmentCriteriaLabel('A', $points['general']);
+			$labels['B'] = createGeneralAssessmentCriteriaLabel('B', $points['general']);
+			$labels['C'] = createGeneralAssessmentCriteriaLabel('C', $points['general']);
+			$labels['D'] = createGeneralAssessmentCriteriaLabel('D', $points['general']);
+			$labels['E'] = createGeneralAssessmentCriteriaLabel('E', $points['general']);
+			$labels['FXAndF'] = createGeneralAssessmentCriteriaLabel('FXAndF', $points['general']);
+		}
 
 		return $labels;
 	}
@@ -78,22 +88,31 @@ function getModuleWorkAssesmentCriteriaPointsLabels($pointsDistributionRelatedDa
 			$points[$groupedPoints] = $modulePoints;
 		}
 
-		$labels['A'] = createModulesAssessmentCriteriaLabel('A', $points, $modulesNumbersByPoints);
-		$labels['B'] = createModulesAssessmentCriteriaLabel('B', $points, $modulesNumbersByPoints);
-		$labels['C'] = createModulesAssessmentCriteriaLabel('C', $points, $modulesNumbersByPoints);
-		$labels['D'] = createModulesAssessmentCriteriaLabel('D', $points, $modulesNumbersByPoints);
-		$labels['E'] = createModulesAssessmentCriteriaLabel('E', $points, $modulesNumbersByPoints);
-		$labels['FXAndF'] = createModulesAssessmentCriteriaLabel('FXAndF', $points, $modulesNumbersByPoints);
+		if ($isPDF) {
+			$labels['A'] = createModulesAssessmentCriteriaLabelForPDF('A', $points, $modulesNumbersByPoints);
+			$labels['B'] = createModulesAssessmentCriteriaLabelForPDF('B', $points, $modulesNumbersByPoints);
+			$labels['C'] = createModulesAssessmentCriteriaLabelForPDF('C', $points, $modulesNumbersByPoints);
+			$labels['D'] = createModulesAssessmentCriteriaLabelForPDF('D', $points, $modulesNumbersByPoints);
+			$labels['E'] = createModulesAssessmentCriteriaLabelForPDF('E', $points, $modulesNumbersByPoints);
+			$labels['FXAndF'] = createModulesAssessmentCriteriaLabelForPDF('FXAndF', $points, $modulesNumbersByPoints);
+		} else {
+			$labels['A'] = createModulesAssessmentCriteriaLabel('A', $points, $modulesNumbersByPoints);
+			$labels['B'] = createModulesAssessmentCriteriaLabel('B', $points, $modulesNumbersByPoints);
+			$labels['C'] = createModulesAssessmentCriteriaLabel('C', $points, $modulesNumbersByPoints);
+			$labels['D'] = createModulesAssessmentCriteriaLabel('D', $points, $modulesNumbersByPoints);
+			$labels['E'] = createModulesAssessmentCriteriaLabel('E', $points, $modulesNumbersByPoints);
+			$labels['FXAndF'] = createModulesAssessmentCriteriaLabel('FXAndF', $points, $modulesNumbersByPoints);
+		}
 
 		return $labels;
 	}
 
-	$labels['A'] = '';
-	$labels['B'] = '';
-	$labels['C'] = '';
-	$labels['D'] = '';
-	$labels['E'] = '';
-	$labels['FXAndF'] = '';
+	$labels['A'] = $isPDF ? [] : 'A';
+	$labels['B'] = $isPDF ? [] : 'B';
+	$labels['C'] = $isPDF ? [] : 'C';
+	$labels['D'] = $isPDF ? [] : 'D';
+	$labels['E'] = $isPDF ? [] : 'E';
+	$labels['FXAndF'] = $isPDF ? "" : 'FXAndF';
 
 	return $labels;
 }

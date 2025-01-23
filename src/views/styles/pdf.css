@@ -104,6 +104,7 @@ div.topic-title {
 	text-align: center;
 	font-weight: bold;
 	line-height: 7.41mm;
+	margin-bottom: 3.7mm;
 }
 
 div.copyright {
@@ -165,7 +166,8 @@ div.title-placeholder {
 }
 
 .assessment-criteria-table th,
-.assessment-criteria-table td {
+.assessment-criteria-table td,
+.assessment-criteria-table td b {
 	font-size: 12pt;
 }
 

@@ -85,7 +85,7 @@
 				<!-- Додавання контейнеру для інших завдань -->
 				<div class="custom-tasks-container">
 					<p class='custom-tasks-label'>Інші завдання:</p>
-					<div class='custom-tasks-block' id="additionalTaskComponents<?= htmlspecialchars($semesterData->semesterId) ?>">
+					<div class='custom-tasks-block multiselect-label' id="additionalTaskComponents<?= htmlspecialchars($semesterData->semesterId) ?>">
 						<select
 							id="additionalTaskIdsSelect<?= htmlspecialchars($semesterData->semesterId) ?>"
 							multiple
