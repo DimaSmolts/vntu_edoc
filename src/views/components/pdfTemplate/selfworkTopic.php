@@ -1,10 +1,13 @@
-<div class="empty"></div>
 <div class="topic-title">
 	9. Самостійна робота
 </div>
 
 <?php if (!empty($selfworkData)): ?>
-	<?php foreach ($selfworkData as $semesterSelfworkData): ?>
+	<?php
+	$firstSelfworkDatatIndex = array_key_first($selfworkData);
+	?>
+
+	<?php foreach ($selfworkData as $idx => $semesterSelfworkData): ?>
 		<?php
 		// Визначаємо початкову ширину колонки "Вид роботи" (у відсотках) для таблиць з заняттями
 		$typeOfWorkColumnWidth = 95; // 5% для колонки з номером за порядком
@@ -13,17 +16,18 @@
 		// Збираємо загальні значення
 		$total = [];
 
-		// Віднімаємо від ширини колонки "Назва ..." ширину колонок для кількості годин (13%) на кожну форму навчання
+		// Віднімаємо від ширини колонки "Назва ..." ширину колонок для кількості годин (14%) на кожну форму навчання
 		foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
-			$typeOfWorkColumnWidth -= 13;
-			$fullHoursAmountColumnWidth += 13;
+			$typeOfWorkColumnWidth -= 14;
+			$fullHoursAmountColumnWidth += 14;
 			$total[$educationalForm->colName] = 0;
 		}
 
+		$isFirstElement = $idx === $firstSelfworkDatatIndex;
 		?>
-		<p class="indent">Самостійна робота до семестру <span class="inserted"><?= htmlspecialchars($semesterSelfworkData->semesterNumber ?? '') ?></span>:</p>
+		<p class="indent <?php if (!$isFirstElement): ?>mini-top-margin<?php endif; ?>">Самостійна робота до семестру <span class="inserted"><?= htmlspecialchars($semesterSelfworkData->semesterNumber ?? '') ?></span>:</p>
 
-		<table class="mini-bottom-margin">
+		<table>
 			<tr>
 				<th rowspan="2" style="width: 5%;">№ з/п</th>
 				<th rowspan="2" style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Вид роботи</th>
@@ -36,7 +40,7 @@
 			<tr>
 				<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 					<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
-						<th style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($educationalForm->name) ?></th>
+						<th style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($educationalForm->name) ?></th>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -72,7 +76,7 @@
 									}
 								}
 								?>
-								<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+								<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
@@ -101,7 +105,7 @@
 							}
 						}
 						?>
-						<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+						<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -125,7 +129,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -150,7 +154,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -175,7 +179,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -203,7 +207,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -226,7 +230,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -249,7 +253,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -268,7 +272,7 @@
 					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Виконання курсового проєкту</td>
 					<td
 						colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"
-						style="width: 13%;"
+						style="width: 14%;"
 						class="none-border-left center inserted">
 						<?= htmlspecialchars($semesterSelfworkData->courseTask->educationalFormHours[0]->hours) ?>
 					</td>
@@ -309,7 +313,7 @@
 								}
 							}
 							?>
-							<td style="width: 13%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
+							<td style="width: 14%;" class="none-border-left center inserted"><?= htmlspecialchars($hours ?? '') ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</tr>
@@ -323,12 +327,14 @@
 					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Підготовка до складання заліку</td>
 				<?php elseif ($semesterSelfworkData->examTypeId === 2): ?>
 					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Підготовка до складання диф. заліку</td>
+				<?php else: ?>
+					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Підготовка до складання підсумкового контролю</td>
 				<?php endif; ?>
 				<?php
 				$hours = 0;
 				if ($semesterSelfworkData->examTypeId === 0) {
 					$hours = $semesterSelfworkData->creditsAmount * 3;
-				} else {
+				} else if ($semesterSelfworkData->examTypeId === 1 || $semesterSelfworkData->examTypeId === 2) {
 					$hours = $semesterSelfworkData->creditsAmount;
 				}
 
@@ -352,7 +358,7 @@
 				<?php if (!empty($semesterSelfworkData->educationalForms)): ?>
 					<?php foreach ($semesterSelfworkData->educationalForms as $educationalForm): ?>
 						<th
-							style="width: 13%;"
+							style="width: 14%;"
 							class="none-border-left center calculated">
 							<?= htmlspecialchars($total[$educationalForm->colName] ?? '0') ?>
 						</th>

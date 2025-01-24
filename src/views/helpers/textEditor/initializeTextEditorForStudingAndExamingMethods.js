@@ -12,7 +12,7 @@ const initializeTextEditorForStudingAndExamingMethods = ({
 	// Змінюємо інпут для введення мети для вивчення дисципліни
 	const examingMethodsTextEditor = initializeTextEditorWithoutToolbar('#examingMethods', false);
 	// Змінюємо інпут для введення завдання дисципліни
-	const methodologicalSupportTextEditor = initializeTextEditorWithoutToolbar('#methodologicalSupport', false, true);
+	const methodologicalSupportTextEditor = initializeTextEditorWithoutToolbar('#methodologicalSupport', false);
 
 	// Встановлюємо контент, який був збережений раніше
 	individualTaskNotesTextEditor.root.innerHTML = individualTaskNotes;

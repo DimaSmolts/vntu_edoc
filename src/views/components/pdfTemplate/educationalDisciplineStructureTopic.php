@@ -16,7 +16,6 @@ foreach ($details->semesters as $semester) {
 }
 ?>
 
-<div class="empty"></div>
 <div class="topic-title">
 	5. Теми лекцій
 </div>

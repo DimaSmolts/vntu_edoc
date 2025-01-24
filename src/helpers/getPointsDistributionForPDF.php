@@ -25,12 +25,30 @@ function getPointsDistributionForPDF($pointsDistributionRelatedData)
 
 			// Якщо балів немає, то повертаємо нулі
 			if (!isset($pointsDistribution)) {
+				$modules = [];
+				if (!empty($semesterData->modules)) {
+					foreach ($semesterData->modules as $moduleData) {
+						$modules[] = new PDFPointsDistributionModuleModel(
+							$moduleData->moduleId,
+							0,
+							0,
+							0,
+							false,
+							0,
+							false,
+							0,
+							0,
+							$moduleData->moduleNumber
+						);
+					}
+				}
+
 				$semester = new PDFPointsDistributionSemesterModel(
 					$semesterData->id,
 					0,
 					$semesterData->semesterNumber,
 					$semesterData->examTypeId,
-					[],
+					$modules,
 					null,
 					$semesterData->pointsDistribution ?? ''
 				);

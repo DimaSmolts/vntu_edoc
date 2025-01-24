@@ -10,12 +10,10 @@ $seminarPointsForSemestersDescription = getPointsWithSemestersDescriptionString(
 $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelatedData);
 ?>
 
-<div class="empty"></div>
 <div class="topic-title">
 	13. Розподіл балів, які отримують студенти
 </div>
 <p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах):</p>
-<!-- <p class="indent justify">13.1 - Оцінювання знань, умінь та навичок з окремих видів роботи та в цілому по модулях (в балах)</p> -->
 
 <?php if (!empty($pointsDistributionSemestersData)): ?>
 	<?php
@@ -56,14 +54,21 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 	$labPoints = $pointsDistributionSemestersData['pointsDistribution']['labPoints'] ?? 0;
 	$seminarPoints = $pointsDistributionSemestersData['pointsDistribution']['seminarPoints'] ?? 0;
 	?>
-	<table class="small-bottom-margin">
+	<table class="mini-bottom-margin">
 		<tr>
 			<th rowspan="2" style="width: <?= htmlspecialchars($activityTypeColumnWidth) ?>%;">Вид роботи</th>
 			<?php foreach ($pointsDistributionSemestersData as $semesterData): ?>
+				<?php
+				$modulesAmount = count($semesterData->modules);
+				?>
 				<th
 					colspan="<?= htmlspecialchars($semestersColumnsWidth[$semesterData->id]['colspan']) ?>"
 					style="width: <?= htmlspecialchars($semestersColumnsWidth[$semesterData->id]['width']) ?>%;">
-					Семестр <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : '' ?>
+					<?php if ($modulesAmount > 1): ?>
+						Семестр <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : '' ?>
+					<?php else: ?>
+						С <?= $semesterData->semesterNumber ? htmlspecialchars($semesterData->semesterNumber) : '' ?>
+					<?php endif; ?>
 				</th>
 				<th rowspan="2" style="width: <?= htmlspecialchars($semesterTotalColumnWidth) ?>%;" class="points-column">Разом</th>
 			<?php endforeach; ?>
@@ -92,7 +97,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 							<td class="center calculated"><?= htmlspecialchars($moduleData->practicalsPoints) ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->practicalsPoints) ?></td>
+					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->practicalsPoints ?? "-") ?></td>
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
@@ -107,7 +112,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 							<td class="center calculated"><?= htmlspecialchars($moduleData->labsPoints) ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->labsPoints) ?></td>
+					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->labsPoints ?? "-") ?></td>
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
@@ -122,7 +127,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 							<td class="center calculated"><?= htmlspecialchars($moduleData->seminarsPoints) ?></td>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->seminarsPoints) ?></td>
+					<td class="center calculated"><?= htmlspecialchars($semesterData->modulesTotal->seminarsPoints ?? "-") ?></td>
 				<?php endforeach; ?>
 			</tr>
 		<?php endif; ?>
@@ -321,7 +326,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 					<p class="indent justify inserted">
 						Оцінювання знань, умінь та навичок здобувачів вищої освіти за результатами виконання курсової роботи в семестрі <?= htmlspecialchars($semesterData->semesterNumber ?? '') ?> (в балах):
 					</p>
-					<div class="coursework-table small-bottom-margin">
+					<div class="coursework-table mini-bottom-margin">
 						<?php
 						$courseworkAssessmentComponents = json_decode($semesterData->courseTaskAssessmentComponents);
 						?>

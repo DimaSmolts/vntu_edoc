@@ -8,7 +8,7 @@ function getPointsWithSemestersDescriptionString($pointsDistributionSemestersDat
 		if (isset($semesterData->pointsDistribution)) {
 			$points = json_decode($semesterData->pointsDistribution, true);
 
-			if (isset($semesterData->semesterNumber)) {
+			if (isset($semesterData->semesterNumber) && isset($points[$typeOfPoints])) {
 				$semesterNumbersByPoints[$points[$typeOfPoints]][] = $semesterData->semesterNumber;
 			}
 		}
