@@ -9,6 +9,7 @@ require_once __DIR__ . '/LessonsAndExamingsStructureModel.php';
 require_once __DIR__ . '/FacultyModel.php';
 require_once __DIR__ . '/DepartmentModel.php';
 require_once __DIR__ . '/StydingLevelTypeModel.php';
+require_once __DIR__ . '/SubjectTypeModel.php';
 
 use App\Models\WPInvolvedPersonModel;
 use App\Models\WorkingProgramGlobalDataModel;
@@ -17,6 +18,7 @@ use App\Models\LessonsAndExamingsStructureModel;
 use App\Models\FacultyModel;
 use App\Models\DepartmentModel;
 use App\Models\StydingLevelTypeModel;
+use App\Models\SubjectTypeModel;
 
 class WPDetailsModel
 {
@@ -28,6 +30,7 @@ class WPDetailsModel
 	public ?int $departmentId;
 	public ?string $disciplineName;
 	public ?string $stydingLevelId;
+	public ?string $subjectTypeId;
 	public array $fieldsOfStudyIds;
 	public array $specialtyIds;
 	public array $educationalProgramIds;
@@ -67,6 +70,7 @@ class WPDetailsModel
 	public array $specialties;
 	public array $educationalPrograms;
 	public ?StydingLevelTypeModel $stydingLevel;
+	public ?SubjectTypeModel $subjectType;
 	public array $assessmentCriterias;
 
 	public function __construct(
@@ -78,6 +82,7 @@ class WPDetailsModel
 		?int $departmentId = null,
 		?string $disciplineName = "",
 		?string $stydingLevelId = "",
+		?string $subjectTypeId = "",
 		array $fieldsOfStudyIds = [],
 		array $specialtyIds = [],
 		array $educationalProgramIds = [],
@@ -117,6 +122,7 @@ class WPDetailsModel
 		?array $specialties = [],
 		?array $educationalPrograms = [],
 		?StydingLevelTypeModel $stydingLevel = null,
+		?SubjectTypeModel $subjectType = null,
 		array $assessmentCriterias = [],
 	) {
 		$this->id = $id;
@@ -127,6 +133,7 @@ class WPDetailsModel
 		$this->departmentId = $departmentId;
 		$this->disciplineName = $disciplineName;
 		$this->stydingLevelId = $stydingLevelId;
+		$this->subjectTypeId = $subjectTypeId;
 		$this->fieldsOfStudyIds = $fieldsOfStudyIds;
 		$this->specialtyIds = $specialtyIds;
 		$this->educationalProgramIds = $educationalProgramIds;
@@ -166,6 +173,7 @@ class WPDetailsModel
 		$this->specialties = $specialties;
 		$this->educationalPrograms = $educationalPrograms;
 		$this->stydingLevel = $stydingLevel;
+		$this->subjectType = $subjectType;
 		$this->assessmentCriterias = $assessmentCriterias;
 	}
 }

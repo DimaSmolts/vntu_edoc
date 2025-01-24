@@ -90,7 +90,7 @@
 				<?php endif; ?>
 			</td>
 			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
-				<span class="change">Обов'язкова (професійна чи загальна)</span>
+				<span class="change"><?= htmlspecialchars($details->subjectType->name) ?><br></span>
 			</td>
 		</tr>
 		<tr>

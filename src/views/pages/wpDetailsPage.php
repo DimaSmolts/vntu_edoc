@@ -76,6 +76,7 @@
     <script src="src/views/helpers/selectDropdowns/fetch/fetchExamTypes.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchAdditionalTasks.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchFieldsOfStudy.js"></script>
+    <script src="src/views/helpers/selectDropdowns/fetch/fetchSubjectTypes.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/involvedPersonSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/createdByPersonsSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/educationalProgramGuarantorSelectHandler.js"></script>
@@ -91,6 +92,7 @@
     <script src="src/views/helpers/selectDropdowns/selectHandlers/examTypeSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/additionalTaskSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/selectHandlers/fieldOfStudySelectHandler.js"></script>
+    <script src="src/views/helpers/selectDropdowns/selectHandlers/subjectTypeSelectHandler.js"></script>
     <script src="src/views/helpers/selectDropdowns/initializeSelectHandlers.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPerson.js"></script>
     <script src="src/views/helpers/selectDropdowns/updateWPInvolvedPersonDetails.js"></script>

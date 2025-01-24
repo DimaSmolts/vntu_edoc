@@ -18,6 +18,8 @@ require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
 require_once __DIR__ . '/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/getFormattedFacultiesData.php';
 require_once __DIR__ . '/getFullFormattedAssessmentCriterias.php';
+require_once __DIR__ . '/getFormattedStydingLevelType.php';
+require_once __DIR__ . '/getFormattedSubjectType.php';
 require_once __DIR__ . '/../getTaskId.php';
 require_once __DIR__ . '/../getIsTypeOfWorkExists.php';
 
@@ -46,6 +48,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 		$workingProgramData->departmentId,
 		$workingProgramData->disciplineName ?? '',
 		$workingProgramData->stydingLevelId ?? '',
+		$workingProgramData->subjectTypeId ?? '',
 		isset($workingProgramData->fieldsOfStudyIds) ? json_decode($workingProgramData->fieldsOfStudyIds) : [],
 		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
 		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],
@@ -97,6 +100,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 
 	// Відформатовуємо рівень вищої освіти
 	$workingProgram->stydingLevel = isset($workingProgramData->stydingLevel) ? getFormattedStydingLevelType($workingProgramData->stydingLevel) : null;
+
+	// Відформатовуємо тип навчання
+	$workingProgram->subjectType = isset($workingProgramData->subjectType) ? getFormattedSubjectType($workingProgramData->subjectType) : null;
 
 	// Збираємо всі модулі
 	$modulesInWorkingProgram = [];

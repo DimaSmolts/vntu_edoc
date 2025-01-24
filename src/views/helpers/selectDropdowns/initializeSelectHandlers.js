@@ -5,6 +5,7 @@ const initializeSelectHandlers = ({ wpId, semestersIds }) => {
 	fieldOfStudySelectHandler(wpId);
 	specialtySelectHandler();
 	educationalProgramSelectHandler();
+	subjectTypeSelectHandler();
 	createdByPersonsSelectHandler();
 	educationalProgramGuarantorSelectHandler();
 	headOfDepartmentSelectHandler();

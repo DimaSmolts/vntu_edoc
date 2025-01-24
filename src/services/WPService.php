@@ -317,7 +317,8 @@ class WPService
 			'literature',
 			'faculty',
 			'department',
-			'stydingLevel'
+			'stydingLevel',
+			'subjectType'
 		])
 			->where('id', $id)
 			->get()

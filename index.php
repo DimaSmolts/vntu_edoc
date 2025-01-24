@@ -29,6 +29,7 @@ require_once __DIR__ . '/src/controllers/api/EducationalProgramApiController.php
 require_once __DIR__ . '/src/controllers/api/ExamTypeApiController.php';
 require_once __DIR__ . '/src/controllers/api/TaskApiController.php';
 require_once __DIR__ . '/src/controllers/api/FieldOfStudyApiController.php';
+require_once __DIR__ . '/src/controllers/api/SubjectTypeApiController.php';
 require_once __DIR__ . '/src/controllers/api/SessionApiController.php';
 
 use Bramus\Router\Router;
@@ -55,6 +56,7 @@ use App\Controllers\EducationalProgramApiController;
 use App\Controllers\ExamTypeApiController;
 use App\Controllers\TaskApiController;
 use App\Controllers\FieldOfStudyApiController;
+use App\Controllers\SubjectTypeApiController;
 use App\Controllers\SessionApiController;
 
 $router = new Router();
@@ -181,8 +183,13 @@ $router->get('/api/searchFieldsOfStudy', function () {
 });
 
 $router->get('/api/getStydingLevelTypes', function () {
-	$atydingLevelTypeApiController = new StydingLevelTypeApiController();
-	$atydingLevelTypeApiController->getStydingLevelTypes();
+	$stydingLevelTypeApiController = new StydingLevelTypeApiController();
+	$stydingLevelTypeApiController->getStydingLevelTypes();
+});
+
+$router->get('/api/getSubjectTypes', function () {
+	$subjectTypeApiController = new SubjectTypeApiController();
+	$subjectTypeApiController->getSubjectTypes();
 });
 
 $router->get('/api/searchSpecialties', function () {

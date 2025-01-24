@@ -9,6 +9,7 @@ require_once __DIR__ . '/DBWorkingProgramLiteratureModel.php';
 require_once __DIR__ . '/DBFacultyModel.php';
 require_once __DIR__ . '/DBDepartmentModel.php';
 require_once __DIR__ . '/DBStydingLevelTypeModel.php';
+require_once __DIR__ . '/DBSubjectTypeModel.php';
 
 use App\Models\DBEducationalDisciplineSemesterModel;
 use App\Models\DBWorkingProgramInvolvedPersonModel;
@@ -17,6 +18,7 @@ use App\Models\DBWorkingProgramLiteratureModel;
 use App\Models\DBFacultyModel;
 use App\Models\DBDepartmentModel;
 use App\Models\DBStydingLevelTypeModel;
+use App\Models\DBSubjectTypeModel;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,6 +34,7 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 		'departmentId',
 		'disciplineName',
 		'stydingLevelId',
+		'subjectTypeId',
 		'fieldsOfStudyIds',
 		'specialtyIds',
 		'educationalProgramIds',
@@ -195,6 +198,11 @@ class DBEducationalDisciplineWorkingProgramModel extends Model
 	public function stydingLevel()
 	{
 		return $this->belongsTo(DBStydingLevelTypeModel::class, 'stydingLevelId');
+	}
+
+	public function subjectType()
+	{
+		return $this->belongsTo(DBSubjectTypeModel::class, 'subjectTypeId');
 	}
 
 	public function creator()

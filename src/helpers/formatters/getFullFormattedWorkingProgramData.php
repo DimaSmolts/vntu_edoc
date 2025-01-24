@@ -31,6 +31,7 @@ function getFullFormattedWorkingProgramData($workingProgramData, $globalWPData)
 		$workingProgramData->departmentId,
 		$workingProgramData->disciplineName ?? '',
 		$workingProgramData->stydingLevelId ?? '',
+		$workingProgramData->subjectTypeId ?? '',
 		isset($workingProgramData->fieldsOfStudyIds) ? json_decode($workingProgramData->fieldsOfStudyIds) : [],
 		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
 		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],

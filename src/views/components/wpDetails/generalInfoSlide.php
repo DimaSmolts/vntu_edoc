@@ -112,6 +112,13 @@ $title = "Загальна інформація";
 				value="<?= htmlspecialchars($details->academicYear ?? '') ?>"
 				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 		</label>
+		<label id="subjectTypeDropdownLabel">Тип предмету:
+			<select
+				id="subjectTypeIdSelect"
+				data-wpId=<?= htmlspecialchars($details->id) ?>
+				<?php if (isset($details->subjectTypeId)): ?> data-subjectTypeId=<?= htmlspecialchars($details->subjectTypeId) ?><?php endif; ?>>
+			</select>
+		</label>
 		<label>Кількість кредитів:
 			<input
 				type="number"

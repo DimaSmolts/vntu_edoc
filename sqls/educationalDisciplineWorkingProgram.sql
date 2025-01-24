@@ -35,6 +35,7 @@ CREATE TABLE `educationalDisciplineWorkingProgram` (
   `facultyId` int DEFAULT NULL,
   `departmentId` int DEFAULT NULL,
   `stydingLevelId` int DEFAULT NULL,
+  `subjectTypeId` int DEFAULT NUll,
   `fieldsOfStudyIds` varchar(255) DEFAULT NULL,
   `specialtyIds` text,
   `educationalProgramIds` varchar(255) DEFAULT NULL,

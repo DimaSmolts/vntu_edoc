@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class StydingLevelTypeApiService
+class StydingLevelTypeService
 {
 	public function getStydingLevelTypes()
 	{

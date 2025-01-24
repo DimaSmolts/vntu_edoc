@@ -3,21 +3,20 @@
 namespace App\Controllers;
 
 require_once __DIR__ . '/../BaseController.php';
-require_once __DIR__ . '/../../services/StydingLevelTypeApiService.php';
+require_once __DIR__ . '/../../services/StydingLevelTypeService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedStydingLevelTypeData.php';
 
 use App\Controllers\BaseController;
-use App\Services\StydingLevelTypeApiService;
+use App\Services\StydingLevelTypeService;
 
 class StydingLevelTypeApiController extends BaseController
 {
-	protected StydingLevelTypeApiService $stydingLevelTypeApiService;
+	protected StydingLevelTypeService $stydingLevelTypeService;
 
 	function __construct()
 	{
-		$this->stydingLevelTypeApiService = new StydingLevelTypeApiService();
+		$this->stydingLevelTypeService = new StydingLevelTypeService();
 	}
-
 
 	public function getStydingLevelTypes()
 	{
@@ -30,7 +29,7 @@ class StydingLevelTypeApiController extends BaseController
 			exit();
 		}
 
-		$rawStydingLevelTypes = $this->stydingLevelTypeApiService->getStydingLevelTypes();
+		$rawStydingLevelTypes = $this->stydingLevelTypeService->getStydingLevelTypes();
 		$stydingLevelTypes = getFormattedStydingLevelTypeData($rawStydingLevelTypes);
 
 		echo json_encode($stydingLevelTypes);
