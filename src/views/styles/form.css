@@ -151,6 +151,26 @@
 	margin-bottom: 15px;
 }
 
+.lesson-table-invisible {
+	display: none;
+}
+
+.lesson-table-visible {
+	display: block;
+	margin-bottom: 15px;
+}
+
+.lesson-title-block {
+	display: grid;
+	grid-template-columns: 180px 1fr 180px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lesson-title-block-name {
+	grid-column-start: 2;
+}
+
 .additional-lessons-themes-block {
 	grid-column: 1/3;
 }
@@ -444,6 +464,10 @@ td {
 	margin-top: 15px;
 }
 
+.lesson-hours-column {
+	width: 10%;
+}
+
 .selfwork-table {
 	width: 100%;
 	font-size: 17px;
@@ -454,15 +478,18 @@ td {
 	text-align: center;
 }
 
-.selfwork-number-column {
+.selfwork-number-column,
+.lesson-number-column {
 	width: 3%;
 }
 
-.selfwork-subnumber-column {
+.selfwork-subnumber-column,
+.lesson-number-column {
 	width: 5%;
 }
 
-.selfwork-educational-forms-column {
+.selfwork-educational-forms-column,
+.add-lesson-column {
 	width: 10%;
 }
 
@@ -500,7 +527,9 @@ input::placeholder {
 }
 
 .new-selfwork-theme-btn,
-.remove-selfwork-theme-btn {
+.remove-selfwork-theme-btn,
+.new-lesson-btn,
+.remove-lesson-btn {
 	padding: 3px;
 	width: 100%;
 }

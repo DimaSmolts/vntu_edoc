@@ -16,20 +16,18 @@ class LessonService
 			->first();
 	}
 
-	public function getLessonsByThemeIdAndTypeId($themeId, $lessonTypeId)
+	public function getLessonsBySemestersIdsAndTypeId($lessonTypeId, $semestersIds)
 	{
 		return Capsule::table('lessons')
-			->where([
-				'themeId' => $themeId,
-				'lessonTypeId' => $lessonTypeId,
-			])
+			->where('lessonTypeId', $lessonTypeId)
+			->whereIn('semesterId', $semestersIds)
 			->get();
 	}
 
-	public function createNewLesson($themeId, $lessonTypeId): int
+	public function createNewLesson($semesterId, $lessonTypeId): int
 	{
 		$lessonId = Capsule::table('lessons')->insertGetId([
-			'themeId' => $themeId,
+			'semesterId' => $semesterId,
 			'lessonTypeId' => $lessonTypeId
 		]);
 
@@ -90,6 +88,22 @@ class LessonService
 		// Check if any row was deleted
 		if ($deleted) {
 			echo json_encode(['status' => 'success', 'message' => 'Lesson deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Lesson not found or delete failed']);
+		}
+	}
+
+	public function deleteAllLessonsByType($lessonTypeId, $semestersIds)
+	{
+		// Use Capsule to delete the theme by ID
+		$deleted = Capsule::table('lessons')
+			->where('lessonTypeId', $lessonTypeId)
+			->whereIn('semesterId', $semestersIds)
+			->delete();
+
+		// Check if any row was deleted
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'All lessons deleted successfully']);
 		} else {
 			echo json_encode(['status' => 'error', 'message' => 'Lesson not found or delete failed']);
 		}

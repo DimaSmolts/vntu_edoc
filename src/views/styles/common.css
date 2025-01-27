@@ -60,6 +60,12 @@ body.details {
     background-color: #1B5BC3;
 }
 
+.btn:disabled {
+    background-color: #777;
+    cursor: default;
+    opacity: 1;
+}
+
 .to-list-btn {
     position: absolute;
     left: 10px;

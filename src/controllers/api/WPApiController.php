@@ -9,12 +9,13 @@ require_once __DIR__ . '/../../services/WorkingProgramLiteratureService.php';
 require_once __DIR__ . '/../../services/DepartmentService.php';
 require_once __DIR__ . '/../../services/EducationalFormService.php';
 require_once __DIR__ . '/../../services/WorkingProgramGlobalDataService.php';
+require_once __DIR__ . '/../../services/ThemeService.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedAssessmentCriterias.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedLessonsAndExamingsStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedPointsDistributionRelatedData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFormattedDepartmentsData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedWorkingProgramData.php';
-require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalFormData.php';
+require_once __DIR__ . '/../../helpers/formatters/getFormattedEducationalDisciplineStructure.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSelfworkData.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedSemestersAndModulesTasks.php';
 require_once __DIR__ . '/../../helpers/formatters/getFullFormattedCourseworksAndProjectsData.php';
@@ -30,6 +31,7 @@ use App\Services\WorkingProgramLiteratureService;
 use App\Services\DepartmentService;
 use App\Services\EducationalFormService;
 use App\Services\WorkingProgramGlobalDataService;
+use App\Services\ThemeService;
 
 class WPApiController extends BaseController
 {
@@ -39,6 +41,7 @@ class WPApiController extends BaseController
 	protected DepartmentService $departmentService;
 	protected EducationalFormService $educationalFormService;
 	protected WorkingProgramGlobalDataService $workingProgramGlobalDataService;
+	protected ThemeService $themeService;
 
 	function __construct()
 	{
@@ -48,6 +51,7 @@ class WPApiController extends BaseController
 		$this->departmentService = new DepartmentService();
 		$this->educationalFormService = new EducationalFormService();
 		$this->workingProgramGlobalDataService = new WorkingProgramGlobalDataService();
+		$this->themeService = new ThemeService();
 	}
 
 	public function createNewWP()
@@ -311,6 +315,43 @@ class WPApiController extends BaseController
 				$selfworkContent = ob_get_clean();
 
 				echo json_encode((['selfworkContent' => $selfworkContent]));
+			}
+		}
+	}
+
+	public function getEducationalDisciplineStructure()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['id'];
+		$data = isset($_GET['data']) ? $_GET['data'] : null;
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$wpId = $_GET['id'];
+			$isSeminarVisible = $_GET['isSeminarVisible'] === "true" ? true : false;
+			$isPracticalVisible = $_GET['isPracticalVisible'] === "true" ? true : false;
+			$isLaboratoryVisible = $_GET['isLaboratoryVisible'] === "true" ? true : false;
+
+			$rawEducationalDisciplineStructure = $this->wpService->getSemestersLessonsWithEducationalForms($wpId);
+			$semesters = getFormattedEducationalDisciplineStructure($rawEducationalDisciplineStructure);
+			$structure = getFormattedLessonsAndExamingsStructure($rawEducationalDisciplineStructure);
+			$semestersIds = [];
+
+			foreach ($semesters as $semester) {
+				$semestersIds[] = $semester->id;
+			}
+
+			if ($data) {
+				print_r($semesters);
+			} else {
+				ob_start();
+				include __DIR__ . '/../../views/components/wpDetails/educationalDisciplineStructureSlideContent.php';
+				$educationalDisciplineStructureContent = ob_get_clean();
+
+				echo json_encode((['educationalDisciplineStructureContent' => $educationalDisciplineStructureContent]));
 			}
 		}
 	}

@@ -45,10 +45,10 @@ class LessonApiController extends BaseController
 		$input = file_get_contents('php://input');
 		$data = json_decode($input, true);
 
-		$themeId = intval($data['themeId']);
+		$semesterId = intval($data['semesterId']);
 		$lessonTypeName = $data['lessonTypeName'];
 
-		$wpCreatorId = $this->wpService->getWPCreatorIdByThemeId($themeId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
@@ -59,7 +59,7 @@ class LessonApiController extends BaseController
 
 			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
-			$newLessonId = $this->lessonService->createNewLesson($themeId, $lessonTypeId);
+			$newLessonId = $this->lessonService->createNewLesson($semesterId, $lessonTypeId);
 
 			$existingLessonAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndLessonType($wpId, $lessonTypeId);
 
@@ -96,22 +96,45 @@ class LessonApiController extends BaseController
 	{
 		header('Content-Type: application/json');
 
-		$id = $_GET['id'];
+		$wpId = $_GET['wpId'];
 
-		$wpCreatorId = $this->wpService->getWPCreatorIdByLessonId($id);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$wpId = $_GET['wpId'];
-
-			$lesson = $this->lessonService->getLessonById($id);
+			$id = $_GET['id'];
 
 			$this->lessonService->deleteLesson($id);
+		}
+	}
 
-			$lessons = $this->lessonService->getLessonsByThemeIdAndTypeId($lesson->themeId, $lesson->lessonTypeId);
+	public function deleteAllLessonsByType()
+	{
+		header('Content-Type: application/json');
 
-			if (count($lessons) === 0) {
-				$this->assessmentCriteriaService->deleteAssessmentCriteriaByLessonType($wpId, $lesson->lessonTypeId);
+		$wpId = $_GET['wpId'];
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$lessonTypeName = $_GET['lessonTypeName'];
+			$semestersIds = isset($_GET['semestersIds']) ? $_GET['semestersIds'] : '';
+			$semestersIdsArray = array_map('intval', explode(',', $semestersIds));
+
+			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
+			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
+
+			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
+
+			$lessons = $this->lessonService->getLessonsBySemestersIdsAndTypeId($lessonTypeId, $semestersIdsArray);
+
+			$this->assessmentCriteriaService->deleteAssessmentCriteriaByLessonType($wpId, $lessonTypeId);
+
+			if (count($lessons) > 0) {
+				$this->lessonService->deleteAllLessonsByType($lessonTypeId, $semestersIdsArray);
+			} else {
+				echo json_encode(['status' => 'success']);
 			}
 		}
 	}

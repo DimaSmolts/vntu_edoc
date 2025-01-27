@@ -49,6 +49,7 @@
     <script src="src/views/helpers/carousel/getPointsDistributionSlide.js"></script>
     <script src="src/views/helpers/carousel/getEducationalDisciplineSemesterControlMethodsSlide.js"></script>
     <script src="src/views/helpers/carousel/getSelfworkSlide.js"></script>
+    <script src="src/views/helpers/carousel/getEducationalDisciplineStructureSlide.js"></script>
     <script src="src/views/helpers/updating/updateSemesterInfo.js"></script>
     <script src="src/views/helpers/updating/updateModuleInfo.js"></script>
     <script src="src/views/helpers/updating/updateThemeInfo.js"></script>
@@ -57,6 +58,7 @@
     <script src="src/views/helpers/updating/updateAssessmentCriteria.js"></script>
     <script src="src/views/helpers/updating/updateWPLiterature.js"></script>
     <script src="src/views/helpers/deleting/deleteLesson.js"></script>
+    <script src="src/views/helpers/deleting/deleteAllLessonsByType.js"></script>
     <script src="src/views/helpers/deleting/deleteTheme.js"></script>
     <script src="src/views/helpers/deleting/deleteModule.js"></script>
     <script src="src/views/helpers/deleting/deleteSemester.js"></script>
@@ -131,8 +133,9 @@
     <script src="src/views/helpers/educationalDisciplineStructure/createLessonsBlock.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonsContainer.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createLessonsContainer.js"></script>
-    <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonBlock.js"></script>
+    <script src="src/views/helpers/educationalDisciplineStructure/createLessonRow.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createNewLesson.js"></script>
+    <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonTable.js"></script>
     <script src="src/views/helpers/coursework/updateAssesmentComponents.js"></script>
     <script src="src/views/helpers/coursework/removeAssesmentComponentInputs.js"></script>
     <script src="src/views/helpers/coursework/addAssesmentComponentsInputs.js"></script>

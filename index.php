@@ -142,6 +142,11 @@ $router->get('/api/getSelfworkContent', function () {
 	$wpApiController->getSelfworkContent();
 });
 
+$router->get('/api/getEducationalDisciplineStructure', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->getEducationalDisciplineStructure();
+});
+
 $router->get('/api/searchTeachers', function () {
 	$teacherApiController = new TeacherApiController();
 	$teacherApiController->searchTeachers();
@@ -405,6 +410,11 @@ $router->delete('/api/deleteModuleTask', function () {
 $router->delete('/api/deleteLesson', function () {
 	$lessonApiController = new LessonApiController();
 	$lessonApiController->deleteLesson();
+});
+
+$router->delete('/api/deleteAllLessonsByType', function () {
+	$lessonApiController = new LessonApiController();
+	$lessonApiController->deleteAllLessonsByType();
 });
 
 $router->delete('/api/deleteWPInvolvedPerson', function () {

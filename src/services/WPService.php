@@ -942,10 +942,10 @@ class WPService
 	public function getWPCreatorIdByLessonId($lessonId)
 	{
 		return DBEducationalDisciplineWorkingProgramModel::with([
-			'semesters.modules.themes.lessons'
+			'semesters.lessons'
 		])
 			->select(['wpCreatorId'])
-			->whereHas('semesters.modules.themes.lessons', function ($query) use ($lessonId) {
+			->whereHas('semesters.lessons', function ($query) use ($lessonId) {
 				$query->where('id', $lessonId);
 			})
 			->get()
@@ -955,11 +955,26 @@ class WPService
 
 	public function getFieldsOfStudyByWpId($wpId)
 	{
-
 		return DBEducationalDisciplineWorkingProgramModel::select(['fieldsOfStudyIds'])
 			->where('id', $wpId)
 			->get()
 			->first()
 			->fieldsOfStudyIds;
+	}
+
+	public function getSemestersLessonsWithEducationalForms($wpId)
+	{
+		$wps = DBEducationalDisciplineWorkingProgramModel::select(['id'])
+			->with([
+				'semesters.educationalForms.educationalForm',
+				'semesters.modules.themes.lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				'semesters.labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				'semesters.practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				'semesters.seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+			])
+			->where('id', $wpId)
+			->get();
+
+		return $wps->first();
 	}
 }

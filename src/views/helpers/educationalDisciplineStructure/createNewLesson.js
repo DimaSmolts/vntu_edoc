@@ -1,9 +1,15 @@
-const createNewLesson = async ({ themeId, lessonTypeName, semesterEducationalForms, container }) => {
-	const url = new URL(window.location.href);
-	const wpId = url.searchParams.get("id");
+const createNewLesson = async (
+    semesterId,
+    semesterIdx,
+    lessonTypeName,
+    semesterEducationalForms,
+    educationalFormsInSemesters
+) => {
+    const url = new URL(window.location.href);
+    const wpId = url.searchParams.get("id");
 
     const postData = {
-        themeId,
+        semesterId,
         lessonTypeName,
         wpId
     };
@@ -13,10 +19,11 @@ const createNewLesson = async ({ themeId, lessonTypeName, semesterEducationalFor
         postData
     })
 
-    return createLessonsBlock({
+    return createLessonRow({
         lessonTypeName,
         lessonId: data.lessonId,
         semesterEducationalForms,
-        container
+        educationalFormsInSemesters,
+        semesterIdx
     });
 }

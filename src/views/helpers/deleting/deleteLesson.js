@@ -1,4 +1,4 @@
-const deleteLesson = async (event, id, container) => {
+const deleteLesson = async (event, id) => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
@@ -7,11 +7,7 @@ const deleteLesson = async (event, id, container) => {
 	})
 
 	if (data.status === 'success') {
-		document.getElementById(`lessonBlock${id}`).remove();
-
-		if (!container.querySelector('.remove-lesson-btn')) {
-			container.replaceChildren();
-		}
+		document.getElementById(`lesson${id}`).remove();
 	} else {
 		console.log('Failed to delete the theme.');
 	}

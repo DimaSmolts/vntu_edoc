@@ -46,21 +46,17 @@ function getFormattedLessonsAndExamingsStructure($data)
 					if (getIsTypeOfWorkExistsInModule($module, $tasksIds->controlWork)) {
 						$isControlWorkExists = true;
 					}
-
-					if (isset($module->themes)) {
-						foreach ($module->themes as $theme) {
-							if (!$theme->practicals->isEmpty()) {
-								$isPracticalsExist = true;
-							}
-							if (!$theme->labs->isEmpty()) {
-								$isLabsExist = true;
-							}
-							if (!$theme->seminars->isEmpty()) {
-								$isSeminarsExist = true;
-							}
-						}
-					}
 				}
+			}
+
+			if (!$semester->practicals->isEmpty()) {
+				$isPracticalsExist = true;
+			}
+			if (!$semester->labs->isEmpty()) {
+				$isLabsExist = true;
+			}
+			if (!$semester->seminars->isEmpty()) {
+				$isSeminarsExist = true;
 			}
 		}
 	}

@@ -112,12 +112,14 @@ const selfworkSlideObserver = new IntersectionObserver(selfworkSlideObserverCall
 selfworkSlideObserver.observe(selfworkSlide);
 
 const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
+const educationalDisciplineStructureSlideNew = document.getElementById("educationalDisciplineStructureSlideNew");
 
 const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 	entries.forEach((entry) => {
 		if (entry.isIntersecting) {
 			// отримуємо всі теми з уроками до тем
 			getThemesForEducationalDisciplineStructure();
+			getEducationalDisciplineStructureSlide();
 
 			// перевіряємо чи є курсовий та рендеримо наступний слайдм про курсовий
 			getCourseworkSlide();
@@ -129,7 +131,9 @@ const educationalDisciplineStructureSlideObserverCallback = (entries) => {
 };
 
 const educationalDisciplineStructureSlideObserver = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
+const educationalDisciplineStructureSlideObserverNew = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
 educationalDisciplineStructureSlideObserver.observe(educationalDisciplineStructureSlide);
+educationalDisciplineStructureSlideObserverNew.observe(educationalDisciplineStructureSlideNew);
 
 const generalAssessmentCriteriaSlide = document.getElementById("generalAssessmentCriteriaSlide");
 
