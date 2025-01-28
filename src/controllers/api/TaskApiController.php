@@ -92,7 +92,7 @@ class TaskApiController extends BaseController
 			if ($typeName === 'calculationAndGraphicTask') {
 				$this->taskService->createCalculationAndGraphicTask($tasksIds->calculationAndGraphicTask, $semesterId, $tasksIds->calculationAndGraphicWork);
 
-				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->calculationAndGraphicWork);
+				$existingAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndTaskType($wpId, $tasksIds->calculationAndGraphicTask);
 
 				if (!$existingAssessmentCriteria) {
 					$taskAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByTaskType($tasksIds->calculationAndGraphicTask);
