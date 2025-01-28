@@ -36,15 +36,15 @@ const runGeneralInfoValidation = (wpDetails) => {
 		value: wpDetails.fieldsOfStudyIds
 	});
 
-	validateSpecialties({
-		element: specialtyIdsSelect,
-		value: wpDetails.specialtyIds
-	});
+	// validateSpecialties({
+	// 	element: specialtyIdsSelect,
+	// 	value: wpDetails.specialtyIds
+	// });
 
-	validateEducationalProgram({
-		element: educationalProgramIdsSelect,
-		value: wpDetails.educationalProgramIds
-	});
+	// validateEducationalProgram({
+	// 	element: educationalProgramIdsSelect,
+	// 	value: wpDetails.educationalProgramIds
+	// });
 
 	validateDocApprovedBy({
 		element: docApprovedBySelect,

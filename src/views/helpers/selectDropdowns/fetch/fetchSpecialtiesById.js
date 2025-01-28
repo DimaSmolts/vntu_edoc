@@ -1,5 +1,5 @@
-const fetchSpecialtiesByIds = async (ids) => {
-	const response = await fetch(`api/searchSpecialtiesByIds?ids=${JSON.stringify(ids)}`)
+const fetchSpecialtiesById = async (id) => {
+	const response = await fetch(`api/searchSpecialtiesById?id=${id}`)
 	const data = await response.json();
 
 	return data.map(specialty => ({

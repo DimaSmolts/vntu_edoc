@@ -41,7 +41,7 @@ class SpecialtyApiController extends BaseController
 		}
 	}
 
-	public function searchSpecialtiesByIds()
+	public function searchSpecialtiesById()
 	{
 		header('Content-Type: application/json');
 
@@ -52,12 +52,12 @@ class SpecialtyApiController extends BaseController
 			exit();
 		}
 
-		if (isset(($_GET['ids']))) {
-			$ids = json_decode($_GET['ids']);
+		if (isset(($_GET['id']))) {
+			$id = intval($_GET['id']);
 
-			$specialties = $this->specialtyService->getSpecialtiesByIds($ids);
+			$specialty = $this->specialtyService->getSpecialtiesById($id);
 
-			echo json_encode($specialties);
+			echo json_encode($specialty);
 		}
 	}
 }

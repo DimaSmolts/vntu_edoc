@@ -197,9 +197,9 @@ $router->get('/api/searchSpecialties', function () {
 	$specialtyApiController->searchSpecialties();
 });
 
-$router->get('/api/searchSpecialtiesByIds', function () {
+$router->get('/api/searchSpecialtiesById', function () {
 	$specialtyApiController = new SpecialtyApiController();
-	$specialtyApiController->searchSpecialtiesByIds();
+	$specialtyApiController->searchSpecialtiesById();
 });
 
 $router->get('/api/searchEducationalPrograms', function () {

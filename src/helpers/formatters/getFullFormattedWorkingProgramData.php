@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../models/ThemeModel.php';
 require_once __DIR__ . '/../../models/WPInvolvedPersonModel.php';
 require_once __DIR__ . '/../../models/SemesterEducationalFormModel.php';
 require_once __DIR__ . '/../../models/WorkingProgramLiteratureModel.php';
+require_once __DIR__ . '/../../models/SpecialtyAndEducationalProgramIdsModel.php';
 require_once __DIR__ . '/../../helpers/getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/getFullFormattedWorkingProgramGlobalData.php';
@@ -19,6 +20,7 @@ use App\Models\ThemeModel;
 use App\Models\WPInvolvedPersonModel;
 use App\Models\SemesterEducationalFormModel;
 use App\Models\WorkingProgramLiteratureModel;
+use App\Models\SpecialtyAndEducationalProgramIdsModel;
 
 function getFullFormattedWorkingProgramData($workingProgramData, $globalWPData)
 {
@@ -33,8 +35,6 @@ function getFullFormattedWorkingProgramData($workingProgramData, $globalWPData)
 		$workingProgramData->stydingLevelId ?? '',
 		$workingProgramData->subjectTypeId ?? '',
 		isset($workingProgramData->fieldsOfStudyIds) ? json_decode($workingProgramData->fieldsOfStudyIds) : [],
-		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
-		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],
 		$workingProgramData->notes ?? '',
 		$workingProgramData->prerequisites ?? '',
 		$workingProgramData->goal ?? '',
@@ -49,6 +49,24 @@ function getFullFormattedWorkingProgramData($workingProgramData, $globalWPData)
 		$workingProgramData->individualTaskNotes ?? '',
 		$workingProgramData->creditsAmount,
 	);
+
+	$rawSpecialtyWithEducationalProgramIds = isset($workingProgramData->specialtyWithEducationalProgramIds)
+		? json_decode($workingProgramData->specialtyWithEducationalProgramIds, true)
+		: [];
+
+	$specialtyWithEducationalProgramIds = [];
+
+	foreach ($rawSpecialtyWithEducationalProgramIds as $item) {
+		$key = array_key_first($item);
+		$data = $item[$key];
+
+		$specialtyWithEducationalProgramIds[] = new SpecialtyAndEducationalProgramIdsModel(
+			$data['specialtyId'],
+			$data['educationalProgramsIds']
+		);
+	}
+
+	$workingProgram->specialtyWithEducationalProgramIds = $specialtyWithEducationalProgramIds;
 
 	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) {
 		$modules = $semester->modules->map(function ($module) {

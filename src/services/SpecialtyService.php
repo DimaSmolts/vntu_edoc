@@ -28,7 +28,7 @@ class SpecialtyService
 		return $specialties;
 	}
 
-	public function getSpecialtiesByIds($ids)
+	public function getSpecialtiesById($id)
 	{
 		$specialties = Capsule::table('special')
 			->selectRaw("
@@ -39,7 +39,7 @@ class SpecialtyService
 				END AS name,
 				spec_num_code
 			")
-			->whereIn('id', $ids)
+			->where('id', $id)
 			->groupBy('name', 'spec_num_code')
 			->get();
 

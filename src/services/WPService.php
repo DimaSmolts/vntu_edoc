@@ -22,16 +22,16 @@ class WPService
 					->orderBy('semesterNumber');
 			}
 		])
-			->select(['id', 'disciplineName', 'specialtyIds', 'createdAt', 'wpCreatorId'])
+			->select(['id', 'disciplineName', 'specialtyWithEducationalProgramIds', 'createdAt', 'wpCreatorId'])
 			->where('wpCreatorId', $wpCreatorId)
 			->orderBy('createdAt')
 			->get();
 
 		if (!empty($workingPrograms)) {
 			foreach ($workingPrograms as $workingProgram) {
-				$specialtyIds = json_decode($workingProgram->specialtyIds ?? '[]', true);
+				$specialtyWithEducationalProgramIds = json_decode($workingProgram->specialtyWithEducationalProgramIds ?? '[]', true);
 
-				if (!empty($specialtyIds)) {
+				if (!empty($specialtyWithEducationalProgramIds)) {
 					$specialties = Capsule::table('special')
 						->selectRaw("
 							MIN(id) AS id,
@@ -41,7 +41,7 @@ class WPService
 							END AS name,
 							spec_num_code
 						")
-						->whereIn('id', $specialtyIds)
+						->whereIn('id', $specialtyWithEducationalProgramIds)
 						->groupBy('name', 'spec_num_code')
 						->get();
 
@@ -352,9 +352,9 @@ class WPService
 			$wp->fieldsOfStudy = collect();
 		}
 
-		$specialtyIds = json_decode($wp->specialtyIds ?? '[]', true);
+		$specialtyWithEducationalProgramIds = json_decode($wp->specialtyWithEducationalProgramIds ?? '[]', true);
 
-		if (!empty($specialtyIds)) {
+		if (!empty($specialtyWithEducationalProgramIds)) {
 			$specialties = Capsule::table('special')
 				->selectRaw("
 					MIN(id) AS id,
@@ -364,7 +364,7 @@ class WPService
 					END AS name,
 					spec_num_code
 				")
-				->whereIn('id', $specialtyIds)
+				->whereIn('id', $specialtyWithEducationalProgramIds)
 				->groupBy('name', 'spec_num_code')
 				->get();
 

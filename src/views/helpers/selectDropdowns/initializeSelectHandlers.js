@@ -1,10 +1,20 @@
-const initializeSelectHandlers = ({ wpId, semestersIds }) => {
+const initializeSelectHandlers = ({ wpId, semestersIds, specialtyWithEducationalProgramIds }) => {
+	console.log(specialtyWithEducationalProgramIds);
 	facultySelectHandler();
 	departmentSelectHandler();
 	stydingLevelSelectHandler();
 	fieldOfStudySelectHandler(wpId);
-	specialtySelectHandler();
-	educationalProgramSelectHandler();
+
+	if (specialtyWithEducationalProgramIds?.length > 0) {
+		Object.keys(specialtyWithEducationalProgramIds).forEach(idx => {
+			specialtySelectHandler(idx);
+			educationalProgramSelectHandler(idx);
+		})
+	} else {
+		specialtySelectHandler(0);
+		educationalProgramSelectHandler(0);
+	}
+
 	subjectTypeSelectHandler();
 	createdByPersonsSelectHandler();
 	educationalProgramGuarantorSelectHandler();

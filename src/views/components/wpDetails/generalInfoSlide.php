@@ -57,22 +57,58 @@ $title = "Загальна інформація";
 		</div>
 	</div>
 
-	<label id="specialtyDropdownLabel" class="multiselect-label">Спеціальність:
-		<select
-			id="specialtyIdsSelect"
-			data-wpId=<?= htmlspecialchars($details->id) ?>
-			multiple
-			<?php if (isset($details->specialtyIds)): ?> data-specialtyIds=<?= json_encode($details->specialtyIds) ?><?php endif; ?>>
-		</select>
-	</label>
-	<label id="educationalProgramDropdownLabel" class="multiselect-label">Освітня програма:
-		<select
-			id="educationalProgramIdsSelect"
-			data-wpId=<?= htmlspecialchars($details->id) ?>
-			multiple
-			<?php if (isset($details->educationalProgramIds)): ?> data-educationalProgramIds=<?= json_encode($details->educationalProgramIds) ?><?php endif; ?>>
-		</select>
-	</label>
+	<?php
+	$specialtyWithEducationalProgramIdsIndexes = [];
+	if (!empty($details->specialtyWithEducationalProgramIds)) {
+		foreach ($details->specialtyWithEducationalProgramIds as $idx => $data) {
+			$specialtyWithEducationalProgramIdsIndexes[] = $idx;
+		}
+	}
+	?>
+	<div
+		id="specialtyContainer"
+		class="specialty-container"
+		data-indexes=<?= json_encode($specialtyWithEducationalProgramIdsIndexes) ?>>
+		<?php if (!empty($details->specialtyWithEducationalProgramIds)): ?>
+			<?php foreach ($details->specialtyWithEducationalProgramIds as $idx => $data): ?>
+				<div class="specialty-group">
+					<label>Спеціальність:
+						<select
+							id="specialtyIdSelect<?= htmlspecialchars($idx) ?>"
+							data-wpId=<?= htmlspecialchars($details->id) ?>
+							data-idx=<?= htmlspecialchars($idx) ?>
+							<?php if (isset($data->specialtyId)): ?> data-specialtyId=<?= htmlspecialchars($data->specialtyId) ?><?php endif; ?>>
+						</select>
+					</label>
+					<label
+						id="educationalProgramIdsLabel<?= htmlspecialchars($idx) ?>"
+						class="multiselect-label <?php if (isset($data->specialtyId)): ?>educational-program-visible<?php else: ?>educational-program-invisible<?php endif; ?>">Освітні програми:
+						<select
+							id="educationalProgramIdsSelect<?= htmlspecialchars($idx) ?>"
+							data-wpId=<?= htmlspecialchars($details->id) ?>
+							data-idx=<?= htmlspecialchars($idx) ?>
+							multiple
+							<?php if (!isset($data->specialtyId)): ?>disabled<?php endif; ?>
+							<?php if (isset($data->educationalProgramsIds)): ?> data-educationalProgramIds=<?= json_encode($data->educationalProgramsIds) ?><?php endif; ?>>
+						</select>
+					</label>
+					<button
+						class="btn remove-specialty-btn"
+						type="button"
+						onclick="removeSpecialtyGroup(<?= htmlspecialchars($idx) ?>, <?= htmlspecialchars($details->id) ?>)">
+						Видалити
+					</button>
+				</div>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+	<button
+		class="btn create-new-specialty-btn"
+		type="button"
+		onclick="createNewSpecialtyGroup(<?= htmlspecialchars($details->id) ?>)">
+		Додати спеціальність та освітні програми
+	</button>
+
 	<div class="block">
 		<p class="block-title">Документ затверджено:</p>
 		<div

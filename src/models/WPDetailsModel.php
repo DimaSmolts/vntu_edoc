@@ -32,8 +32,6 @@ class WPDetailsModel
 	public ?string $stydingLevelId;
 	public ?string $subjectTypeId;
 	public array $fieldsOfStudyIds;
-	public array $specialtyIds;
-	public array $educationalProgramIds;
 	public ?string $notes;
 	public ?string $prerequisites;
 	public ?string $goal;
@@ -72,6 +70,7 @@ class WPDetailsModel
 	public ?StydingLevelTypeModel $stydingLevel;
 	public ?SubjectTypeModel $subjectType;
 	public array $assessmentCriterias;
+	public array $specialtyWithEducationalProgramIds;
 
 	public function __construct(
 		int $id,
@@ -84,8 +83,6 @@ class WPDetailsModel
 		?string $stydingLevelId = "",
 		?string $subjectTypeId = "",
 		array $fieldsOfStudyIds = [],
-		array $specialtyIds = [],
-		array $educationalProgramIds = [],
 		?string $notes = "",
 		?string $prerequisites = "",
 		?string $goal = "",
@@ -124,6 +121,7 @@ class WPDetailsModel
 		?StydingLevelTypeModel $stydingLevel = null,
 		?SubjectTypeModel $subjectType = null,
 		array $assessmentCriterias = [],
+		array $specialtyWithEducationalProgramIds = [],
 	) {
 		$this->id = $id;
 		$this->wpCreatorId = $wpCreatorId;
@@ -135,8 +133,6 @@ class WPDetailsModel
 		$this->stydingLevelId = $stydingLevelId;
 		$this->subjectTypeId = $subjectTypeId;
 		$this->fieldsOfStudyIds = $fieldsOfStudyIds;
-		$this->specialtyIds = $specialtyIds;
-		$this->educationalProgramIds = $educationalProgramIds;
 		$this->notes = $notes;
 		$this->prerequisites = $prerequisites;
 		$this->goal = $goal;
@@ -175,5 +171,6 @@ class WPDetailsModel
 		$this->stydingLevel = $stydingLevel;
 		$this->subjectType = $subjectType;
 		$this->assessmentCriterias = $assessmentCriterias;
+		$this->specialtyWithEducationalProgramIds = $specialtyWithEducationalProgramIds;
 	}
 }

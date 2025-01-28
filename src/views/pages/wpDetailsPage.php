@@ -72,7 +72,7 @@
     <script src="src/views/helpers/selectDropdowns/fetch/fetchDepartmentsById.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchStydingLevelTypes.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchSpecialties.js"></script>
-    <script src="src/views/helpers/selectDropdowns/fetch/fetchSpecialtiesByIds.js"></script>
+    <script src="src/views/helpers/selectDropdowns/fetch/fetchSpecialtiesById.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalPrograms.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchEducationalProgramsByIds.js"></script>
     <script src="src/views/helpers/selectDropdowns/fetch/fetchExamTypes.js"></script>
@@ -156,6 +156,8 @@
     <script src="src/views/helpers/textEditor/initializeTextEditorForStudingAndExamingMethods.js"></script>
     <script src="src/views/helpers/semesterControlMethods/createNewAdditionalTasks.js"></script>
     <script src="src/views/helpers/generalInfo/createNewFieldOfStudy.js"></script>
+    <script src="src/views/helpers/generalInfo/createNewSpecialtyGroup.js"></script>
+    <script src="src/views/helpers/generalInfo/removeSpecialtyGroup.js"></script>
     <script src="src/views/helpers/selfwork/updateTaskHours.js"></script>
     <script src="src/views/helpers/selfwork/updateLessonSelfworkHours.js"></script>
     <script src="src/views/helpers/selfwork/updateSelfworkTheme.js"></script>
@@ -238,6 +240,7 @@
         initializeSelectHandlers({
             wpId: <?= htmlspecialchars($details->id) ?>,
             semestersIds: <?php echo json_encode(!empty($semestersIds) ? $semestersIds : null); ?>,
+            specialtyWithEducationalProgramIds: <?php echo json_encode(!empty($details->specialtyWithEducationalProgramIds) ? $details->specialtyWithEducationalProgramIds : null); ?>,
         })
 
         initializeTextEditorForPrerequisitesAndGoal({

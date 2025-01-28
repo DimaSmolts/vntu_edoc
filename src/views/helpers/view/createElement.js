@@ -20,7 +20,8 @@ const createElement = ({
 	min,
 	max,
 	disabled,
-	target
+	target,
+	multiple
 }) => {
 	const element = document.createElement(elementName);
 
@@ -106,6 +107,10 @@ const createElement = ({
 
 	if (target) {
 		element.target = target;
+	}
+
+	if (multiple) {
+		element.multiple = multiple;
 	}
 
 	return element;

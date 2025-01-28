@@ -50,8 +50,6 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 		$workingProgramData->stydingLevelId ?? '',
 		$workingProgramData->subjectTypeId ?? '',
 		isset($workingProgramData->fieldsOfStudyIds) ? json_decode($workingProgramData->fieldsOfStudyIds) : [],
-		isset($workingProgramData->specialtyIds) ? json_decode($workingProgramData->specialtyIds) : [],
-		isset($workingProgramData->educationalProgramIds) ? json_decode($workingProgramData->educationalProgramIds) : [],
 		$workingProgramData->notes ?? '',
 		$workingProgramData->prerequisites ?? '',
 		$workingProgramData->goal ?? '',

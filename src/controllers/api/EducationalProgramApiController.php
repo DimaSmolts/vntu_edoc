@@ -30,9 +30,10 @@ class EducationalProgramApiController extends BaseController
 
 		if (isset($_GET['query'])) {
 			$query = trim($_GET['query']);
+			$specialtyId = intval($_GET['specialtyId']);
 
 			if (strlen($query) >= 3) {
-				$educationalPrograms = $this->educationalProgramService->getEducationalProgramsByQuery($query);
+				$educationalPrograms = $this->educationalProgramService->getEducationalProgramsByQuery($query, $specialtyId);
 
 				echo json_encode($educationalPrograms);
 			} else {

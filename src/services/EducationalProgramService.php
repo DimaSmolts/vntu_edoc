@@ -6,8 +6,14 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class EducationalProgramService
 {
-	public function getEducationalProgramsByQuery($queryText)
+	public function getEducationalProgramsByQuery($queryText, $specialtyId)
 	{
+		$specNum = Capsule::table('special')
+			->where('id', $specialtyId)
+			->get()
+			->first()
+			->spec_num_code;
+
 		$educationalPrograms = Capsule::table('special')
 			->selectRaw("
 				MIN(id) AS id,
@@ -22,6 +28,7 @@ class EducationalProgramService
 			->whereRaw("INSTR(spec, '.') > 0")
 			->whereRaw("SUBSTR(spec, INSTR(spec, '.') + 1) LIKE ?", ["%$queryText%"])
 			->where('arc', '=', false)
+			->where('spec_num_code', $specNum)
 			->groupBy('name')
 			->having('name', '<>', '')
 			->get();
