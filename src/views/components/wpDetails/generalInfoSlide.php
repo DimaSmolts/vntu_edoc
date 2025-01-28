@@ -148,7 +148,7 @@ $title = "Загальна інформація";
 				value="<?= htmlspecialchars($details->academicYear ?? '') ?>"
 				oninput="updateGeneralInfo(event, <?= htmlspecialchars($details->id) ?>, true)">
 		</label>
-		<label id="subjectTypeDropdownLabel">Тип предмету:
+		<label id="subjectTypeDropdownLabel">Тип дисципліни:
 			<select
 				id="subjectTypeIdSelect"
 				data-wpId=<?= htmlspecialchars($details->id) ?>
