@@ -29,33 +29,62 @@ class WPService
 
 		if (!empty($workingPrograms)) {
 			foreach ($workingPrograms as $workingProgram) {
-				$specialtyWithEducationalProgramIds = json_decode($workingProgram->specialtyWithEducationalProgramIds ?? '[]', true);
+				$rawSpecialtyWithEducationalProgramIds = isset($workingProgram->specialtyWithEducationalProgramIds)
+					? json_decode($workingProgram->specialtyWithEducationalProgramIds, true)
+					: [];
 
-				if (!empty($specialtyWithEducationalProgramIds)) {
-					$specialties = Capsule::table('special')
-						->selectRaw("
-							MIN(id) AS id,
-							CASE 
-								WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
-								ELSE spec
-							END AS name,
-							spec_num_code
-						")
-						->whereIn('id', $specialtyWithEducationalProgramIds)
-						->groupBy('name', 'spec_num_code')
-						->get();
+				$specialtiesWithEducationalPrograms = [];
 
-					$specialtiesCodesAndNames = $specialties->map(function ($specialty) {
-						return (object)[
-							'name' => $specialty->name,
-							'code' => $specialty->spec_num_code
-						];
-					})->toArray();
+				foreach ($rawSpecialtyWithEducationalProgramIds as $item) {
+					$key = array_key_first($item);
+					$data = $item[$key];
 
-					$workingProgram->specialtiesCodesAndNames = $specialtiesCodesAndNames;
-				} else {
-					$workingProgram->specialtiesCodesAndNames = [];
+					$specialty = null;
+					$educationalPrograms = [];
+
+					if (isset($data['specialtyId'])) {
+						$specialty = Capsule::table('special')
+							->selectRaw("
+								MIN(id) AS id,
+								CASE 
+									WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+									ELSE spec
+								END AS name,
+								spec_num_code
+							")
+							->where('id', $data['specialtyId'])
+							->groupBy('name', 'spec_num_code')
+							->get()
+							->first();
+					}
+
+					if (!empty($data['educationalProgramsIds'])) {
+						$educationalPrograms = Capsule::table('special')
+							->selectRaw("
+								MIN(id) AS id,
+								TRIM(
+									CASE 
+										WHEN INSTR(spec, '.') > 0 
+										THEN SUBSTR(spec, INSTR(spec, '.') + 1)
+										ELSE ''
+									END
+								) AS name
+							")
+							->whereIn('id', $data['educationalProgramsIds'])
+							->groupBy('name')
+							->get();
+					}
+
+					$specialtiesWithEducationalProgram = (object)[
+						'specialtyName' => $specialty->name,
+						'specialtyCode' => $specialty->spec_num_code,
+						'educationalPrograms' => $educationalPrograms
+					];
+
+					$specialtiesWithEducationalPrograms[] = $specialtiesWithEducationalProgram;
 				}
+
+				$workingProgram->specialtiesWithEducationalPrograms = $specialtiesWithEducationalPrograms;
 			}
 
 			return (object) [
@@ -352,9 +381,27 @@ class WPService
 			$wp->fieldsOfStudy = collect();
 		}
 
-		$specialtyWithEducationalProgramIds = json_decode($wp->specialtyWithEducationalProgramIds ?? '[]', true);
+		$rawSpecialtyWithEducationalProgramIds = isset($wp->specialtyWithEducationalProgramIds)
+			? json_decode($wp->specialtyWithEducationalProgramIds, true)
+			: [];
 
-		if (!empty($specialtyWithEducationalProgramIds)) {
+		$specialtiesIds = [];
+		$educationalProgramsIds = [];
+
+		foreach ($rawSpecialtyWithEducationalProgramIds as $item) {
+			$key = array_key_first($item);
+			$data = $item[$key];
+
+			if (isset($data['specialtyId'])) {
+				$specialtiesIds[] = [$data['specialtyId']];
+			}
+
+			if (!empty($data['educationalProgramsIds'])) {
+				$educationalProgramsIds = array_merge($educationalProgramsIds, $data['educationalProgramsIds']);
+			}
+		}
+
+		if (!empty($specialtiesIds)) {
 			$specialties = Capsule::table('special')
 				->selectRaw("
 					MIN(id) AS id,
@@ -364,7 +411,7 @@ class WPService
 					END AS name,
 					spec_num_code
 				")
-				->whereIn('id', $specialtyWithEducationalProgramIds)
+				->whereIn('id', $specialtiesIds)
 				->groupBy('name', 'spec_num_code')
 				->get();
 
@@ -373,9 +420,7 @@ class WPService
 			$wp->specialties = collect();
 		}
 
-		$educationalProgramIds = json_decode($wp->educationalProgramIds ?? '[]', true);
-
-		if (!empty($educationalProgramIds)) {
+		if (!empty($educationalProgramsIds)) {
 			$educationalPrograms = Capsule::table('special')
 				->selectRaw("
 					MIN(id) AS id,
@@ -387,7 +432,7 @@ class WPService
 						END
 					) AS name
 				")
-				->whereIn('id', $educationalProgramIds)
+				->whereIn('id', $educationalProgramsIds)
 				->groupBy('name')
 				->get();
 

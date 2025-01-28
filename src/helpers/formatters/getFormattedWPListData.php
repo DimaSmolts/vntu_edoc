@@ -15,7 +15,7 @@ function getFormattedWPListData($wps)
 			$wp->id,
 			$wp->disciplineName ?? '',
 			$wp->createdAt,
-			$wp->specialtiesCodesAndNames,
+			$wp->specialtiesWithEducationalPrograms,
 			implode(', ', $semesterNumbers)
 		);
 	});

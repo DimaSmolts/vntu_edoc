@@ -14,9 +14,14 @@
 					<div class="wp-list-item-content">
 						<span><?= htmlspecialchars($item->disciplineName) ?></span>
 						<div class="specialties-names">
-							<?php if (!empty($item->specialtiesCodesAndNames)): ?>
-								<?php foreach ($item->specialtiesCodesAndNames as $specialtiesCodeAndName): ?>
-									<span><?= htmlspecialchars($specialtiesCodeAndName->code) ?> <?= htmlspecialchars($specialtiesCodeAndName->name) ?></span>
+							<?php if (!empty($item->specialtiesWithEducationalPrograms)): ?>
+								<?php foreach ($item->specialtiesWithEducationalPrograms as $specialtiesWithEducationalPrograms): ?>
+									<span>
+										<?= htmlspecialchars($specialtiesWithEducationalPrograms->specialtyCode) ?> <?= htmlspecialchars($specialtiesWithEducationalPrograms->specialtyName) ?>.
+										<?php foreach ($specialtiesWithEducationalPrograms->educationalPrograms as $educationalProgram): ?>
+											<?= htmlspecialchars($educationalProgram->name) ?>
+										<?php endforeach; ?>
+									</span>
 								<?php endforeach; ?>
 							<?php endif; ?>
 						</div>
