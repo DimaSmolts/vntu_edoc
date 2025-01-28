@@ -9,25 +9,6 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class ThemeService
 {
-	public function getThemesWithLessonsByWPId($wpId)
-	{
-		$themes = DBThemeModel::with([
-			'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-			'module.semester.educationalForms.educationalForm',
-			'module.semester'
-		])
-			->whereHas('module.semester', function ($query) use ($wpId) {
-				$query->where('educationalDisciplineWPId', $wpId);
-			})
-			->orderBy('themeNumber')
-			->get();
-
-		return $themes;
-	}
-
 	public function createNewTheme($moduleId): int
 	{
 		// Use the query builder instead of Eloquent's save() method

@@ -33,24 +33,6 @@ class ThemeApiController extends BaseController
 		$this->lessonService = new LessonService();
 	}
 
-	// Метод контролера для отримання теми з усіма уроками по id робочої програми
-	public function getThemesWithLessonsByWPId()
-	{
-		header('Content-Type: application/json');
-
-		$wpId = $_GET['id'];
-
-		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
-		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
-
-		if ($ifCurrentUserHasAccessToWP) {
-			$rawThemes = $this->themeService->getThemesWithLessonsByWPId($wpId);
-			$themes = getFullFormattedThemeData($rawThemes);
-
-			echo json_encode(['status' => 'success', 'themes' => $themes], JSON_PRETTY_PRINT);
-		}
-	}
-
 	// Метод контролера для створення нової теми
 	public function createNewTheme()
 	{

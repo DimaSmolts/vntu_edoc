@@ -10,7 +10,7 @@ const getEducationalDisciplineStructureSlide = async (
 		linkWithParams: `api/getEducationalDisciplineStructure/?id=${wpId}&isSeminarVisible=${isSeminarAddBtnDisabled}&isPracticalVisible=${isPracticalAddBtnDisabled}&isLaboratoryVisible=${isLaboratoryAddBtnDisabled}`
 	});
 
-	const educationalDisciplineStructureContentContainer = document.getElementById('educationalDisciplineSemesterStructureNew');
+	const educationalDisciplineStructureContentContainer = document.getElementById('educationalDisciplineSemesterStructure');
 	educationalDisciplineStructureContentContainer.innerHTML = "";
 	educationalDisciplineStructureContentContainer.innerHTML = data.educationalDisciplineStructureContent;
 }

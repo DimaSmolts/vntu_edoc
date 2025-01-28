@@ -112,11 +112,6 @@ $router->get('/pdf', function () {
 	$pdfController->getPDFData();
 });
 
-$router->get('/api/getThemes', function () {
-	$themeApiController = new ThemeApiController();
-	$themeApiController->getThemesWithLessonsByWPId();
-});
-
 $router->get('/api/getCourseworkAndProject', function () {
 	$semesterApiController = new SemesterApiController();
 	$semesterApiController->getCourseworkAndProject();

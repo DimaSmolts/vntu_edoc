@@ -129,10 +129,8 @@
     <script src="src/views/helpers/semester/deleteAdditionalTask.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getHours.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/getLessonId.js"></script>
-    <script src="src/views/helpers/educationalDisciplineStructure/getThemesForEducationalDisciplineStructure.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createLessonsBlock.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createAdditionalLessonsContainer.js"></script>
-    <script src="src/views/helpers/educationalDisciplineStructure/createLessonsContainer.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createLessonRow.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createNewLesson.js"></script>
     <script src="src/views/helpers/educationalDisciplineStructure/createNewLessonTable.js"></script>

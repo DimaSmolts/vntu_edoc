@@ -97,6 +97,17 @@ const educationalDisciplineSemesterControlMethodsSlideObserverCallback = (entrie
 const educationalDisciplineSemesterControlMethodsSlideObserver = new IntersectionObserver(educationalDisciplineSemesterControlMethodsSlideObserverCallback, observerOptions);
 educationalDisciplineSemesterControlMethodsSlideObserver.observe(educationalDisciplineSemesterControlMethodsSlide);
 
+const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
+
+const educationalDisciplineStructureSlideObserverCallback = (entries) => {
+	entries.forEach((entry) => {
+		if (entry.isIntersecting) {
+			// отримуємо всі теми занять
+			getEducationalDisciplineStructureSlide();
+		}
+	});
+};
+
 const selfworkSlide = document.getElementById("selfworkSlide");
 
 const selfworkSlideObserverCallback = (entries) => {
@@ -111,29 +122,25 @@ const selfworkSlideObserverCallback = (entries) => {
 const selfworkSlideObserver = new IntersectionObserver(selfworkSlideObserverCallback, observerOptions);
 selfworkSlideObserver.observe(selfworkSlide);
 
-const educationalDisciplineStructureSlide = document.getElementById("educationalDisciplineStructureSlide");
-const educationalDisciplineStructureSlideNew = document.getElementById("educationalDisciplineStructureSlideNew");
+const pointsDistributionSlide = document.getElementById("pointsDistributionSlide");
 
-const educationalDisciplineStructureSlideObserverCallback = (entries) => {
+const pointsDistributionSlideObserverCallback = (entries) => {
 	entries.forEach((entry) => {
 		if (entry.isIntersecting) {
-			// отримуємо всі теми з уроками до тем
-			getThemesForEducationalDisciplineStructure();
-			getEducationalDisciplineStructureSlide();
-
-			// перевіряємо чи є курсовий та рендеримо наступний слайдм про курсовий
-			getCourseworkSlide();
-
 			// отримуємо всі дані для розподілу балів оцінювання знань  з окремих видів роботи та в цілому по модулях (в балах)
 			getPointsDistributionSlide();
+
+			// перевіряємо чи є курсовий та рендеримо наступний слайд про курсовий
+			getCourseworkSlide();
 		}
 	});
 };
 
+const pointsDistributionSlideObserver = new IntersectionObserver(pointsDistributionSlideObserverCallback, observerOptions);
+pointsDistributionSlideObserver.observe(pointsDistributionSlide);
+
 const educationalDisciplineStructureSlideObserver = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
-const educationalDisciplineStructureSlideObserverNew = new IntersectionObserver(educationalDisciplineStructureSlideObserverCallback, observerOptions);
 educationalDisciplineStructureSlideObserver.observe(educationalDisciplineStructureSlide);
-educationalDisciplineStructureSlideObserverNew.observe(educationalDisciplineStructureSlideNew);
 
 const generalAssessmentCriteriaSlide = document.getElementById("generalAssessmentCriteriaSlide");
 
