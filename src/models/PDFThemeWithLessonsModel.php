@@ -9,9 +9,6 @@ class PDFThemeWithLessonsModel
 	public ?string $description;
 	public ?int $themeNumber;
 	public array $lections = [];
-	public array $practicals = [];
-	public array $seminars = [];
-	public array $labs = [];
 	public array $semesterEducationalForms = [];
 	public array $educationalFormHoursStructure = [];
 
@@ -21,9 +18,6 @@ class PDFThemeWithLessonsModel
 		?string $description = '',
 		?int $themeNumber = null,
 		array $lections = [],
-		array $practicals = [],
-		array $seminars = [],
-		array $labs = [],
 		array $semesterEducationalForms = [],
 		array $educationalFormHoursStructure = [],
 	) {
@@ -32,9 +26,6 @@ class PDFThemeWithLessonsModel
 		$this->description = $description;
 		$this->themeNumber = $themeNumber;
 		$this->lections = $lections;
-		$this->practicals = $practicals;
-		$this->seminars = $seminars;
-		$this->labs = $labs;
 		$this->semesterEducationalForms = $semesterEducationalForms;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
 	}

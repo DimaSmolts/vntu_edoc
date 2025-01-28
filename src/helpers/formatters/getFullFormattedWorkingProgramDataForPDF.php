@@ -151,33 +151,22 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 		) {
 			// Збираємо всі заняття по типах в модулі
 			$lectionsForModule = [];
-			$practicalsForModule = [];
-			$seminarsForModule = [];
-			$labsForModule = [];
+
+			// Обробляємо практичні до модуля та трансформуємо їх у модель
+			$practicalsForModule = getLessonWithEducationalFormLessonHour($module->practicals);
+			// Обробляємо семінари до модуля та трансформуємо їх у модель
+			$seminarsForModule = getLessonWithEducationalFormLessonHour($module->seminars);
+			// Обробляємо лабораторні до теми та трансформуємо їх у модель
+			$labsForModule = getLessonWithEducationalFormLessonHour($module->labs);
 
 			// Обробляємо теми модуля та трансформуємо їх у модель
 			$themes = $module->themes->map(function ($theme) use (
 				&$lectionsForModule,
-				&$practicalsForModule,
-				&$seminarsForModule,
-				&$labsForModule,
 				&$educationalForms,
 			) {
 				// Обробляємо лекції до теми та трансформуємо їх у модель
 				$lections = getLessonWithEducationalFormLessonHour($theme->lections);
 				$lectionsForModule = array_merge($lectionsForModule, $lections);
-
-				// Обробляємо практичні до теми та трансформуємо їх у модель
-				$practicals = getLessonWithEducationalFormLessonHour($theme->practicals);
-				$practicalsForModule = array_merge($practicalsForModule, $practicals);
-
-				// Обробляємо семінари до теми та трансформуємо їх у модель
-				$seminars = getLessonWithEducationalFormLessonHour($theme->seminars);
-				$seminarsForModule = array_merge($seminarsForModule, $seminars);
-
-				// Обробляємо лабораторні до теми та трансформуємо їх у модель
-				$labs = getLessonWithEducationalFormLessonHour($theme->labs);
-				$labsForModule = array_merge($labsForModule, $labs);
 
 				// Рахуємо всі години різних занять для теми
 				$educationalFormHoursStructure = [];
@@ -186,9 +175,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 					$educationalFormHoursStructure[$educationalForm->colName] = getEducationalFormHoursStructureForTheme(
 						$educationalForm->colName,
 						$lections,
-						$practicals,
-						$seminars,
-						$labs
+						[],
+						[],
+						[]
 					);
 				};
 
@@ -198,9 +187,6 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 					$theme->description ?? "",
 					$theme->themeNumber,
 					$lections,
-					$practicals,
-					$seminars,
-					$labs,
 					$educationalForms,
 					$educationalFormHoursStructure
 				);
