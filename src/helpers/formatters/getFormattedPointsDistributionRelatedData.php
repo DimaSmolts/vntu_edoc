@@ -22,20 +22,9 @@ function getFormattedPointsDistributionRelatedData($workingProgramData)
 
 	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) use (&$tasksIds) {
 		$modules = $semester->modules->map(function ($module) use (&$tasksIds) {
-			$practicals = [];
-			$seminars = [];
-			$labs = [];
-
-			$module->themes->map(function ($theme) use (&$practicals, &$seminars, &$labs) {
-				$themePracticals = getLessonWithEducationalFormLessonHour($theme->practicals);
-				$practicals = array_merge($practicals, $themePracticals);
-
-				$themeSeminars = getLessonWithEducationalFormLessonHour($theme->seminars);
-				$seminars = array_merge($seminars, $themeSeminars);
-
-				$themeLabs = getLessonWithEducationalFormLessonHour($theme->labs);
-				$labs = array_merge($labs, $themeLabs);
-			});
+			$practicals = getLessonWithEducationalFormLessonHour($module->practicals);
+			$seminars = getLessonWithEducationalFormLessonHour($module->seminars);
+			$labs = getLessonWithEducationalFormLessonHour($module->labs);
 
 			return new PointsDistributionRelatedModuleWithLessonsModel(
 				$module->id,
