@@ -56,7 +56,7 @@ class ThemeApiController extends BaseController
 
 			$lectionLessonTypeId = getLessonTypeId($lessonTypes, 'lection');
 
-			$this->lessonService->createNewLesson($newThemeId, $lectionLessonTypeId);
+			$this->lessonService->createNewLessonWithThemeId($newThemeId, $lectionLessonTypeId);
 
 			echo json_encode(['status' => 'success', 'themeId' => $newThemeId]);
 		}

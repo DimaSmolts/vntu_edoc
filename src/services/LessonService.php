@@ -34,6 +34,16 @@ class LessonService
 		return $lessonId;
 	}
 
+	public function createNewLessonWithThemeId($themeId, $lessonTypeId): int
+	{
+		$lessonId = Capsule::table('lessons')->insertGetId([
+			'themeId' => $themeId,
+			'lessonTypeId' => $lessonTypeId
+		]);
+
+		return $lessonId;
+	}
+
 	public function updateLesson($themeId, $lessonTypeId, $field, $value)
 	{
 		$lesson = Capsule::table('lessons')
