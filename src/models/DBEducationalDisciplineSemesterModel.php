@@ -71,35 +71,6 @@ class DBEducationalDisciplineSemesterModel extends Model
         return $this->hasMany(DBEducationalFormLessonSelfworkHoursModel::class, 'semesterId');
     }
 
-    public function lessons()
-    {
-        return $this->hasMany(DBLessonModel::class, 'semesterId');
-    }
-
-    public function seminars()
-    {
-        return $this->hasMany(DBLessonModel::class, 'semesterId')
-            ->whereHas('lessonType', function ($query) {
-                $query->where('name', 'seminar');
-            });
-    }
-
-    public function practicals()
-    {
-        return $this->hasMany(DBLessonModel::class, 'semesterId')
-            ->whereHas('lessonType', function ($query) {
-                $query->where('name', 'practical');
-            });
-    }
-
-    public function labs()
-    {
-        return $this->hasMany(DBLessonModel::class, 'semesterId')
-            ->whereHas('lessonType', function ($query) {
-                $query->where('name', 'laboratory');
-            });
-    }
-
     public function selfworks()
     {
         return $this->hasMany(DBLessonModel::class, 'semesterId')

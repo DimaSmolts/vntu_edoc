@@ -2,12 +2,14 @@
 
 require_once __DIR__ . '/../../models/SemesterEducationalDisciplineStructureModel.php';
 require_once __DIR__ . '/../../models/EducationalFormModel.php';
+require_once __DIR__ . '/../../models/ModuleEducationalDisciplineStructureModel.php';
 require_once __DIR__ . '/getFormattedEducationalFormData.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 
 use App\Models\SemesterEducationalDisciplineStructureModel;
 use App\Models\EducationalFormModel;
+use App\Models\ModuleEducationalDisciplineStructureModel;
 
 function getFormattedEducationalDisciplineStructure($wp)
 {
@@ -25,9 +27,7 @@ function getFormattedEducationalDisciplineStructure($wp)
 			})->toArray() : [];
 
 			$lections = [];
-			$seminars = [];
-			$practicals = [];
-			$labs = [];
+			$modules = [];
 
 			if (!empty($semester->modules)) {
 				foreach ($semester->modules as $module) {
@@ -37,26 +37,27 @@ function getFormattedEducationalDisciplineStructure($wp)
 							$lections = array_values(array_merge($lections, $themeLections));
 						});
 					}
+
+					$seminars = getLessonWithEducationalFormLessonHour($module->seminars);
+					$practicals = getLessonWithEducationalFormLessonHour($module->practicals);
+					$labs = getLessonWithEducationalFormLessonHour($module->labs);
+
+					$modules[] = new ModuleEducationalDisciplineStructureModel(
+						$module->id,
+						$module->moduleNumber,
+						$seminars,
+						$practicals,
+						$labs
+					);
 				}
 			}
-
-			$themeSeminars = getLessonWithEducationalFormLessonHour($semester->seminars);
-			$seminars = array_values(array_merge($seminars, $themeSeminars));
-
-			$themePracticals = getLessonWithEducationalFormLessonHour($semester->practicals);
-			$practicals = array_values(array_merge($practicals, $themePracticals));
-
-			$themeLabs = getLessonWithEducationalFormLessonHour($semester->labs);
-			$labs = array_values(array_merge($labs, $themeLabs));
 
 			$educationalDisciplineStructure[] = new SemesterEducationalDisciplineStructureModel(
 				$semester->id,
 				$semester->semesterNumber,
 				$educationalForms,
 				$lections,
-				$seminars,
-				$practicals,
-				$labs
+				$modules
 			);
 		}
 	}

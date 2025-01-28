@@ -39,6 +39,16 @@ function getFormattedLessonsAndExamingsStructure($data)
 
 			if (isset($semester->modules)) {
 				foreach ($semester->modules as $module) {
+					if (!$module->practicals->isEmpty()) {
+						$isPracticalsExist = true;
+					}
+					if (!$module->labs->isEmpty()) {
+						$isLabsExist = true;
+					}
+					if (!$module->seminars->isEmpty()) {
+						$isSeminarsExist = true;
+					}
+
 					if (getIsTypeOfWorkExistsInModule($module, $tasksIds->colloquium)) {
 						$isColloquiumExists = true;
 					};
@@ -47,16 +57,6 @@ function getFormattedLessonsAndExamingsStructure($data)
 						$isControlWorkExists = true;
 					}
 				}
-			}
-
-			if (!$semester->practicals->isEmpty()) {
-				$isPracticalsExist = true;
-			}
-			if (!$semester->labs->isEmpty()) {
-				$isLabsExist = true;
-			}
-			if (!$semester->seminars->isEmpty()) {
-				$isSeminarsExist = true;
 			}
 		}
 	}

@@ -8,25 +8,19 @@ class SemesterEducationalDisciplineStructureModel
 	public ?int $semesterNumber;
 	public array $educationalForms;
 	public array $lections;
-	public array $seminars;
-	public array $practicals;
-	public array $labs;
+	public array $modules;
 
 	public function __construct(
 		$id,
 		?int $semesterNumber = null,
 		$educationalForms = [],
 		$lections = [],
-		$seminars = [],
-		$practicals = [],
-		$labs = [],
+		$modules = [],
 	) {
 		$this->id = $id;
 		$this->semesterNumber = $semesterNumber;
 		$this->educationalForms = $educationalForms;
 		$this->lections = $lections;
-		$this->seminars = $seminars;
-		$this->practicals = $practicals;
-		$this->labs = $labs;
+		$this->modules = $modules;
 	}
 }

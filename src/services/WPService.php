@@ -157,7 +157,10 @@ class WPService
 							$subquery->with([
 								'taskType',
 							]);
-						}
+						},
+						'labs',
+						'practicals',
+						'seminars'
 					])
 					->orderBy('moduleNumber');
 			},
@@ -165,9 +168,6 @@ class WPService
 				$query
 					->with([
 						'lections',
-						'labs',
-						'practicals',
-						'seminars'
 					])
 					->orderBy('themeNumber');
 			},
@@ -266,10 +266,25 @@ class WPService
 			'semesters.modules.themes' => function ($query) {
 				$query->orderBy('themeNumber')
 					->with([
-						'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-						'seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+						'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+					]);
+			},
+			'semesters.modules.labs' => function ($query) {
+				$query->orderBy('lessonNumber')
+					->with([
+						'educationalFormLessonHours.semesterEducationalForm.educationalForm',
+					]);
+			},
+			'semesters.modules.practicals' => function ($query) {
+				$query->orderBy('lessonNumber')
+					->with([
+						'educationalFormLessonHours.semesterEducationalForm.educationalForm'
+					]);
+			},
+			'semesters.modules.seminars' => function ($query) {
+				$query->orderBy('lessonNumber')
+					->with([
+						'educationalFormLessonHours.semesterEducationalForm.educationalForm'
 					]);
 			},
 			'createdByPersons' => function ($query) {
@@ -788,11 +803,7 @@ class WPService
 						$subquery->with([
 							'taskType',
 						]);
-					}
-				]);
-			},
-			'semesters.modules.themes' => function ($query) {
-				$query->with([
+					},
 					'labs',
 					'practicals',
 					'seminars'
@@ -868,16 +879,16 @@ class WPService
 									'taskType',
 									'educationalFormTaskHours.semesterEducationalForm.educationalForm'
 								]);
-							}
+							},
+							'labs',
+							'practicals',
+							'seminars'
 						])
 						->orderBy('moduleNumber');
 				},
 				'semesters.modules.themes' => function ($query) {
 					$query->with([
-						'lections',
-						'labs',
-						'practicals',
-						'seminars'
+						'lections'
 					]);
 				},
 				'semesters.educationalForms.educationalForm',
@@ -942,10 +953,10 @@ class WPService
 	public function getWPCreatorIdByLessonId($lessonId)
 	{
 		return DBEducationalDisciplineWorkingProgramModel::with([
-			'semesters.lessons'
+			'semesters.modules.lessons'
 		])
 			->select(['wpCreatorId'])
-			->whereHas('semesters.lessons', function ($query) use ($lessonId) {
+			->whereHas('semesters.modules.lessons', function ($query) use ($lessonId) {
 				$query->where('id', $lessonId);
 			})
 			->get()
@@ -967,10 +978,78 @@ class WPService
 		$wps = DBEducationalDisciplineWorkingProgramModel::select(['id'])
 			->with([
 				'semesters.educationalForms.educationalForm',
-				'semesters.modules.themes.lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-				'semesters.labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-				'semesters.practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
-				'semesters.seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+				'semesters' => function ($q) {
+					$q->orderBy('semesterNumber')
+						->with([
+							'modules' => function ($query) {
+								$query->orderBy('moduleNumber')
+									->with([
+										'themes' => function ($subquery) {
+											$subquery->orderBy('themeNumber')
+												->with([
+													'lections' => function ($sbq) {
+														$sbq->orderBy('lessonNumber')
+															->with([
+																'educationalFormLessonHours.semesterEducationalForm.educationalForm'
+															]);
+													}
+												]);
+										},
+										'labs' => function ($subquery) {
+											$subquery->orderBy('lessonNumber')
+												->with([
+													'educationalFormLessonHours.semesterEducationalForm.educationalForm',
+												]);
+										},
+										'practicals' => function ($subquery) {
+											$subquery->orderBy('lessonNumber')
+												->with([
+													'educationalFormLessonHours.semesterEducationalForm.educationalForm',
+												]);
+										},
+										'seminars' => function ($subquery) {
+											$subquery->orderBy('lessonNumber')
+												->with([
+													'educationalFormLessonHours.semesterEducationalForm.educationalForm',
+												]);
+										},
+									]);
+							}
+						]);
+				},
+
+
+				// 'semesters.modules.themes.lections' => function ($query) {
+				// 	$query->orderBy('themeNumber')
+				// 		->with([
+				// 			'lections.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+				// 		]);
+				// },
+				// 'semesters.modules.labs' => function ($query) {
+				// 	$query->orderBy('lessonNumber')
+				// 		->with([
+				// 			'educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				// 		]);
+				// },
+				// 'semesters.modules.practicals' => function ($query) {
+				// 	$query->orderBy('lessonNumber')
+				// 		->with([
+				// 			'educationalFormLessonHours.semesterEducationalForm.educationalForm'
+				// 		]);
+				// },
+				// 'semesters.modules.seminars' => function ($query) {
+				// 	$query->orderBy('lessonNumber')
+				// 		->with([
+				// 			'educationalFormLessonHours.semesterEducationalForm.educationalForm'
+				// 		]);
+				// },
+
+
+
+				// 'semesters.modules.themes.lections.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				// 'semesters.modules.labs.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				// 'semesters.modules.practicals.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+				// 'semesters.modules.seminars.educationalFormLessonHours.semesterEducationalForm.educationalForm'
 			])
 			->where('id', $wpId)
 			->get();

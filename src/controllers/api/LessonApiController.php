@@ -45,21 +45,21 @@ class LessonApiController extends BaseController
 		$input = file_get_contents('php://input');
 		$data = json_decode($input, true);
 
-		$semesterId = intval($data['semesterId']);
+		$wpId = intval($data['wpId']);
 		$lessonTypeName = $data['lessonTypeName'];
 
-		$wpCreatorId = $this->wpService->getWPCreatorIdBySemesterId($semesterId);
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
 		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
 
 		if ($ifCurrentUserHasAccessToWP) {
-			$wpId = intval($data['wpId']);
+			$moduleId = intval($data['moduleId']);
 
 			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
 			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
-			$newLessonId = $this->lessonService->createNewLesson($semesterId, $lessonTypeId);
+			$newLessonId = $this->lessonService->createNewLesson($moduleId, $lessonTypeId);
 
 			$existingLessonAssessmentCriteria = $this->assessmentCriteriaService->getAssessmentCriteriaByWPIdAndLessonType($wpId, $lessonTypeId);
 
@@ -119,20 +119,20 @@ class LessonApiController extends BaseController
 
 		if ($ifCurrentUserHasAccessToWP) {
 			$lessonTypeName = $_GET['lessonTypeName'];
-			$semestersIds = isset($_GET['semestersIds']) ? $_GET['semestersIds'] : '';
-			$semestersIdsArray = array_map('intval', explode(',', $semestersIds));
+			$modulesIds = isset($_GET['modulesIds']) ? $_GET['modulesIds'] : '';
+			$modulesIdsArray = array_map('intval', explode(',', $modulesIds));
 
 			$rawLessonTypes = $this->lessonTypeService->getLessonTypes();
 			$lessonTypes = getFormattedLessonTypesData($rawLessonTypes);
 
 			$lessonTypeId = getLessonTypeId($lessonTypes, $lessonTypeName);
 
-			$lessons = $this->lessonService->getLessonsBySemestersIdsAndTypeId($lessonTypeId, $semestersIdsArray);
+			$lessons = $this->lessonService->getLessonsByModulesIdsAndTypeId($lessonTypeId, $modulesIdsArray);
 
 			$this->assessmentCriteriaService->deleteAssessmentCriteriaByLessonType($wpId, $lessonTypeId);
 
 			if (count($lessons) > 0) {
-				$this->lessonService->deleteAllLessonsByType($lessonTypeId, $semestersIdsArray);
+				$this->lessonService->deleteAllLessonsByType($lessonTypeId, $modulesIdsArray);
 			} else {
 				echo json_encode(['status' => 'success']);
 			}

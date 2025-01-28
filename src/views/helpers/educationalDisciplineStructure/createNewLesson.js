@@ -1,6 +1,6 @@
 const createNewLesson = async (
-    semesterId,
-    semesterIdx,
+    moduleId,
+    idx,
     lessonTypeName,
     semesterEducationalForms,
     educationalFormsInSemesters
@@ -9,7 +9,7 @@ const createNewLesson = async (
     const wpId = url.searchParams.get("id");
 
     const postData = {
-        semesterId,
+        moduleId,
         lessonTypeName,
         wpId
     };
@@ -24,6 +24,6 @@ const createNewLesson = async (
         lessonId: data.lessonId,
         semesterEducationalForms,
         educationalFormsInSemesters,
-        semesterIdx
+        idx
     });
 }

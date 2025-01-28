@@ -16,18 +16,18 @@ class LessonService
 			->first();
 	}
 
-	public function getLessonsBySemestersIdsAndTypeId($lessonTypeId, $semestersIds)
+	public function getLessonsByModulesIdsAndTypeId($lessonTypeId, $modulesIds)
 	{
 		return Capsule::table('lessons')
 			->where('lessonTypeId', $lessonTypeId)
-			->whereIn('semesterId', $semestersIds)
+			->whereIn('moduleId', $modulesIds)
 			->get();
 	}
 
-	public function createNewLesson($semesterId, $lessonTypeId): int
+	public function createNewLesson($moduleId, $lessonTypeId): int
 	{
 		$lessonId = Capsule::table('lessons')->insertGetId([
-			'semesterId' => $semesterId,
+			'moduleId' => $moduleId,
 			'lessonTypeId' => $lessonTypeId
 		]);
 
@@ -93,12 +93,12 @@ class LessonService
 		}
 	}
 
-	public function deleteAllLessonsByType($lessonTypeId, $semestersIds)
+	public function deleteAllLessonsByType($lessonTypeId, $modulesIds)
 	{
 		// Use Capsule to delete the theme by ID
 		$deleted = Capsule::table('lessons')
 			->where('lessonTypeId', $lessonTypeId)
-			->whereIn('semesterId', $semestersIds)
+			->whereIn('moduleId', $modulesIds)
 			->delete();
 
 		// Check if any row was deleted

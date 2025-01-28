@@ -338,10 +338,14 @@ class WPApiController extends BaseController
 			$rawEducationalDisciplineStructure = $this->wpService->getSemestersLessonsWithEducationalForms($wpId);
 			$semesters = getFormattedEducationalDisciplineStructure($rawEducationalDisciplineStructure);
 			$structure = getFormattedLessonsAndExamingsStructure($rawEducationalDisciplineStructure);
-			$semestersIds = [];
+			$modulesIds = [];
 
 			foreach ($semesters as $semester) {
-				$semestersIds[] = $semester->id;
+				if (!empty($semester->modules)) {
+					foreach ($semester->modules as $module) {
+						$modulesIds[] = $module->id;
+					}
+				}
 			}
 
 			if ($data) {

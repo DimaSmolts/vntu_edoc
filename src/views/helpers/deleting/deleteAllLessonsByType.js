@@ -1,9 +1,9 @@
-const deleteAllLessonsByType = async (event, lessonTypeName, semestersIds) => {
+const deleteAllLessonsByType = async (event, lessonTypeName, modulesIds) => {
 	const url = new URL(window.location.href);
 	const wpId = url.searchParams.get("id");
 
 	const data = await makeDeleteRequestAndReturnData({
-		linkWithParams: `api/deleteAllLessonsByType/?lessonTypeName=${lessonTypeName}&semestersIds=${semestersIds}&wpId=${wpId}`
+		linkWithParams: `api/deleteAllLessonsByType/?lessonTypeName=${lessonTypeName}&modulesIds=${modulesIds}&wpId=${wpId}`
 	})
 
 	if (data.status === 'success') {

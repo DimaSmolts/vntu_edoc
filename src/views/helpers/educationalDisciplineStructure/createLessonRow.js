@@ -3,7 +3,7 @@ const createLessonRow = ({
 	lessonId,
 	semesterEducationalForms,
 	educationalFormsInSemesters,
-	semesterIdx,
+	idx,
 }) => {
 	const row = createElement({ elementName: 'tr', id: `lesson${lessonId}` });
 
@@ -103,10 +103,10 @@ const createLessonRow = ({
 	row.appendChild(removeBtnCell);
 
 	const tableBody = document.getElementById(`${lessonTypeName}Table`);
-	const nextSemesterRow = document.getElementById(`${lessonTypeName}Semester${semesterIdx + 1}`);
+	const nextModuleRow = document.getElementById(`${lessonTypeName}Module${idx + 1}`);
 
-	if (nextSemesterRow) {
-		tableBody.insertBefore(row, nextSemesterRow);
+	if (nextModuleRow) {
+		tableBody.insertBefore(row, nextModuleRow);
 	} else {
 		tableBody.appendChild(row);
 	}
