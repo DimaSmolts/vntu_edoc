@@ -6,7 +6,7 @@ function getIsAdditionalTasksExistInWP($semesters)
 
 	if (!empty($semesters)) {
 		foreach ($semesters as $semester) {
-			if (!empty($semester->additionalTasks)) {
+			if (count($semester->additionalTasks) > 0) {
 				$isAdditionalTasksExist = true;
 			}
 		}

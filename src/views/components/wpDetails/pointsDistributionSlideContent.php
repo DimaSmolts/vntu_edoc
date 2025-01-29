@@ -33,7 +33,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 $tasksIds = getTaskId();
 ?>
 <div>
-	<?php if (!empty($pointsDistributionRelatedData->semesters)): ?>
+	<?php if (!empty($pointsDistributionRelatedData->semesters) && $isAnyTaskExists): ?>
 		<table>
 			<tr>
 				<th rowspan="2">Вид роботи</th>
@@ -396,7 +396,9 @@ $tasksIds = getTaskId();
 				<?php endforeach; ?>
 			</tr>
 		</table>
-	<?php else: ?>
+	<?php elseif (empty($pointsDistributionRelatedData->semesters)): ?>
 		<p>Недостатньо даних, додайте принаймні один семестр.</p>
+	<?php elseif (!$isAnyTaskExists): ?>
+		<p>Недостатньо даних, додайте принаймні один тип занять чи індивідуальних завдань.</p>
 	<?php endif; ?>
 </div>

@@ -77,7 +77,7 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2">
-				Кількість кредитів<br><span class="inserted"><?= htmlspecialchars($details->creditsAmount) ?></span>
+				Кількість кредитів<br><span class="inserted"><?= htmlspecialchars($details->creditsAmount ?? '') ?></span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="3">
 				<b>Галузь знань</b><br>
@@ -90,7 +90,7 @@
 				<?php endif; ?>
 			</td>
 			<td style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
-				<span class="change"><?= htmlspecialchars($details->subjectType->name) ?><br></span>
+				<span class="change"><?= htmlspecialchars(isset($details->subjectType) ? $details->subjectType->name : '') ?><br></span>
 			</td>
 		</tr>
 		<tr>

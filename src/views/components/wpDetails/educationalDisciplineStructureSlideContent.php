@@ -11,7 +11,7 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 ?>
 
 <div>
-	<?php if (!empty($semesters)): ?>
+	<?php if (!empty($semesters) && $educationalFormsInSemestersAmount !== 0): ?>
 		<div class="block">
 			<p class="block-title">Теми лекцій:</p>
 			<table>
@@ -466,7 +466,9 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 				</tbody>
 			</table>
 		</div>
-	<?php else: ?>
+	<?php elseif (empty($semesters)): ?>
 		<p>Недостатньо даних, додайте принаймні один семестр.</p>
+	<?php elseif ($educationalFormsInSemestersAmount === 0): ?>
+		<p>Недостатньо даних, додайте принаймні одну форму здобуття освіти до семестру.</p>
 	<?php endif; ?>
 </div>

@@ -259,6 +259,14 @@ class WPApiController extends BaseController
 			$semestersAndModulesIds = getSemestersAndModulesIds($pointsDistributionRelatedData);
 			$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
 
+			$isAnyTaskExists = false;
+
+			foreach ($structure as $taskName => $isExist) {
+				if ($isExist) {
+					$isAnyTaskExists = true;
+				}
+			}
+
 			ob_start();
 
 			include __DIR__ . '/../../views/components/wpDetails/pointsDistributionSlideContent.php';

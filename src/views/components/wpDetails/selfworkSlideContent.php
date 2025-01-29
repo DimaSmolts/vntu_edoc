@@ -1,10 +1,20 @@
 <?php
 require_once __DIR__ . '/../../../helpers/getLessonTypeIdByName.php';
 
+$educationalFormsInSemesters = [];
+
+foreach ($selfworkData as $semesterSelfworkData) {
+	foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
+		$educationalFormsInSemesters[$educationalForm->colName] = $educationalForm->name;
+	}
+}
+
+$educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
+
 $lessonTypeIds = getLessonTypeIdByName();
 ?>
 <div>
-	<?php if (!empty($selfworkData)): ?>
+	<?php if (!empty($selfworkData) && $educationalFormsInSemestersAmount !== 0): ?>
 		<?php foreach ($selfworkData as $semesterSelfworkData): ?>
 			<p class="block-title">Самостійна робота до семестру <?= htmlspecialchars($semesterSelfworkData->semesterNumber ?? '') ?>:</p>
 			<table class="selfwork-table" id="selfworkTable<?= htmlspecialchars($semesterSelfworkData->semesterId) ?>">
@@ -511,7 +521,9 @@ $lessonTypeIds = getLessonTypeIdByName();
 				<?php endif; ?>
 			</table>
 		<?php endforeach; ?>
-	<?php else: ?>
+	<?php elseif (empty($selfworkData)): ?>
 		<p>Недостатньо даних, додайте принаймні один семестр.</p>
+	<?php elseif ($educationalFormsInSemestersAmount === 0): ?>
+		<p>Недостатньо даних, додайте принаймні одну форму здобуття освіти до семестру.</p>
 	<?php endif; ?>
 </div>

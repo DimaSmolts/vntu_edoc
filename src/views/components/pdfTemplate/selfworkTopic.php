@@ -2,7 +2,19 @@
 	9. Самостійна робота
 </div>
 
-<?php if (!empty($selfworkData)): ?>
+<?php
+$educationalFormsInSemesters = [];
+
+foreach ($selfworkData as $semesterSelfworkData) {
+	foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
+		$educationalFormsInSemesters[$educationalForm->colName] = $educationalForm->name;
+	}
+}
+
+$educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
+?>
+
+<?php if (!empty($selfworkData) && $educationalFormsInSemestersAmount !== 0): ?>
 	<?php
 	$firstSelfworkDatatIndex = array_key_first($selfworkData);
 	?>
@@ -367,6 +379,8 @@
 			</tr>
 		</table>
 	<?php endforeach; ?>
-<?php else: ?>
-	<p class="indent justify">Недостатньо даних для формування таблиць</p>
+<?php elseif (empty($selfworkData)): ?>
+	<p class="indent">Недостатньо даних для формування таблиці, додайте принаймні один семестр.</p>
+<?php elseif ($educationalFormsInSemestersAmount === 0): ?>
+	<p class="indent">Недостатньо даних для формування таблиці, додайте принаймні одну форму здобуття освіти до семестру.</p>
 <?php endif; ?>

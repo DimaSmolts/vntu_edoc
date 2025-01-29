@@ -33,7 +33,7 @@ foreach ($details->semesters as $semester) {
 			<?php if (!empty($semester->seminars)): ?>
 				<tr>
 					<th style="width: 5%;"></th>
-					<th class="inserted" style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Семестр <?= htmlspecialchars($semester->semesterNumber) ?></th>
+					<th class="inserted" style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Семестр <?= htmlspecialchars($semester->semesterNumber ?? '') ?></th>
 					<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
 						<th style="width: 15%;"></th>
 					<?php endforeach; ?>
@@ -57,7 +57,7 @@ foreach ($details->semesters as $semester) {
 				<?php endforeach; ?>
 				<tr>
 					<th style="width: 5%;"></th>
-					<td class="bold" style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Всього за <?= htmlspecialchars($semester->semesterNumber) ?> семестр:</td>
+					<td class="bold" style="width: <?= htmlspecialchars($lessonNameColumnWidth) ?>%;">Всього за <?= htmlspecialchars($semester->semesterNumber ?? '') ?> семестр:</td>
 					<?php foreach ($educationalFormsInSemesters as $colName => $name): ?>
 						<th class="calculated" style="width: 15%;"><?= isset($semester->totalHoursForSeminars[$colName]) ? htmlspecialchars($semester->totalHoursForSeminars[$colName]) : 0 ?></th>
 					<?php endforeach; ?>

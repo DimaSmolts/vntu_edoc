@@ -8,6 +8,14 @@ $labPointsForSemestersDescription = getPointsWithSemestersDescriptionString($poi
 $seminarPointsForSemestersDescription = getPointsWithSemestersDescriptionString($pointsDistributionSemestersData, 'seminarPoints');
 
 $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelatedData);
+
+$isAnyTaskExists = false;
+
+foreach ($structure as $taskName => $isExist) {
+	if ($isExist) {
+		$isAnyTaskExists = true;
+	}
+}
 ?>
 
 <div class="topic-title">
@@ -15,7 +23,7 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 </div>
 <p class="indent justify">Оцінювання знань, умінь та навичок здобувачів вищої освіти з окремих видів роботи та в цілому по модулях (в балах):</p>
 
-<?php if (!empty($pointsDistributionSemestersData)): ?>
+<?php if (!empty($pointsDistributionSemestersData) && $isAnyTaskExists): ?>
 	<?php
 	// Визначаємо початкову ширину колонки "Вид роботи" (у відсотках) для таблиць з заняттями
 	$activityTypeColumnWidth = 100;
@@ -314,8 +322,10 @@ $additionalTasks = getAdditionalTasksGroupedBySemester($pointsDistributionRelate
 			<?php endforeach; ?>
 		</tr>
 	</table>
-<?php else: ?>
-	<p class="indent">Недостатньо даних для генерації таблиці</p>
+<?php elseif (empty($pointsDistributionSemestersData)): ?>
+	<p class="indent">Недостатньо даних для генерації таблиці, додайте принаймні один семестр</p>
+<?php elseif (!$isAnyTaskExists): ?>
+	<p class="indent">Недостатньо даних для генерації таблиці, додайте принаймні один тип занять чи індивідуальних завдань.</p>
 <?php endif; ?>
 
 <?php if ($structure->isCourseworkExists): ?>
