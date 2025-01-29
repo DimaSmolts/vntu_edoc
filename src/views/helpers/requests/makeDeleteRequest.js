@@ -1,6 +1,7 @@
 const makeDeleteRequest = ({
 	linkWithParams,
-	responseOKHandler = null
+	responseOKHandler = null,
+	isList = false
 }) => {
 	fetch(linkWithParams, {
 		method: 'DELETE',
@@ -12,12 +13,14 @@ const makeDeleteRequest = ({
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			} else {
-				if (responseOKHandler) {
-					responseOKHandler();
-				}
+				if (!isList) {
+					if (responseOKHandler) {
+						responseOKHandler();
+					}
 
-				if (debouncedHandleInput) {
-					await debouncedHandleInput();
+					if (debouncedHandleInput) {
+						await debouncedHandleInput();
+					}
 				}
 			}
 		})

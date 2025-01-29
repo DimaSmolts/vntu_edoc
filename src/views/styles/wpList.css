@@ -33,7 +33,7 @@
 
 .wp-list-item-content {
     display: grid;
-    grid-template-columns: 1fr 25% 10% 10% 130px 110px 55px;
+    grid-template-columns: 1fr 25% 10% 10% 130px 110px 55px 100px;
     align-items: center;
     gap: 15px;
 }

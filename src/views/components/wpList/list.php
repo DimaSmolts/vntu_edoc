@@ -30,6 +30,7 @@
 						<a class="btn" type="button" href="wpdetails?id=<?= htmlspecialchars($item->id) ?>">Відредагувати</a>
 						<button class="btn" type="button" onclick="duplicateWP(<?= htmlspecialchars($item->id) ?>)">Дублювати</button>
 						<a class="btn" type="button" href="pdf?id=<?= htmlspecialchars($item->id) ?>" target="_blank">PDF</a>
+						<button class="btn" type="button" onclick="deleteWP(event, <?= htmlspecialchars($item->id) ?>)">Видалити</button>
 					</div>
 				</li>
 			<?php endforeach; ?>

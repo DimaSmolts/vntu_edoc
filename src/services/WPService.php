@@ -116,6 +116,19 @@ class WPService
 		return $wpId;
 	}
 
+	public function deleteWP($id)
+	{
+		// Use Capsule to delete the theme by ID
+		$deleted = Capsule::table('educationalDisciplineWorkingProgram')->where('id', $id)->delete();
+
+		// Check if any row was deleted
+		if ($deleted) {
+			echo json_encode(['status' => 'success', 'message' => 'Working program deleted successfully']);
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'Working program not found or delete failed']);
+		}
+	}
+
 	public function updateWPDetails($id, $field, $value)
 	{
 		$wpDetails = Capsule::table('educationalDisciplineWorkingProgram')->where('id', $id)->first();
@@ -838,6 +851,45 @@ class WPService
 								Capsule::table('educationalFormLessonHours')->insertGetId($oldLessonHourData);
 							}
 						}
+
+						// Дістаємо всі індивідуальні завдання для модуля
+						$oldModuleTasksDetailsData = Capsule::table('taskDetails')
+							->where('moduleId', $oldModuleId)
+							->get();
+
+						// Перебираємо всі індивідуальні завдання 
+						foreach ($oldModuleTasksDetailsData as $oldModuleTaskDetailsData) {
+							$oldModuleTaskDetailsData = (array)$oldModuleTaskDetailsData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+							$oldModuleTaskDetailsId = $oldModuleTaskDetailsData['id']; // Зберігаємо id старого індивідуального завдання
+
+							unset($oldModuleTaskDetailsData['id']); // Видаляємо з скопійованих даних id
+							unset($oldModuleTaskDetailsData['moduleId']); // Видаляємо з скопійованих даних id модуля
+							$oldModuleTaskDetailsData['moduleId'] = $newModuleId; // Вставляємо id нового модуля
+
+							// Створюємо новий для індивідуального завдання та отримуємо Id
+							$newTaskDetailsId = Capsule::table('taskDetails')->insertGetId($oldModuleTaskDetailsData);
+
+							// Дістаємо всі години (з різними формами навчання) для індивідуального завдання
+							$oldTaskHoursData = Capsule::table('educationalFormTaskHours')
+								->where('taskDetailsId', $oldModuleTaskDetailsId)
+								->get();
+
+							// Перебираємо всі години
+							foreach ($oldTaskHoursData as $oldTaskHourData) {
+								$oldTaskHourData = (array)$oldTaskHourData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+
+								unset($oldTaskHourData['id']); // Видаляємо з скопійованих даних id
+								unset($oldTaskHourData['taskDetailsId']); // Видаляємо з скопійованих даних id уроку
+								$oldTaskHourData['taskDetailsId'] = $newTaskDetailsId; // Вставляємо id нового уроку
+
+								$oldTaskEducationalFormId = $oldTaskHourData['educationalFormId']; // Зберігаємо id старої навчальної форми
+								unset($oldTaskHourData['educationalFormId']); // Видаляємо з скопійованих даних id старої навчальної форми
+								$oldTaskHourData['educationalFormId'] = $oldEducationFormIdToNewMap[$oldTaskEducationalFormId]; // Вставляємо id нової навчальної форми
+
+								// Створюємо новий запис годин (для певної форми навчання) для даного уроку
+								Capsule::table('educationalFormTaskHours')->insertGetId($oldTaskHourData);
+							}
+						}
 					}
 
 					// Дістаємо всі самостійні для даного модуля
@@ -852,7 +904,7 @@ class WPService
 
 						unset($oldSelfworkData['id']); // Видаляємо з скопійованих даних id
 						unset($oldSelfworkData['semesterId']); // Видаляємо з скопійованих даних id семестру
-						$oldSelfworkData['semesterId'] = $oldSemesterId; // Вставляємо id нового семестру
+						$oldSelfworkData['semesterId'] = $newSemesterId; // Вставляємо id нового семестру
 
 						// Створюємо новий запис уроку та отримуємо id
 						$newLessonId = Capsule::table('lessons')->insertGetId($oldSelfworkData);
@@ -876,6 +928,66 @@ class WPService
 
 							// Створюємо новий запис годин (для певної форми навчання) для даного уроку
 							Capsule::table('educationalFormLessonHours')->insertGetId($oldLessonHourData);
+						}
+					}
+
+					// Дістаємо всі години для завдань для самостійного опрацювання даного семестра та даної навчальної форми
+					$oldEducationalFormLessonSelfworkHoursData = Capsule::table('educationalFormLessonSelfworkHours')
+						->where('semesterId', $oldSemesterId)
+						->get();
+
+					// Перебираємо всі дані 
+					foreach ($oldEducationalFormLessonSelfworkHoursData as $oldEducationalFormLessonSelfworkHourData) {
+						$oldEducationalFormLessonSelfworkHourData = (array)$oldEducationalFormLessonSelfworkHourData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+
+						unset($oldEducationalFormLessonSelfworkHourData['id']); // Видаляємо з скопійованих даних id
+						unset($oldEducationalFormLessonSelfworkHourData['semesterId']); // Видаляємо з скопійованих даних id семестру
+						$oldEducationalFormLessonSelfworkHourData['semesterId'] = $newSemesterId; // Вставляємо id нового семестру
+
+						$oldEducationalFormId = $oldEducationalFormLessonSelfworkHourData['educationalFormId']; // Зберігаємо id старої навчальної форми
+						unset($oldEducationalFormLessonSelfworkHourData['educationalFormId']); // Видаляємо з скопійованих даних id навчальної форми
+						$oldEducationalFormLessonSelfworkHourData['educationalFormId'] = $oldEducationFormIdToNewMap[$oldEducationalFormId]; // Вставляємо id нової навчальної форми
+
+						// Створюємо новий запис годин (для певної форми навчання) для самостійного опрацювання
+						Capsule::table('educationalFormLessonSelfworkHours')->insertGetId($oldEducationalFormLessonSelfworkHourData);
+					}
+
+					// Дістаємо всі індивідуальні завдання для семестру
+					$oldTasksDetailsData = Capsule::table('taskDetails')
+						->where('semesterId', $oldSemesterId)
+						->get();
+
+					// Перебираємо всі індивідуальні завдання 
+					foreach ($oldTasksDetailsData as $oldTaskDetailsData) {
+						$oldTaskDetailsData = (array)$oldTaskDetailsData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+						$oldTaskDetailsId = $oldTaskDetailsData['id']; // Зберігаємо id старого індивідуального завдання
+
+						unset($oldTaskDetailsData['id']); // Видаляємо з скопійованих даних id
+						unset($oldTaskDetailsData['semesterId']); // Видаляємо з скопійованих даних id семестру
+						$oldTaskDetailsData['semesterId'] = $newSemesterId; // Вставляємо id нового семестру
+
+						// Створюємо новий для індивідуального завдання та отримуємо Id
+						$newTaskDetailsId = Capsule::table('taskDetails')->insertGetId($oldTaskDetailsData);
+
+						// Дістаємо всі години (з різними формами навчання) для індивідуального завдання
+						$oldTaskHoursData = Capsule::table('educationalFormTaskHours')
+							->where('taskDetailsId', $oldTaskDetailsId)
+							->get();
+
+						// Перебираємо всі години
+						foreach ($oldTaskHoursData as $oldTaskHourData) {
+							$oldTaskHourData = (array)$oldTaskHourData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+
+							unset($oldTaskHourData['id']); // Видаляємо з скопійованих даних id
+							unset($oldTaskHourData['taskDetailsId']); // Видаляємо з скопійованих даних id уроку
+							$oldTaskHourData['taskDetailsId'] = $newTaskDetailsId; // Вставляємо id нового уроку
+
+							$oldTaskEducationalFormId = $oldTaskHourData['educationalFormId']; // Зберігаємо id старої навчальної форми
+							unset($oldTaskHourData['educationalFormId']); // Видаляємо з скопійованих даних id старої навчальної форми
+							$oldTaskHourData['educationalFormId'] = $oldEducationFormIdToNewMap[$oldTaskEducationalFormId]; // Вставляємо id нової навчальної форми
+
+							// Створюємо новий запис годин (для певної форми навчання) для даного уроку
+							Capsule::table('educationalFormTaskHours')->insertGetId($oldTaskHourData);
 						}
 					}
 				}

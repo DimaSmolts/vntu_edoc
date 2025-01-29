@@ -36,6 +36,16 @@ const createNewListItem = (data) => {
 		target: "_blank"
 	});
 
+	const deleteBtn = createElement({
+		elementName: "button",
+		classList: ["btn"],
+		innerText: 'Видалити',
+		eventListenerType: 'click',
+		eventListener: (event) => {
+			deleteWP(event, data.id);
+		}
+	});
+
 	itemContentContainer.appendChild(disciplineName);
 	itemContentContainer.appendChild(specialtyName);
 	itemContentContainer.appendChild(academicYear);
@@ -43,6 +53,7 @@ const createNewListItem = (data) => {
 	itemContentContainer.appendChild(editBtn);
 	itemContentContainer.appendChild(duplicateBtn);
 	itemContentContainer.appendChild(pdfBtn);
+	itemContentContainer.appendChild(deleteBtn);
 
 	item.appendChild(itemContentContainer);
 

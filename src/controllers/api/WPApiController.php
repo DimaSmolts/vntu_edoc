@@ -89,6 +89,20 @@ class WPApiController extends BaseController
 		exit();
 	}
 
+	public function deleteWP()
+	{
+		header('Content-Type: application/json');
+
+		$wpId = $_GET['wpId'];
+
+		$wpCreatorId = $this->wpService->getWPCreatorIdByWpId($wpId);
+		$ifCurrentUserHasAccessToWP = $this->checkIfCurrentUserHasAccessToWP($wpCreatorId);
+
+		if ($ifCurrentUserHasAccessToWP) {
+			$this->wpService->deleteWP($wpId);
+		}
+	}
+
 	public function updateWPDetails()
 	{
 		header('Content-Type: application/json');

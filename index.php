@@ -372,6 +372,11 @@ $router->post('/api/updateSelfworkHours', function () {
 	$educationalFormLessonHoursApiController->updateSelfworkHours();
 });
 
+$router->delete('/api/deleteWP', function () {
+	$wpApiController = new WPApiController();
+	$wpApiController->deleteWP();
+});
+
 $router->delete('/api/deleteTheme', function () {
 	$themeApiController = new ThemeApiController();
 	$themeApiController->deleteTheme();

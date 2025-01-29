@@ -28,9 +28,11 @@ $title = "Робочі програми";
     <script src="src/views/helpers/view/createElement.js"></script>
     <script src="src/views/helpers/wplist/createNewListItem.js"></script>
     <script src="src/views/helpers/wplist/duplicateWP.js"></script>
+    <script src="src/views/helpers/wplist/deleteWP.js"></script>
     <script src="src/views/helpers/wplist/logins.js"></script>
     <script src="src/views/helpers/validation/globalVariables.js"></script>
     <script src="src/views/helpers/requests/makePostRequestAndReturnData.js"></script>
+    <script src="src/views/helpers/requests/makeDeleteRequest.js"></script>
 </body>
 
 </html>
