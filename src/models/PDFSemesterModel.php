@@ -10,6 +10,7 @@ class PDFSemesterModel
 	public ?string $courseTaskAssessmentComponents;
 	public ?int $semesterNumber;
 	public ?int $examTypeId;
+	public ?string $examTypeName;
 	public array $modules;
 	public array $educationalForms;
 	public array $lections;
@@ -20,6 +21,7 @@ class PDFSemesterModel
 	public array $totalHoursForPracticals;
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
+	public array $totalHoursForSelfworks;
 	public array $educationalFormHoursStructure;
 
 	public function __construct(
@@ -29,6 +31,7 @@ class PDFSemesterModel
 		?string $courseTaskAssessmentComponents = '',
 		?int $semesterNumber = null,
 		?int $examTypeId = null,
+		?string $examTypeName = null,
 		$modules = [],
 		$educationalForms = [],
 		array $lections = [],
@@ -39,6 +42,7 @@ class PDFSemesterModel
 		array $totalHoursForPracticals = [],
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
+		array $totalHoursForSelfworks = [],
 		array $educationalFormHoursStructure = []
 	) {
 		$this->id = $id;
@@ -47,6 +51,7 @@ class PDFSemesterModel
 		$this->courseTaskAssessmentComponents = $courseTaskAssessmentComponents;
 		$this->semesterNumber = $semesterNumber;
 		$this->examTypeId = $examTypeId;
+		$this->examTypeName = $examTypeName;
 		$this->modules = $modules;
 		$this->educationalForms = $educationalForms;
 		$this->lections = $lections;
@@ -57,6 +62,7 @@ class PDFSemesterModel
 		$this->totalHoursForPracticals = $totalHoursForPracticals;
 		$this->totalHoursForSeminars = $totalHoursForSeminars;
 		$this->totalHoursForLabs = $totalHoursForLabs;
+		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
 		$this->educationalFormHoursStructure = $educationalFormHoursStructure;
 	}
 }

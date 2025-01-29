@@ -12,6 +12,9 @@ require_once __DIR__ . '/../../models/FieldOfStudyModel.php';
 require_once __DIR__ . '/../../models/EducationalProgramModel.php';
 require_once __DIR__ . '/../getEducationalFormVisualName.php';
 require_once __DIR__ . '/../getHoursSumForEducationalForms.php';
+require_once __DIR__ . '/../getHoursSumForSelfworksForEducationalForms.php';
+require_once __DIR__ . '/../getHoursSumForSelfworksForEducationalFormsForWP.php';
+require_once __DIR__ . '/../getTotalHoursAmountInWp.php';
 require_once __DIR__ . '/../getAllEducationalFormsAvailableInWorkingProgram.php';
 require_once __DIR__ . '/getLessonWithEducationalFormLessonHour.php';
 require_once __DIR__ . '/getEducationalFormHoursStructureForTheme.php';
@@ -36,7 +39,7 @@ use App\Models\FacultyModel;
 use App\Models\SpecialtyModel;
 use App\Models\FieldOfStudyModel;
 
-function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWPData)
+function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWPData, $selfworkSemestersData)
 {
 	// Створюємо модель загальних даних для робочої програми
 	$workingProgram = new WPDetailsModel(
@@ -110,6 +113,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 	$practicalsForWorkingProgram = [];
 	$seminarsForWorkingProgram = [];
 	$labsForWorkingProgram = [];
+	$totalHoursForSelfworksBySemesters = [];
 
 	// Обробляємо семестри робочої програми та трансформуємо їх у модель
 	$formattedSemesters = $workingProgramData->semesters->map(function ($semester) use (
@@ -118,8 +122,18 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 		&$practicalsForWorkingProgram,
 		&$seminarsForWorkingProgram,
 		&$labsForWorkingProgram,
+		&$totalHoursForSelfworksBySemesters,
+		&$selfworkSemestersData,
 	) {
 		$taskTypeIds = getTaskId();
+
+		$selfworkData = null;
+
+		foreach ($selfworkSemestersData as $selfworkSemesterData) {
+			if ($selfworkSemesterData->semesterId === $semester->id) {
+				$selfworkData = $selfworkSemesterData;
+			}
+		}
 
 		// Збираємо всі заняття по типах в семестрі
 		$lectionsForSemester = [];
@@ -234,6 +248,9 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 		$totalHoursForPracticals = getHoursSumForEducationalForms($practicalsForSemester, $educationalForms);
 		$totalHoursForSeminars = getHoursSumForEducationalForms($seminarsForSemester, $educationalForms);
 		$totalHoursForLabs = getHoursSumForEducationalForms($labsForSemester, $educationalForms);
+		$totalHoursForSelfworks = getHoursSumForSelfworksForEducationalForms($selfworkData, $educationalForms);
+
+		$totalHoursForSelfworksBySemesters[$semester->id] = $totalHoursForSelfworks;
 
 		// Рахуємо всі години різних занять для семестра
 		$totalEducationalFormHoursStructureForSemester = [];
@@ -257,6 +274,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 			isset($courseTask) ? $courseTask->assessmentComponents : '',
 			$semester->semesterNumber,
 			$semester->examTypeId,
+			isset($semester->examType) ? $semester->examType->e_name : '',
 			$modules,
 			$educationalForms,
 			$lectionsForSemester,
@@ -267,6 +285,7 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 			$totalHoursForPracticals,
 			$totalHoursForSeminars,
 			$totalHoursForLabs,
+			$totalHoursForSelfworks,
 			$totalEducationalFormHoursStructureForSemester
 		);
 	})->toArray();
@@ -299,6 +318,14 @@ function getFullFormattedWorkingProgramDataForPDF($workingProgramData, $globalWP
 	$workingProgram->totalHoursForPracticals = getHoursSumForEducationalForms($practicalsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
 	$workingProgram->totalHoursForSeminars = getHoursSumForEducationalForms($seminarsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
 	$workingProgram->totalHoursForLabs = getHoursSumForEducationalForms($labsForWorkingProgram, $availableEducationalFormsInWorkingProgram);
+	$workingProgram->totalHoursForSelfworks = getHoursSumForSelfworksForEducationalFormsForWP($totalHoursForSelfworksBySemesters);
+	$workingProgram->totalHoursAmountInWp = getTotalHoursAmountInWp(
+		totalHoursForLections: $workingProgram->totalHoursForLections,
+		totalHoursForPracticals: $workingProgram->totalHoursForPracticals,
+		totalHoursForSeminars: $workingProgram->totalHoursForSeminars,
+		totalHoursForLabs: $workingProgram->totalHoursForLabs,
+		totalHoursForSelfworks: $workingProgram->totalHoursForSelfworks,
+	);
 
 	//Обчислюємо кількість модулів у робочій програмі та додаємо до інформації про робочу програму
 	$workingProgram->modulesInWorkingProgramAmount = count($modulesInWorkingProgram);

@@ -289,7 +289,8 @@ class WPService
 								'semesterEducationalForm.educationalForm'
 							]);
 						},
-						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm'
+						'selfworks.educationalFormLessonHours.semesterEducationalForm.educationalForm',
+						'examType'
 					])
 					->orderBy('semesterNumber');
 			},
@@ -991,6 +992,63 @@ class WPService
 						}
 					}
 				}
+
+				$rawSpecialtyWithEducationalProgramIds = isset($newWPData->specialtyWithEducationalProgramIds)
+					? json_decode($newWPData->specialtyWithEducationalProgramIds, true)
+					: [];
+
+				$specialtiesWithEducationalPrograms = [];
+
+				foreach ($rawSpecialtyWithEducationalProgramIds as $item) {
+					$key = array_key_first($item);
+					$data = $item[$key];
+
+					$specialty = null;
+					$educationalPrograms = [];
+
+					if (isset($data['specialtyId'])) {
+						$specialty = Capsule::table('special')
+							->selectRaw("
+										MIN(id) AS id,
+										CASE 
+											WHEN INSTR(spec, '.') > 0 THEN SUBSTR(spec, 1, INSTR(spec, '.') - 1)
+											ELSE spec
+										END AS name,
+										spec_num_code
+									")
+							->where('id', $data['specialtyId'])
+							->groupBy('name', 'spec_num_code')
+							->get()
+							->first();
+					}
+
+					if (!empty($data['educationalProgramsIds'])) {
+						$educationalPrograms = Capsule::table('special')
+							->selectRaw("
+										MIN(id) AS id,
+										TRIM(
+											CASE 
+												WHEN INSTR(spec, '.') > 0 
+												THEN SUBSTR(spec, INSTR(spec, '.') + 1)
+												ELSE ''
+											END
+										) AS name
+									")
+							->whereIn('id', $data['educationalProgramsIds'])
+							->groupBy('name')
+							->get();
+					}
+
+					$specialtiesWithEducationalProgram = (object)[
+						'specialtyName' => $specialty->name,
+						'specialtyCode' => $specialty->spec_num_code,
+						'educationalPrograms' => $educationalPrograms
+					];
+
+					$specialtiesWithEducationalPrograms[] = $specialtiesWithEducationalProgram;
+				}
+
+				$newWPData->specialtiesWithEducationalPrograms = $specialtiesWithEducationalPrograms;
 			});
 		} catch (\Exception $e) {
 			return "Duplicating failed: " . $e->getMessage();

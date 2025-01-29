@@ -75,17 +75,14 @@ function getFullFormattedSelfworkData($workingProgramData)
 			// Обробляємо теми модуля
 			$module->themes->map(function ($theme) use (
 				&$lectionsWithEducationalFormLessonHour,
-				&$practicalsAmount,
-				&$seminarsAmount,
-				&$labsAmount,
 			) {
 				$lection = getLessonWithEducationalFormLessonHour($theme->lections);
 				$lectionsWithEducationalFormLessonHour = array_merge($lectionsWithEducationalFormLessonHour, $lection);
-
-				$practicalsAmount += count($theme->practicals);
-				$seminarsAmount += count($theme->seminars);
-				$labsAmount += count($theme->labs);
 			});
+
+			$practicalsAmount += count($module->practicals);
+			$seminarsAmount += count($module->seminars);
+			$labsAmount += count($module->labs);
 
 			$rawModulesTasks = getModulesTasks($module, $semester);
 

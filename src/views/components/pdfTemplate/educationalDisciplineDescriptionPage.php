@@ -77,7 +77,7 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2">
-				Кількість кредитів<br><span class="inserted"><?= htmlspecialchars($details->creditsAmount ?? '') ?></span>
+				Кількість кредитів:<br><span class="inserted"><?= htmlspecialchars($details->creditsAmount ?? '') ?></span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="3">
 				<b>Галузь знань</b><br>
@@ -95,7 +95,7 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
-				Модулів<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
+				Модулів:<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">
 				<?php if ($amountOfEducationalFormsAndSemesters === 1): ?>
@@ -112,7 +112,7 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
-				Змістових модулів<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
+				Змістових модулів:<br><span class="calculated"><?= htmlspecialchars($details->modulesInWorkingProgramAmount) ?></span>
 			</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="5">
 				<b>Cпеціальність</b><br>
@@ -139,7 +139,12 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="3">
-				Індивідуальне завдання<br><span class="change">-</span>
+				Індивідуальне завдання:<br>
+				<?php if (isset($individualTasksNames)): ?>
+					<span><?= htmlspecialchars_decode($individualTasksNames) ?></span>
+				<?php else: ?>
+					<span>-</span>
+				<?php endif; ?>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Лекції</th>
 		</tr>
@@ -162,9 +167,9 @@
 		</tr>
 		<tr>
 			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="2">
-				Загальна кількість годин<br><span class="change">150</span>
+				Загальна кількість годин:<br><?= htmlspecialchars($details->totalHoursAmountInWp) ?>
 			</td>
-			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="7">
+			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="5">
 				<b>Освітня програма</b><br>
 				<?php if (!empty($details->educationalPrograms)): ?>
 					<?php foreach ($details->educationalPrograms as $educationalProgram): ?>
@@ -192,7 +197,7 @@
 			</th>
 		</tr>
 		<tr>
-			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="5">
+			<td style="width: <?= htmlspecialchars($indicatorsColumnWidth) ?>%" class="center" colspan="2" rowspan="3">
 				Тижневих годин для денної форми навчання
 			</td>
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
@@ -222,22 +227,10 @@
 			<?php endforeach; ?>
 		</tr>
 		<tr>
-			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Курсовий проєкт (робота)</th>
-		</tr>
-		<tr>
-			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
-				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
-					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
-						-
-					</td>
-				<?php endforeach; ?>
-			<?php endforeach; ?>
-		</tr>
-		<tr>
 			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">ауд.</td>
 			<td class="center" rowspan="2" style="width: <?= htmlspecialchars($indicatorsColumnWidth / 2) ?>%;">сам. роб.</td>
 			<td style="width: <?= htmlspecialchars($descColumnWidth) ?>%" class="inserted center" rowspan="4">
-				<b>Рівень вищої освіти</b><br><span class="inserted"><?= htmlspecialchars($details->stydingLevelId) ?></span>
+				<b>Рівень вищої освіти</b><br><span class="inserted"><?= htmlspecialchars($details->stydingLevel->name ?? '') ?></span>
 			</td>
 			<th style="width: <?= htmlspecialchars($wpCharacteristicsColumnWidth) ?>%" class="center none-border-left" colspan="<?= htmlspecialchars($amountOfEducationalFormsAndSemesters) ?>">Самостійна робота</th>
 		</tr>
@@ -245,7 +238,7 @@
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
 					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="change center none-border-left">
-						пусто
+						<?= htmlspecialchars($semesterByEducationalForm->totalHoursForSelfworks[$availableEducationalForm->colName]) ?> год.
 					</td>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
@@ -259,7 +252,7 @@
 			<?php foreach ($details->availableEducationalForms as $availableEducationalForm): ?>
 				<?php foreach ($semestersByEducationalForm[$availableEducationalForm->colName] as $semesterByEducationalForm): ?>
 					<td style="width: <?= htmlspecialchars($columnWidthByEducationalForm[$availableEducationalForm->colName]) ?>%;" class="inserted center none-border-left">
-						<?= htmlspecialchars($semesterByEducationalForm->examTypeId ?? '') ?>
+						<?= htmlspecialchars($semesterByEducationalForm->examTypeName ?? '') ?>
 					</td>
 				<?php endforeach; ?>
 			<?php endforeach; ?>

@@ -52,6 +52,8 @@ class WPDetailsModel
 	public array $totalHoursForPracticals;
 	public array $totalHoursForSeminars;
 	public array $totalHoursForLabs;
+	public array $totalHoursForSelfworks;
+	public ?float $totalHoursAmountInWp;
 	public array $createdByInvolvedPersonsIds;
 	public array $createdByPersons;
 	public ?WPInvolvedPersonModel $educationalProgramGuarantor;
@@ -103,6 +105,8 @@ class WPDetailsModel
 		array $totalHoursForPracticals = [],
 		array $totalHoursForSeminars = [],
 		array $totalHoursForLabs = [],
+		array $totalHoursForSelfworks = [],
+		?float $totalHoursAmountInWp = 0,
 		array $createdByInvolvedPersonsIds = [],
 		array $createdByPersons = [],
 		?WPInvolvedPersonModel $educationalProgramGuarantor = null,
@@ -153,6 +157,8 @@ class WPDetailsModel
 		$this->totalHoursForPracticals = $totalHoursForPracticals;
 		$this->totalHoursForSeminars = $totalHoursForSeminars;
 		$this->totalHoursForLabs = $totalHoursForLabs;
+		$this->totalHoursForSelfworks = $totalHoursForSelfworks;
+		$this->totalHoursAmountInWp = $totalHoursAmountInWp;
 		$this->createdByInvolvedPersonsIds = $createdByInvolvedPersonsIds;
 		$this->createdByPersons = $createdByPersons;
 		$this->educationalProgramGuarantor = $educationalProgramGuarantor;

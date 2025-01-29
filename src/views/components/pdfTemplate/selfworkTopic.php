@@ -21,18 +21,23 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 
 	<?php foreach ($selfworkData as $idx => $semesterSelfworkData): ?>
 		<?php
+		// Визначаємо загальні значення для семестру
+		$totalHours = [];
+
+		foreach ($details->semesters as $semester) {
+			if ($semester->id === $semesterSelfworkData->semesterId) {
+				$totalHours = $semester->totalHoursForSelfworks;
+			}
+		}
+
 		// Визначаємо початкову ширину колонки "Вид роботи" (у відсотках) для таблиць з заняттями
 		$typeOfWorkColumnWidth = 95; // 5% для колонки з номером за порядком
 		$fullHoursAmountColumnWidth = 0;
-
-		// Збираємо загальні значення
-		$total = [];
 
 		// Віднімаємо від ширини колонки "Назва ..." ширину колонок для кількості годин (14%) на кожну форму навчання
 		foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
 			$typeOfWorkColumnWidth -= 14;
 			$fullHoursAmountColumnWidth += 14;
-			$total[$educationalForm->colName] = 0;
 		}
 
 		$isFirstElement = $idx === $firstSelfworkDatatIndex;
@@ -83,7 +88,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 									foreach ($selfwork->educationalFormHours as $educationalFormHours) {
 										if ($educationalFormHours->lessonFormName === $educationalForm->colName) {
 											$hours = $educationalFormHours->hours;
-											$total[$educationalForm->colName] += $hours;
 										}
 									}
 								}
@@ -112,7 +116,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 							foreach ($semesterSelfworkData->lectionSelfworkTask->educationalFormHours as $educationalFormHours) {
 								if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 									$hours = $educationalFormHours->hours;
-									$total[$educationalForm->colName] += $hours;
 								}
 							}
 						}
@@ -136,7 +139,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 								foreach ($semesterSelfworkData->labSelfworkTask->educationalFormHours as $educationalFormHours) {
 									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 										$hours = $educationalFormHours->hours;
-										$total[$educationalForm->colName] += $hours;
 									}
 								}
 							}
@@ -161,7 +163,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 								foreach ($semesterSelfworkData->practicalSelfworkTask->educationalFormHours as $educationalFormHours) {
 									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 										$hours = $educationalFormHours->hours;
-										$total[$educationalForm->colName] += $hours;
 									}
 								}
 							}
@@ -186,7 +187,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 								foreach ($semesterSelfworkData->seminarSelfworkTask->educationalFormHours as $educationalFormHours) {
 									if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 										$hours = $educationalFormHours->hours;
-										$total[$educationalForm->colName] += $hours;
 									}
 								}
 							}
@@ -215,7 +215,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 							foreach ($semesterSelfworkData->additionalTasks[0]->educationalFormHours as $educationalFormHours) {
 								if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 									$hours = $educationalFormHours->hours;
-									$total[$educationalForm->colName] += $hours;
 								}
 							}
 							?>
@@ -238,7 +237,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 							foreach ($semesterSelfworkData->calculationAndGraphicTypeTask->educationalFormHours as $educationalFormHours) {
 								if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 									$hours = $educationalFormHours->hours;
-									$total[$educationalForm->colName] += $hours;
 								}
 							}
 							?>
@@ -261,7 +259,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 							foreach ($semesterSelfworkData->calculationAndGraphicTypeTask->educationalFormHours as $educationalFormHours) {
 								if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 									$hours = $educationalFormHours->hours;
-									$total[$educationalForm->colName] += $hours;
 								}
 							}
 							?>
@@ -272,13 +269,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 			<?php endif; ?>
 
 			<?php if ($semesterSelfworkData->isCourseProjectExists): ?>
-				<?php
-				if (!empty($semesterSelfworkData->educationalForms)) {
-					foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
-						$total[$educationalForm->colName] += $semesterSelfworkData->courseTask->educationalFormHours[0]->hours;
-					}
-				}
-				?>
 				<tr>
 					<th style="width: 5%;"><?= htmlspecialchars($sequenceNumber++) ?></th>
 					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Виконання курсового проєкту</td>
@@ -291,13 +281,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 				</tr>
 			<?php endif; ?>
 			<?php if ($semesterSelfworkData->isCourseworkExists): ?>
-				<?php
-				if (!empty($semesterSelfworkData->educationalForms)) {
-					foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
-						$total[$educationalForm->colName] += $semesterSelfworkData->courseTask->educationalFormHours[0]->hours;
-					}
-				}
-				?>
 				<tr>
 					<th style="width: 5%;"><?= htmlspecialchars($sequenceNumber++) ?></th>
 					<td style="width: <?= htmlspecialchars($typeOfWorkColumnWidth) ?>%;">Виконання курсової роботи</td>
@@ -321,7 +304,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 							foreach ($semesterSelfworkData->moduleTask->educationalFormHours as $educationalFormHours) {
 								if ($educationalFormHours->educationalFormName === $educationalForm->colName) {
 									$hours = $educationalFormHours->hours;
-									$total[$educationalForm->colName] += $hours;
 								}
 							}
 							?>
@@ -349,12 +331,6 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 				} else if ($semesterSelfworkData->examTypeId === 1 || $semesterSelfworkData->examTypeId === 2) {
 					$hours = $semesterSelfworkData->creditsAmount;
 				}
-
-				if (!empty($semesterSelfworkData->educationalForms)) {
-					foreach ($semesterSelfworkData->educationalForms as $educationalForm) {
-						$total[$educationalForm->colName] += $hours;
-					}
-				}
 				?>
 				<td
 					colspan="<?= htmlspecialchars(count($semesterSelfworkData->educationalForms)) ?>"
@@ -372,7 +348,7 @@ $educationalFormsInSemestersAmount = count($educationalFormsInSemesters);
 						<th
 							style="width: 14%;"
 							class="none-border-left center calculated">
-							<?= htmlspecialchars($total[$educationalForm->colName] ?? '0') ?>
+							<?= isset($totalHours[$educationalForm->colName]) ? htmlspecialchars($totalHours[$educationalForm->colName]) : 0 ?>
 						</th>
 					<?php endforeach; ?>
 				<?php endif; ?>

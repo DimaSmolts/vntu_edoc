@@ -12,6 +12,7 @@ require_once __DIR__ . '/../models/WPDetailsModel.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedWorkingProgramDataForPDF.php';
 require_once __DIR__ . '/../helpers/getSemestersIdsByControlType.php';
 require_once __DIR__ . '/../helpers/getPointsDistributionForPDF.php';
+require_once __DIR__ . '/../helpers/getAllIndividualTasksName.php';
 require_once __DIR__ . '/../helpers/formatters/getFullFormattedSelfworkData.php';
 
 use App\Controllers\BaseController;
@@ -70,13 +71,16 @@ class PDFController extends BaseController
 			if ($ifCurrentUserHasAccessToWP) {
 				$rawGlobalWPData = $this->workingProgramGlobalDataService->getWorkingProgramGlobalData();
 
-				$details = getFullFormattedWorkingProgramDataForPDF($rawDetails, $rawGlobalWPData);
+				$selfworkData = getFullFormattedSelfworkData($rawDetails);
+				
+				$details = getFullFormattedWorkingProgramDataForPDF($rawDetails, $rawGlobalWPData, $selfworkData);
 
 				$pointsDistributionRelatedData = getFormattedPointsDistributionRelatedData($rawDetails);
 				$pointsDistributionSemestersData = getPointsDistributionForPDF($pointsDistributionRelatedData);
 				$structure = getFormattedLessonsAndExamingsStructure($rawDetails);
 				$semestersIdsByControlType = getSemestersIdsByControlType($pointsDistributionRelatedData);
-				$selfworkData = getFullFormattedSelfworkData($rawDetails);
+
+				$individualTasksNames = getAllIndividualTasksName($rawDetails, $structure);
 
 				require __DIR__ . '/../views/pages/pdf.php';
 				exit();
