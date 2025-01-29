@@ -265,9 +265,9 @@
         // Змінюємо інпути для введення літератури
         initializeTextEditorForLiterature({
             mainLiterature: <?php echo json_encode($details->literature->main ?? ''); ?>,
-            supportingLiterature: <?php echo json_encode($details->literature->supporting ?? ''); ?>,
+            // supportingLiterature: <?php echo json_encode($details->literature->supporting ?? ''); ?>,
             additionalLiterature: <?php echo json_encode($details->literature->additional ?? ''); ?>,
-            informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
+            // informationResources: <?php echo json_encode($details->literature->informationResources ?? ''); ?>,
             wpId: <?= htmlspecialchars($details->id) ?>
         });
 
