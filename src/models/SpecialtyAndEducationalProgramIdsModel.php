@@ -8,8 +8,8 @@ class SpecialtyAndEducationalProgramIdsModel
     public array $educationalProgramsIds;
 
     public function __construct(
-        $specialtyId = null,
-        $educationalProgramsIds
+        int $specialtyId = null,
+        array $educationalProgramsIds
     ) {
         $this->specialtyId = $specialtyId;
         $this->educationalProgramsIds = $educationalProgramsIds;

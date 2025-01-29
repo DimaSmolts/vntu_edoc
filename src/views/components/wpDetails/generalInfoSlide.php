@@ -63,7 +63,11 @@ $title = "Загальна інформація";
 		foreach ($details->specialtyWithEducationalProgramIds as $idx => $data) {
 			$specialtyWithEducationalProgramIdsIndexes[] = $idx;
 		}
+	} else {
+		$specialtyWithEducationalProgramIdsIndexes[] = 0;
 	}
+
+	$firstElementIdx = array_key_first($specialtyWithEducationalProgramIdsIndexes);
 	?>
 	<div
 		id="specialtyContainer"
@@ -88,18 +92,44 @@ $title = "Загальна інформація";
 							data-wpId=<?= htmlspecialchars($details->id) ?>
 							data-idx=<?= htmlspecialchars($idx) ?>
 							multiple
-							<?php if (!isset($data->specialtyId)): ?>disabled<?php endif; ?>
 							<?php if (isset($data->educationalProgramsIds)): ?> data-educationalProgramIds=<?= json_encode($data->educationalProgramsIds) ?><?php endif; ?>>
 						</select>
 					</label>
-					<button
-						class="btn remove-specialty-btn"
-						type="button"
-						onclick="removeSpecialtyGroup(<?= htmlspecialchars($idx) ?>, <?= htmlspecialchars($details->id) ?>)">
-						Видалити
-					</button>
+					<?php if ($firstElementIdx !== $idx): ?>
+						<button
+							class="btn remove-specialty-btn"
+							type="button"
+							onclick="removeSpecialtyGroup(<?= htmlspecialchars($idx) ?>, <?= htmlspecialchars($details->id) ?>)">
+							Видалити
+						</button>
+					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
+		<?php else: ?>
+			<?php
+			$idx = 0;
+			?>
+			<div class="specialty-group">
+				<label>Спеціальність:
+					<select
+						id="specialtyIdSelect<?= htmlspecialchars($idx) ?>"
+						data-wpId=<?= htmlspecialchars($details->id) ?>
+						data-idx=<?= htmlspecialchars($idx) ?>
+						<?php if (isset($data->specialtyId)): ?> data-specialtyId=<?= htmlspecialchars($data->specialtyId) ?><?php endif; ?>>
+					</select>
+				</label>
+				<label
+					id="educationalProgramIdsLabel<?= htmlspecialchars($idx) ?>"
+					class="multiselect-label <?php if (isset($data->specialtyId)): ?>educational-program-visible<?php else: ?>educational-program-invisible<?php endif; ?>">Освітні програми:
+					<select
+						id="educationalProgramIdsSelect<?= htmlspecialchars($idx) ?>"
+						data-wpId=<?= htmlspecialchars($details->id) ?>
+						data-idx=<?= htmlspecialchars($idx) ?>
+						multiple
+						<?php if (isset($data->educationalProgramsIds)): ?> data-educationalProgramIds=<?= json_encode($data->educationalProgramsIds) ?><?php endif; ?>>
+					</select>
+				</label>
+			</div>
 		<?php endif; ?>
 	</div>
 	<button

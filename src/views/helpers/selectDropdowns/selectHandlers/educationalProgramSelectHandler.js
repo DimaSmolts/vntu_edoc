@@ -1,11 +1,21 @@
-const educationalProgramSelectHandler = async (idx) => {
+const educationalProgramSelectHandler = async (idx, shouldDestroy = false) => {
 	const educationalProgramIdsSelect = document.querySelector(`#educationalProgramIdsSelect${idx}`);
-	const wpId = educationalProgramIdsSelect.getAttribute('data-wpId');
-	const rawSelectedEducationalProgramIds = JSON.parse(educationalProgramIdsSelect.getAttribute('data-educationalProgramIds'));
-	const selectedEducationalProgramIds = rawSelectedEducationalProgramIds?.map(id => Number(id));
 
-	// Очищаємо всі наявні опції та ініціалізуємо Choices.js
-	const educationalProgramIdsSelectChoices = await createNewSelectWithSearch(`#educationalProgramIdsSelect${idx}`); // Перезапускаємо Choices.js
+	// Перевіряємо, чи Choices.js вже ініціалізований
+	if (educationalProgramIdsSelect.choicesInstance && shouldDestroy) {
+		educationalProgramIdsSelect.choicesInstance.destroy(); // Знищуємо Choices.js інстанс
+		educationalProgramIdsSelect.innerHTML = ''; // Очищаємо всі опції
+	}
+
+	const wpId = educationalProgramIdsSelect.getAttribute('data-wpId');
+	const rawSelectedEducationalProgramIds = educationalProgramIdsSelect.getAttribute('data-educationalProgramIds');
+	const selectedEducationalProgramIds = rawSelectedEducationalProgramIds ? JSON.parse(rawSelectedEducationalProgramIds)?.map(id => Number(id)) : null;
+
+	// Створюємо новий Choices.js після очищення
+	const educationalProgramIdsSelectChoices = await createNewSelectWithSearch(`#educationalProgramIdsSelect${idx}`);
+
+	// Зберігаємо новий інстанс Choices.js у властивість елемента
+	educationalProgramIdsSelect.choicesInstance = educationalProgramIdsSelectChoices;
 
 	const educationalProgramIdsSelectSearchDropdown = async (inputValue, specialtyId) => {
 		if (inputValue.length < 3) {
@@ -13,7 +23,6 @@ const educationalProgramSelectHandler = async (idx) => {
 			return;
 		}
 
-		// Спочатку отримуємо факультети з бекенду
 		const results = await fetchEducationalPrograms(inputValue, specialtyId);
 
 		educationalProgramIdsSelectChoices.clearChoices(); // Очищаємо старі результати
@@ -22,18 +31,16 @@ const educationalProgramSelectHandler = async (idx) => {
 			return new Option(educationalProgram.label, educationalProgram.value, educationalProgram.value === selectedEducationalProgramIds, educationalProgram.value === selectedEducationalProgramIds);
 		});
 
-		educationalProgramIdsSelectChoices.setChoices(options, 'value', 'label', true); // Додаємо нові результати
+		educationalProgramIdsSelectChoices.setChoices(options, 'value', 'label', true);
 	};
 
-	// Додаємо обробник події для пошуку
 	educationalProgramIdsSelect.addEventListener('search', (event) => {
 		const existedSpecialtyIdSelect = document.querySelector(`#specialtyIdSelect${idx}`);
 		const specialtyId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
 
-		educationalProgramIdsSelectSearchDropdown(event.detail.value, specialtyId); // `detail.value` містить введене значення
+		educationalProgramIdsSelectSearchDropdown(event.detail.value, specialtyId);
 	});
 
-	// Додаємо обробник події для вибору факультету
 	educationalProgramIdsSelect.addEventListener('change', async () => {
 		const specialtyContainer = document.querySelector('#specialtyContainer');
 		const rawIndexes = JSON.parse(specialtyContainer.getAttribute('data-indexes'));
@@ -51,19 +58,17 @@ const educationalProgramSelectHandler = async (idx) => {
 				educationalProgramIdsSelect.setAttribute('data-educationalProgramIds', JSON.stringify(updatedEducationalProgramIdsSelect));
 
 				educationalProgramIds = updatedEducationalProgramIdsSelect;
-
 				specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
 			} else {
 				specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
-
 				const rawSelectedEducationalProgramIds = JSON.parse(existedEducationalProgramIdsSelect.getAttribute('data-educationalProgramIds') ?? '');
 				educationalProgramIds = rawSelectedEducationalProgramIds?.map(id => Number(id));
 			}
 
 			return {
 				[index]: { "specialtyId": specId, "educationalProgramsIds": educationalProgramIds }
-			}
-		})
+			};
+		});
 
 		const updatedEvent = {
 			target: {
@@ -78,11 +83,12 @@ const educationalProgramSelectHandler = async (idx) => {
 	if (selectedEducationalProgramIds) {
 		const results = await fetchEducationalProgramsByIds(selectedEducationalProgramIds);
 
-		// Заповнюємо список опцій, включаючи попередньо вибранi навчальні програми
 		const options = results.map(educationalProgram => {
 			return new Option(educationalProgram.label, educationalProgram.value, selectedEducationalProgramIds.includes(educationalProgram.value), selectedEducationalProgramIds.includes(educationalProgram.value));
 		});
 
-		educationalProgramIdsSelectChoices.setChoices(options, 'value', 'label', true);  // Встановлюємо опції з попередньо вибраним значенням
+		educationalProgramIdsSelectChoices.setChoices(options, 'value', 'label', true);
+	} else {
+		educationalProgramIdsSelectChoices.clearChoices();
 	}
 };

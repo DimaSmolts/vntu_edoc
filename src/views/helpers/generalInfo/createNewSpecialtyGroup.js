@@ -63,6 +63,18 @@ const createNewSpecialtyGroup = async (wpId) => {
 	newEducationalProgramDropdownLabel.appendChild(newEducationalProgramSelect);
 	newSpecialtyGroup.appendChild(newEducationalProgramDropdownLabel);
 
+	const newRemoveSpecialtyGroupButton = createElement({
+		elementName: 'button',
+		classList: ['btn', 'remove-specialty-btn'],
+		type: 'button',
+		innerText: 'Видалити',
+		eventListenerType: 'click',
+		eventListener: (event) => {
+			removeSpecialtyGroup(newIndex, wpId);
+		}
+	});
+
+	newSpecialtyGroup.appendChild(newRemoveSpecialtyGroupButton);
 	specialtyContainer.appendChild(newSpecialtyGroup);
 
 	specialtySelectHandler(newIndex);

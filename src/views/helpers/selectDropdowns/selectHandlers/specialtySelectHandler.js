@@ -61,6 +61,7 @@ const specialtySelectHandler = async (idx) => {
 				}
 
 				educationalProgramIds = [];
+				educationalProgramSelectHandler(idx, true);
 			} else {
 				specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
 

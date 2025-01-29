@@ -760,22 +760,22 @@ class WPService
 							// Створюємо новий запис теми та отримуємо id
 							$newThemeId = Capsule::table('themes')->insertGetId($oldThemeData);
 
-							// Дістаємо всі уроки для даної теми
-							$oldLessonsData = Capsule::table('lessons')
+							// Дістаємо всі лекції для даної теми
+							$oldLectionsData = Capsule::table('lessons')
 								->where('themeId', $oldThemeId)
 								->get();
 
-							// Перебираємо всі уроки
-							foreach ($oldLessonsData as $oldLessonData) {
-								$oldLessonData = (array)$oldLessonData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
-								$oldLessonId = $oldLessonData['id']; // Зберігаємо id старого уроку
+							// Перебираємо всі лекції
+							foreach ($oldLectionsData as $oldLectionData) {
+								$oldLectionData = (array)$oldLectionData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+								$oldLessonId = $oldLectionData['id']; // Зберігаємо id старого уроку
 
-								unset($oldLessonData['id']); // Видаляємо з скопійованих даних id
-								unset($oldLessonData['themeId']); // Видаляємо з скопійованих даних id теми
-								$oldLessonData['themeId'] = $newThemeId; // Вставляємо id нової теми
+								unset($oldLectionData['id']); // Видаляємо з скопійованих даних id
+								unset($oldLectionData['themeId']); // Видаляємо з скопійованих даних id теми
+								$oldLectionData['themeId'] = $newThemeId; // Вставляємо id нової теми
 
 								// Створюємо новий запис уроку та отримуємо id
-								$newLessonId = Capsule::table('lessons')->insertGetId($oldLessonData);
+								$newLessonId = Capsule::table('lessons')->insertGetId($oldLectionData);
 
 								// Дістаємо всі години (з різними формами навчання) для даного уроку
 								$oldLessonHoursData = Capsule::table('educationalFormLessonHours')
@@ -798,6 +798,84 @@ class WPService
 									Capsule::table('educationalFormLessonHours')->insertGetId($oldLessonHourData);
 								}
 							}
+						}
+
+						// Дістаємо всі семінарські, практичні та лабораторні заняття для даного модуля
+						$oldLessonsData = Capsule::table('lessons')
+							->where('moduleId', $oldModuleId)
+							->get();
+
+						// Перебираємо всі семінарські, практичні та лабораторні заняття
+						foreach ($oldLessonsData as $oldLessonData) {
+							$oldLessonData = (array)$oldLessonData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+							$oldLessonId = $oldLessonData['id']; // Зберігаємо id старого уроку
+
+							unset($oldLessonData['id']); // Видаляємо з скопійованих даних id
+							unset($oldLessonData['moduleId']); // Видаляємо з скопійованих даних id модуля
+							$oldLessonData['moduleId'] = $newModuleId; // Вставляємо id нового модуля
+
+							// Створюємо новий запис уроку та отримуємо id
+							$newLessonId = Capsule::table('lessons')->insertGetId($oldLessonData);
+
+							// Дістаємо всі години (з різними формами навчання) для даного уроку
+							$oldLessonHoursData = Capsule::table('educationalFormLessonHours')
+								->where('lessonId', $oldLessonId)
+								->get();
+
+							// Перебираємо всі години
+							foreach ($oldLessonHoursData as $oldLessonHourData) {
+								$oldLessonHourData = (array)$oldLessonHourData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+
+								unset($oldLessonHourData['id']); // Видаляємо з скопійованих даних id
+								unset($oldLessonHourData['lessonId']); // Видаляємо з скопійованих даних id уроку
+								$oldLessonHourData['lessonId'] = $newLessonId; // Вставляємо id нового уроку
+
+								$oldLessonEducationalFormId = $oldLessonHourData['educationalFormId']; // Зберігаємо id старої навчальної форми
+								unset($oldLessonHourData['educationalFormId']); // Видаляємо з скопійованих даних id старої навчальної форми
+								$oldLessonHourData['educationalFormId'] = $oldEducationFormIdToNewMap[$oldLessonEducationalFormId]; // Вставляємо id нової навчальної форми
+
+								// Створюємо новий запис годин (для певної форми навчання) для даного уроку
+								Capsule::table('educationalFormLessonHours')->insertGetId($oldLessonHourData);
+							}
+						}
+					}
+
+					// Дістаємо всі самостійні для даного модуля
+					$oldSelfworksData = Capsule::table('lessons')
+						->where('semesterId', $oldSemesterId)
+						->get();
+
+					// Перебираємо всі самостійні
+					foreach ($oldSelfworksData as $oldSelfworkData) {
+						$oldSelfworkData = (array)$oldSelfworkData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+						$oldLessonId = $oldSelfworkData['id']; // Зберігаємо id старого уроку
+
+						unset($oldSelfworkData['id']); // Видаляємо з скопійованих даних id
+						unset($oldSelfworkData['semesterId']); // Видаляємо з скопійованих даних id семестру
+						$oldSelfworkData['semesterId'] = $oldSemesterId; // Вставляємо id нового семестру
+
+						// Створюємо новий запис уроку та отримуємо id
+						$newLessonId = Capsule::table('lessons')->insertGetId($oldSelfworkData);
+
+						// Дістаємо всі години (з різними формами навчання) для даного уроку
+						$oldLessonHoursData = Capsule::table('educationalFormLessonHours')
+							->where('lessonId', $oldLessonId)
+							->get();
+
+						// Перебираємо всі години
+						foreach ($oldLessonHoursData as $oldLessonHourData) {
+							$oldLessonHourData = (array)$oldLessonHourData; // Конвертуємо скопійовані дані в масив для полегшення роботи з ними
+
+							unset($oldLessonHourData['id']); // Видаляємо з скопійованих даних id
+							unset($oldLessonHourData['lessonId']); // Видаляємо з скопійованих даних id уроку
+							$oldLessonHourData['lessonId'] = $newLessonId; // Вставляємо id нового уроку
+
+							$oldLessonEducationalFormId = $oldLessonHourData['educationalFormId']; // Зберігаємо id старої навчальної форми
+							unset($oldLessonHourData['educationalFormId']); // Видаляємо з скопійованих даних id старої навчальної форми
+							$oldLessonHourData['educationalFormId'] = $oldEducationFormIdToNewMap[$oldLessonEducationalFormId]; // Вставляємо id нової навчальної форми
+
+							// Створюємо новий запис годин (для певної форми навчання) для даного уроку
+							Capsule::table('educationalFormLessonHours')->insertGetId($oldLessonHourData);
 						}
 					}
 				}

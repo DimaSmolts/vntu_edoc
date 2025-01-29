@@ -3,6 +3,9 @@ const removeSpecialtyGroup = async (idx, wpId) => {
 	const rawIndexes = JSON.parse(specialtyContainer.getAttribute('data-indexes'));
 	const indexes = rawIndexes.map(idx => Number(idx));
 
+	const updatedIndexes = indexes.filter(index => index !== idx);
+	specialtyContainer.setAttribute('data-indexes', JSON.stringify(updatedIndexes));
+
 	const value = indexes
 		.map(index => {
 			const existedEducationalProgramIdsSelect = document.querySelector(`#educationalProgramIdsSelect${index}`);
