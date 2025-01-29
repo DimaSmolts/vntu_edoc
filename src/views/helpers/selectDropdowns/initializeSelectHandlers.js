@@ -1,5 +1,4 @@
 const initializeSelectHandlers = ({ wpId, semestersIds, specialtyWithEducationalProgramIds }) => {
-	console.log(specialtyWithEducationalProgramIds);
 	facultySelectHandler();
 	departmentSelectHandler();
 	stydingLevelSelectHandler();

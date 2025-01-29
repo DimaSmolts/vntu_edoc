@@ -6,13 +6,6 @@ const runValidation = ({
 	semestersNumbersByIds,
 	courseworksAndProjectsData
 }) => {
-	console.log({
-		wpDetails,
-		selfworkData,
-		pointsDistributionTotalBySemesters,
-		semestersNumbersByIds,
-		courseworksAndProjectsData
-	});
 	runGeneralInfoValidation(wpDetails);
 	runApprovedInfoValidation(wpDetails);
 	runWPProgramValidation({ wpDetails, educationalForms });
