@@ -1,4 +1,4 @@
-<page backtop="20mm" backbottom="25mm" backleft="25mm" backright="10mm">
+<page backtop="20mm" backbottom="20mm" backleft="25mm" backright="10mm">
 	<page_footer>
 		<div class="center" style="position: absolute; bottom: 10mm; width: 100%;">
 			[[page_cu]]
@@ -154,25 +154,28 @@
 			<td class="approved-forth-col"></td>
 		</tr>
 	</table>
-	<?php if (!empty($details->createdByPersons)): ?>
-		<?php foreach ($details->createdByPersons as $createdByPerson): ?>
-			<?php
-			$copyrightPersonNameLetter = "";
-			$copyrightPersonPatronymicNameLetter = "";
+	<p style='color: white'>.</p>
+<p style='color: white'>.</p>
 
-			if (isset($createdByPerson)) {
-				$copyrightPersonNameLetter = mb_substr($createdByPerson->name, 0, 1);
-				$copyrightPersonPatronymicNameLetter = mb_substr($createdByPerson->patronymicName, 0, 1);
-			}
-			?>
-			<?php if (isset($createdByPerson)): ?>
-				<div class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($createdByPerson->surname) ?></span>, <span
-						class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
-			<?php else: ?>
-				<div class="copyright copyright-name">© <span class="inserted">. .</span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	<?php endif; ?>
+<?php if (!empty($details->createdByPersons)): ?>
+	<?php foreach ($details->createdByPersons as $createdByPerson): ?>
+		<?php
+		$copyrightPersonNameLetter = "";
+		$copyrightPersonPatronymicNameLetter = "";
 
-	<div class="copyright">© <span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> рік</div>
+		if (isset($createdByPerson)) {
+			$copyrightPersonNameLetter = mb_substr($createdByPerson->name, 0, 1);
+			$copyrightPersonPatronymicNameLetter = mb_substr($createdByPerson->patronymicName, 0, 1);
+		}
+		?>
+		<?php if (isset($createdByPerson)): ?>
+			<p class="copyright copyright-name">© <span class="inserted"><?= htmlspecialchars($copyrightPersonNameLetter) ?>. <?= htmlspecialchars($copyrightPersonPatronymicNameLetter) ?>. <?= htmlspecialchars($createdByPerson->surname) ?></span>, <span
+					class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></p>
+		<?php else: ?>
+			<p class="copyright copyright-name">© <span class="inserted">. .</span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?>.</span></p>
+		<?php endif; ?>
+	<?php endforeach; ?>
+<?php endif; ?>
+
+<p class="copyright">© <span class="global"><?= htmlspecialchars($details->globalData->universityShortName) ?></span>, <span class="inserted"><?= isset($details->regularYear) ? htmlspecialchars($details->regularYear) : '' ?></span> рік</p>
 </page>

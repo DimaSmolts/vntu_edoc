@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../helpers/pdf/generateTopicForPDF.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-$html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array('25mm', '20mm', '10mm', '20mm'));
+$html2pdf = new Html2Pdf('P', 'A4', 'en', true, 'UTF-8', array('20mm', '10mm', '20mm', '25mm'));
 $html2pdf->pdf->setTitle("$details->disciplineName (документ)");
 $html2pdf->pdf->SetAutoPageBreak(true, 20); // 20mm bottom margin
 $css = file_get_contents(__DIR__ . '/../styles/pdf.css');
