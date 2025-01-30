@@ -44,6 +44,9 @@ const getFieldOfStudyIdsSelectChoices = async () => {
 };
 
 const handleFieldsOfStudyChangeEvent = async (fieldsOfStudyIdsSelectChoices, wpId) => {
+	const fieldsOfStudyIdsSelect = document.querySelector(`#fieldsOfStudyIdsSelect`);
+	fieldsOfStudyIdsSelect.setAttribute('data-fieldsOfStudyIds', JSON.stringify(fieldsOfStudyIdsSelectChoices.getValue(true)));
+
 	const updatedEvent = {
 		target: {
 			name: 'fieldsOfStudyIds',
