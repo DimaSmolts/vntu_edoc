@@ -38,6 +38,8 @@ const getFieldOfStudyIdsSelectChoices = async () => {
 	// Ініціалізуємо новий, якщо ні
 	const choicesInstance = await createNewSelectWithSearch('#fieldsOfStudyIdsSelect');
 
+	fieldsOfStudyIdsSelect.choicesInstance = choicesInstance;
+
 	return choicesInstance;
 };
 

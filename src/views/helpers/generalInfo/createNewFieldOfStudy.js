@@ -18,5 +18,7 @@ const createNewFieldOfStudy = async (wpId) => {
 
     fieldOfStudyNameInput.value = '';
 
-    fieldOfStudySelectHandler(wpId);
+    fieldOfStudySelectHandler(wpId, true);
+
+    await updateValidation();
 }

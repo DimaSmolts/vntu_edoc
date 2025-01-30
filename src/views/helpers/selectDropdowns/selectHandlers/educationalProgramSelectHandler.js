@@ -41,44 +41,8 @@ const educationalProgramSelectHandler = async (idx, shouldDestroy = false) => {
 		educationalProgramIdsSelectSearchDropdown(event.detail.value, specialtyId);
 	});
 
-	educationalProgramIdsSelect.addEventListener('change', async () => {
-		const specialtyContainer = document.querySelector('#specialtyContainer');
-		const rawIndexes = JSON.parse(specialtyContainer.getAttribute('data-indexes'));
-		const indexes = rawIndexes.map(idx => Number(idx));
-
-		let specId;
-		let educationalProgramIds;
-
-		const value = indexes.map(index => {
-			const existedEducationalProgramIdsSelect = document.querySelector(`#educationalProgramIdsSelect${index}`);
-			const existedSpecialtyIdSelect = document.querySelector(`#specialtyIdSelect${index}`);
-
-			if (index === Number(idx)) {
-				const updatedEducationalProgramIdsSelect = educationalProgramIdsSelectChoices.getValue(true);
-				educationalProgramIdsSelect.setAttribute('data-educationalProgramIds', JSON.stringify(updatedEducationalProgramIdsSelect));
-
-				educationalProgramIds = updatedEducationalProgramIdsSelect;
-				specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
-			} else {
-				specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
-				const rawSelectedEducationalProgramIds = JSON.parse(existedEducationalProgramIdsSelect.getAttribute('data-educationalProgramIds') ?? '');
-				educationalProgramIds = rawSelectedEducationalProgramIds?.map(id => Number(id));
-			}
-
-			return {
-				[index]: { "specialtyId": specId, "educationalProgramsIds": educationalProgramIds }
-			};
-		});
-
-		const updatedEvent = {
-			target: {
-				name: 'specialtyWithEducationalProgramIds',
-				value: JSON.stringify(value)
-			}
-		};
-
-		await updateGeneralInfo(updatedEvent, wpId, true);
-	});
+	educationalProgramIdsSelect.removeEventListener('change', handleEducationalProgramIdsSelectChange);
+	educationalProgramIdsSelect.addEventListener('change', (event) => handleEducationalProgramIdsSelectChange(event, idx, wpId, educationalProgramIdsSelectChoices, educationalProgramIdsSelect));
 
 	if (selectedEducationalProgramIds) {
 		const results = await fetchEducationalProgramsByIds(selectedEducationalProgramIds);
@@ -91,4 +55,48 @@ const educationalProgramSelectHandler = async (idx, shouldDestroy = false) => {
 	} else {
 		educationalProgramIdsSelectChoices.clearChoices();
 	}
+};
+
+const handleEducationalProgramIdsSelectChange = async (event, idx, wpId, educationalProgramIdsSelectChoices, educationalProgramIdsSelect) => {
+	const specialtyContainer = document.querySelector('#specialtyContainer');
+	const rawIndexes = JSON.parse(specialtyContainer.getAttribute('data-indexes'));
+	const indexes = rawIndexes.map(idx => Number(idx));
+
+	const updatedEducationalProgramIdsSelect = educationalProgramIdsSelectChoices.getValue(true);
+	if (Boolean(event.target.value) && updatedEducationalProgramIdsSelect.length === 0) {
+		return;
+	}
+
+	let specId;
+	let educationalProgramIds;
+
+	const value = await indexes.map(index => {
+		const existedEducationalProgramIdsSelect = document.querySelector(`#educationalProgramIdsSelect${index}`);
+		const existedSpecialtyIdSelect = document.querySelector(`#specialtyIdSelect${index}`);
+
+		if (index === Number(idx)) {
+			const updatedEducationalProgramIdsSelect = educationalProgramIdsSelectChoices.getValue(true);
+			educationalProgramIdsSelect.setAttribute('data-educationalProgramIds', JSON.stringify(updatedEducationalProgramIdsSelect));
+
+			educationalProgramIds = updatedEducationalProgramIdsSelect;
+			specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
+		} else {
+			specId = Number(existedSpecialtyIdSelect.getAttribute('data-specialtyId'));
+			const rawSelectedEducationalProgramIds = JSON.parse(existedEducationalProgramIdsSelect.getAttribute('data-educationalProgramIds') ?? '');
+			educationalProgramIds = rawSelectedEducationalProgramIds?.map(id => Number(id));
+		}
+
+		return {
+			[index]: { "specialtyId": specId, "educationalProgramsIds": educationalProgramIds }
+		};
+	});
+
+	const updatedEvent = {
+		target: {
+			name: 'specialtyWithEducationalProgramIds',
+			value: JSON.stringify(value)
+		}
+	};
+
+	await updateGeneralInfo(updatedEvent, wpId, true);
 };
