@@ -12,7 +12,7 @@
 					<?php foreach ($moduleData->themes as $themeData): ?>
 						<p class="indent inserted justify">
 							<span class="inserted bold">Тема <?= htmlspecialchars($themeData->themeNumber ?? '') ?>. <?= htmlspecialchars($themeData->name ?? '') ?>.</span>
-							<?= htmlspecialchars($themeData->description) ?>
+							<p class="indent inserted justify"><?= htmlspecialchars($themeData->description) ?></p>
 						</p>
 					<?php endforeach; ?>
 				<?php endif; ?>

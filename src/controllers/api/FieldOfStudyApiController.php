@@ -39,7 +39,9 @@ class FieldOfStudyApiController extends BaseController
 			if (!empty($fieldOfStudyName)) {
 				$fieldOfStudyId = $this->fieldOfStudyService->createNewFieldOfStudy($fieldOfStudyName);
 
-				$fieldsOfStudyIds = json_decode($this->wpService->getFieldsOfStudyByWpId($wpId));
+				$existedFieldsOfStudyIdsInWP = $this->wpService->getFieldsOfStudyByWpId($wpId);
+
+				$fieldsOfStudyIds = isset($existedFieldsOfStudyIdsInWP) ? json_decode($existedFieldsOfStudyIdsInWP) : [];
 
 				$fieldsOfStudyIds[] = $fieldOfStudyId;
 
