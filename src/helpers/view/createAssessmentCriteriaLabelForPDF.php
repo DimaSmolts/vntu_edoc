@@ -4,7 +4,11 @@ function createGeneralAssessmentCriteriaLabelForPDF($ECTS, $points)
 {
 	$labels = [];
 
-	$labels[] = $points[$ECTS]->min . "-" . $points[$ECTS]->max . " б.:";
+	if (isset($points[$ECTS]->zero)) {
+		$labels[] = $points[$ECTS]->zero . " б.:";
+	} else {
+		$labels[] = $points[$ECTS]->min . "-" . $points[$ECTS]->max . " б.:";
+	}
 
 	return $labels;
 }
@@ -18,7 +22,11 @@ function createSemestersAssessmentCriteriaLabelForPDF($ECTS, $points, $semesterN
 	foreach ($semesterNumbersByPoints as $groupedPoints => $semestersNumbers) {
 		$semestersNumbersString = implode('-', $semestersNumbers);
 
-		$label = "С" . $semestersNumbersString . " " . $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б.";
+		if (isset($points[$groupedPoints][$ECTS]->zero)) {
+			$label = "С" . $semestersNumbersString . " " . $points[$groupedPoints][$ECTS]->zero . " б.";
+		} else {
+			$label = "С" . $semestersNumbersString . " " . $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б.";
+		}
 
 		if ($groupedPoints === $lastKey) {
 			$label .= ":";
@@ -39,7 +47,11 @@ function createModulesAssessmentCriteriaLabelForPDF($ECTS, $points, $modulesNumb
 	foreach ($modulesNumbersByPoints as $groupedPoints => $modulesNumbers) {
 		$modulesNumbersString = implode('-', $modulesNumbers);
 
-		$label = "М" . $modulesNumbersString . " " . $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б.";
+		if (isset($points[$groupedPoints][$ECTS]->zero)) {
+			$label = "М" . $modulesNumbersString . " " . $points[$groupedPoints][$ECTS]->zero . " б.";
+		} else {
+			$label = "М" . $modulesNumbersString . " " . $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б.";
+		}
 
 		if ($groupedPoints === $lastKey) {
 			$label .= ":";

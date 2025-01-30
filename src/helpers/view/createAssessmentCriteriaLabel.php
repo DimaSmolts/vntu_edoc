@@ -4,7 +4,11 @@ function createGeneralAssessmentCriteriaLabel($ECTS, $points)
 {
 	$ECTSName = $ECTS === "FXAndF" ? "FX, F" : $ECTS;
 
-	return "$ECTSName (" . $points[$ECTS]->min . "-" . $points[$ECTS]->max . " б.):";
+	if (isset($points[$ECTS]->zero)) {
+		return "$ECTSName (" . $points[$ECTS]->zero . " б.):";
+	} else {
+		return "$ECTSName (" . $points[$ECTS]->min . "-" . $points[$ECTS]->max . " б.):";
+	}
 }
 
 function createSemestersAssessmentCriteriaLabel($ECTS, $points, $semesterNumbersByPoints)
@@ -18,7 +22,11 @@ function createSemestersAssessmentCriteriaLabel($ECTS, $points, $semesterNumbers
 	foreach ($semesterNumbersByPoints as $groupedPoints => $semestersNumbers) {
 		$semestersString = implode(', ', $semestersNumbers);
 
-		$label .= $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б. (" . $semestersString . " сем.)";
+		if (isset($points[$groupedPoints][$ECTS]->zero)) {
+			$label .= $points[$groupedPoints][$ECTS]->zero . " б. (" . $semestersString . " сем.)";
+		} else {
+			$label .= $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б. (" . $semestersString . " сем.)";
+		}
 
 		if ($groupedPoints === $lastKey) {
 			$label .= "):";
@@ -40,7 +48,11 @@ function createModulesAssessmentCriteriaLabel($ECTS, $points, $modulesNumbersByP
 	foreach ($modulesNumbersByPoints as $groupedPoints => $modulesNumbers) {
 		$modulesString = implode(', ', $modulesNumbers);
 
-		$label .= $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б. (" . $modulesString . " мод.)";
+		if (isset($points[$groupedPoints][$ECTS]->zero)) {
+			$label .= $points[$groupedPoints][$ECTS]->zero . " б. (" . $modulesString . " мод.)";
+		} else {
+			$label .= $points[$groupedPoints][$ECTS]->min . "-" . $points[$groupedPoints][$ECTS]->max . " б. (" . $modulesString . " мод.)";
+		}
 
 		if ($groupedPoints === $lastKey) {
 			$label .= "):";

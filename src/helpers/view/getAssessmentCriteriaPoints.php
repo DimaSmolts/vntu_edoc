@@ -2,6 +2,12 @@
 
 function getAssessmentCriteriaPoints($startedPoints, $ECTS)
 {
+	if ($startedPoints === 0) {
+		return (object) [
+			'zero' => 0
+		];
+	}
+
 	if ($ECTS === 'A') {
 		return (object) [
 			'min' => round(intval($startedPoints) * 0.9, 2),
