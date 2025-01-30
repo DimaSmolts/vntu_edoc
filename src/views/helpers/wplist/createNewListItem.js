@@ -67,7 +67,7 @@ const createNewListItem = (data) => {
 		innerText: 'Видалити',
 		eventListenerType: 'click',
 		eventListener: (event) => {
-			deleteWP(event, data.id);
+			openApproveDeletingModal('робочу програму', () => deleteWP(event, data.id));
 		}
 	});
 

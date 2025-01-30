@@ -22,9 +22,12 @@ $title = "Робочі програми";
         <?php include __DIR__ . '/../components/wpList/list.php'; ?>
 
         <?php include __DIR__ . '/../components/wpList/createNewWPModal.php'; ?>
+
+        <?php include __DIR__ . '/../components/wpDetails/deletingModal.php'; ?>
     </main>
 
     <script src="src/views/helpers/wplist/openCreateNewWPModal.js"></script>
+    <script src="src/views/helpers/modal/openApproveDeletingModal.js"></script>
     <script src="src/views/helpers/view/createElement.js"></script>
     <script src="src/views/helpers/wplist/createNewListItem.js"></script>
     <script src="src/views/helpers/wplist/duplicateWP.js"></script>

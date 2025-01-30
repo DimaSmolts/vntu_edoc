@@ -17,7 +17,7 @@ const openApproveDeletingModal = (titleName, eventHandler, checkbox = null) => {
 		}
 	}
 
-	const closeModal = document.getElementById("closeModal");
+	const closeModal = document.getElementById("closeDeletingModal");
 	closeModal.onclick = function () {
 		modal.style.display = "none";
 		if (checkbox) {
